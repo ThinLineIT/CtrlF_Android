@@ -11,22 +11,21 @@ import com.thinlineit.ctrlf.repository.PageRepository
 import kotlinx.coroutines.launch
 
 class PageViewModel(noteId: Int) : ViewModel() {
+
     private val pageRepository: PageRepository by lazy {
         PageRepository()
     }
-    val noteIdString = MutableLiveData(noteId.toString())
+    private val noteIdString = MutableLiveData(noteId.toString())
+    private val pageInfo = MutableLiveData<PageDao>()
+    private val noteDetailInfo = MutableLiveData<NoteDao>()
+
+    private val _openSlidingPane = MutableLiveData<Boolean>()
+    val openSlidingPane: LiveData<Boolean>
+        get() = _openSlidingPane
+
     val noteInfo = MutableLiveData<List<TopicDao>>(listOf())
-    val pageInfo = MutableLiveData<PageDao>()
-    val noteDetailInfo = MutableLiveData<NoteDao>()
-
-    private val _slidingOpen = MutableLiveData<Boolean>()
-
-    val slidingOpen: LiveData<Boolean>
-        get() = _slidingOpen
     val topicInfo = MutableLiveData<List<PageDao>>()
-
     val content = Transformations.map(pageInfo) { it.content }
-
     val noteDetailTitle = Transformations.map(noteDetailInfo) { it.title }
 
     lateinit var topicDetailTitle: String
@@ -35,7 +34,7 @@ class PageViewModel(noteId: Int) : ViewModel() {
         loadPage(1)
         loadNoteInfo()
         loadNoteDetailInfo()
-        _slidingOpen.value = false
+        _openSlidingPane.value = false
     }
 
     fun openPage(pageId: Int) {
@@ -63,7 +62,7 @@ class PageViewModel(noteId: Int) : ViewModel() {
     }
 
     fun closeSliding() {
-        _slidingOpen.value = false
+        _openSlidingPane.value = false
     }
 
     fun selectTopic(topicId: Int, topicTitle: String) {
@@ -78,6 +77,6 @@ class PageViewModel(noteId: Int) : ViewModel() {
     }
 
     fun openSliding() {
-        _slidingOpen.value = true
+        _openSlidingPane.value = true
     }
 }

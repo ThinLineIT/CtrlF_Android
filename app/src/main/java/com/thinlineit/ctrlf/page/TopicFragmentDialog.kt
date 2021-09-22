@@ -1,18 +1,13 @@
 package com.thinlineit.ctrlf.page
 
-import android.content.Context
-
-/*
 import android.app.Dialog
+import android.content.Context
 import android.view.WindowManager
-import android.widget.TextView
 import com.thinlineit.ctrlf.R
 import kotlinx.android.synthetic.main.fragment_topic_title_dialog.*
- */
 
 class TopicFragmentDialog(context: Context) {
     // TODO: 추후에 디자인 나오면 해당 레이아웃으로 적용
-    /*
     private val dialog = Dialog(context)
     fun topicDialog() {
         dialog.setContentView(R.layout.fragment_topic_title_dialog)
@@ -26,5 +21,4 @@ class TopicFragmentDialog(context: Context) {
         dialog.setCancelable(true)
         dialog.show()
     }
-     */
 }

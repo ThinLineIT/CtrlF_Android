@@ -1,6 +1,7 @@
 package com.thinlineit.ctrlf.page
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -26,24 +27,14 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
         holder.bind(topicDao, clickListener)
     }
 
-    // Todo 만약 지워지거나 제목이 바뀌웠을때
-    override fun onItemSwipe(position: Int) {
+    // TODO: 해당 타이틀 삭제 -> 준비중입니다 다이얼로그로 수정
+    override fun onDelete(context: Context) {
+        TopicFragmentDeleteDialog(context).topicDialog()
     }
 
-    // Todo 해당 타이틀 삭제 -> 준비중입니다 다이얼로그로 수정
-    override fun onDeleteClick(position: Int, viewHolder: RecyclerView.ViewHolder?) {
-        /*
-        val builderDelete = TopicFragmentDeleteDialog(PageActivity.instance)
-        builderDelete.topicDialog()
-         */
-    }
-
-    // Todo 해당 타이틀 수정하기 -> 준비중입니다 다이얼로그로 수정
-    override fun onCorrectionClick(position: Int, viewHolder: RecyclerView.ViewHolder?) {
-        /*
-        val builderCorrection = TopicFragmentDialog(PageActivity.instance)
-        builderCorrection.topicDialog()
-         */
+    // TODO: 해당 타이틀 수정하기 -> 준비중입니다 다이얼로그로 수정
+    override fun onModify(context: Context) {
+        TopicFragmentDialog(context).topicDialog()
     }
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
