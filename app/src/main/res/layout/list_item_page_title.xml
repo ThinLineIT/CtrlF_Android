@@ -31,8 +31,7 @@
                 android:fontFamily="@font/font_activity_page"
                 android:text="@{page.title}"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="27sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

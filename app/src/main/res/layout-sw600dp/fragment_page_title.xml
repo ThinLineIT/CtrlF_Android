@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{pageViewModel.noteDetailTitle}"
                     android:textColor="@color/black"
-                    android:textSize="33sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/font_activity_page"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -96,14 +96,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25"/>
+            app:layout_constraintGuide_percent="0.2"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/addPageBtnTopGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.90"/>
+            app:layout_constraintGuide_percent="0.93"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
