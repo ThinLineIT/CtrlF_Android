@@ -127,10 +127,10 @@ class SwipeController(private val listener: ItemTouchHelperListener) :
         private val corner = 5f
 
         private val deleteButtonPaint = Paint().apply {
-            color = Color.rgb(139,200,253)
+            color = Color.rgb(139, 200, 253)
         }
         private val modifyButtonPaint = Paint().apply {
-            color = Color.rgb(181,189,255)
+            color = Color.rgb(181, 189, 255)
         }
         private val textPaint = Paint().apply {
             color = Color.WHITE
