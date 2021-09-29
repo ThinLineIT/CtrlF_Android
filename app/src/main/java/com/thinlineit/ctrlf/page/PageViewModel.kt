@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.notes.NoteDao
 import com.thinlineit.ctrlf.notes.TopicDao
 import com.thinlineit.ctrlf.repository.PageRepository
-import com.thinlineit.ctrlf.repository.network.NoteService
-import com.thinlineit.ctrlf.repository.network.PageService
-import com.thinlineit.ctrlf.repository.network.TopicService
+import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class PageViewModel(noteId: Int) : BaseViewModel() {
@@ -47,7 +45,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private fun loadPage(pageId: Int) {
         viewModelScope.loadingLaunch {
             try {
-                pageInfo.setValue(PageService.retrofitService.getPage(pageId.toString()))
+                pageInfo.setValue(ContentService.retrofitService.getPage(pageId.toString()))
             } catch (e: Exception) {
             }
         }
@@ -57,7 +55,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         viewModelScope.loadingLaunch {
             try {
                 val noteId = noteIdString.value ?: return@loadingLaunch
-                noteInfo.setValue(NoteService.retrofitService.getNote(noteId))
+                noteInfo.setValue(ContentService.retrofitService.getNote(noteId))
             } catch (e: Exception) {
             }
         }
@@ -68,7 +66,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
             try {
                 val noteId = noteIdString.value ?: return@loadingLaunch
                 noteDetailInfo.setValue(
-                    NoteService.retrofitService.getNoteDetail(Integer.parseInt(noteId))
+                    ContentService.retrofitService.getNoteDetail(Integer.parseInt(noteId))
                 )
             } catch (e: Exception) {
             }
@@ -88,7 +86,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private fun loadPageList(topicId: Int) {
         viewModelScope.loadingLaunch {
             try {
-                topicInfo.setValue(TopicService.retrofitService.getPageList(topicId.toString()))
+                topicInfo.setValue(ContentService.retrofitService.getPageList(topicId.toString()))
             } catch (e: Exception) {
             }
         }
