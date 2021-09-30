@@ -46,7 +46,7 @@
                     android:singleLine="true"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
-                    android:fontFamily="@font/font_activity_page"
+                    android:fontFamily="@font/font_activity_page_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/topicTitleInPageList"/>
 
@@ -61,7 +61,7 @@
                     android:singleLine="true"
                     android:ellipsize="marquee"
                     android:marqueeRepeatLimit="marquee_forever"
-                    android:fontFamily="@font/font_activity_page"
+                    android:fontFamily="@font/font_activity_page_title"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/noteTitleInPageList"/>
@@ -94,6 +94,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pageListRecyclerView"
             android:text="@string/button_add_page"
+            android:textAllCaps="false"
             android:backgroundTint="@color/white"
             android:textColor="@color/light_dark_gray"/>
 
