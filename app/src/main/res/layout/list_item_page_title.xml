@@ -24,15 +24,18 @@
 
             <TextView
                 android:id="@+id/contentPage"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:fontFamily="@font/font_activity_page"
                 android:text="@{page.title}"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:textSize="27sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

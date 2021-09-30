@@ -7,7 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.notes.NoteDao
 import com.thinlineit.ctrlf.notes.TopicDao
 import com.thinlineit.ctrlf.repository.PageRepository
+<<<<<<< HEAD
 import com.thinlineit.ctrlf.repository.network.ContentService
+=======
+>>>>>>> dev
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class PageViewModel(noteId: Int) : BaseViewModel() {
@@ -45,7 +48,11 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private fun loadPage(pageId: Int) {
         viewModelScope.loadingLaunch {
             try {
+<<<<<<< HEAD
                 pageInfo.setValue(ContentService.retrofitService.getPage(pageId.toString()))
+=======
+                pageInfo.setValue(pageRepository.loadPage(pageId))
+>>>>>>> dev
             } catch (e: Exception) {
             }
         }
@@ -55,7 +62,11 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         viewModelScope.loadingLaunch {
             try {
                 val noteId = noteIdString.value ?: return@loadingLaunch
+<<<<<<< HEAD
                 noteInfo.setValue(ContentService.retrofitService.getNote(noteId))
+=======
+                noteInfo.setValue(pageRepository.loadNoteInfo(noteId))
+>>>>>>> dev
             } catch (e: Exception) {
             }
         }
@@ -66,7 +77,11 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
             try {
                 val noteId = noteIdString.value ?: return@loadingLaunch
                 noteDetailInfo.setValue(
+<<<<<<< HEAD
                     ContentService.retrofitService.getNoteDetail(Integer.parseInt(noteId))
+=======
+                    pageRepository.loadNoteDetailInfo(noteId)
+>>>>>>> dev
                 )
             } catch (e: Exception) {
             }
@@ -86,7 +101,11 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private fun loadPageList(topicId: Int) {
         viewModelScope.loadingLaunch {
             try {
+<<<<<<< HEAD
                 topicInfo.setValue(ContentService.retrofitService.getPageList(topicId.toString()))
+=======
+                topicInfo.setValue(pageRepository.loadPageList(topicId))
+>>>>>>> dev
             } catch (e: Exception) {
             }
         }
