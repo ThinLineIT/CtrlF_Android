@@ -9,7 +9,7 @@ import com.thinlineit.ctrlf.issue.IssueDao
 import com.thinlineit.ctrlf.main.viewpager.IdeaCountBannerFragment
 import com.thinlineit.ctrlf.notes.NoteDao
 import com.thinlineit.ctrlf.notes.NoteListDao
-import com.thinlineit.ctrlf.repository.network.NoteService
+import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class MainViewModel : BaseViewModel() {
@@ -41,7 +41,7 @@ class MainViewModel : BaseViewModel() {
     private fun loadNote() {
         viewModelScope.loadingLaunch {
             try {
-                _noteList.value = NoteService.retrofitService.listNote(cursor)
+                _noteList.value = ContentService.retrofitService.listNote(cursor)
                 /* TODO: Implement loading with cursor by scrolling
                     .also {
                         cursor = it.nextCursor
