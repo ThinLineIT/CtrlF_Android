@@ -40,7 +40,7 @@
                     android:id="@+id/noteTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_activity_page_title"
+                    android:fontFamily="@font/sc_dream_7"
                     android:text="@{pageViewModel.noteDetailTitle}"
                     android:textColor="@color/black"
                     android:textSize="33sp"
