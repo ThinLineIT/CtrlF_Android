@@ -41,7 +41,7 @@
     <string name="label_content">Content</string>
     <string name="label_registration_date">RegistrationDate</string>
     <string name="label_user_circle_button">userCircleBtn</string>
-    <string name="button_show_all_note">전체보기</string>
+    <string name="button_show_all_note">전체보기 ></string>
     <string name="notice_nickname_valid_condition">닉네임은 2~10자, 공백이나 특수문자는 허용하지 않습니다.</string>
     <string name="notice_password_valid_condition">비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상 조합하여 8~20자이내로 입력해주세요.</string>
     <string name="notice_enter_code">코드를 입력하세요.</string>
