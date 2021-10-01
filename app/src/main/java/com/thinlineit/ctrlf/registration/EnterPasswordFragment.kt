@@ -38,10 +38,12 @@ class EnterPasswordFragment :
             if (it == Status.FAILURE) {
                 binding.regPassword.setBackgroundById(R.drawable.background_round_red)
                 binding.regPassword.startAnimation(anim)
+                binding.regPasswordText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
                     R.id.action_registerPasswordFragment_to_registerConfirmPasswordFragment
                 )
+                binding.regPasswordText.visibility = View.GONE
             }
         }
 

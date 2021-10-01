@@ -38,10 +38,12 @@ class EnterNicknameFragment :
             if (it == Status.FAILURE) {
                 binding.regNickname.setBackgroundById(R.drawable.background_round_red)
                 binding.regNickname.startAnimation(anim)
+                binding.regNameText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
                     R.id.action_registerNicknameFragment_to_registerPasswordFragment
                 )
+                binding.regNameText.visibility = View.GONE
             }
         }
 

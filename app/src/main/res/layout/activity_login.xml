@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:padding="14dp"
+                android:padding="12dp"
                 android:src="@drawable/icon_logo" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -59,7 +59,7 @@
                     android:fontFamily="@font/sc_dream_6"
                     android:text="@string/label_login"
                     android:textColor="@color/black"
-                    android:textSize="37sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
