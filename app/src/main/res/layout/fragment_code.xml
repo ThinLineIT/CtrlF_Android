@@ -30,13 +30,14 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/backBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
                     android:backgroundTint="@color/white"
                     android:src="@drawable/icon_back_button"
                     app:layout_constraintEnd_toStartOf="@id/accountText"
@@ -47,10 +48,11 @@
                     android:id="@+id/accountText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="13dp"
+                    android:fontFamily="@font/sc_dream_6"
                     android:text="@string/label_enter_email_and_verify"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,9 +62,10 @@
                     android:id="@+id/codeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/sc_dream_3"
                     android:text="@string/notice_check_email_code"
                     android:textColor="@color/gray"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/accountText" />
@@ -74,11 +77,13 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="@string/hint_code"
                     android:background="@drawable/background_round_white"
+                    android:fontFamily="@font/sc_dream_3"
+                    android:hint="@string/hint_code"
                     android:paddingStart="10dp"
                     android:singleLine="true"
                     android:text="@={viewModel.code}"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/codeText"
                     app:layout_constraintStart_toStartOf="@+id/codeText"
                     app:layout_constraintTop_toBottomOf="@+id/codeText"
@@ -88,8 +93,11 @@
                     android:id="@+id/regCodeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
                     android:text="@{viewModel.codeMessage}"
                     android:textColor="@color/red"
+                    android:textSize="12sp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/regCode"
                     app:layout_constraintTop_toBottomOf="@+id/regCode"
                     tools:text="@string/notice_email_code_check" />
@@ -97,12 +105,17 @@
                 <Button
                     android:id="@+id/confirmCodeBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/skyblue"
+                    android:fontFamily="@font/sc_dream_3"
                     android:onClick="@{()->viewModel.checkCodeValid()}"
                     android:text="@string/button_next_wide"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/regCode"
                     app:layout_constraintTop_toBottomOf="@+id/regCodeText" />
             </androidx.constraintlayout.widget.ConstraintLayout>

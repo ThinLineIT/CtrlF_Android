@@ -13,13 +13,13 @@
     <string name="label_enter_email_and_verify">이메일 입력 / 인증</string>
     <string name="label_enter_nickname_and_verify">닉네임 입력 / 중복확인</string>
     <string name="label_enter_password_and_verify">비밀번호 입력 / 확인</string>
-    <string name="button_login">log in</string>
+    <string name="button_login">Log in</string>
     <string name="button_register">회원가입</string>
     <string name="button_next_wide">"다  음" </string>
     <string name="button_duplicate">중복확인</string>
     <string name="button_email_confirm">이메일 인증</string>
-    <string name="button_find_id">ID 찾기</string>
-    <string name="button_find_password">"| PASSWORD 찾기"</string>
+    <string name="button_find_id">"ID 찾기  "</string>
+    <string name="button_find_password">"|  PASSWORD 찾기"</string>
     <string name="button_back">"뒤로 가기"</string>
     <string name="button_cancel_wide">"취  소"</string>
     <string name="notice_confirm_go_back_to_email">"[뒤로 가기]를 누르시면 \n이메일 인증을 새로 받으셔야합니다."</string>
@@ -29,7 +29,7 @@
     <!-- login viewModel-->
     <string name="notice_error_email">이메일 형식이 올바르지 않습니다.</string>
     <string name="notice_input_email_password">이메일과 비밀번호를 입력해주세요.</string>
-    <string name="notice_check_email_password">이메일과 비밀번호를 확인해주세요.</string>
+    <string name="notice_check_email_password">"* 이메일 / 패스워드를 확인해주세요."</string>
     <string name="notice_error_password">비밀번호가 일치하지 않습니다.</string>
     <string name="notice_login_check">로그인 확인 text</string>
 
