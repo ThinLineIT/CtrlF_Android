@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:src="@drawable/icon_logo" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -63,31 +63,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    android:hint="@string/label_topic"
+                    tools:text="@string/label_topic"
                     android:background="@drawable/background_round_onlyleft_purple"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
+                    android:fontFamily="@font/sc_dream_6"
                     android:text="@{pageViewModel.topicTitleTop}"
                     android:textColor="@color/white"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/markdown_view"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/label_page"
+                    tools:text="@string/label_page"
                     android:background="@drawable/background_round_onlyright_white"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:fontFamily="@font/sc_dream_5"
                     android:text="@{pageViewModel.pageTitle}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginEnd="10dp"
                     app:layout_constraintStart_toEndOf="@+id/topicText"
-                    app:layout_constraintTop_toTopOf="@+id/topicText" />
+                    app:layout_constraintTop_toTopOf="@+id/topicText"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <com.mukesh.MarkdownView
                     android:id="@+id/markdown_view"
