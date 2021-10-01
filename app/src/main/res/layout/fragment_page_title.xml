@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{pageViewModel.topicDetailTitle}"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="27sp"
                     android:textStyle="bold"
                     android:singleLine="true"
                     android:ellipsize="marquee"
