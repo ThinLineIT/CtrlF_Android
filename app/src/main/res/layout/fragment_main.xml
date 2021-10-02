@@ -31,8 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
+                android:padding="12dp"
                 android:src="@drawable/icon_logo" />
 
         </androidx.appcompat.widget.Toolbar>
