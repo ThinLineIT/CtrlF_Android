@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:src="@drawable/icon_logo" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -41,26 +41,30 @@
                 android:id="@+id/welcomeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/sc_dream_4"
                 android:padding="40dp"
                 android:text="@string/notice_registration_complete"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="22sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/loginBtn"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/skyblue"
+            android:fontFamily="@font/sc_dream_6"
             android:text="@string/button_login"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="@+id/CardView"
             app:layout_constraintStart_toStartOf="@+id/CardView"
             app:layout_constraintTop_toBottomOf="@+id/CardView" />

@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.registration
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +35,14 @@ class LoginActivity : AppCompatActivity() {
 
         binding.registerButton.setOnClickListener {
             RegistrationActivity.start(this)
+        }
+
+        binding.findId.setOnClickListener {
+            Toast.makeText(this, R.string.notice_prepare, Toast.LENGTH_LONG).show()
+        }
+
+        binding.findPassword.setOnClickListener {
+            Toast.makeText(this, R.string.notice_prepare, Toast.LENGTH_LONG).show()
         }
     }
 

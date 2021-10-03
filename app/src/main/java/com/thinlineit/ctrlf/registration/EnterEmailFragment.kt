@@ -36,8 +36,10 @@ class EnterEmailFragment : RegistrationBaseFragment<FragmentEmailBinding>(R.layo
             if (it == Status.FAILURE) {
                 binding.regEmail.setBackgroundById(R.drawable.background_round_red)
                 binding.regEmail.startAnimation(anim)
+                binding.regEmailText.visibility = View.VISIBLE
             } else {
                 navController.navigate(R.id.action_registerEmailFragment_to_registerCodeFragment)
+                binding.regEmailText.visibility = View.GONE
             }
         }
 

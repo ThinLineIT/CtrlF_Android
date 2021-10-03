@@ -36,8 +36,10 @@ class ConfirmPasswordFragment :
         viewModel.passwordConfirmStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
                 binding.regPassword2.setBackgroundById(R.drawable.background_round_red)
+                binding.regPasswordText.visibility = View.VISIBLE
             } else {
                 binding.regPassword2.setBackgroundById(R.drawable.background_round_white)
+                binding.regPasswordText.visibility = View.GONE
             }
         }
 

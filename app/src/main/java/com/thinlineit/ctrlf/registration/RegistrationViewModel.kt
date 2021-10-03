@@ -134,6 +134,7 @@ class RegistrationViewModel : ViewModel() {
         viewModelScope.launch {
             if (userRepository.checkDuplicateEmail(email.value.toString())) {
                 emailMessage.postValue(R.string.empty_text)
+                emailStatus.postEvent(Status.SUCCESS)
                 sendAuthEmail()
             } else {
                 emailStatus.postEvent(Status.FAILURE)

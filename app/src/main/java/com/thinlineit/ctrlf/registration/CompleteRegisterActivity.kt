@@ -17,7 +17,7 @@ class CompleteRegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        binding.loginBtn.setOnClickListener {
+        binding.loginButton.setOnClickListener {
             LoginActivity.start(this)
             finish()
         }

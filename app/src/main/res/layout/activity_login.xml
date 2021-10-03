@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:src="@drawable/icon_logo" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -56,9 +56,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:fontFamily="@font/sc_dream_6"
                     android:text="@string/label_login"
                     android:textColor="@color/black"
-                    android:textSize="37sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -71,28 +72,32 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="@string/hint_email"
                     android:background="@drawable/background_round_white"
-                    android:paddingStart="10dp"
+                    android:fontFamily="@font/sc_dream_3"
+                    android:hint="@string/hint_email"
+                    android:paddingStart="15dp"
                     android:singleLine="true"
                     android:text="@={viewModel.email}"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/loginTitle" />
 
                 <EditText
-                    android:id="@+id/loginPwd"
+                    android:id="@+id/loginPassword"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="4dp"
                     android:layout_marginEnd="20dp"
-                    android:hint="@string/hint_password"
                     android:background="@drawable/background_round_white"
+                    android:fontFamily="@font/sc_dream_3"
+                    android:hint="@string/hint_password"
                     android:inputType="textPassword"
-                    android:paddingStart="10dp"
+                    android:paddingStart="15dp"
                     android:singleLine="true"
                     android:text="@={viewModel.password}"
+                    android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="@+id/loginEmail"
                     app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
 
@@ -101,57 +106,71 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/sc_dream_4"
                     android:text="@{viewModel.loginMessage}"
                     android:textColor="@color/red"
-                    app:layout_constraintStart_toStartOf="@+id/loginPwd"
-                    app:layout_constraintTop_toBottomOf="@+id/loginPwd"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/loginPassword"
+                    app:layout_constraintTop_toBottomOf="@+id/loginPassword"
                     tools:text="@string/notice_login_check" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <Button
-            android:id="@+id/loginBtn"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/skyblue"
+            android:fontFamily="@font/sc_dream_6"
             android:onClick="@{() -> viewModel.checkLogin()}"
             android:text="@string/button_login"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="@id/loginCardView"
             app:layout_constraintStart_toStartOf="@+id/loginCardView"
             app:layout_constraintTop_toBottomOf="@+id/loginCardView" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@color/skyblue"
+            android:fontFamily="@font/sc_dream_6"
             android:text="@string/button_register"
-            app:layout_constraintStart_toStartOf="@id/loginBtn"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+            app:cornerRadius="10dp"
+            app:layout_constraintStart_toStartOf="@id/loginButton"
+            app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
         <TextView
             android:id="@+id/findId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/sc_dream_3"
             android:text="@string/button_find_id"
-            app:layout_constraintStart_toStartOf="@+id/registerBtn"
-            app:layout_constraintTop_toBottomOf="@id/registerBtn" />
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/findPassword"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerButton" />
 
         <TextView
-            android:id="@+id/findPwd"
+            android:id="@+id/findPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:fontFamily="@font/sc_dream_3"
             android:text="@string/button_find_password"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/findId"
             app:layout_constraintTop_toTopOf="@+id/findId" />
     </androidx.constraintlayout.widget.ConstraintLayout>

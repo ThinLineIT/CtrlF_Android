@@ -38,8 +38,10 @@ class EnterEmailCodeFragment :
             if (it == Status.FAILURE) {
                 binding.regCode.setBackgroundById(R.drawable.background_round_red)
                 binding.regCode.startAnimation(anim)
+                binding.regCodeText.visibility = View.VISIBLE
             } else {
                 navController.navigate(R.id.action_registerCodeFragment_to_registerNicknameFragment)
+                binding.regCodeText.visibility = View.GONE
             }
         }
 
