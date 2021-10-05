@@ -45,7 +45,7 @@ class ConfirmPasswordFragment :
 
         viewModel.registerClick.observeIfNotHandled(this) {
             navController.navigate(
-                R.id.action_registerConfirmPasswordFragment_to_completeRegisterActivity
+                R.id.action_registerConfirmPasswordFragment_to_completeRegisterFragment
             )
         }
 
