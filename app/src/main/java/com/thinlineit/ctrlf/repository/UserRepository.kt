@@ -86,6 +86,16 @@ class UserRepository {
             false
         }
 
+    suspend fun requestResetPassword(
+        password: String,
+        passwordConfirm: String
+    ): Boolean =
+        try {
+            true
+        } catch (e: Exception) {
+            false
+        }
+
     companion object {
         private const val TOKEN = "token"
         private const val EMAIL = "email"

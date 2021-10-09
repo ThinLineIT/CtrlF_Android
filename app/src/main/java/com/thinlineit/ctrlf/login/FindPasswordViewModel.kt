@@ -1,6 +1,7 @@
 package com.thinlineit.ctrlf.login
 
 import android.os.CountDownTimer
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.repository.UserRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.isValid
 import com.thinlineit.ctrlf.util.postEvent
 import kotlinx.coroutines.launch
@@ -34,8 +36,20 @@ class FindPasswordViewModel : ViewModel() {
     val codeStatus = MutableLiveData<Event<Status>>()
     val passwordStatus = MutableLiveData<Event<Status>>()
     val passwordConfirmStatus = MutableLiveData<Event<Status>>()
+    val completeClick = MutableLiveData<Event<Boolean>>()
 
     val countText = MutableLiveData("")
+
+    val liveDataMerger = MediatorLiveData<Boolean>().apply {
+        addSourceList(
+            emailStatus,
+            codeStatus,
+            passwordStatus,
+            passwordConfirmStatus
+        ) {
+            isPasswordResetValid()
+        }
+    }
 
     fun checkEmailPresence() {
         if (!email.value.isValid(EMAIL_REGEX)) {
@@ -131,6 +145,24 @@ class FindPasswordViewModel : ViewModel() {
 
         override fun onFinish() {
             countText.postValue(DEFAULT_TIMER)
+        }
+    }
+
+    private fun isPasswordResetValid(): Boolean =
+        emailStatus.value?.equalContent(Status.SUCCESS) ?: false &&
+            codeStatus.value?.equalContent(Status.SUCCESS) ?: false &&
+            passwordStatus.value?.equalContent(Status.SUCCESS) ?: false &&
+            passwordConfirmStatus.value?.equalContent(Status.SUCCESS) ?: false
+
+    fun requestResetPassword() {
+        viewModelScope.launch {
+            if (userRepository.requestResetPassword(
+                    password.value.toString(),
+                    passwordConfirm.value.toString()
+                )
+            ) {
+                completeClick.postValue(Event(true))
+            }
         }
     }
 

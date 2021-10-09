@@ -47,14 +47,18 @@ class ConfirmPasswordResetFragment :
 
         binding.backBtn.setOnClickListener {
             navController.navigate(
+                R.id.action_passwordResetConfirmFragment_to_passwordResetFragment
+            )
+        }
+
+        viewModel.completeClick.observeIfNotHandled(this) {
+            navController.navigate(
                 R.id.action_passwordResetConfirmFragment_to_completeFindPasswordFragment
             )
         }
 
-        binding.completeButton.setOnClickListener {
-            navController.navigate(
-                R.id.action_passwordResetConfirmFragment_to_completeFindPasswordFragment
-            )
+        viewModel.liveDataMerger.observe(viewLifecycleOwner) {
+            binding.completeButton.isEnabled = it
         }
     }
 }
