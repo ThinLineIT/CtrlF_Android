@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.mukesh.MarkdownView
+import com.thinlineit.ctrlf.login.FindPasswordViewModel
 import com.thinlineit.ctrlf.registration.RegistrationViewModel
 
 @BindingAdapter("app:data")
@@ -43,6 +44,7 @@ fun addTextChangeListener(view: EditText, viewModel: ViewModel) {
         override fun afterTextChanged(s: Editable?) {
             when (viewModel) {
                 is RegistrationViewModel -> viewModel.checkPasswordSame()
+                is FindPasswordViewModel -> viewModel.checkPasswordSame()
             }
         }
     })

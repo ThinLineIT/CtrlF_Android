@@ -14,14 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CtrlF"
         android:usesCleartextTraffic="true">
+        <activity android:name=".login.FindPasswordActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".page.PageEditorActivity" />
         <activity
             android:name=".registration.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".registration.CompleteRegisterActivity" />
         <activity android:name=".logout.LogoutActivity" />
-        <activity android:name=".registration.LoginActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".login.LoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".issue.detail.IssueDetailActivity" />
         <activity
             android:name=".splash.SplashActivity"
@@ -35,7 +38,7 @@
         <activity android:name=".page.PageActivity" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

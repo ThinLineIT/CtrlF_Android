@@ -54,12 +54,12 @@ class UserRepository {
             false
         }
 
-    suspend fun checkDuplicateEmail(email: String): Boolean =
+    suspend fun isEmailExist(email: String): Boolean =
         try {
             RegistrationService.USER_API.checkEmail(email)
-            true
-        } catch (e: Exception) {
             false
+        } catch (e: Exception) {
+            true
         }
 
     suspend fun sendAuthCode(email: String): Boolean =
