@@ -77,8 +77,6 @@
         android:id="@+id/loginActivity"
         android:name="com.thinlineit.ctrlf.login.LoginActivity"
         android:label="LoginActivity" />
-<<<<<<< HEAD
-=======
     <fragment
         android:id="@+id/completeRegisterFragment"
         android:name="com.thinlineit.ctrlf.registration.CompleteRegisterFragment"
@@ -87,5 +85,4 @@
             android:id="@+id/action_completeRegisterFragment_to_loginActivity"
             app:destination="@id/loginActivity" />
     </fragment>
->>>>>>> dev
 </navigation>
