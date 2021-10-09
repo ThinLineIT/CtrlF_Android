@@ -55,16 +55,12 @@
         android:name="com.thinlineit.ctrlf.registration.ConfirmPasswordFragment"
         android:label="RegisterConfirmPasswordFragment">
         <action
-            android:id="@+id/action_registerConfirmPasswordFragment_to_completeRegisterActivity"
-            app:destination="@id/completeRegisterActivity" />
-        <action
             android:id="@+id/action_registerConfirmPasswordFragment_to_registerPasswordFragment"
             app:destination="@id/registerPasswordFragment" />
+        <action
+            android:id="@+id/action_registerConfirmPasswordFragment_to_completeRegisterFragment"
+            app:destination="@id/completeRegisterFragment" />
     </fragment>
-    <activity
-        android:id="@+id/completeRegisterActivity"
-        android:name="com.thinlineit.ctrlf.registration.CompleteRegisterActivity"
-        android:label="CompleteRegisterActivity" />
     <fragment
         android:id="@+id/registerBackFragment"
         android:name="com.thinlineit.ctrlf.registration.ConfirmBackToEmailFragment"
@@ -81,4 +77,15 @@
         android:id="@+id/loginActivity"
         android:name="com.thinlineit.ctrlf.login.LoginActivity"
         android:label="LoginActivity" />
+<<<<<<< HEAD
+=======
+    <fragment
+        android:id="@+id/completeRegisterFragment"
+        android:name="com.thinlineit.ctrlf.registration.CompleteRegisterFragment"
+        android:label="CompleteRegisterFragment" >
+        <action
+            android:id="@+id/action_completeRegisterFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+>>>>>>> dev
 </navigation>
