@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.registration
 
+import android.os.CountDownTimer
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -53,6 +54,8 @@ class RegistrationViewModel : ViewModel() {
     val nicknameInvoke: () -> Unit = this::checkDuplicateNickname
     val passwordInvoke: () -> Unit = this::checkPasswordValid
     val passwordConfirmInvoke: () -> Unit = this::checkPasswordSame
+
+    val countText = MutableLiveData("")
 
     fun checkPasswordSame() {
         if (!passwordConfirm.value.isValid(PASSWORD_REGEX)) {
@@ -132,13 +135,13 @@ class RegistrationViewModel : ViewModel() {
             return
         }
         viewModelScope.launch {
-            if (userRepository.checkDuplicateEmail(email.value.toString())) {
+            if (userRepository.isEmailExist(email.value.toString())) {
+                emailStatus.postEvent(Status.FAILURE)
+                emailMessage.postValue(R.string.notice_exist_email)
+            } else {
                 emailMessage.postValue(R.string.empty_text)
                 emailStatus.postEvent(Status.SUCCESS)
                 sendAuthEmail()
-            } else {
-                emailStatus.postEvent(Status.FAILURE)
-                emailMessage.postValue(R.string.notice_exist_email)
             }
         }
     }
@@ -148,11 +151,13 @@ class RegistrationViewModel : ViewModel() {
             if (userRepository.sendAuthCode(email.value.toString())) {
                 emailStatus.postEvent(Status.SUCCESS)
                 emailMessage.postValue(R.string.empty_text)
-            } else {
-                emailMessage.postValue(R.string.notice_error_email)
-                emailStatus.postEvent(Status.FAILURE)
+                countTimer.start()
             }
         }
+    }
+
+    fun resendCode() {
+        sendAuthEmail()
     }
 
     fun requestSignUp() {
@@ -175,6 +180,22 @@ class RegistrationViewModel : ViewModel() {
         code.value = ""
     }
 
+    private val countTimer = object : CountDownTimer(180000, 1000) {
+
+        override fun onTick(millisUntilFinished: Long) {
+            val minutes = (millisUntilFinished / 1000) / 60
+            val seconds = (millisUntilFinished / 1000) % 60
+            val min = String.format("%02d", minutes)
+            val sec = String.format("%02d", seconds)
+
+            countText.value = "$min:$sec"
+        }
+
+        override fun onFinish() {
+            countText.postValue(DEFAULT_TIMER)
+        }
+    }
+
     companion object {
         // 숫자, 문자, 특수문자 중 2가지 포함(8~20자)
         private const val PASSWORD_REGEX =
@@ -182,5 +203,6 @@ class RegistrationViewModel : ViewModel() {
         private const val EMAIL_REGEX = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,8}$"
         private const val NICKNAME_REGEX = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]{2,10}$"
         private const val CODE_REGEX = "^[a-zA-Z0-9]{8}$"
+        private const val DEFAULT_TIMER = "인증번호를 재발급 받으세요."
     }
 }
