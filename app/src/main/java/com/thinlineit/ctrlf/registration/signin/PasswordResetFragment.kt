@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.login
+package com.thinlineit.ctrlf.registration.signin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import com.thinlineit.ctrlf.databinding.FragmentPasswordResetBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import com.thinlineit.ctrlf.util.setBackgroundById
 
 class PasswordResetFragment :
     RegistrationBaseFragment<FragmentPasswordResetBinding>(R.layout.fragment_password_reset) {

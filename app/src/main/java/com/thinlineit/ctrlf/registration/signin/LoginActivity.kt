@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.login
+package com.thinlineit.ctrlf.registration.signin
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityLoginBinding
-import com.thinlineit.ctrlf.registration.RegistrationActivity
+import com.thinlineit.ctrlf.registration.signup.RegistrationActivity
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 

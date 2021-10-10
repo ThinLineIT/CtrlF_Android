@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signup
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityCompleteRegisterBinding
-import com.thinlineit.ctrlf.login.LoginActivity
+import com.thinlineit.ctrlf.registration.signin.LoginActivity
 
 class CompleteRegisterActivity : AppCompatActivity() {
     private val binding: ActivityCompleteRegisterBinding by lazy {

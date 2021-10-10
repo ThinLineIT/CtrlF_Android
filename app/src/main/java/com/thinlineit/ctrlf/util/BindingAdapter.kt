@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.mukesh.MarkdownView
-import com.thinlineit.ctrlf.login.FindPasswordViewModel
-import com.thinlineit.ctrlf.registration.RegistrationViewModel
+import com.thinlineit.ctrlf.registration.signin.FindPasswordViewModel
+import com.thinlineit.ctrlf.registration.signup.RegistrationViewModel
 
 @BindingAdapter("app:data")
 fun <T> setRecyclerViewData(recyclerView: RecyclerView, data: T) {

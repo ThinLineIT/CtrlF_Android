@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageBinding
-import com.thinlineit.ctrlf.logout.LogoutActivity
+import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
 import kotlinx.android.synthetic.main.activity_page.*

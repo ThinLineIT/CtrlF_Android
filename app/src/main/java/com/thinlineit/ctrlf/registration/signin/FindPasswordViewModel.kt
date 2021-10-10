@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.login
+package com.thinlineit.ctrlf.registration.signin
 
 import android.os.CountDownTimer
 import androidx.lifecycle.MediatorLiveData

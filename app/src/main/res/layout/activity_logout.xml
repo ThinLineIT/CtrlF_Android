@@ -6,7 +6,7 @@
 
         <variable
             name="LogoutActivity"
-            type="com.thinlineit.ctrlf.logout.LogoutActivity" />
+            type="com.thinlineit.ctrlf.registration.signout.LogoutActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.login.LoginActivity
+import com.thinlineit.ctrlf.registration.signin.LoginActivity
 import com.thinlineit.ctrlf.repository.UserRepository
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*

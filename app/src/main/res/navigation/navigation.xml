@@ -71,7 +71,7 @@
 
     <activity
         android:id="@+id/logout_activity"
-        android:name="com.thinlineit.ctrlf.logout.LogoutActivity"
+        android:name="com.thinlineit.ctrlf.registration.signout.LogoutActivity"
         tools:layout="@layout/activity_logout"/>
 
 </navigation>

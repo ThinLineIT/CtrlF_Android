@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.login
+package com.thinlineit.ctrlf.registration.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,18 +8,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.FragmentPasswordResetConfirmBinding
+import com.thinlineit.ctrlf.databinding.FragmentConfirmPasswordBinding
 import com.thinlineit.ctrlf.util.Status
-import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
+import com.thinlineit.ctrlf.util.base.BaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import com.thinlineit.ctrlf.util.setBackgroundById
 
-class ConfirmPasswordResetFragment :
-    RegistrationBaseFragment<FragmentPasswordResetConfirmBinding>(
-        R.layout.fragment_password_reset_confirm
-    ) {
+class ConfirmPasswordFragment :
+    BaseFragment<FragmentConfirmPasswordBinding>(R.layout.fragment_confirm_password) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<FindPasswordViewModel>()
+    private val viewModel by activityViewModels<RegistrationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +24,7 @@ class ConfirmPasswordResetFragment :
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = this@ConfirmPasswordResetFragment.viewModel
+        binding.viewModel = this@ConfirmPasswordFragment.viewModel
         return binding.root
     }
 
@@ -37,28 +34,28 @@ class ConfirmPasswordResetFragment :
 
         viewModel.passwordConfirmStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.findPassword2.setBackgroundById(R.drawable.background_round_red)
-                binding.findPasswordText2.visibility = View.VISIBLE
+                binding.regPassword2.setBackgroundById(R.drawable.background_round_red)
+                binding.regPasswordText.visibility = View.VISIBLE
             } else {
-                binding.findPassword2.setBackgroundById(R.drawable.background_round_white)
-                binding.findPasswordText2.visibility = View.GONE
+                binding.regPassword2.setBackgroundById(R.drawable.background_round_white)
+                binding.regPasswordText.visibility = View.GONE
             }
+        }
+
+        viewModel.registerClick.observeIfNotHandled(this) {
+            navController.navigate(
+                R.id.action_registerConfirmPasswordFragment_to_completeRegisterFragment
+            )
         }
 
         binding.backBtn.setOnClickListener {
             navController.navigate(
-                R.id.action_passwordResetConfirmFragment_to_passwordResetFragment
-            )
-        }
-
-        viewModel.completeClick.observeIfNotHandled(this) {
-            navController.navigate(
-                R.id.action_passwordResetConfirmFragment_to_completeFindPasswordFragment
+                R.id.action_registerConfirmPasswordFragment_to_registerPasswordFragment
             )
         }
 
         viewModel.liveDataMerger.observe(viewLifecycleOwner) {
-            binding.completeButton.isEnabled = it
+            binding.registerBtn.isEnabled = it
         }
     }
 }

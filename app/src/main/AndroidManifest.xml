@@ -14,16 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CtrlF"
         android:usesCleartextTraffic="true">
-        <activity android:name=".login.FindPasswordActivity"
+        <activity android:name="com.thinlineit.ctrlf.registration.signin.FindPasswordActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".page.PageEditorActivity" />
         <activity
-            android:name=".registration.RegistrationActivity"
+            android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".registration.CompleteRegisterActivity" />
-        <activity android:name=".logout.LogoutActivity" />
+        <activity android:name=".registration.signup.CompleteRegisterActivity" />
+        <activity android:name=".registration.signout.LogoutActivity" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.thinlineit.ctrlf.registration.signin.LoginActivity"
             android:launchMode="singleTask" />
         <activity android:name=".issue.detail.IssueDetailActivity" />
         <activity

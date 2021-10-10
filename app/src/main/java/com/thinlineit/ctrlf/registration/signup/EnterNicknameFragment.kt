@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.FragmentEmailBinding
+import com.thinlineit.ctrlf.databinding.FragmentNicknameBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import com.thinlineit.ctrlf.util.setBackgroundById
+import kotlinx.android.synthetic.main.fragment_nickname.*
 
-class EnterEmailFragment : RegistrationBaseFragment<FragmentEmailBinding>(R.layout.fragment_email) {
+class EnterNicknameFragment :
+    RegistrationBaseFragment<FragmentNicknameBinding>(R.layout.fragment_nickname) {
     private lateinit var navController: NavController
     private val viewModel by activityViewModels<RegistrationViewModel>()
 
@@ -24,7 +25,7 @@ class EnterEmailFragment : RegistrationBaseFragment<FragmentEmailBinding>(R.layo
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = this@EnterEmailFragment.viewModel
+        binding.viewModel = this@EnterNicknameFragment.viewModel
         return binding.root
     }
 
@@ -32,20 +33,21 @@ class EnterEmailFragment : RegistrationBaseFragment<FragmentEmailBinding>(R.layo
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        viewModel.emailStatus.observeIfNotHandled(viewLifecycleOwner) {
+        viewModel.nicknameStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.regEmail.setBackgroundById(R.drawable.background_round_red)
-                binding.regEmail.startAnimation(anim)
-                binding.regEmailText.visibility = View.VISIBLE
+                binding.regNickname.setBackgroundById(R.drawable.background_round_red)
+                binding.regNickname.startAnimation(anim)
+                binding.regNameText.visibility = View.VISIBLE
             } else {
-                navController.navigate(R.id.action_registerEmailFragment_to_registerCodeFragment)
-                binding.regEmailText.visibility = View.GONE
+                navController.navigate(
+                    R.id.action_registerNicknameFragment_to_registerPasswordFragment
+                )
+                binding.regNameText.visibility = View.GONE
             }
         }
 
         binding.backBtn.setOnClickListener {
-            navController.navigate(R.id.action_registerEmailFragment_to_loginActivity)
-            requireActivity().finish()
+            navController.navigate(R.id.action_registerNicknameFragment_to_registerBackFragment)
         }
     }
 }

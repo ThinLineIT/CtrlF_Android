@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.FragmentNicknameBinding
+import com.thinlineit.ctrlf.databinding.FragmentVerificationToFindPasswordBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import com.thinlineit.ctrlf.util.setBackgroundById
-import kotlinx.android.synthetic.main.fragment_nickname.*
 
-class EnterNicknameFragment :
-    RegistrationBaseFragment<FragmentNicknameBinding>(R.layout.fragment_nickname) {
+class VerificationToFindPasswordFragment :
+    RegistrationBaseFragment<FragmentVerificationToFindPasswordBinding>(
+        R.layout.fragment_verification_to_find_password
+    ) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<RegistrationViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +26,7 @@ class EnterNicknameFragment :
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = this@EnterNicknameFragment.viewModel
+        binding.viewModel = this@VerificationToFindPasswordFragment.viewModel
         return binding.root
     }
 
@@ -34,21 +34,23 @@ class EnterNicknameFragment :
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        viewModel.nicknameStatus.observeIfNotHandled(viewLifecycleOwner) {
+        viewModel.codeStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.regNickname.setBackgroundById(R.drawable.background_round_red)
-                binding.regNickname.startAnimation(anim)
-                binding.regNameText.visibility = View.VISIBLE
+                binding.findCode.setBackgroundById(R.drawable.background_round_red)
+                binding.findCode.startAnimation(anim)
+                binding.findCodeText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
-                    R.id.action_registerNicknameFragment_to_registerPasswordFragment
+                    R.id.action_verificationToFindPasswordFragment_to_passwordResetFragment
                 )
-                binding.regNameText.visibility = View.GONE
+                binding.findCodeText.visibility = View.GONE
             }
         }
 
         binding.backBtn.setOnClickListener {
-            navController.navigate(R.id.action_registerNicknameFragment_to_registerBackFragment)
+            navController.navigate(
+                R.id.action_verificationToFindPasswordFragment_to_emailVerifyFragment2
+            )
         }
     }
 }

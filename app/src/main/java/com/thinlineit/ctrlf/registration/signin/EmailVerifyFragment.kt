@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.FragmentPasswordBinding
+import com.thinlineit.ctrlf.databinding.FragmentEmailVerifyBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import com.thinlineit.ctrlf.util.setBackgroundById
-import kotlinx.android.synthetic.main.fragment_password.*
 
-class EnterPasswordFragment :
-    RegistrationBaseFragment<FragmentPasswordBinding>(R.layout.fragment_password) {
+class EmailVerifyFragment :
+    RegistrationBaseFragment<FragmentEmailVerifyBinding>(R.layout.fragment_email_verify) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<RegistrationViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +24,7 @@ class EnterPasswordFragment :
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = this@EnterPasswordFragment.viewModel
+        binding.viewModel = this@EmailVerifyFragment.viewModel
         return binding.root
     }
 
@@ -34,21 +32,22 @@ class EnterPasswordFragment :
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        viewModel.passwordStatus.observeIfNotHandled(viewLifecycleOwner) {
+        viewModel.emailStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.regPassword.setBackgroundById(R.drawable.background_round_red)
-                binding.regPassword.startAnimation(anim)
-                binding.regPasswordText.visibility = View.VISIBLE
+                binding.findEmail.setBackgroundById(R.drawable.background_round_red)
+                binding.findEmail.startAnimation(anim)
+                binding.findEmailText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
-                    R.id.action_registerPasswordFragment_to_registerConfirmPasswordFragment
+                    R.id.action_emailVerifyFragment2_to_verificationToFindPasswordFragment
                 )
-                binding.regPasswordText.visibility = View.GONE
+                binding.findEmailText.visibility = View.GONE
             }
         }
 
         binding.backBtn.setOnClickListener {
-            navController.navigate(R.id.action_registerPasswordFragment_to_registerNicknameFragment)
+            navController.navigate(R.id.action_emailVerifyFragment2_to_loginActivity)
+            requireActivity().finish()
         }
     }
 }

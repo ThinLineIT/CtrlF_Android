@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.logout
+package com.thinlineit.ctrlf.registration.signout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
