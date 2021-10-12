@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentCodeBinding
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.Timer
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import kotlinx.android.synthetic.main.fragment_code.*
@@ -44,6 +45,11 @@ class EnterEmailCodeFragment :
             }
         }
 
+        viewModel.countTimerStatus.observeIfNotHandled(viewLifecycleOwner) {
+            if (it == Timer.FINISH) {
+                binding.codeTimer.text = requireContext().getString(R.string.notice_resend_code)
+            }
+        }
         binding.backBtn.setOnClickListener {
             navController.navigate(R.id.action_registerCodeFragment_to_registerEmailFragment)
         }

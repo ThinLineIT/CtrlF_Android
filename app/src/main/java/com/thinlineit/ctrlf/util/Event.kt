@@ -36,3 +36,7 @@ enum class Status {
     SUCCESS,
     FAILURE;
 }
+
+enum class Timer {
+    FINISH;
+}

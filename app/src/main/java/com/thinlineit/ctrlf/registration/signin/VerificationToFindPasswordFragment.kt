@@ -10,8 +10,10 @@ import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentVerificationToFindPasswordBinding
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.Timer
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
+import com.thinlineit.ctrlf.util.setBackgroundById
 
 class VerificationToFindPasswordFragment :
     RegistrationBaseFragment<FragmentVerificationToFindPasswordBinding>(
@@ -51,6 +53,12 @@ class VerificationToFindPasswordFragment :
             navController.navigate(
                 R.id.action_verificationToFindPasswordFragment_to_emailVerifyFragment2
             )
+        }
+
+        viewModel.countTimerStatus.observeIfNotHandled(viewLifecycleOwner) {
+            if (it == Timer.FINISH) {
+                binding.codeTimer.text = requireContext().getString(R.string.notice_resend_code)
+            }
         }
     }
 }

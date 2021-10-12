@@ -1,22 +1,34 @@
 package com.thinlineit.ctrlf.registration.signup
 
-import android.os.CountDownTimer
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.repository.UserRepository
+import com.thinlineit.ctrlf.util.CountTimer
+import com.thinlineit.ctrlf.util.CountTimerListener
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.Timer
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.isValid
 import com.thinlineit.ctrlf.util.postEvent
+import com.thinlineit.ctrlf.util.postTimerEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel : ViewModel() {
     private val userRepository = UserRepository()
+    private val countTimer = CountTimer(object : CountTimerListener {
+        override fun onTick(time: String) {
+            countText.value = time
+        }
+
+        override fun onFinish() {
+            countTimerStatus.postTimerEvent(Timer.FINISH)
+        }
+    })
 
     val email = MutableLiveData("")
     val password = MutableLiveData("")
@@ -24,6 +36,7 @@ class RegistrationViewModel : ViewModel() {
     val nickName = MutableLiveData("")
     val code = MutableLiveData("")
 
+    val countTimerStatus = MutableLiveData<Event<Timer>>()
     val emailStatus = MutableLiveData<Event<Status>>()
     val codeStatus = MutableLiveData<Event<Status>>()
     val nicknameStatus = MutableLiveData<Event<Status>>()
@@ -55,7 +68,7 @@ class RegistrationViewModel : ViewModel() {
     val passwordInvoke: () -> Unit = this::checkPasswordValid
     val passwordConfirmInvoke: () -> Unit = this::checkPasswordSame
 
-    val countText = MutableLiveData("")
+    val countText = MutableLiveData<String>("")
 
     fun checkPasswordSame() {
         if (!passwordConfirm.value.isValid(PASSWORD_REGEX)) {
@@ -180,22 +193,6 @@ class RegistrationViewModel : ViewModel() {
         code.value = ""
     }
 
-    private val countTimer = object : CountDownTimer(180000, 1000) {
-
-        override fun onTick(millisUntilFinished: Long) {
-            val minutes = (millisUntilFinished / 1000) / 60
-            val seconds = (millisUntilFinished / 1000) % 60
-            val min = String.format("%02d", minutes)
-            val sec = String.format("%02d", seconds)
-
-            countText.value = "$min:$sec"
-        }
-
-        override fun onFinish() {
-            countText.postValue(DEFAULT_TIMER)
-        }
-    }
-
     companion object {
         // 숫자, 문자, 특수문자 중 2가지 포함(8~20자)
         private const val PASSWORD_REGEX =
@@ -203,6 +200,5 @@ class RegistrationViewModel : ViewModel() {
         private const val EMAIL_REGEX = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,8}$"
         private const val NICKNAME_REGEX = "^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]{2,10}$"
         private const val CODE_REGEX = "^[a-zA-Z0-9]{8}$"
-        private const val DEFAULT_TIMER = "인증번호를 재발급 받으세요."
     }
 }

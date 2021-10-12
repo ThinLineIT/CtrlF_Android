@@ -1,21 +1,33 @@
 package com.thinlineit.ctrlf.registration.signin
 
-import android.os.CountDownTimer
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.repository.UserRepository
+import com.thinlineit.ctrlf.util.CountTimer
+import com.thinlineit.ctrlf.util.CountTimerListener
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.Timer
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.isValid
 import com.thinlineit.ctrlf.util.postEvent
+import com.thinlineit.ctrlf.util.postTimerEvent
 import kotlinx.coroutines.launch
 
 class FindPasswordViewModel : ViewModel() {
     private val userRepository = UserRepository()
+    private val countTimer = CountTimer(object : CountTimerListener {
+        override fun onTick(time: String) {
+            countText.value = time
+        }
+
+        override fun onFinish() {
+            countTimerStatus.postTimerEvent(Timer.FINISH)
+        }
+    })
 
     val email = MutableLiveData("")
     val code = MutableLiveData("")
@@ -37,6 +49,8 @@ class FindPasswordViewModel : ViewModel() {
     val passwordStatus = MutableLiveData<Event<Status>>()
     val passwordConfirmStatus = MutableLiveData<Event<Status>>()
     val completeClick = MutableLiveData<Event<Boolean>>()
+    val countTimerStatus = MutableLiveData<Event<Timer>>()
+    val countText = MutableLiveData<String>("")
 
     val countText = MutableLiveData("")
 
@@ -132,22 +146,6 @@ class FindPasswordViewModel : ViewModel() {
         }
     }
 
-    private val countTimer = object : CountDownTimer(180000, 1000) {
-
-        override fun onTick(millisUntilFinished: Long) {
-            val minutes = (millisUntilFinished / 1000) / 60
-            val seconds = (millisUntilFinished / 1000) % 60
-            val min = String.format("%02d", minutes)
-            val sec = String.format("%02d", seconds)
-
-            countText.value = "$min:$sec"
-        }
-
-        override fun onFinish() {
-            countText.postValue(DEFAULT_TIMER)
-        }
-    }
-
     private fun isPasswordResetValid(): Boolean =
         emailStatus.value?.equalContent(Status.SUCCESS) ?: false &&
             codeStatus.value?.equalContent(Status.SUCCESS) ?: false &&
@@ -171,6 +169,5 @@ class FindPasswordViewModel : ViewModel() {
             "^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#\$%^&*])(?=.*[0-9!@#\$%^&*]).{8,20}\$"
         private const val EMAIL_REGEX = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,8}$"
         private const val CODE_REGEX = "^[a-zA-Z0-9]{8}$"
-        private const val DEFAULT_TIMER = "인증번호를 재발급 받으세요."
     }
 }

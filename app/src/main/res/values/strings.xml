@@ -62,7 +62,8 @@
     <string name="notice_confirm_go_back_to_login">"[뒤로 가기]를 누르시면 \n로그인 화면으로 돌아갑니다."</string>
     <string name="button_resend_code">"인증코드 재전송"</string>
     <string name="notice_non_exist_email">존재하지 않는 이메일입니다.</string>
-    <string name="notice_time">03:00</string>
+    <string name="notice_resend_code">인증번호를 재발급 받으세요.</string>
+    <string name="label_format_timer">"%02d"</string>
 
 
     <!-- viewPager -->
@@ -87,4 +88,5 @@
     <string name="button_general_modify">수정</string>
     <string name="button_add_topic">+ add topic</string>
     <string name="button_add_page">+ add page</string>
+    <string name="format_timer">%02d</string>
 </resources>
