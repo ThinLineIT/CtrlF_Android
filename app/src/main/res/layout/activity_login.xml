@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.registration.signin.FindPasswordViewModel" />
+            type="com.thinlineit.ctrlf.registration.signin.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

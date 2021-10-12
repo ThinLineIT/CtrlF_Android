@@ -37,11 +37,11 @@ class ConfirmPasswordResetFragment :
 
         viewModel.passwordConfirmStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.findPassword2.setBackgroundById(R.drawable.background_round_red)
-                binding.findPasswordText2.visibility = View.VISIBLE
+                binding.confirmPasswordEditText.setBackgroundById(R.drawable.background_round_red)
+                binding.confirmPasswordNoticeText.visibility = View.VISIBLE
             } else {
-                binding.findPassword2.setBackgroundById(R.drawable.background_round_white)
-                binding.findPasswordText2.visibility = View.GONE
+                binding.confirmPasswordEditText.setBackgroundById(R.drawable.background_round_white)
+                binding.confirmPasswordNoticeText.visibility = View.GONE
             }
         }
 
@@ -57,7 +57,7 @@ class ConfirmPasswordResetFragment :
             )
         }
 
-        viewModel.liveDataMerger.observe(viewLifecycleOwner) {
+        viewModel.passwordResetStatus.observe(viewLifecycleOwner) {
             binding.completeButton.isEnabled = it
         }
     }

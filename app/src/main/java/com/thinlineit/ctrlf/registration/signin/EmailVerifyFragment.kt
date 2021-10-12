@@ -12,6 +12,7 @@ import com.thinlineit.ctrlf.databinding.FragmentEmailVerifyBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
+import com.thinlineit.ctrlf.util.setBackgroundById
 
 class EmailVerifyFragment :
     RegistrationBaseFragment<FragmentEmailVerifyBinding>(R.layout.fragment_email_verify) {
@@ -34,19 +35,19 @@ class EmailVerifyFragment :
 
         viewModel.emailStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.findEmail.setBackgroundById(R.drawable.background_round_red)
-                binding.findEmail.startAnimation(anim)
-                binding.findEmailText.visibility = View.VISIBLE
+                binding.emailEditText.setBackgroundById(R.drawable.background_round_red)
+                binding.emailEditText.startAnimation(anim)
+                binding.findPasswordEmailText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
-                    R.id.action_emailVerifyFragment2_to_verificationToFindPasswordFragment
+                    R.id.action_emailVerifyFragment_to_verificationToFindPasswordFragment
                 )
-                binding.findEmailText.visibility = View.GONE
+                binding.findPasswordEmailText.visibility = View.GONE
             }
         }
 
         binding.backBtn.setOnClickListener {
-            navController.navigate(R.id.action_emailVerifyFragment2_to_loginActivity)
+            navController.navigate(R.id.action_emailVerifyFragment_to_loginActivity)
             requireActivity().finish()
         }
     }

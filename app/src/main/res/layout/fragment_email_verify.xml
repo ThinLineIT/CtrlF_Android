@@ -59,7 +59,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                    android:id="@+id/findEmail"
+                    android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="20dp"
@@ -79,7 +79,7 @@
                     app:onEditorActionListener="@{viewModel.emailInvoke}" />
 
                 <TextView
-                    android:id="@+id/findEmailText"
+                    android:id="@+id/findPasswordEmailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -88,8 +88,8 @@
                     android:textColor="@color/red"
                     android:textSize="12sp"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@+id/findEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/findEmail"
+                    app:layout_constraintStart_toStartOf="@+id/emailEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/emailEditText"
                     tools:text="@string/notice_email_code_check" />
 
                 <com.google.android.material.button.MaterialButton
@@ -102,12 +102,12 @@
                     android:layout_marginBottom="20dp"
                     android:backgroundTint="@color/skyblue"
                     android:fontFamily="@font/sc_dream_3"
-                    android:onClick="@{()->viewModel.checkEmailPresence()}"
+                    android:onClick="@{()->viewModel.checkEmailExist()}"
                     android:text="@string/button_email_confirm"
                     app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/findEmail"
-                    app:layout_constraintTop_toBottomOf="@+id/findEmailText" />
+                    app:layout_constraintStart_toStartOf="@+id/emailEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/findPasswordEmailText" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

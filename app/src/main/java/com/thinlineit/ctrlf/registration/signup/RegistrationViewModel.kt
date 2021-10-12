@@ -44,7 +44,7 @@ class RegistrationViewModel : ViewModel() {
     val passwordConfirmStatus = MutableLiveData<Event<Status>>()
     val registerClick = MutableLiveData<Event<Boolean>>()
 
-    val liveDataMerger = MediatorLiveData<Boolean>().apply {
+    val registrationStatus = MediatorLiveData<Boolean>().apply {
         addSourceList(
             emailStatus,
             codeStatus,
@@ -93,13 +93,15 @@ class RegistrationViewModel : ViewModel() {
             passwordConfirmStatus.value?.equalContent(Status.SUCCESS) ?: false
 
     fun checkDuplicateNickname() {
-        if (!nickName.value.isValid(NICKNAME_REGEX)) {
+        val nickname = nickName.value.takeIf {
+            it.isValid(NICKNAME_REGEX)
+        } ?: run {
             nicknameMessage.postValue(R.string.notice_nickname_valid_condition)
             nicknameStatus.postEvent(Status.FAILURE)
             return
         }
         viewModelScope.launch(Dispatchers.IO) {
-            if (userRepository.checkNickname(nickName.value.toString())) {
+            if (userRepository.checkNickname(nickname)) {
                 nicknameStatus.postEvent(Status.SUCCESS)
                 nicknameMessage.postValue(R.string.empty_text)
             } else {
@@ -115,13 +117,15 @@ class RegistrationViewModel : ViewModel() {
             codeMessage.postValue(R.string.notice_enter_code)
             return
         }
-        if (!code.value.isValid(CODE_REGEX)) {
+        val code = code.value.takeIf {
+            it.isValid(CODE_REGEX)
+        } ?: run {
             codeMessage.postValue(R.string.notice_check_code)
             codeStatus.value = Event(Status.FAILURE)
             return
         }
         viewModelScope.launch {
-            if (userRepository.checkCode(code.value.toString())) {
+            if (userRepository.checkCode(code)) {
                 codeStatus.postEvent(Status.SUCCESS)
                 codeMessage.postValue(R.string.empty_text)
             } else {
@@ -142,13 +146,13 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun checkDuplicateEmail() {
-        if (!email.value.isValid(EMAIL_REGEX)) {
+        val email = email.value.takeIf { it.isValid(EMAIL_REGEX) } ?: run {
             emailStatus.postEvent(Status.FAILURE)
             emailMessage.postValue(R.string.notice_error_email)
             return
         }
         viewModelScope.launch {
-            if (userRepository.isEmailExist(email.value.toString())) {
+            if (userRepository.isEmailExist(email)) {
                 emailStatus.postEvent(Status.FAILURE)
                 emailMessage.postValue(R.string.notice_exist_email)
             } else {
@@ -160,8 +164,9 @@ class RegistrationViewModel : ViewModel() {
     }
 
     private fun sendAuthEmail() {
+        val email = email.value ?: return
         viewModelScope.launch {
-            if (userRepository.sendAuthCode(email.value.toString())) {
+            if (userRepository.sendAuthCode(email)) {
                 emailStatus.postEvent(Status.SUCCESS)
                 emailMessage.postValue(R.string.empty_text)
                 countTimer.start()
@@ -174,13 +179,19 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun requestSignUp() {
+        val email = email.value ?: return
+        val code = code.value ?: return
+        val nickname = nickName.value ?: return
+        val password = password.value ?: return
+        val passwordConfirm = passwordConfirm.value ?: return
+
         viewModelScope.launch {
             if (userRepository.requestSignUp(
-                    email.value.toString(),
-                    code.value.toString(),
-                    nickName.value.toString(),
-                    password.value.toString(),
-                    passwordConfirm.value.toString()
+                    email,
+                    code,
+                    nickname,
+                    password,
+                    passwordConfirm
                 )
             ) {
                 registerClick.postValue(Event(true))

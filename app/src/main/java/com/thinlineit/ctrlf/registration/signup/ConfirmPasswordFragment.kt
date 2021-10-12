@@ -12,6 +12,7 @@ import com.thinlineit.ctrlf.databinding.FragmentConfirmPasswordBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
+import com.thinlineit.ctrlf.util.setBackgroundById
 
 class ConfirmPasswordFragment :
     BaseFragment<FragmentConfirmPasswordBinding>(R.layout.fragment_confirm_password) {
@@ -54,7 +55,7 @@ class ConfirmPasswordFragment :
             )
         }
 
-        viewModel.liveDataMerger.observe(viewLifecycleOwner) {
+        viewModel.registrationStatus.observe(viewLifecycleOwner) {
             binding.registerBtn.isEnabled = it
         }
     }

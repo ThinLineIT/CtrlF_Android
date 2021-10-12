@@ -12,6 +12,7 @@ import com.thinlineit.ctrlf.databinding.FragmentPasswordResetBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
+import com.thinlineit.ctrlf.util.setBackgroundById
 
 class PasswordResetFragment :
     RegistrationBaseFragment<FragmentPasswordResetBinding>(R.layout.fragment_password_reset) {
@@ -34,14 +35,14 @@ class PasswordResetFragment :
 
         viewModel.passwordStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Status.FAILURE) {
-                binding.findPasswordFind.setBackgroundById(R.drawable.background_round_red)
-                binding.findPasswordFind.startAnimation(anim)
-                binding.findPasswordText.visibility = View.VISIBLE
+                binding.newPasswordEditText.setBackgroundById(R.drawable.background_round_red)
+                binding.newPasswordEditText.startAnimation(anim)
+                binding.newPasswordText.visibility = View.VISIBLE
             } else {
                 navController.navigate(
                     R.id.action_passwordResetFragment_to_passwordResetConfirmFragment
                 )
-                binding.findPasswordText.visibility = View.GONE
+                binding.newPasswordText.visibility = View.GONE
             }
         }
 

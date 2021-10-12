@@ -39,7 +39,7 @@ class FindPasswordViewModel : ViewModel() {
     val passwordConfirmMessage = MutableLiveData<Int>(R.string.empty_text)
     val codeMessage = MutableLiveData<Int>(R.string.empty_text)
 
-    val emailInvoke: () -> Unit = this::checkEmailPresence
+    val emailInvoke: () -> Unit = this::checkEmailExist
     val codeInvoke: () -> Unit = this::checkCodeValid
     val passwordInvoke: () -> Unit = this::checkPasswordValid
     val passwordConfirmInvoke: () -> Unit = this::checkPasswordSame
@@ -52,9 +52,7 @@ class FindPasswordViewModel : ViewModel() {
     val countTimerStatus = MutableLiveData<Event<Timer>>()
     val countText = MutableLiveData<String>("")
 
-    val countText = MutableLiveData("")
-
-    val liveDataMerger = MediatorLiveData<Boolean>().apply {
+    val passwordResetStatus = MediatorLiveData<Boolean>().apply {
         addSourceList(
             emailStatus,
             codeStatus,
@@ -65,14 +63,16 @@ class FindPasswordViewModel : ViewModel() {
         }
     }
 
-    fun checkEmailPresence() {
-        if (!email.value.isValid(EMAIL_REGEX)) {
+    fun checkEmailExist() {
+        val email = email.value.takeIf {
+            it.isValid(EMAIL_REGEX)
+        } ?: run {
             emailMessage.postValue(R.string.notice_error_email)
             emailStatus.postEvent(Status.FAILURE)
             return
         }
         viewModelScope.launch {
-            if (userRepository.isEmailExist(email.toString())) {
+            if (userRepository.isEmailExist(email)) {
                 emailMessage.postValue(R.string.empty_text)
                 emailStatus.postEvent(Status.SUCCESS)
                 sendAuthEmail()
@@ -84,8 +84,9 @@ class FindPasswordViewModel : ViewModel() {
     }
 
     private fun sendAuthEmail() {
+        val email = email.value ?: return
         viewModelScope.launch {
-            if (userRepository.sendAuthCode(email.value.toString())) {
+            if (userRepository.sendAuthCode(email)) {
                 emailStatus.postEvent(Status.SUCCESS)
                 emailMessage.postValue(R.string.empty_text)
                 countTimer.start()
@@ -99,13 +100,15 @@ class FindPasswordViewModel : ViewModel() {
             codeMessage.postValue(R.string.notice_enter_code)
             return
         }
-        if (!code.value.isValid(CODE_REGEX)) {
+        val code = code.value.takeIf {
+            it.isValid(CODE_REGEX)
+        } ?: run {
             codeMessage.postValue(R.string.notice_check_code)
             codeStatus.value = Event(Status.FAILURE)
             return
         }
         viewModelScope.launch {
-            if (userRepository.checkCode(code.value.toString())) {
+            if (userRepository.checkCode(code)) {
                 codeStatus.postEvent(Status.SUCCESS)
                 codeMessage.postValue(R.string.empty_text)
                 countTimer.onFinish()
@@ -153,10 +156,12 @@ class FindPasswordViewModel : ViewModel() {
             passwordConfirmStatus.value?.equalContent(Status.SUCCESS) ?: false
 
     fun requestResetPassword() {
+        val password = password.value ?: return
+        val passwordConfirm = passwordConfirm.value ?: return
         viewModelScope.launch {
             if (userRepository.requestResetPassword(
-                    password.value.toString(),
-                    passwordConfirm.value.toString()
+                    password,
+                    passwordConfirm
                 )
             ) {
                 completeClick.postValue(Event(true))

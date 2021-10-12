@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.signin.FindPasswordViewModel" />
+            type="com.thinlineit.ctrlf.registration.signin.FindPasswordViewModel" />
 
     </data>
 

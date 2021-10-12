@@ -12,6 +12,7 @@ import com.thinlineit.ctrlf.databinding.FragmentEmailBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
+import com.thinlineit.ctrlf.util.setBackgroundById
 
 class EnterEmailFragment : RegistrationBaseFragment<FragmentEmailBinding>(R.layout.fragment_email) {
     private lateinit var navController: NavController
