@@ -2,14 +2,10 @@ package com.thinlineit.ctrlf.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -38,7 +34,6 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         val binding = FragmentMainBinding.inflate(
             inflater,
             container,
@@ -46,10 +41,6 @@ class MainFragment : Fragment() {
         ).apply {
             mainViewModel = this@MainFragment.mainViewModel
             lifecycleOwner = this@MainFragment
-            (requireActivity() as AppCompatActivity).setSupportActionBar(toolBar)
-            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(
-                false
-            )
             mainViewPager.adapter = MainViewPagerAdapter(requireActivity())
             noteListRecyclerView.adapter = noteAdapter
             issueListRecyclerView.adapter = issueAdapter
@@ -70,19 +61,6 @@ class MainFragment : Fragment() {
             }
         }
         return binding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
-        inflater.inflate(R.menu.toolbar_main, menu)
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.userCircleBtn -> {
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToLogoutActivity()
-            )
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
     }
 
     private fun updateIssueViewVisibility(
