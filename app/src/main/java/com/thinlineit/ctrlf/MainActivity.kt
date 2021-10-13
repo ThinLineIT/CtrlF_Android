@@ -6,20 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.thinlineit.ctrlf.databinding.ActivityMainBinding
+import com.thinlineit.ctrlf.databinding.ActivityMainBindingImpl
 import com.thinlineit.ctrlf.logout.LogoutActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
-        DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
+        ActivityMainBindingImpl.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
         binding.apply {
             setSupportActionBar(toolBar)
             supportActionBar?.setDisplayShowTitleEnabled(false)
