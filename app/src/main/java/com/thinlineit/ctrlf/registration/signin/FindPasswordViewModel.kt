@@ -87,7 +87,6 @@ class FindPasswordViewModel : ViewModel() {
         val email = email.value ?: return
         viewModelScope.launch {
             if (userRepository.sendAuthCode(email)) {
-                emailStatus.postEvent(Status.SUCCESS)
                 emailMessage.postValue(R.string.empty_text)
                 countTimer.start()
                 countTimerStatus.postTimerEvent(Timer.EXECUTE)

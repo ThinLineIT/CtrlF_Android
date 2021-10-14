@@ -1,9 +1,11 @@
 package com.thinlineit.ctrlf.registration.signup
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -18,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_nickname.*
 class EnterNicknameFragment :
     RegistrationBaseFragment<FragmentNicknameBinding>(R.layout.fragment_nickname) {
     private lateinit var navController: NavController
+    private lateinit var callback: OnBackPressedCallback
     private val viewModel by activityViewModels<RegistrationViewModel>()
 
     override fun onCreateView(
@@ -50,5 +53,20 @@ class EnterNicknameFragment :
         binding.backBtn.setOnClickListener {
             navController.navigate(R.id.action_registerNicknameFragment_to_registerBackFragment)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.navigate(R.id.action_registerNicknameFragment_to_registerBackFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }
