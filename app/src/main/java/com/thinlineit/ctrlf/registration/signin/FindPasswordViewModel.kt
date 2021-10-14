@@ -107,8 +107,9 @@ class FindPasswordViewModel : ViewModel() {
             codeStatus.value = Event(Status.FAILURE)
             return
         }
+        val signingToken = userRepository.returnSigningToken()
         viewModelScope.launch {
-            if (userRepository.checkCode(code)) {
+            if (userRepository.checkCode(code, signingToken)) {
                 codeStatus.postEvent(Status.SUCCESS)
                 codeMessage.postValue(R.string.empty_text)
                 countTimer.onFinish()
@@ -158,10 +159,13 @@ class FindPasswordViewModel : ViewModel() {
     fun requestResetPassword() {
         val password = password.value ?: return
         val passwordConfirm = passwordConfirm.value ?: return
+        val signingToken = userRepository.returnCodeSigningToken()
+
         viewModelScope.launch {
             if (userRepository.requestResetPassword(
                     password,
-                    passwordConfirm
+                    passwordConfirm,
+                    signingToken
                 )
             ) {
                 completeClick.postValue(Event(true))

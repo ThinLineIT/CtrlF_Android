@@ -124,8 +124,9 @@ class RegistrationViewModel : ViewModel() {
             codeStatus.value = Event(Status.FAILURE)
             return
         }
+        val signingToken = userRepository.returnSigningToken()
         viewModelScope.launch {
-            if (userRepository.checkCode(code)) {
+            if (userRepository.checkCode(code, signingToken)) {
                 codeStatus.postEvent(Status.SUCCESS)
                 codeMessage.postValue(R.string.empty_text)
             } else {
@@ -179,19 +180,17 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun requestSignUp() {
-        val email = email.value ?: return
-        val code = code.value ?: return
         val nickname = nickName.value ?: return
         val password = password.value ?: return
         val passwordConfirm = passwordConfirm.value ?: return
+        val signingToken = userRepository.returnCodeSigningToken()
 
         viewModelScope.launch {
             if (userRepository.requestSignUp(
-                    email,
-                    code,
                     nickname,
                     password,
-                    passwordConfirm
+                    passwordConfirm,
+                    signingToken
                 )
             ) {
                 registerClick.postValue(Event(true))
