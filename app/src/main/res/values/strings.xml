@@ -64,6 +64,7 @@
     <string name="notice_non_exist_email">존재하지 않는 이메일입니다.</string>
     <string name="notice_resend_code">인증번호를 재발급 받으세요.</string>
     <string name="label_format_timer">"%02d"</string>
+    <string name="label_default_timer">00:00</string>
 
 
     <!-- viewPager -->

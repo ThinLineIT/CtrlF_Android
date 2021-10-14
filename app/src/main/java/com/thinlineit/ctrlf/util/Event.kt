@@ -38,5 +38,6 @@ enum class Status {
 }
 
 enum class Timer {
-    FINISH;
+    FINISH,
+    EXECUTE;
 }

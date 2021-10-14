@@ -83,13 +83,14 @@ class FindPasswordViewModel : ViewModel() {
         }
     }
 
-    private fun sendAuthEmail() {
+    fun sendAuthEmail() {
         val email = email.value ?: return
         viewModelScope.launch {
             if (userRepository.sendAuthCode(email)) {
                 emailStatus.postEvent(Status.SUCCESS)
                 emailMessage.postValue(R.string.empty_text)
                 countTimer.start()
+                countTimerStatus.postTimerEvent(Timer.EXECUTE)
             }
         }
     }
@@ -118,11 +119,6 @@ class FindPasswordViewModel : ViewModel() {
                 codeStatus.value = Event(Status.FAILURE)
             }
         }
-    }
-
-    fun resendCode() {
-        sendAuthEmail()
-        countTimer.start()
     }
 
     fun checkPasswordValid() {

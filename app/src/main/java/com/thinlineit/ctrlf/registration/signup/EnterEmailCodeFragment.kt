@@ -48,7 +48,11 @@ class EnterEmailCodeFragment :
 
         viewModel.countTimerStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Timer.FINISH) {
-                binding.codeTimer.text = requireContext().getString(R.string.notice_resend_code)
+                binding.regCodeText.visibility = View.VISIBLE
+                binding.regCodeText.text = requireContext().getString(R.string.notice_resend_code)
+            } else {
+                binding.regCodeText.visibility = View.GONE
+                binding.regCode.setBackgroundById(R.drawable.background_round_white)
             }
         }
         binding.backBtn.setOnClickListener {

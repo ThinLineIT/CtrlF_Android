@@ -51,13 +51,17 @@ class VerificationToFindPasswordFragment :
 
         binding.backBtn.setOnClickListener {
             navController.navigate(
-                R.id.action_verificationToFindPasswordFragment_to_emailVerifyFragment2
+                R.id.action_verificationToFindPasswordFragment_to_emailVerifyFragment
             )
         }
 
         viewModel.countTimerStatus.observeIfNotHandled(viewLifecycleOwner) {
             if (it == Timer.FINISH) {
-                binding.codeTimer.text = requireContext().getString(R.string.notice_resend_code)
+                binding.findCodeText.visibility = View.VISIBLE
+                binding.findCodeText.text = requireContext().getString(R.string.notice_resend_code)
+            } else {
+                binding.findCodeText.visibility = View.GONE
+                binding.findCode.setBackgroundById(R.drawable.background_round_white)
             }
         }
     }
