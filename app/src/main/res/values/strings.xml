@@ -7,20 +7,20 @@
     <string name="hint_password">PASSWORD</string>
     <string name="hint_password_confirm">PASSWORD 확인</string>
     <string name="hint_nickname">닉네임</string>
-    <string name="hint_code">코드</string>
+    <string name="hint_code">인증코드</string>
     <string name="label_login">Log in</string>
     <string name="label_duplicate_nickname">닉네임중복여부</string>
     <string name="label_enter_email">이메일 입력</string>
-    <string name="label_enter_verify">인증코드 입력</string>
+    <string name="label_enter_verify">이메일 인증</string>
     <string name="label_enter_nickname_and_verify">닉네임 입력 / 중복확인</string>
     <string name="label_enter_password_and_verify">비밀번호 입력 / 확인</string>
     <string name="button_login">Log in</string>
+    <string name="button_to_login">Login 하러 가기</string>
     <string name="button_register">회원가입</string>
     <string name="button_next_wide">"다  음" </string>
     <string name="button_duplicate">중복확인</string>
     <string name="button_email_confirm">이메일 인증</string>
-    <string name="button_find_id">"ID 찾기  "</string>
-    <string name="button_find_password">"|  PASSWORD 찾기"</string>
+    <string name="button_find_password">"PASSWORD 찾기"</string>
     <string name="button_back">"뒤로 가기"</string>
     <string name="button_cancel_wide">"취  소"</string>
     <string name="notice_confirm_go_back_to_email">"[뒤로 가기]를 누르시면 \n이메일 인증을 새로 받으셔야합니다."</string>
@@ -55,6 +55,17 @@
     <string name="notice_registration_complete">"환영합니다.\n가입이 완료되었습니다.\n\n로그인 후 이용해주세요."</string>
     <string name="notice_prepare">해당 서비스는 준비중입니다</string>
 
+    <!-- Password viewModel -->
+    <string name="label_reset_password">새 비밀번호 입력</string>
+    <string name="label_password_confirm">비밀번호 입력 확인</string>
+    <string name="notice_reset_password_complete">"비밀번호 변경이\n완료되었습니다.\n\n로그인 후 이용해주세요."</string>
+    <string name="notice_confirm_go_back_to_login">"[뒤로 가기]를 누르시면 \n로그인 화면으로 돌아갑니다."</string>
+    <string name="button_resend_code">"인증코드 재전송"</string>
+    <string name="notice_non_exist_email">존재하지 않는 이메일입니다.</string>
+    <string name="notice_resend_code">인증번호를 재발급 받으세요.</string>
+    <string name="label_format_timer">"%02d"</string>
+    <string name="label_default_timer">00:00</string>
+
 
     <!-- viewPager -->
     <string name="label_current_collected_idea">현재 모아진 아이디어</string>
@@ -78,4 +89,5 @@
     <string name="button_general_modify">수정</string>
     <string name="button_add_topic">+ add topic</string>
     <string name="button_add_page">+ add page</string>
+    <string name="format_timer">%02d</string>
 </resources>

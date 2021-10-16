@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.registration.RegistrationViewModel" />
+            type="com.thinlineit.ctrlf.registration.signup.RegistrationViewModel" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_graphpaper"
-        tools:context=".registration.EnterEmailFragment">
+        tools:context=".registration.signup.EnterEmailFragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/regCardView"

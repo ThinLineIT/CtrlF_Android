@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.FragmentRegisterBackBinding
+import com.thinlineit.ctrlf.databinding.FragmentConfirmBackToLoginBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
 
-class ConfirmBackToEmailFragment :
-    BaseFragment<FragmentRegisterBackBinding>(R.layout.fragment_register_back) {
+class ConfirmBackToLoginFragment :
+    BaseFragment<FragmentConfirmBackToLoginBinding>(R.layout.fragment_confirm_back_to_login) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<RegistrationViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,14 +24,16 @@ class ConfirmBackToEmailFragment :
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding.apply {
-            viewModel = this@ConfirmBackToEmailFragment.viewModel
+            viewModel = this@ConfirmBackToLoginFragment.viewModel
 
             backBtn.setOnClickListener {
-                navController.navigate(R.id.action_registerBackFragment_to_registerEmailFragment)
-                this@ConfirmBackToEmailFragment.viewModel.resetEmailCodeValue()
+                navController.navigate(R.id.action_confirmBackToLoginFragment_to_loginActivity)
+                requireActivity().finish()
             }
             cancelBtn.setOnClickListener {
-                navController.navigate(R.id.action_registerBackFragment_to_registerNicknameFragment)
+                navController.navigate(
+                    R.id.action_confirmBackToLoginFragment_to_passwordResetFragment
+                )
             }
         }
         return binding.root

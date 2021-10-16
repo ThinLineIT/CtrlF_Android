@@ -2,6 +2,7 @@ package com.thinlineit.ctrlf.repository
 
 import com.thinlineit.ctrlf.data.request.AuthEmailRequest
 import com.thinlineit.ctrlf.data.request.CodeCheckRequest
+import com.thinlineit.ctrlf.data.request.ResetPasswordRequest
 import com.thinlineit.ctrlf.data.request.SignUpRequest
 import com.thinlineit.ctrlf.model.User
 import com.thinlineit.ctrlf.repository.network.RegistrationService
@@ -46,40 +47,69 @@ class UserRepository {
             false
         }
 
-    suspend fun checkCode(code: String): Boolean =
+    suspend fun checkCode(code: String, signingToken: String): Boolean =
         try {
-            RegistrationService.USER_API.requestCodeCheck(CodeCheckRequest(code))
+            val codeResponse =
+                RegistrationService.USER_API.requestCodeCheck(CodeCheckRequest(code, signingToken))
+            Application.preferenceUtil.setString(SIGNING_TOKEN_CODE, codeResponse.signingToken)
             true
         } catch (e: Exception) {
             false
         }
 
-    suspend fun checkDuplicateEmail(email: String): Boolean =
+    suspend fun isEmailExist(email: String): Boolean =
         try {
             RegistrationService.USER_API.checkEmail(email)
-            true
-        } catch (e: Exception) {
             false
+        } catch (e: Exception) {
+            true
         }
 
     suspend fun sendAuthCode(email: String): Boolean =
         try {
-            RegistrationService.USER_API.sendingAuthEmail(AuthEmailRequest(email))
+            val emailResponse =
+                RegistrationService.USER_API.sendingAuthEmail(AuthEmailRequest(email))
+            Application.preferenceUtil.setString(SIGNING_TOKEN, emailResponse.signingToken)
             true
         } catch (e: Exception) {
             false
         }
 
+    fun returnSigningToken(): String {
+        return Application.preferenceUtil.getString(
+            SIGNING_TOKEN, ""
+        )
+    }
+
+    fun returnCodeSigningToken(): String {
+        return Application.preferenceUtil.getString(
+            SIGNING_TOKEN_CODE, ""
+        )
+    }
+
     suspend fun requestSignUp(
-        email: String,
-        code: String,
         nickName: String,
         password: String,
-        passwordConfirm: String
+        passwordConfirm: String,
+        signingToken: String
     ): Boolean =
         try {
             RegistrationService.USER_API.requestSignUp(
-                SignUpRequest(email, code, nickName, password, passwordConfirm)
+                SignUpRequest(nickName, password, passwordConfirm, signingToken)
+            )
+            true
+        } catch (e: Exception) {
+            false
+        }
+
+    suspend fun requestResetPassword(
+        password: String,
+        passwordConfirm: String,
+        signingToken: String
+    ): Boolean =
+        try {
+            RegistrationService.USER_API.resetPassword(
+                ResetPasswordRequest(password, passwordConfirm, signingToken)
             )
             true
         } catch (e: Exception) {
@@ -88,6 +118,8 @@ class UserRepository {
 
     companion object {
         private const val TOKEN = "token"
+        private const val SIGNING_TOKEN = "signing token"
+        private const val SIGNING_TOKEN_CODE = "code signing token"
         private const val EMAIL = "email"
         private const val PASSWORD = "password"
     }
