@@ -44,12 +44,12 @@ class TopicTitleListFragment : Fragment() {
 
             topicListRecyclerView.adapter = topicTitleListAdapter
 
+
             val swipeHelperCallback = SwipeHelperCallback().apply {
                 val widthSwipe = topicTitleDeleteButton.height
                 setClamp(widthSwipe.toFloat())
             }
             val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
-
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
 
 
