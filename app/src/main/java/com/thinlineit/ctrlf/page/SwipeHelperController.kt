@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.max
 import kotlin.math.min
-import kotlinx.android.synthetic.main.list_item_topic_title.view.swipeTopicListView
 
-class SwipeHelperCallback : ItemTouchHelper.Callback() {
+class SwipeHelperController() : ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
@@ -53,7 +52,6 @@ class SwipeHelperCallback : ItemTouchHelper.Callback() {
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
         val isClamped = getTag(viewHolder)
-        // 현재 View가 고정되어있지 않고 사용자가 -clamp 이상 swipe시 isClamped true로 변경 아닐시 false로 변경
         setTag(viewHolder, !isClamped && currentDx <= -clamp)
         return 2f
     }
@@ -70,8 +68,7 @@ class SwipeHelperCallback : ItemTouchHelper.Callback() {
         if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             val view = getView(viewHolder)
             val isClamped = getTag(viewHolder)
-            val x =  clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
-
+            val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
             currentDx = x
             getDefaultUIUtil().onDraw(
                 c,
@@ -82,7 +79,6 @@ class SwipeHelperCallback : ItemTouchHelper.Callback() {
                 actionState,
                 isCurrentlyActive
             )
-
         }
     }
 
@@ -91,49 +87,32 @@ class SwipeHelperCallback : ItemTouchHelper.Callback() {
         dX: Float,
         isClamped: Boolean,
         isCurrentlyActive: Boolean
-    ) : Float {
-        // View의 가로 길이의 절반까지만 swipe 되도록
-        val min: Float = -view.width.toFloat()/3
-        // RIGHT 방향으로 swipe 막기
+    ): Float {
+        val min: Float = -view.width.toFloat() / 3
         val max: Float = 0f
 
         val x = if (isClamped) {
-            // View가 고정되었을 때 swipe되는 영역 제한
             if (isCurrentlyActive) dX - clamp else -clamp
         } else {
             dX
         }
-
         return min(max(min, x), max)
     }
 
     private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
-        // isClamped를 view의 tag로 관리
         viewHolder.itemView.tag = isClamped
     }
 
-    private fun getTag(viewHolder: RecyclerView.ViewHolder) : Boolean {
-        // isClamped를 view의 tag로 관리
+    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
         return viewHolder.itemView.tag as? Boolean ?: false
     }
 
-    private fun getView(viewHolder: RecyclerView.ViewHolder) : View {
-        return (viewHolder as TopicTitleListAdapter.ViewHolder).itemView.swipeTopicListView
+    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
+        setClamp(2 * (viewHolder as SwipeHelperListener).getSwipeWidth().toFloat())
+        return (viewHolder as SwipeHelperListener).getSwipeLayout()
     }
 
     fun setClamp(clamp: Float) {
         this.clamp = clamp
     }
-
-    fun removePreviousClamp(recyclerView: RecyclerView) {
-        if (currentPosition == previousPosition)
-            return
-        previousPosition?.let {
-            val viewHolder = recyclerView.findViewHolderForAdapterPosition(it) ?: return
-            getView(viewHolder).translationX = 0f
-            setTag(viewHolder, false)
-            previousPosition = null
-        }
-    }
-
 }

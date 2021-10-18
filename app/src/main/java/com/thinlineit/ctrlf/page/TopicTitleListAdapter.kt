@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
@@ -14,7 +15,7 @@ import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
     RecyclerView.Adapter<TopicTitleListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<TopicDao>>,
-    ItemTouchHelperListener {
+    ListButtonInterface {
     var topicList = emptyList<TopicDao>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -38,7 +39,7 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
     }
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
-        RecyclerView.ViewHolder(dataBinding.root) {
+        RecyclerView.ViewHolder(dataBinding.root), SwipeHelperListener {
         fun bind(topicDao: TopicDao, clickListener: (Int, String) -> Unit) {
             dataBinding.topic = topicDao
             dataBinding.root.setOnClickListener {
@@ -47,6 +48,7 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
         }
 
         companion object {
+
             fun from(parent: ViewGroup): TopicTitleListAdapter.ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val dataBinding = DataBindingUtil.inflate<ListItemTopicTitleBinding>(
@@ -58,6 +60,8 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
                 return ViewHolder(dataBinding)
             }
         }
+        override fun getSwipeWidth(): Int = dataBinding.topicTitleDeleteButton.width
+        override fun getSwipeLayout(): LinearLayout = dataBinding.swipeTopicListView
     }
 
     @SuppressLint("NotifyDataSetChanged")

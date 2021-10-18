@@ -2,7 +2,7 @@ package com.thinlineit.ctrlf.page
 
 import android.content.Context
 
-interface ItemTouchHelperListener {
+interface ListButtonInterface {
     fun onModify(context: Context)
     fun onDelete(context: Context)
 }
