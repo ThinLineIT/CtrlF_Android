@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signin
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

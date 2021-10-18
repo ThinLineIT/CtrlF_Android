@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signup
 
 import android.content.Context
 import android.content.Intent

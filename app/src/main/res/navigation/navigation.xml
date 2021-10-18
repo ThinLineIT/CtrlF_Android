@@ -34,9 +34,6 @@
         <action
             android:id="@+id/action_notes_fragment_to_page_activity"
             app:destination="@id/page_activity" />
-        <action
-            android:id="@+id/action_notes_fragment_to_logout_activity"
-            app:destination="@id/logout_activity" />
     </fragment>
 
     <activity
@@ -71,7 +68,7 @@
 
     <activity
         android:id="@+id/logout_activity"
-        android:name="com.thinlineit.ctrlf.logout.LogoutActivity"
+        android:name="com.thinlineit.ctrlf.registration.signout.LogoutActivity"
         tools:layout="@layout/activity_logout"/>
 
 </navigation>

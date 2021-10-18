@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater

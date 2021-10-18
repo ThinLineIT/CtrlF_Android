@@ -7,18 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.registration.signup.RegistrationViewModel" />
+            type="com.thinlineit.ctrlf.registration.signin.FindPasswordViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_graphpaper"
-        tools:context=".registration.signup.ConfirmBackToEmailFragment">
+        android:background="@drawable/background_graphpaper">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/regCardView"
+            android:id="@+id/findCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -41,7 +40,7 @@
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/sc_dream_6"
                     android:lineSpacingExtra="5dp"
-                    android:text="@string/notice_confirm_go_back_to_email"
+                    android:text="@string/notice_confirm_go_back_to_login"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="20sp"

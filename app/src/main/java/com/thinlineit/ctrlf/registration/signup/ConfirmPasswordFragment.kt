@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.registration
+package com.thinlineit.ctrlf.registration.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -55,7 +55,7 @@ class ConfirmPasswordFragment :
             )
         }
 
-        viewModel.liveDataMerger.observe(viewLifecycleOwner) {
+        viewModel.registrationStatus.observe(viewLifecycleOwner) {
             binding.registerBtn.isEnabled = it
         }
     }
