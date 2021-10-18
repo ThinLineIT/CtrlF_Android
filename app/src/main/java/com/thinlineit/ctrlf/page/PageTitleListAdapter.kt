@@ -38,7 +38,7 @@ class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
     }
 
     class ViewHolder(private val dataBinding: ListItemPageTitleBinding) :
-        RecyclerView.ViewHolder(dataBinding.root), SwipeHelperListener {
+        RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
         fun bind(pageDao: PageDao, clickListener: (Int) -> Unit) {
             dataBinding.page = pageDao
             dataBinding.root.setOnClickListener {

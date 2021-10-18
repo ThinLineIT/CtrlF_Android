@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.max
 import kotlin.math.min
 
-class SwipeHelperController() : ItemTouchHelper.Callback() {
+class SwipeController() : ItemTouchHelper.Callback() {
 
     private var currentPosition: Int? = null
     private var previousPosition: Int? = null
@@ -108,8 +108,8 @@ class SwipeHelperController() : ItemTouchHelper.Callback() {
     }
 
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {
-        setClamp(2 * (viewHolder as SwipeHelperListener).getSwipeWidth().toFloat())
-        return (viewHolder as SwipeHelperListener).getSwipeLayout()
+        setClamp(2 * (viewHolder as SwipeInterface).getSwipeWidth().toFloat())
+        return (viewHolder as SwipeInterface).getSwipeLayout()
     }
 
     fun setClamp(clamp: Float) {

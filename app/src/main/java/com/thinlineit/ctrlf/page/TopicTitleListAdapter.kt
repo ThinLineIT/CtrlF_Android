@@ -39,7 +39,7 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
     }
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
-        RecyclerView.ViewHolder(dataBinding.root), SwipeHelperListener {
+        RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
         fun bind(topicDao: TopicDao, clickListener: (Int, String) -> Unit) {
             dataBinding.topic = topicDao
             dataBinding.root.setOnClickListener {

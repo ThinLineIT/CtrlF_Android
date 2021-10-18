@@ -19,7 +19,7 @@ class TopicTitleListFragment : Fragment() {
             TopicTitleListFragmentDirections.actionNotesFragmentToPageFragment()
         )
     }
-    private val swipeHelperCallback = SwipeHelperController()
+    private val swipeHelperCallback = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
     private val pageViewModel by activityViewModels<PageViewModel>()
     override fun onCreateView(
