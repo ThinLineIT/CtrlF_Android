@@ -27,6 +27,7 @@ class PageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val noteId = intent.getIntExtra(NOTE_ID, 0)
+        val pageId = intent.getIntExtra(PAGE_ID, 0)
         val viewModelFactory = PageViewModelFactory(noteId)
         val pageViewModel = ViewModelProvider(this, viewModelFactory).get(PageViewModel::class.java)
         binding.apply {
@@ -61,6 +62,11 @@ class PageActivity : AppCompatActivity() {
         val density = resources.displayMetrics.density
         dpWidth = if (outMetrics.widthPixels > 1080) (outMetrics.widthPixels / density) / 6
         else (outMetrics.widthPixels / density) / 3
+
+        if (pageId != 0) {
+            slidingPaneLayout.open()
+            pageViewModel.openPage(pageId)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -95,6 +101,7 @@ class PageActivity : AppCompatActivity() {
 
     companion object {
         const val NOTE_ID = "noteId"
+        const val PAGE_ID = "pageId"
         var dpWidth by Delegates.notNull<Float>()
         const val PAGEINFO = "pageInfo"
     }

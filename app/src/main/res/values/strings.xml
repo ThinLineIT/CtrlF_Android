@@ -78,4 +78,12 @@
     <string name="button_general_modify">수정</string>
     <string name="button_add_topic">+ add topic</string>
     <string name="button_add_page">+ add page</string>
+
+    <!-- issue -->
+    <string name="label_create_page">Create Page</string>
+    <string name="label_page_title">PAGE TITLE</string>
+    <string name="label_issue_content">Issue Content</string>
+
+    <string name="button_approve">승인</string>
+    <string name="button_detail">자세히보기</string>
 </resources>
