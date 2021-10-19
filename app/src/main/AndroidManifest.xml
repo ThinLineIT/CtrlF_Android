@@ -20,7 +20,6 @@
         <activity
             android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".registration.signup.CompleteRegisterActivity" />
         <activity android:name=".registration.signout.LogoutActivity" />
         <activity
             android:name="com.thinlineit.ctrlf.registration.signin.LoginActivity"
