@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/topic_title_list_fragment"
-        android:name="com.thinlineit.ctrlf.page.TopicTitleListFragment"
+        android:name="com.thinlineit.ctrlf.page.detail.TopicTitleListFragment"
         android:label="@string/fragment_notes"
         tools:layout="@layout/fragment_topic_title">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/page_title_list_fragment"
-        android:name="com.thinlineit.ctrlf.page.PageTitleListFragment"
+        android:name="com.thinlineit.ctrlf.page.detail.PageTitleListFragment"
         android:label="@string/fragment_notes"
         tools:layout="@layout/fragment_page_title">
         <action

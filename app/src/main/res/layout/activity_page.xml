@@ -7,7 +7,7 @@
 
         <variable
             name="pageViewModel"
-            type="com.thinlineit.ctrlf.page.PageViewModel" />
+            type="com.thinlineit.ctrlf.page.detail.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
                 android:layout_width="400dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:context=".page.PageActivity">
+                tools:context=".page.detail.PageActivity">
 
                 <TextView
                     android:id="@+id/topicText"

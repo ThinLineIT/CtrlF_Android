@@ -1,0 +1,139 @@
+package com.thinlineit.ctrlf.page.detail
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.thinlineit.ctrlf.R
+import com.thinlineit.ctrlf.databinding.ActivityPageBinding
+import com.thinlineit.ctrlf.registration.signout.LogoutActivity
+import com.thinlineit.ctrlf.util.LoadingDialog
+import kotlin.properties.Delegates
+import kotlinx.android.synthetic.main.activity_page.bookMarkButton
+import kotlinx.android.synthetic.main.activity_page.editButton
+import kotlinx.android.synthetic.main.activity_page.fabButton
+import kotlinx.android.synthetic.main.activity_page.fabChildButtonList
+import kotlinx.android.synthetic.main.activity_page.pageActivityToolBar
+import kotlinx.android.synthetic.main.activity_page.relatedIssueButton
+import kotlinx.android.synthetic.main.activity_page.shareButton
+import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
+
+class PageActivity : AppCompatActivity() {
+    val pageViewModel by lazy {
+        val noteId = intent.getIntExtra(NOTE_ID, 0)
+        ViewModelProvider(this, PageViewModelFactory(noteId)).get(PageViewModel::class.java)
+    }
+    private val binding: ActivityPageBinding by lazy {
+        ActivityPageBinding.inflate(layoutInflater)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding.apply {
+            setContentView(root)
+            this.pageViewModel = pageViewModel
+            lifecycleOwner = this@PageActivity
+        }
+        initObserver()
+        initButton()
+        FloatingMenuUIController(this, pageViewModel.isFabOpen, fabButton, fabChildButtonList)
+
+        setSupportActionBar(pageActivityToolBar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        // TODO: Do not use deprecated methods.
+        val display = windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+
+        val density = resources.displayMetrics.density
+        dpWidth = if (outMetrics.widthPixels > 1080) (outMetrics.widthPixels / density) / 6
+        else (outMetrics.widthPixels / density) / 3
+    }
+
+    private fun initButton() {
+        fabButton.setOnClickListener {
+            pageViewModel.toggleFab()
+        }
+
+        shareButton.setOnClickListener {
+            // TODO: copy the uri on clipboard
+            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+        }
+        bookMarkButton.setOnClickListener {
+            // TODO: save this page as bookmark
+            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+        }
+        relatedIssueButton.setOnClickListener {
+            // TODO: go to issue detail
+            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+        }
+        editButton.setOnClickListener {
+            // TODO: go to edit mode
+            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun initObserver() {
+        pageViewModel.isRightPaneOpen.observe(this) {
+            if (it == true && slidingPaneLayout.isSlideable) {
+                slidingPaneLayout.openPane()
+            } else {
+                slidingPaneLayout.closePane()
+            }
+        }
+
+        val loadingDialog = LoadingDialog(this)
+
+        pageViewModel.isLoading.observe(this) {
+            if (it) loadingDialog.show()
+            else loadingDialog.dismiss()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.userCircleBtn -> {
+            val logout = Intent(this, LogoutActivity::class.java)
+            startActivity(logout)
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if (slidingPaneLayout.isOpen && slidingPaneLayout.isSlideable) {
+            pageViewModel.closeRightPane()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    companion object {
+        const val NOTE_ID = "noteId"
+        const val TOPIC_ID = "noteId"
+        const val PAGE_ID = "noteId"
+        const val PAGE_INFO = "pageInfo"
+        const val UNSET = -1
+
+        var dpWidth by Delegates.notNull<Float>()
+
+        fun start(context: Context, noteId: Int, topicId: Int = UNSET, pageId: Int = UNSET) {
+            val intent = Intent(context, PageActivity::class.java).apply {
+                putExtra(NOTE_ID, noteId)
+                putExtra(TOPIC_ID, topicId)
+                putExtra(PAGE_ID, pageId)
+            }
+            context.startActivity(intent)
+        }
+    }
+}

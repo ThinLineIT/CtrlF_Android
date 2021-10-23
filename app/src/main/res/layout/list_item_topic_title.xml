@@ -7,7 +7,7 @@
 
         <variable
             name="topic"
-            type="com.thinlineit.ctrlf.notes.TopicDao" />
+            type="com.thinlineit.ctrlf.entity.Topic" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.repository.UserRepository
+import com.thinlineit.ctrlf.repository.dao.UserRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.isValid

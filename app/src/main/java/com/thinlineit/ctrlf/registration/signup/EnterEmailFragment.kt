@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEmailBinding
 import com.thinlineit.ctrlf.util.Status
-import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
+import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import com.thinlineit.ctrlf.util.setBackgroundById
 

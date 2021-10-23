@@ -4,12 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class NotesViewModel : BaseViewModel() {
-    private val _noteList = MutableLiveData<NoteListDao>()
-    val noteList: LiveData<NoteListDao>
+    private val _noteList = MutableLiveData<NoteList>()
+    val noteList: LiveData<NoteList>
         get() = _noteList
     val alertLiveData = MutableLiveData<String>()
 

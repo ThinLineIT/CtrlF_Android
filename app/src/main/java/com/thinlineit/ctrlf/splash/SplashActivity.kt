@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.registration.signin.LoginActivity
-import com.thinlineit.ctrlf.repository.UserRepository
+import com.thinlineit.ctrlf.repository.dao.UserRepository
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_splash.*
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun startFirstActivity() {
         CoroutineScope(Dispatchers.Default).launch {
-            delay(2000L)
+            delay(SPLASH_TIME)
             if (userRepository.mayLogin()) {
                 MainActivity.start(this@SplashActivity)
             } else {
@@ -47,6 +47,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val SPLASH_TIME = 2000L
         fun relaunch(context: Context) {
             val intent = Intent(context, SplashActivity::class.java)
             context.startActivity(intent)

@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.page.PageEditorViewModel" />
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".page.PageEditorActivity"
+        tools:context=".page.editor.PageEditorActivity"
         android:background="@drawable/background_graphpaper">
 
         <androidx.appcompat.widget.Toolbar
