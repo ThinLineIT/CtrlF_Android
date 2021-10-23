@@ -83,6 +83,12 @@
     <string name="button_edit">Edit</string>
     <string name="button_preview">Preview</string>
     <string name="button_complete">완 료</string>
+    <string name="button_share">공유하기</string>
+    <string name="button_related_issue">관련된이슈</string>
+    <string name="button_bookmark">북마크</string>
+    <string name="button_do_edit">수정하기</string>
+
+
 
     <!-- General -->
     <string name="button_general_delete">삭제</string>

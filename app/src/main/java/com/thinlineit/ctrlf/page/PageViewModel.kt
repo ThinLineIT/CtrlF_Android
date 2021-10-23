@@ -22,6 +22,10 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     val openSlidingPane: LiveData<Boolean>
         get() = _openSlidingPane
 
+    private val _isFabOpen = MutableLiveData<Boolean>(false)
+    val isFabOpen: LiveData<Boolean>
+        get() = _isFabOpen
+
     val noteInfo = MutableLiveData<List<TopicDao>>(listOf())
     val topicInfo = MutableLiveData<List<PageDao>>()
     val content = Transformations.map(pageInfo) { it.content }
@@ -93,5 +97,8 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
 
     fun openSliding() {
         _openSlidingPane.value = true
+
+    fun toggleFab() {
+        _isFabOpen.value = _isFabOpen.value?.not() ?: true
     }
 }
