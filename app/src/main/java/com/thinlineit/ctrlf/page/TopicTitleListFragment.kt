@@ -19,8 +19,8 @@ class TopicTitleListFragment : Fragment() {
             TopicTitleListFragmentDirections.actionNotesFragmentToPageFragment()
         )
     }
-    private val swipeHelperCallback = SwipeController()
-    private val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+    private val swipeController = SwipeController()
+    private val itemTouchHelper = ItemTouchHelper(swipeController)
     private val pageViewModel by activityViewModels<PageViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,6 @@ class TopicTitleListFragment : Fragment() {
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
-            topicListRecyclerView.addItemDecoration(ItemDecoration())
             addTopicBtn.setOnClickListener { view ->
                 Toast.makeText(activity, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
             }

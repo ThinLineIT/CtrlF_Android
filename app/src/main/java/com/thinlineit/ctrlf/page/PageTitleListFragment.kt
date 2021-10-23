@@ -16,8 +16,8 @@ class PageTitleListFragment : Fragment() {
         pageViewModel.openSliding()
         pageViewModel.openPage(pageId)
     }
-    private val swipeHelperCallback = SwipeController()
-    private val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+    private val swipeController = SwipeController()
+    private val itemTouchHelper = ItemTouchHelper(swipeController)
     private val pageViewModel by activityViewModels<PageViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,

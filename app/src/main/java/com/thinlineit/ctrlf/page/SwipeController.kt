@@ -29,9 +29,7 @@ class SwipeController() : ItemTouchHelper.Callback() {
         return false
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         currentDx = 0f
@@ -57,7 +55,7 @@ class SwipeController() : ItemTouchHelper.Callback() {
     }
 
     override fun onChildDraw(
-        c: Canvas,
+        canvas: Canvas,
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         dX: Float,
@@ -71,7 +69,7 @@ class SwipeController() : ItemTouchHelper.Callback() {
             val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
             currentDx = x
             getDefaultUIUtil().onDraw(
-                c,
+                canvas,
                 recyclerView,
                 view,
                 x,
