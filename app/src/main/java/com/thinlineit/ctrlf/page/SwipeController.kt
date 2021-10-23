@@ -1,48 +1,58 @@
 package com.thinlineit.ctrlf.page
 
-import android.annotation.SuppressLint
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
-import android.view.MotionEvent
 import android.view.View
-import androidx.core.view.children
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.page.PageActivity.Companion.dpWidth
-import com.thinlineit.ctrlf.page.SwipeController.ItemState.FLATTED
-import com.thinlineit.ctrlf.page.SwipeController.ItemState.FLATTING
-import com.thinlineit.ctrlf.page.SwipeController.ItemState.FOLDED
 import kotlin.math.max
+import kotlin.math.min
 
-class SwipeController(private val listener: ItemTouchHelperListener) :
-    ItemTouchHelper.Callback() {
-    private var itemViewState = FOLDED
-    private var deleteButton: RectF? = null
-    private var modifyButton: RectF? = null
-    private var isSwipeDone = false
-    private var buttonDrawer = ButtonDrawer()
+class SwipeController() : ItemTouchHelper.Callback() {
+
+    private var currentPosition: Int? = null
+    private var previousPosition: Int? = null
+    private var currentDx = 0f
+    private var clamp = 0f
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
-    ): Int = makeMovementFlags(0, ItemTouchHelper.START)
-
-    override fun convertToAbsoluteDirection(flags: Int, layoutDirection: Int): Int =
-        if (isSwipeDone) {
-            isSwipeDone = false
-            0
-        } else super.convertToAbsoluteDirection(flags, layoutDirection)
+    ): Int {
+        return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+    }
 
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
-    ): Boolean = false
+    ): Boolean {
+        return false
+    }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) = Unit
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        currentDx = 0f
+        getDefaultUIUtil().clearView(getView(viewHolder))
+        previousPosition = viewHolder.adapterPosition
+    }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        viewHolder?.let {
+            currentPosition = viewHolder.adapterPosition
+            getDefaultUIUtil().onSelected(getView(it))
+        }
+    }
+
+    override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+        return defaultValue * 10
+    }
+
+    override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+        val isClamped = getTag(viewHolder)
+        setTag(viewHolder, !isClamped && currentDx <= -clamp)
+        return 2f
+    }
 
     override fun onChildDraw(
         canvas: Canvas,
@@ -53,131 +63,54 @@ class SwipeController(private val listener: ItemTouchHelperListener) :
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        val isButtonShowing = dX <= EXTEND_BUTTON_WIDTH / 2
-        if (itemViewState == FOLDED && isButtonShowing) {
-            itemViewState = FLATTING
-        }
-        val adjustDX =
-            if (itemViewState == FLATTED) EXTEND_BUTTON_WIDTH else max(dX, EXTEND_BUTTON_WIDTH)
-        setTouchListener(recyclerView, viewHolder)
-        buttonDrawer.drawButtons(canvas, viewHolder.itemView)
-        super.onChildDraw(
-            canvas,
-            recyclerView,
-            viewHolder,
-            adjustDX,
-            dY,
-            actionState,
-            isCurrentlyActive
-        )
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun setTouchListener(
-        recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-    ) {
-        recyclerView.setOnTouchListener { _, event ->
-            when (itemViewState) {
-                FOLDED, FLATTING -> {
-                    isSwipeDone =
-                        event.action == MotionEvent.ACTION_CANCEL ||
-                        event.action == MotionEvent.ACTION_UP
-                    if (isSwipeDone && itemViewState == FLATTING) {
-                        itemViewState = FLATTED
-                        setItemsClickable(recyclerView, false)
-                    }
-                }
-                FLATTED -> {
-                    clickWhenFlatted(viewHolder, event)
-                    initView(recyclerView, viewHolder)
-                }
-            }
-            false
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+            val view = getView(viewHolder)
+            val isClamped = getTag(viewHolder)
+            val x = clampViewPositionHorizontal(view, dX, isClamped, isCurrentlyActive)
+            currentDx = x
+            getDefaultUIUtil().onDraw(
+                canvas,
+                recyclerView,
+                view,
+                x,
+                dY,
+                actionState,
+                isCurrentlyActive
+            )
         }
     }
 
-    private fun clickWhenFlatted(
-        viewHolder: RecyclerView.ViewHolder,
-        event: MotionEvent
-    ) {
-        if (deleteButton?.contains(event.x, event.y) == true) {
-            listener.onDelete(viewHolder.itemView.context)
-        } else if (modifyButton?.contains(event.x, event.y) == true) {
-            listener.onModify(viewHolder.itemView.context)
+    private fun clampViewPositionHorizontal(
+        view: View,
+        dX: Float,
+        isClamped: Boolean,
+        isCurrentlyActive: Boolean
+    ): Float {
+        val min: Float = -view.width.toFloat() / 3
+        val max: Float = 0f
+
+        val x = if (isClamped) {
+            if (isCurrentlyActive) dX - clamp else -clamp
+        } else {
+            dX
         }
+        return min(max(min, x), max)
     }
 
-    private fun initView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        itemViewState = FOLDED
-        isSwipeDone = false
-        deleteButton = null
-        modifyButton = null
-        setItemsClickable(recyclerView, true)
-        super.clearView(recyclerView, viewHolder)
+    private fun setTag(viewHolder: RecyclerView.ViewHolder, isClamped: Boolean) {
+        viewHolder.itemView.tag = isClamped
     }
 
-    private fun setItemsClickable(recyclerView: RecyclerView, isClickable: Boolean) =
-        recyclerView.children.forEach {
-            it.isClickable = isClickable
-        }
-
-    inner class ButtonDrawer {
-        private val margin = 0f
-        private val corner = 5f
-
-        private val deleteButtonPaint = Paint().apply {
-            color = Color.rgb(139, 200, 253)
-        }
-        private val modifyButtonPaint = Paint().apply {
-            color = Color.rgb(181, 189, 255)
-        }
-        private val textPaint = Paint().apply {
-            color = Color.WHITE
-            isAntiAlias = true
-            textSize = 25f
-        }
-
-        fun drawButtons(canvas: Canvas, itemView: View) {
-            deleteButton = RectF(
-                itemView.right - dpWidth,
-                itemView.top + margin,
-                itemView.right - margin,
-                itemView.bottom - margin,
-            ).also { deleteButton ->
-                canvas.drawRoundRect(deleteButton, corner, corner, deleteButtonPaint)
-                val text = itemView.context.getString(R.string.button_general_delete)
-                canvas.drawText(
-                    text,
-                    deleteButton.centerX() - textPaint.measureText(text) / 2,
-                    deleteButton.centerY() + textPaint.textSize / 2,
-                    textPaint
-                )
-            }
-
-            modifyButton = RectF(
-                itemView.right - (2 * dpWidth),
-                itemView.top + margin,
-                itemView.right - margin - dpWidth,
-                itemView.bottom - margin
-            ).also { modifyButton ->
-                canvas.drawRoundRect(modifyButton, corner, corner, modifyButtonPaint)
-                val text = itemView.context.getString(R.string.button_general_modify)
-                canvas.drawText(
-                    text,
-                    modifyButton.centerX() - textPaint.measureText(text) / 2,
-                    modifyButton.centerY() + textPaint.textSize / 2,
-                    textPaint
-                )
-            }
-        }
+    private fun getTag(viewHolder: RecyclerView.ViewHolder): Boolean {
+        return viewHolder.itemView.tag as? Boolean ?: false
     }
 
-    enum class ItemState {
-        FOLDED, FLATTING, FLATTED
+    private fun getView(viewHolder: RecyclerView.ViewHolder): View {
+        setClamp(2 * (viewHolder as SwipeInterface).getSwipeWidth().toFloat())
+        return (viewHolder as SwipeInterface).getSwipeLayout()
     }
 
-    companion object {
-        private val EXTEND_BUTTON_WIDTH by lazy { -2 * dpWidth }
+    fun setClamp(clamp: Float) {
+        this.clamp = clamp
     }
 }

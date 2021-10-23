@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
@@ -13,7 +14,7 @@ import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<PageTitleListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<PageDao>>,
-    ItemTouchHelperListener {
+    ListButtonInterface {
 
     private var pageList = emptyList<PageDao>()
 
@@ -37,7 +38,7 @@ class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
     }
 
     class ViewHolder(private val dataBinding: ListItemPageTitleBinding) :
-        RecyclerView.ViewHolder(dataBinding.root) {
+        RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
         fun bind(pageDao: PageDao, clickListener: (Int) -> Unit) {
             dataBinding.page = pageDao
             dataBinding.root.setOnClickListener {
@@ -57,6 +58,8 @@ class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
                 return ViewHolder(dataBinding)
             }
         }
+        override fun getSwipeWidth(): Int = dataBinding.pageTitleDeleteButton.width
+        override fun getSwipeLayout(): LinearLayout = dataBinding.swipePageListView
     }
 
     @SuppressLint("NotifyDataSetChanged")
