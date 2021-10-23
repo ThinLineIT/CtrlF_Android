@@ -1,6 +1,7 @@
 package com.thinlineit.ctrlf.repository.network
 
 import com.thinlineit.ctrlf.repository.network.api.ContentApi
+import com.thinlineit.ctrlf.repository.network.api.IssueApi
 import com.thinlineit.ctrlf.repository.network.api.UserApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,5 +21,11 @@ object RegistrationService {
 object ContentService {
     val retrofitService: ContentApi by lazy {
         retrofit.create(ContentApi::class.java)
+    }
+}
+
+object IssueService {
+    val retrofitService: IssueApi by lazy {
+        retrofit.create(IssueApi::class.java)
     }
 }

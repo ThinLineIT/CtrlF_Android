@@ -59,7 +59,11 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun loadIssue() {
-        // TODO: Load the list of issue using "getIssue" api
-        _issueList.value = issueRepository.loadIssueList()
+        viewModelScope.loadingLaunch {
+            try {
+                _issueList.value = issueRepository.loadIssueList()
+            } catch (e: Exception) {
+            }
+        }
     }
 }

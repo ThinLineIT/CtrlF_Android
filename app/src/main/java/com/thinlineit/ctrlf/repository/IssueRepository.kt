@@ -1,11 +1,12 @@
 package com.thinlineit.ctrlf.repository
 
 import com.thinlineit.ctrlf.issue.IssueDao
+import com.thinlineit.ctrlf.repository.network.IssueService
 
 class IssueRepository {
 
-    fun loadIssueList(): List<IssueDao> {
-        return getmockIssueList()
+    suspend fun loadIssueList(): List<IssueDao> {
+        return getIssueList()
     }
 
     fun getmockIssueList(): List<IssueDao> {
@@ -28,6 +29,15 @@ class IssueRepository {
                 contentStr + contentStr + contentStr,
                 "Requested"
             )
+        }
+    }
+
+    private suspend fun getIssueList(): List<IssueDao> {
+        return try {
+            val issue = IssueService.retrofitService.listIssue(0).issues!!
+            issue
+        } catch (e: Exception) {
+            emptyList()
         }
     }
 }

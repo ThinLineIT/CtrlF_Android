@@ -1,12 +1,13 @@
 package com.thinlineit.ctrlf.issue.list
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.issue.IssueDao
 import com.thinlineit.ctrlf.repository.IssueRepository
+import com.thinlineit.ctrlf.util.base.BaseViewModel
 import com.thinlineit.ctrlf.util.base.ListLiveData
 
-class IssueListViewModel : ViewModel() {
+class IssueListViewModel : BaseViewModel() {
     private val issueRepository by lazy {
         IssueRepository()
     }
@@ -20,7 +21,11 @@ class IssueListViewModel : ViewModel() {
     }
 
     private fun loadIssue() {
-        // TODO: Load the list of issue using "getIssue" api
-        _issueList.value = issueRepository.loadIssueList()
+        viewModelScope.loadingLaunch {
+            try {
+                _issueList.value = issueRepository.loadIssueList()
+            } catch (e: Exception) {
+            }
+        }
     }
 }
