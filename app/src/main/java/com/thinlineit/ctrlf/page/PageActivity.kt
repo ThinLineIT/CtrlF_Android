@@ -31,38 +31,16 @@ class PageActivity : AppCompatActivity() {
         FloatingMenuUIController(this, pageViewModel.isFabOpen, fabButton, fabChildButtonList)
     }
     private val binding: ActivityPageBinding by lazy {
-        DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_page
-        )
+        ActivityPageBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val noteId = intent.getIntExtra(NOTE_ID, 0)
-        val viewModelFactory = PageViewModelFactory(noteId)
-        val pageViewModel = ViewModelProvider(this, viewModelFactory).get(PageViewModel::class.java)
         binding.apply {
+            setContentView(root)
             this.pageViewModel = pageViewModel
             lifecycleOwner = this@PageActivity
         }
-        pageViewModel.openSlidingPane.observe(this) {
-            if (it == true && slidingPaneLayout.isSlideable) {
-                slidingPaneLayout.open()
-                pageViewModel.closeSliding()
-            }
-        }
-
-        val loadingDialog = LoadingDialog(this)
-
-        pageViewModel.isLoading.observe(
-            this,
-            Observer {
-                if (it) loadingDialog.show()
-                else loadingDialog.dismiss()
-            }
-        )
-
         initObserver()
         initButton()
         setSupportActionBar(pageActivityToolBar)
@@ -104,7 +82,9 @@ class PageActivity : AppCompatActivity() {
     private fun initObserver() {
         pageViewModel.isRightPaneOpen.observe(this) {
             if (it == true && slidingPaneLayout.isSlideable) {
-                slidingPaneLayout.open()
+                slidingPaneLayout.openPane()
+            } else {
+                slidingPaneLayout.closePane()
             }
         }
 
@@ -136,7 +116,7 @@ class PageActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (slidingPaneLayout.isOpen && slidingPaneLayout.isSlideable) {
-            slidingPaneLayout.close()
+            pageViewModel.closeRightPane()
         } else {
             super.onBackPressed()
         }
@@ -145,6 +125,6 @@ class PageActivity : AppCompatActivity() {
     companion object {
         const val NOTE_ID = "noteId"
         var dpWidth by Delegates.notNull<Float>()
-        const val PAGEINFO = "pageInfo"
+        const val PAGE_INFO = "pageInfo"
     }
 }

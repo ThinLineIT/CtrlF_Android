@@ -18,9 +18,9 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private val pageInfo = MutableLiveData<PageDao>()
     private val noteDetailInfo = MutableLiveData<NoteDao>()
 
-    private val _openSlidingPane = MutableLiveData<Boolean>()
-    val openSlidingPane: LiveData<Boolean>
-        get() = _openSlidingPane
+    private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
+    val isRightPaneOpen: LiveData<Boolean>
+        get() = _isRightPaneOpen
 
     private val _isFabOpen = MutableLiveData<Boolean>(false)
     val isFabOpen: LiveData<Boolean>
@@ -38,7 +38,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     init {
         loadNoteInfo()
         loadNoteDetailInfo()
-        _openSlidingPane.value = false
+        closeRightPane()
     }
 
     fun openPage(pageId: Int) {
@@ -48,7 +48,8 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
     private fun loadPage(pageId: Int) {
         viewModelScope.loadingLaunch {
             try {
-                pageInfo.setValue(pageRepository.loadPage(pageId))
+                pageInfo.value = pageRepository.loadPage(pageId)
+                openRightPane()
             } catch (e: Exception) {
             }
         }
@@ -76,10 +77,6 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         }
     }
 
-    fun closeSliding() {
-        _openSlidingPane.value = false
-    }
-
     fun selectTopic(topicId: Int, topicTitle: String) {
         loadPageList(topicId)
         topicDetailTitle = topicTitle
@@ -95,8 +92,13 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         }
     }
 
-    fun openSliding() {
-        _openSlidingPane.value = true
+    fun openRightPane() {
+        _isRightPaneOpen.value = true
+    }
+
+    fun closeRightPane() {
+        _isRightPaneOpen.value = false
+    }
 
     fun toggleFab() {
         _isFabOpen.value = _isFabOpen.value?.not() ?: true
