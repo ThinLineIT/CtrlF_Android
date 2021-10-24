@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thinlineit.ctrlf.databinding.FragmentPageTitleBinding
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity
-import kotlinx.android.synthetic.main.fragment_page_title.*
 
 class PageTitleListFragment : Fragment() {
     private val pageTitleListAdapter = PageTitleListAdapter { pageId ->
@@ -41,16 +40,11 @@ class PageTitleListFragment : Fragment() {
 
         binding.addPageBtn.setOnClickListener {
             val intent = Intent(activity, PageEditorActivity::class.java)
-            intent.putExtra(TOPIC_ID, pageViewModel.topicIdInfo.value)
-            intent.putExtra(TOPIC_INFO, pageViewModel.topicTitleTop.value)
+            intent.putExtra(PageEditorActivity.TOPIC_ID, pageViewModel.topicIdInfo.value)
+            intent.putExtra(PageEditorActivity.TOPIC_TITLE, pageViewModel.topicTitleTop.value)
 
             startActivity(intent)
         }
         return binding.root
-    }
-
-    companion object {
-        const val TOPIC_ID = "topicId"
-        const val TOPIC_INFO = "topicTitle"
     }
 }

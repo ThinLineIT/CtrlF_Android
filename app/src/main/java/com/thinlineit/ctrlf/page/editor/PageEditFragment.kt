@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
 
 class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
     private val viewModel by activityViewModels<PageEditorViewModel>()

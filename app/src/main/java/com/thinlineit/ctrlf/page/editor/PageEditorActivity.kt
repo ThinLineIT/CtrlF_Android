@@ -2,8 +2,6 @@ package com.thinlineit.ctrlf.page.editor
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
@@ -11,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
+import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
-import com.thinlineit.ctrlf.entity.Page
 import kotlinx.android.synthetic.main.activity_page_editor.pager
 
 class PageEditorActivity : FragmentActivity() {
@@ -30,9 +28,9 @@ class PageEditorActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
-        val pageInfo = intent.getParcelableExtra("pageInfo") ?: Page()
-        val topicTitle = intent.getStringExtra("topicTitle") ?: ""
-        val topicId = intent.getIntExtra("topicId", 0)
+        val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
+        val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
+        val topicId = intent.getIntExtra(TOPIC_ID, 0)
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
@@ -54,17 +52,18 @@ class PageEditorActivity : FragmentActivity() {
             else tab.setText(R.string.button_preview)
         }.attach()
 
-        viewModel.issueCompleteStatus.observeIfNotHandled(this) {
+        viewModel.createIssueStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
-                PageEditorCompleteDialog(this).apply {
-                    window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    show()
-                }
+                PageEditorCompleteDialog(this).show()
             }
         }
     }
 
     companion object {
+        const val PAGE_INFO = "pageInfo"
+        const val TOPIC_TITLE = "topicTitle"
+        const val TOPIC_ID = "topicId"
+
         fun start(context: Context) {
             val intent = Intent(context, PageEditorActivity::class.java)
             context.startActivity(intent)
