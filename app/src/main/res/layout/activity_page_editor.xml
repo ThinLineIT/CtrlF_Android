@@ -13,12 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
         android:background="@drawable/background_graphpaper"
-        tools:context=".page.PageEditorActivity">
-=======
-        tools:context=".page.editor.PageEditorActivity"
-        android:background="@drawable/background_graphpaper">
+        tools:context=".page.editor.PageEditorActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -30,7 +26,6 @@
             android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
->>>>>>> dev
 
         <TextView
             android:id="@+id/topicText"
@@ -41,16 +36,16 @@
             android:background="@drawable/background_round_onlyleft_purple"
             android:elevation="5dp"
             android:fontFamily="@font/sc_dream_5"
+            android:maxLines="1"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:maxLines="1"
-            tools:text="@string/label_topic"
             android:text="@{viewModel.topicTitleStr}"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/label_topic" />
 
         <EditText
             android:id="@+id/pageText"
@@ -92,15 +87,15 @@
         <EditText
             android:id="@+id/summary"
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
+            android:background="@drawable/background_round_white"
+            android:fontFamily="@font/sc_dream_5"
+            android:hint="@string/label_reason_for_revision"
             android:paddingStart="8dp"
             android:text="@={viewModel.summary}"
-            android:hint="@string/label_reason_for_revision"
-            android:fontFamily="@font/sc_dream_5"
-            android:background="@drawable/background_round_white"
             app:layout_constraintTop_toBottomOf="@+id/pageText" />
 
         <com.google.android.material.tabs.TabLayout
@@ -110,8 +105,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:elevation="1dp"
             android:background="@drawable/background_round_white"
+            android:elevation="1dp"
             app:layout_constraintTop_toBottomOf="@+id/summary"
             app:tabBackground="@drawable/background_selector_tab"
             app:tabGravity="fill"
@@ -147,7 +142,5 @@
                 android:layout_height="match_parent" />
 
         </FrameLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

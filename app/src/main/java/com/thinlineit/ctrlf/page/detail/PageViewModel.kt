@@ -16,30 +16,20 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         PageRepository()
     }
     private val noteIdString = MutableLiveData(noteId.toString())
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/page/PageViewModel.kt
-    val pageInfo = MutableLiveData<PageDao>()
-    private val noteDetailInfo = MutableLiveData<NoteDao>()
-=======
-    private val pageInfo = MutableLiveData<Page>()
+    val pageInfo = MutableLiveData<Page>()
     private val noteDetailInfo = MutableLiveData<Note>()
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/page/detail/PageViewModel.kt
 
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
     val isRightPaneOpen: LiveData<Boolean>
         get() = _isRightPaneOpen
 
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/page/PageViewModel.kt
-    val noteInfo = MutableLiveData<List<TopicDao>>(listOf())
-    val topicInfo = MutableLiveData<List<PageDao>>()
-    val topicIdInfo = MutableLiveData<Int>()
-=======
     private val _isFabOpen = MutableLiveData<Boolean>(false)
     val isFabOpen: LiveData<Boolean>
         get() = _isFabOpen
 
     val noteInfo = MutableLiveData<List<Topic>>(listOf())
     val topicInfo = MutableLiveData<List<Page>>()
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/page/detail/PageViewModel.kt
+    val topicIdInfo = MutableLiveData<Int>()
     val content = Transformations.map(pageInfo) { it.content }
     val pageTitle = Transformations.map(pageInfo) { it.title }
     val topicTitleTop = MutableLiveData<String>()

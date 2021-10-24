@@ -14,14 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CtrlF"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.thinlineit.ctrlf.registration.signin.FindPasswordActivity"
-            android:windowSoftInputMode="adjustResize"/>
-<<<<<<< HEAD
-        <activity android:name=".page.PageEditorActivity"
+        <activity
+            android:name="com.thinlineit.ctrlf.registration.signin.FindPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
-=======
-        <activity android:name=".page.editor.PageEditorActivity" />
->>>>>>> dev
+        <activity
+            android:name=".page.editor.PageEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />

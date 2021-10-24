@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thinlineit.ctrlf.databinding.FragmentPageTitleBinding
+import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 import kotlinx.android.synthetic.main.fragment_page_title.*
 
 class PageTitleListFragment : Fragment() {

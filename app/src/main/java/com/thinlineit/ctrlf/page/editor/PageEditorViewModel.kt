@@ -2,22 +2,17 @@ package com.thinlineit.ctrlf.page.editor
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/page/PageEditorViewModel.kt
 import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import kotlinx.coroutines.launch
 
 class PageEditorViewModel(
-    private val pageInfo: PageDao,
+    private val pageInfo: Page,
     private val topicTitle: String,
     private val topicId: Int
 ) : ViewModel() {
-=======
-import com.thinlineit.ctrlf.entity.Page
-
-class PageEditorViewModel(private val pageInfo: Page) : ViewModel() {
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/page/editor/PageEditorViewModel.kt
     private val pageEditorRepository = PageEditorRepository()
     val content = MutableLiveData<String>(pageInfo.content)
     val pageTitle = MutableLiveData<String>(pageInfo.title)

@@ -12,7 +12,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="match_parent">
 
                 <ScrollView
@@ -46,73 +45,53 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="H" />
+                        android:text="@string/button_editor_header" />
 
                     <Button
                         android:id="@+id/boldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="B" />
+                        android:text="@string/button_editor_bold" />
 
                     <Button
                         android:id="@+id/italicText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="I" />
+                        android:text="@string/button_editor_italic" />
 
                     <Button
                         android:id="@+id/quoteText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="q" />
+                        android:text="@string/button_editor_quote" />
                     <Button
                         android:id="@+id/codeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="c" />
+                        android:text="@string/button_editor_code" />
                     <Button
                         android:id="@+id/link"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="lk" />
+                        android:text="@string/button_editor_link" />
                     <Button
                         android:id="@+id/bulletedList"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_blue"
-                        android:text="*" />
+                        android:text="@string/button_editor_bulleted" />
                         <Button
                             android:id="@+id/numberList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/dark_blue"
-                            android:text="N" />
+                            android:text="@string/button_editor_number_list" />
                     </LinearLayout>
                 </HorizontalScrollView>
     </RelativeLayout>
-=======
-        android:layout_height="match_parent"
-        android:id="@+id/markdownEditContainer"
-        tools:context=".page.editor.PageEditFragment">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/markdownEdit"
-            android:hint="markdown edit"
-            android:inputType="textMultiLine|textCapSentences"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="16dp"
-            android:gravity="top"
-            android:scrollHorizontally="false"
-            android:text="@={viewModel.content}" />
-
-    </ScrollView>
->>>>>>> dev
 </layout>

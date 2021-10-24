@@ -11,15 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/page/PageEditorActivity.kt
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.*
-=======
+import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 import com.thinlineit.ctrlf.entity.Page
 import kotlinx.android.synthetic.main.activity_page_editor.pager
-import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/page/editor/PageEditorActivity.kt
 
 class PageEditorActivity : FragmentActivity() {
     private lateinit var pageEditorAdapter: PageEditorAdapter
@@ -34,15 +30,10 @@ class PageEditorActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/page/PageEditorActivity.kt
-        val pageInfo = intent.getParcelableExtra("pageInfo") ?: PageDao()
+        val pageInfo = intent.getParcelableExtra("pageInfo") ?: Page()
         val topicTitle = intent.getStringExtra("topicTitle") ?: ""
         val topicId = intent.getIntExtra("topicId", 0)
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
-=======
-        val pageInfo = intent.getParcelableExtra("pageInfo") ?: Page()
-        val viewModelFactory = PageEditorViewModelFactory(pageInfo)
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/page/editor/PageEditorActivity.kt
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
 
