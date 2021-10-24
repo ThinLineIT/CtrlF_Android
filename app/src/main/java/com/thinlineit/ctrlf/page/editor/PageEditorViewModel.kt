@@ -19,7 +19,7 @@ class PageEditorViewModel(
     val topicTitleStr = MutableLiveData<String>(topicTitle)
     val topicIdInfo = MutableLiveData<Int>(topicId)
     val summary = MutableLiveData<String>()
-    val createIssueStatus = MutableLiveData<Event<Status>>()
+    val createPageStatus = MutableLiveData<Event<Status>>()
 
     fun complete() {
         val topicId = topicIdInfo.value ?: return
@@ -36,7 +36,7 @@ class PageEditorViewModel(
                     summary
                 )
             ) {
-                createIssueStatus.value = Event(Status.SUCCESS)
+                createPageStatus.value = Event(Status.SUCCESS)
             } else {
             }
         }

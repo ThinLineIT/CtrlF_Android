@@ -12,8 +12,8 @@ import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 import kotlinx.android.synthetic.main.activity_page_editor.pager
+import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 
 class PageEditorActivity : FragmentActivity() {
     private lateinit var pageEditorAdapter: PageEditorAdapter
@@ -52,7 +52,7 @@ class PageEditorActivity : FragmentActivity() {
             else tab.setText(R.string.button_preview)
         }.attach()
 
-        viewModel.createIssueStatus.observeIfNotHandled(this) {
+        viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorCompleteDialog(this).show()
             }
