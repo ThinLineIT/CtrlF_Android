@@ -17,4 +17,5 @@ jobs:
           level: error # optional, default is error
           reporter: github-pr-check
           fail_on_error: true # optional, default is false
+          filter_mode: diff_context
           android: true # optional, default is false
