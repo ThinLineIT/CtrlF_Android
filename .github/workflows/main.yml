@@ -14,7 +14,4 @@ jobs:
         uses: ScaCap/action-ktlint@1.3
         with:
           github_token: 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
-          level: error # optional, default is error
           reporter: github-pr-check
-          fail_on_error: true # optional, default is false
-          android: true # optional, default is false
