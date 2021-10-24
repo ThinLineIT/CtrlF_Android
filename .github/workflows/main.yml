@@ -16,6 +16,6 @@ jobs:
           github_token: "${{ secrets.TOKEN_FOR_ACTIONS }}"
           level: error # optional, default is error
           reporter: github-pr-check
-          fail_on_error: true # optional, default is false
+          fail_on_error: false # optional, default is false
           filter_mode: diff_context
           android: true # optional, default is false
