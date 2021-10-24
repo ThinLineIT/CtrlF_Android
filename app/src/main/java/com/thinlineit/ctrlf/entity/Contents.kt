@@ -9,6 +9,8 @@ data class NoteList(
     val nextCursor: Int,
     @SerializedName("notes")
     var notes: List<Note>? = null
+    
+    
 )
 
 data class Note(
