@@ -3,7 +3,6 @@ package com.thinlineit.ctrlf.util
 import android.app.Application
 
 class Application : Application() {
-
     override fun onCreate() {
         preferenceUtil = PreferenceUtil(applicationContext)
         super.onCreate()
