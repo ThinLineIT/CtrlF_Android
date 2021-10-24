@@ -36,7 +36,7 @@ class PageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.apply {
             setContentView(root)
-            this.pageViewModel = pageViewModel
+            pageViewModel = this@PageActivity.pageViewModel
             lifecycleOwner = this@PageActivity
         }
         initObserver()
