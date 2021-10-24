@@ -2,5 +2,6 @@ package com.thinlineit.ctrlf.page
 
 class PageEditorRepository {
     // TODO: using update pageAPI and return boolean type
-    fun complete(pageInfo: PageDao): Boolean = true
+    suspend fun complete(topicId: Int, title: String, content: String, summary: String): Boolean =
+        true
 }

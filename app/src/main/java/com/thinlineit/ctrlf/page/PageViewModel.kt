@@ -15,7 +15,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         PageRepository()
     }
     private val noteIdString = MutableLiveData(noteId.toString())
-    private val pageInfo = MutableLiveData<PageDao>()
+    val pageInfo = MutableLiveData<PageDao>()
     private val noteDetailInfo = MutableLiveData<NoteDao>()
 
     private val _openSlidingPane = MutableLiveData<Boolean>()
@@ -24,6 +24,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
 
     val noteInfo = MutableLiveData<List<TopicDao>>(listOf())
     val topicInfo = MutableLiveData<List<PageDao>>()
+    val topicIdInfo = MutableLiveData<Int>()
     val content = Transformations.map(pageInfo) { it.content }
     val pageTitle = Transformations.map(pageInfo) { it.title }
     val topicTitleTop = MutableLiveData<String>()
@@ -80,6 +81,7 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
         loadPageList(topicId)
         topicDetailTitle = topicTitle
         topicTitleTop.value = topicTitle
+        topicIdInfo.value = topicId
     }
 
     private fun loadPageList(topicId: Int) {

@@ -46,13 +46,13 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/pageTopicFragmentContainerView"
                 android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="400dp"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/navigation_page" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="400dp"
+                android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 tools:context=".page.PageActivity">
@@ -93,6 +93,14 @@
                     app:layout_constraintStart_toEndOf="@+id/topicText"
                     app:layout_constraintTop_toTopOf="@+id/topicText"
                     app:layout_constraintEnd_toEndOf="parent"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_margin="16dp"
+                    android:id="@+id/fabButton" />
 
                 <com.mukesh.MarkdownView
                     android:id="@+id/markdown_view"

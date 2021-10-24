@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.page
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -61,6 +62,15 @@ class PageActivity : AppCompatActivity() {
         val density = resources.displayMetrics.density
         dpWidth = if (outMetrics.widthPixels > 1080) (outMetrics.widthPixels / density) / 6
         else (outMetrics.widthPixels / density) / 3
+
+        // floating button for 0.2.1 version
+        binding.fabButton.setOnClickListener {
+            val intent = Intent(this, PageEditorActivity::class.java)
+            intent.putExtra(PAGE_INFO, pageViewModel.pageInfo.value)
+            intent.putExtra(TOPIC_INFO, pageViewModel.topicTitleTop.value)
+
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -75,14 +85,6 @@ class PageActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-        /*
-        // floating button for 0.2.1 version
-        binding.fabButton.setOnClickListener {
-            val intent = Intent(this, PageEditorActivity::class.java)
-            intent.putExtra(PAGEINFO, pageViewModel.pageInfo.value)
-            startActivity(intent)
-        }
-         */
     }
 
     override fun onBackPressed() {
@@ -96,6 +98,12 @@ class PageActivity : AppCompatActivity() {
     companion object {
         const val NOTE_ID = "noteId"
         var dpWidth by Delegates.notNull<Float>()
-        const val PAGEINFO = "pageInfo"
+        const val PAGE_INFO = "pageInfo"
+        const val TOPIC_INFO = "topicTitle"
+
+        fun start(context: Context) {
+            val intent = Intent(context, PageActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 }

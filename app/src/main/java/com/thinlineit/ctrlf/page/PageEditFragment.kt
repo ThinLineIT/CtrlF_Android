@@ -31,7 +31,6 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             numberList.setOnClickListener { numberList() }
         }
         return binding.root
-
     }
 
     fun boldText() {
