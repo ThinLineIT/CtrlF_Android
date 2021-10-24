@@ -7,11 +7,12 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.page.PageEditorViewModel" />
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="match_parent">
 
                 <ScrollView
@@ -94,4 +95,24 @@
                     </LinearLayout>
                 </HorizontalScrollView>
     </RelativeLayout>
+=======
+        android:layout_height="match_parent"
+        android:id="@+id/markdownEditContainer"
+        tools:context=".page.editor.PageEditFragment">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/markdownEdit"
+            android:hint="markdown edit"
+            android:inputType="textMultiLine|textCapSentences"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp"
+            android:gravity="top"
+            android:scrollHorizontally="false"
+            android:text="@={viewModel.content}" />
+
+    </ScrollView>
+>>>>>>> dev
 </layout>

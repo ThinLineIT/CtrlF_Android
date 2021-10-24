@@ -11,7 +11,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentVerificationToFindPasswordBinding
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.Timer
-import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
+import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import com.thinlineit.ctrlf.util.setBackgroundById
 

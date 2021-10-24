@@ -1,14 +1,14 @@
 package com.thinlineit.ctrlf.repository.network.api
 
-import com.thinlineit.ctrlf.data.request.AuthEmailRequest
-import com.thinlineit.ctrlf.data.request.CodeCheckRequest
-import com.thinlineit.ctrlf.data.request.ResetPasswordRequest
-import com.thinlineit.ctrlf.data.request.SignUpRequest
-import com.thinlineit.ctrlf.data.response.AuthEmailResponse
-import com.thinlineit.ctrlf.data.response.CodeCheckResponse
-import com.thinlineit.ctrlf.data.response.EmailCheckResponse
-import com.thinlineit.ctrlf.data.response.LoginResponse
-import com.thinlineit.ctrlf.model.User
+import com.thinlineit.ctrlf.entity.User
+import com.thinlineit.ctrlf.repository.dto.request.AuthEmailRequest
+import com.thinlineit.ctrlf.repository.dto.request.CodeCheckRequest
+import com.thinlineit.ctrlf.repository.dto.request.ResetPasswordRequest
+import com.thinlineit.ctrlf.repository.dto.request.SignUpRequest
+import com.thinlineit.ctrlf.repository.dto.response.AuthEmailResponse
+import com.thinlineit.ctrlf.repository.dto.response.CodeCheckResponse
+import com.thinlineit.ctrlf.repository.dto.response.EmailCheckResponse
+import com.thinlineit.ctrlf.repository.dto.response.LoginResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

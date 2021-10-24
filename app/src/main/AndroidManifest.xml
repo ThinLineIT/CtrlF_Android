@@ -16,8 +16,12 @@
         android:usesCleartextTraffic="true">
         <activity android:name="com.thinlineit.ctrlf.registration.signin.FindPasswordActivity"
             android:windowSoftInputMode="adjustResize"/>
+<<<<<<< HEAD
         <activity android:name=".page.PageEditorActivity"
             android:windowSoftInputMode="adjustResize" />
+=======
+        <activity android:name=".page.editor.PageEditorActivity" />
+>>>>>>> dev
         <activity
             android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />
@@ -35,7 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".page.PageActivity" />
+        <activity android:name=".page.detail.PageActivity" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />

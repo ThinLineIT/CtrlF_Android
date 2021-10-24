@@ -83,6 +83,7 @@
     <string name="button_edit">Edit</string>
     <string name="button_preview">Preview</string>
     <string name="button_complete">완 료</string>
+<<<<<<< HEAD
     <string name="button_bold">**</string>
     <string name="button_header">"### "</string>
     <string name="button_italic">_</string>
@@ -94,6 +95,13 @@
     <string name="label_complete_create_issue">"이슈가 등록되었습니다.\n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
     <string name="button_confirm">"확 인"</string>
     <string name="label_reason_for_revision">"수정 사유"</string>
+=======
+    <string name="button_share">공유하기</string>
+    <string name="button_related_issue">관련된이슈</string>
+    <string name="button_bookmark">북마크</string>
+    <string name="button_do_edit">수정하기</string>
+
+>>>>>>> dev
 
 
     <!-- General -->
