@@ -18,7 +18,7 @@ interface IssueApi {
         @Query("note_id") noteId: String,
         @Query("topic_id") topicId: String,
         @Query("limit") limit: Int
-    ): List<IssueDao>
+    ): List<Issue>
 
     // Issue 생성
     @FormUrlEncoded

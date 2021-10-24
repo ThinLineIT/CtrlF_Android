@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.page.PageEditorViewModel" />
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

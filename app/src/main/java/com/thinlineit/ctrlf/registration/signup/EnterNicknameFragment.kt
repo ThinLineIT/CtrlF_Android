@@ -12,7 +12,7 @@ import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentNicknameBinding
 import com.thinlineit.ctrlf.util.Status
-import com.thinlineit.ctrlf.util.base.RegistrationBaseFragment
+import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import com.thinlineit.ctrlf.util.setBackgroundById
 import kotlinx.android.synthetic.main.fragment_nickname.*

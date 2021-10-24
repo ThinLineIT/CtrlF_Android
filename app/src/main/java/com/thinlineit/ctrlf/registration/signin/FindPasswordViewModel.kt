@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.repository.UserRepository
+import com.thinlineit.ctrlf.repository.dao.UserRepository
 import com.thinlineit.ctrlf.util.CountTimer
 import com.thinlineit.ctrlf.util.CountTimerListener
 import com.thinlineit.ctrlf.util.Event

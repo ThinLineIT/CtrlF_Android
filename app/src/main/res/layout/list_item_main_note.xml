@@ -7,7 +7,7 @@
 
         <variable
             name="note"
-            type="com.thinlineit.ctrlf.notes.NoteDao" />
+            type="com.thinlineit.ctrlf.entity.Note" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -7,7 +7,7 @@
 
         <variable
             name="page"
-            type="com.thinlineit.ctrlf.page.PageDao" />
+            type="com.thinlineit.ctrlf.entity.Page" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

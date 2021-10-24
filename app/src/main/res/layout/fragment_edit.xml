@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.page.PageEditorViewModel" />
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/markdownEditContainer"
-        tools:context=".page.PageEditFragment">
+        tools:context=".page.editor.PageEditFragment">
 
         <EditText
             android:layout_width="match_parent"
