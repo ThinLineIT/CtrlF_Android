@@ -46,13 +46,13 @@
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/pageTopicFragmentContainerView"
                 android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="200dp"
+                android:layout_width="400dp"
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/navigation_page" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="200dp"
+                android:layout_width="400dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 tools:context=".page.detail.PageActivity">
