@@ -45,6 +45,15 @@ class PageEditorActivity : FragmentActivity() {
             if (position == 0) tab.setText(R.string.button_edit)
             else tab.setText(R.string.button_preview)
         }.attach()
+
+        viewModel.issueCompleteStatus.observeIfNotHandled(this) {
+            if (it == Status.SUCCESS) {
+                PageEditorCompleteDialog(this).apply {
+                    window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    show()
+                }
+            }
+        }
     }
 
     companion object {
