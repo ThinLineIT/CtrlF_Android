@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.repository.dao
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.network.ContentService
 
 class PageRepository {
@@ -22,4 +23,22 @@ class PageRepository {
     suspend fun loadPageList(topicId: Int): List<Page> {
         return ContentService.retrofitService.getPageList(topicId.toString())
     }
+
+    suspend fun addTopic(noteId: Int, title: String, content: String): TopicCreateRequest {
+        return ContentService.retrofitService.addTopic(
+            TopicCreateRequest(
+                noteId,
+                title,
+                content
+            )
+        )
+    }
+
+
+    /*TopicCreateRequest {
+    return ContentService.retrofitService.addTopic(TopicCreateRequest(noteId, title, content))
+}*/
+
+    suspend fun complete(noteId: Int, title: String, content: String): Boolean =
+        true
 }

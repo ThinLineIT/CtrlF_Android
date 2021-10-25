@@ -3,51 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="pageViewModel"
+            type="com.thinlineit.ctrlf.page.detail.PageViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="350dp"
+        android:layout_height="350dp">
 
         <TextView
             android:id="@+id/addTopicDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="토픽 수정 삭제"
+            android:text="토픽 생성"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <TextView
+
+        <EditText
             android:id="@+id/editTopicTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="토픽 이름"
+            android:hint="토픽 이름"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addTopicDialog" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/editCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/editTopicTitle"
             android:padding="10dp"
-            android:id="@+id/editCardView"
-            >
+            app:layout_constraintTop_toBottomOf="@id/editTopicTitle">
 
             <EditText
                 android:id="@+id/editContent"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:layout_constraintTop_toBottomOf="@id/editTopicTitle"
-                tool:layout_editor_absoluteX="120dp"
-                android:lines="8"
                 android:layout_margin="5dp"
                 android:inputType="textMultiLine"
-                android:hint=""
-                />
+                android:lines="8"
+                app:layout_constraintTop_toBottomOf="@id/editTopicTitle"/>
 
         </androidx.cardview.widget.CardView>
-
 
         <Button
             android:id="@+id/cancelButton"
@@ -58,9 +61,8 @@
             android:textColor="@color/black"
             android:textSize="17dp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/editCardView"
             app:layout_constraintRight_toRightOf="parent"
-             />
+            app:layout_constraintTop_toBottomOf="@id/editCardView" />
 
         <Button
             android:id="@+id/okButton"

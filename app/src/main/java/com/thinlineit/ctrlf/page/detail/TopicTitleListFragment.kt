@@ -40,7 +40,15 @@ class TopicTitleListFragment : Fragment() {
                 LinearLayoutManager(this@TopicTitleListFragment.context)
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
             addTopicBtn.setOnClickListener { view ->
-                Toast.makeText(activity, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+
+                val dialog: AddTopicDialog = AddTopicDialog().getInstance()
+                activity?.supportFragmentManager?.let { fragmentManager ->
+                    dialog.show(
+                        fragmentManager,
+                        "add topic"
+                    )
+                }
             }
         }
         return binding.root

@@ -4,6 +4,8 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -44,4 +46,10 @@ interface ContentApi {
     suspend fun getPageList(
         @Path("topic_id") topic_id: String,
     ): List<Page>
+
+    //note_id에 해당하는 note에 새로운 토픽 생성
+    @GET("topics")
+    suspend fun addTopic(
+        @Body request: TopicCreateRequest
+    ): TopicCreateRequest
 }

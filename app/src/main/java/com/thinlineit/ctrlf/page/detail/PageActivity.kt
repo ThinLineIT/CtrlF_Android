@@ -3,7 +3,6 @@ package com.thinlineit.ctrlf.page.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -45,15 +44,6 @@ class PageActivity : AppCompatActivity() {
 
         setSupportActionBar(pageActivityToolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        // TODO: Do not use deprecated methods.
-        val display = windowManager.defaultDisplay
-        val outMetrics = DisplayMetrics()
-        display.getMetrics(outMetrics)
-
-        val density = resources.displayMetrics.density
-        dpWidth = if (outMetrics.widthPixels > 1080) (outMetrics.widthPixels / density) / 6
-        else (outMetrics.widthPixels / density) / 3
     }
 
     private fun initButton() {
@@ -124,8 +114,6 @@ class PageActivity : AppCompatActivity() {
         const val PAGE_ID = "noteId"
         const val PAGE_INFO = "pageInfo"
         const val UNSET = -1
-
-        var dpWidth by Delegates.notNull<Float>()
 
         fun start(context: Context, noteId: Int, topicId: Int = UNSET, pageId: Int = UNSET) {
             val intent = Intent(context, PageActivity::class.java).apply {

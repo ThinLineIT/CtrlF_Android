@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.page.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -8,7 +9,10 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dao.PageRepository
+import com.thinlineit.ctrlf.util.Event
+import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 class PageViewModel(noteId: Int) : BaseViewModel() {
 
@@ -91,6 +95,37 @@ class PageViewModel(noteId: Int) : BaseViewModel() {
             try {
                 topicInfo.setValue(pageRepository.loadPageList(topicId))
             } catch (e: Exception) {
+            }
+        }
+    }
+    private fun addTopic(){
+        viewModelScope.loadingLaunch {
+            try {
+                //topicInfo.setValue(pageRepository.loadPageList(topicId))
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun complete(topicTitleEdit: String, contentEdit:String) {
+        val noteId = noteIdString.value ?: return
+        val topicTitle = topicTitleEdit
+        val content = contentEdit
+
+        // TODO: if it's true, inform success
+        viewModelScope.launch {
+            if (pageRepository.complete(
+                    noteId.toInt(),
+                    topicTitle,
+                    content,
+                )
+            ) {
+                val code = pageRepository.addTopic(
+                    noteId.toInt(),
+                    topicTitle,
+                    content
+                )
+            } else {
             }
         }
     }
