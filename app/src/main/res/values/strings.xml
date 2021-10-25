@@ -107,13 +107,11 @@
     <string name="button_editor_bulleted">BL</string>
     <string name="button_editor_number_list">NL</string>
 
-
     <!-- General -->
     <string name="button_general_delete">삭제</string>
     <string name="button_general_modify">수정</string>
     <string name="button_add_topic">+ add topic</string>
     <string name="button_add_page">+ add page</string>
-<<<<<<< HEAD
 
     <!-- issue -->
     <string name="label_create_page">Create Page</string>
@@ -122,7 +120,7 @@
 
     <string name="button_approve">승인</string>
     <string name="button_detail">자세히보기</string>
-=======
+
     <string name="format_timer">%02d</string>
->>>>>>> dev
+
 </resources>

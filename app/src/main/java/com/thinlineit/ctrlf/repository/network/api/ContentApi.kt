@@ -1,19 +1,12 @@
 package com.thinlineit.ctrlf.repository.network.api
 
-<<<<<<< HEAD
 import com.thinlineit.ctrlf.data.request.CreatePageRequest
-import com.thinlineit.ctrlf.notes.NoteDao
-import com.thinlineit.ctrlf.notes.NoteListDao
-import com.thinlineit.ctrlf.notes.TopicDao
-import com.thinlineit.ctrlf.page.PageDao
-import retrofit2.Response
-import retrofit2.http.Body
-=======
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
->>>>>>> dev
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -55,15 +48,11 @@ interface ContentApi {
     @GET("topics/{topic_id}/pages")
     suspend fun getPageList(
         @Path("topic_id") topic_id: String,
-<<<<<<< HEAD
-    ): List<PageDao>
+    ): List<Page>
 
     @POST("pages")
     suspend fun createPage(
         @Header("Auth") Auth: String,
         @Body body: CreatePageRequest
     ): Response<Body>
-=======
-    ): List<Page>
->>>>>>> dev
 }

@@ -1,15 +1,9 @@
 package com.thinlineit.ctrlf.repository.dao
 
-<<<<<<< HEAD:app/src/main/java/com/thinlineit/ctrlf/repository/PageRepository.kt
 import com.thinlineit.ctrlf.data.request.CreatePageRequest
-import com.thinlineit.ctrlf.notes.NoteDao
-import com.thinlineit.ctrlf.notes.TopicDao
-import com.thinlineit.ctrlf.page.PageDao
-=======
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
->>>>>>> dev:app/src/main/java/com/thinlineit/ctrlf/repository/dao/PageRepository.kt
 import com.thinlineit.ctrlf.repository.network.ContentService
 
 class PageRepository {
