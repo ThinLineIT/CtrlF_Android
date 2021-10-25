@@ -52,8 +52,9 @@ class PageViewModel(
         loadPageList(topic.id)
     }
 
-    fun selectPage(pageId: Int) {
-        loadPage(pageId)
+    fun selectPage(page: Page) {
+        _page.value = page
+        openRightPane()
     }
 
     fun openRightPane() {
@@ -83,16 +84,6 @@ class PageViewModel(
             try {
                 val pageList = pageRepository.loadPageList(topicId)
                 _topic.value = topic.value?.copy(pageList = pageList)
-            } catch (e: Exception) {
-            }
-        }
-    }
-
-    private fun loadPage(pageId: Int) {
-        viewModelScope.loadingLaunch {
-            try {
-                _page.value = pageRepository.loadPage(pageId)
-                openRightPane()
             } catch (e: Exception) {
             }
         }

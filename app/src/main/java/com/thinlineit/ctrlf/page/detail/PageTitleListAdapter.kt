@@ -12,7 +12,7 @@ import com.thinlineit.ctrlf.databinding.ListItemPageTitleBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
-class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
+class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
     RecyclerView.Adapter<PageTitleListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<Page>>,
     ListButtonInterface {
@@ -40,10 +40,10 @@ class PageTitleListAdapter(private val clickListener: (Int) -> Unit) :
 
     class ViewHolder(private val dataBinding: ListItemPageTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
-        fun bind(page: Page, clickListener: (Int) -> Unit) {
+        fun bind(page: Page, clickListener: (Page) -> Unit) {
             dataBinding.page = page
             dataBinding.root.setOnClickListener {
-                clickListener(page.id ?: return@setOnClickListener)
+                clickListener(page)
             }
         }
 

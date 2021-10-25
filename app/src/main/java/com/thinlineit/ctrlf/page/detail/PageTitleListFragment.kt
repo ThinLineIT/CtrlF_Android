@@ -13,8 +13,8 @@ import com.thinlineit.ctrlf.databinding.FragmentPageTitleBinding
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 
 class PageTitleListFragment : Fragment() {
-    private val pageTitleListAdapter = PageTitleListAdapter { pageId ->
-        pageViewModel.selectPage(pageId)
+    private val pageTitleListAdapter = PageTitleListAdapter { page ->
+        pageViewModel.selectPage(page)
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
