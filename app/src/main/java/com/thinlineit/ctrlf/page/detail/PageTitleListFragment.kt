@@ -39,7 +39,7 @@ class PageTitleListFragment : Fragment() {
         }
 
         binding.addPageBtn.setOnClickListener {
-            val topic = pageViewModel.topic.value?: return@setOnClickListener
+            val topic = pageViewModel.topic.value ?: return@setOnClickListener
             val intent = Intent(activity, PageEditorActivity::class.java)
             intent.putExtra(PageEditorActivity.TOPIC_ID, topic.id)
             intent.putExtra(PageEditorActivity.TOPIC_TITLE, topic.title)
