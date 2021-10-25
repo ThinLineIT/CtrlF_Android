@@ -120,8 +120,8 @@ class PageActivity : AppCompatActivity() {
 
     companion object {
         const val NOTE_ID = "noteId"
-        const val TOPIC_ID = "noteId"
-        const val PAGE_ID = "noteId"
+        const val TOPIC_ID = "topicId"
+        const val PAGE_ID = "pageId"
         const val PAGE_INFO = "pageInfo"
         const val UNSET = -1
 

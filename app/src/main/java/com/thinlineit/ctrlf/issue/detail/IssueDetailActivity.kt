@@ -7,11 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
 import com.thinlineit.ctrlf.entity.Issue
+import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 
 class IssueDetailActivity : AppCompatActivity() {
@@ -60,9 +60,12 @@ class IssueDetailActivity : AppCompatActivity() {
 
     companion object {
         const val ISSUE_INFO = "issueInfo"
+        const val ISSUE_ID = "issueId"
 
-        fun start(context: Context) {
-            val intent = Intent(context, MainActivity::class.java)
+        fun start(context: Context, issueId: Int) {
+            val intent = Intent(context, PageActivity::class.java).apply {
+                putExtra(ISSUE_ID, issueId)
+            }
             context.startActivity(intent)
         }
     }

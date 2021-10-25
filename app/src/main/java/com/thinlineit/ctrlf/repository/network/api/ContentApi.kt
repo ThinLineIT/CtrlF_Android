@@ -1,6 +1,6 @@
 package com.thinlineit.ctrlf.repository.network.api
 
-import com.thinlineit.ctrlf.data.request.CreatePageRequest
+import com.thinlineit.ctrlf.data.request.PageCreateRequestBody
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
@@ -52,7 +52,7 @@ interface ContentApi {
 
     @POST("pages")
     suspend fun createPage(
-        @Header("Auth") Auth: String,
-        @Body body: CreatePageRequest
+        @Header("Authorization") Authorization: String,
+        @Body body: PageCreateRequestBody
     ): Response<Body>
 }

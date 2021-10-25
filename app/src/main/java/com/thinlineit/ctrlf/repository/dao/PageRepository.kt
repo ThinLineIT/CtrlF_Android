@@ -1,6 +1,6 @@
 package com.thinlineit.ctrlf.repository.dao
 
-import com.thinlineit.ctrlf.data.request.CreatePageRequest
+import com.thinlineit.ctrlf.data.request.PageCreateRequestBody
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
@@ -24,22 +24,22 @@ class PageRepository {
         return ContentService.retrofitService.getPageList(topicId.toString())
     }
 
-    suspend fun createPage(topicId: Int, title: String, contents: String, summary: String): Int {
+    suspend fun createPage(topicId: Int, title: String, contents: String, summary: String): String {
         return try {
             ContentService.retrofitService.createPage(
-                "Bearer" + com.thinlineit.ctrlf.util.Application.preferenceUtil.getString(
+                "Bearer " + com.thinlineit.ctrlf.util.Application.preferenceUtil.getString(
                     TOKEN,
                     ""
                 ),
-                CreatePageRequest(
+                PageCreateRequestBody(
                     topicId,
                     title,
                     contents,
                     summary
                 )
-            ).code()
+            ).message()
         } catch (e: Exception) {
-            500
+            e.toString()
         }
     }
 

@@ -2,10 +2,10 @@ package com.thinlineit.ctrlf.data.request
 
 import com.google.gson.annotations.SerializedName
 
-data class CreatePageRequest(
+data class PageCreateRequestBody(
     @SerializedName("topic_id")
     val topicId: Int,
     val title: String,
-    val contents: String,
+    val content: String,
     val summary: String
 )

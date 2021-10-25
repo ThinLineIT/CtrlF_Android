@@ -1,9 +1,11 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.Page
+import com.thinlineit.ctrlf.repository.dao.PageRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import kotlinx.coroutines.launch
@@ -13,6 +15,9 @@ class PageEditorViewModel(
     private val topicTitle: String,
     private val topicId: Int
 ) : ViewModel() {
+    private val contentRepository by lazy {
+        PageRepository()
+    }
     private val pageEditorRepository = PageEditorRepository()
     val content = MutableLiveData<String>(pageInfo.content)
     val pageTitle = MutableLiveData<String>(pageInfo.title)
@@ -36,6 +41,14 @@ class PageEditorViewModel(
                     summary
                 )
             ) {
+                val code = contentRepository.createPage(
+                    topicId,
+                    pageTitle,
+                    content,
+                    summary
+                )
+                Log.d("createee : ", code)
+
                 createPageStatus.value = Event(Status.SUCCESS)
             } else {
             }
