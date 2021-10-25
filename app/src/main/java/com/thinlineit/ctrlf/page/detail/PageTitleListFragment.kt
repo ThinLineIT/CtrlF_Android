@@ -14,7 +14,7 @@ import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 
 class PageTitleListFragment : Fragment() {
     private val pageTitleListAdapter = PageTitleListAdapter { pageId ->
-        pageViewModel.openPage(pageId)
+        pageViewModel.selectPage(pageId)
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
@@ -39,10 +39,10 @@ class PageTitleListFragment : Fragment() {
         }
 
         binding.addPageBtn.setOnClickListener {
+            val topic = pageViewModel.topic.value?: return@setOnClickListener
             val intent = Intent(activity, PageEditorActivity::class.java)
-            intent.putExtra(PageEditorActivity.TOPIC_ID, pageViewModel.topicIdInfo.value)
-            intent.putExtra(PageEditorActivity.TOPIC_TITLE, pageViewModel.topicTitleTop.value)
-
+            intent.putExtra(PageEditorActivity.TOPIC_ID, topic.id)
+            intent.putExtra(PageEditorActivity.TOPIC_TITLE, topic.title)
             startActivity(intent)
         }
         return binding.root
