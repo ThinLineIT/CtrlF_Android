@@ -10,10 +10,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
+<<<<<<< HEAD
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
 import com.thinlineit.ctrlf.issue.IssueDao
 import com.thinlineit.ctrlf.logout.LogoutActivity
 import com.thinlineit.ctrlf.page.PageActivity
+=======
+import com.thinlineit.ctrlf.issue.Issue
+>>>>>>> dev
 
 class IssueDetailActivity : AppCompatActivity() {
 
@@ -25,7 +29,7 @@ class IssueDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val issue = intent.getSerializableExtra(ISSUE_INFO) as IssueDao
+        val issue = intent.getSerializableExtra(ISSUE_INFO) as Issue
         val viewModelFactory = IssueDetailViewModelFactory(issue)
         val issueDetailViewModel =
             ViewModelProvider(this, viewModelFactory).get(IssueDetailViewModel::class.java)

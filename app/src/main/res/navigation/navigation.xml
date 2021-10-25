@@ -38,7 +38,7 @@
 
     <activity
         android:id="@+id/page_activity"
-        android:name="com.thinlineit.ctrlf.page.PageActivity"
+        android:name="com.thinlineit.ctrlf.page.detail.PageActivity"
         android:label="@string/fragment_notes"
         tools:layout="@layout/activity_page">
         <argument
@@ -63,12 +63,12 @@
         tools:layout="@layout/activity_issue_detail">
         <argument
             android:name="issueInfo"
-            app:argType="com.thinlineit.ctrlf.issue.IssueDao" />
+            app:argType="com.thinlineit.ctrlf.issue.Issue" />
     </activity>
 
     <activity
         android:id="@+id/logout_activity"
-        android:name="com.thinlineit.ctrlf.logout.LogoutActivity"
+        android:name="com.thinlineit.ctrlf.registration.signout.LogoutActivity"
         tools:layout="@layout/activity_logout"/>
 
 </navigation>

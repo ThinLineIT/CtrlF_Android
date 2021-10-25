@@ -14,14 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CtrlF"
         android:usesCleartextTraffic="true">
-        <activity android:name=".page.PageEditorActivity" />
         <activity
-            android:name=".registration.RegistrationActivity"
+            android:name="com.thinlineit.ctrlf.registration.signin.FindPasswordActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".registration.CompleteRegisterActivity" />
-        <activity android:name=".logout.LogoutActivity" />
-        <activity android:name=".registration.LoginActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".page.editor.PageEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".registration.signup.RegistrationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".registration.signout.LogoutActivity" />
+        <activity
+            android:name="com.thinlineit.ctrlf.registration.signin.LoginActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".issue.detail.IssueDetailActivity" />
         <activity
             android:name=".splash.SplashActivity"
@@ -32,10 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".page.PageActivity" />
+        <activity android:name=".page.detail.PageActivity" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

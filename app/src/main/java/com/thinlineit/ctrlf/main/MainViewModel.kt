@@ -5,32 +5,44 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
+<<<<<<< HEAD
 import com.thinlineit.ctrlf.issue.IssueDao
 import com.thinlineit.ctrlf.main.viewpager.IdeaCountBannerFragment
 import com.thinlineit.ctrlf.notes.NoteDao
 import com.thinlineit.ctrlf.notes.NoteListDao
 import com.thinlineit.ctrlf.repository.IssueRepository
+=======
+import com.thinlineit.ctrlf.entity.Note
+import com.thinlineit.ctrlf.entity.NoteList
+import com.thinlineit.ctrlf.issue.Issue
+import com.thinlineit.ctrlf.main.banner.IdeaCountBannerFragment
+>>>>>>> dev
 import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class MainViewModel : BaseViewModel() {
+<<<<<<< HEAD
     private val issueRepository by lazy {
         IssueRepository()
     }
 
     private val _noteList = MutableLiveData<NoteListDao>()
     val noteList: LiveData<NoteListDao>
+=======
+    private val _noteList = MutableLiveData<NoteList>()
+    val noteList: LiveData<NoteList>
+>>>>>>> dev
         get() = _noteList
 
-    private val _issueList = MutableLiveData<List<IssueDao>>(emptyList())
-    val issueList: LiveData<List<IssueDao>>
+    private val _issueList = MutableLiveData<List<Issue>>(emptyList())
+    val issueList: LiveData<List<Issue>>
         get() = _issueList
 
     private val _fragmentList = MutableLiveData<List<Fragment>>(emptyList())
     val fragmentList: LiveData<List<Fragment>>
         get() = _fragmentList
 
-    val notes: LiveData<List<NoteDao>> = Transformations.map(noteList) { it.notes }
+    val notes: LiveData<List<Note>> = Transformations.map(noteList) { it.notes }
 
     var cursor: Int = 0
 
@@ -59,11 +71,25 @@ class MainViewModel : BaseViewModel() {
     }
 
     private fun loadIssue() {
+<<<<<<< HEAD
         viewModelScope.loadingLaunch {
             try {
                 _issueList.value = issueRepository.loadIssueList()
             } catch (e: Exception) {
             }
+=======
+        // TODO: Load the list of issue using "getIssue" api
+        _issueList.value = createIssue()
+    }
+
+    private fun createIssue(): List<Issue> {
+        val contentStr =
+            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
+                "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
+        return (1..9).map { i ->
+            if (i % 2 != 0) Issue(i, "title$i", 1, 1, "2021-07-12", contentStr)
+            else Issue(i, "title$i", 1, 1, "2021-07-12", contentStr + contentStr)
+>>>>>>> dev
         }
     }
 }

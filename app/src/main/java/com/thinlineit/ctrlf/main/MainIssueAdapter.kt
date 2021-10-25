@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ListItemMainIssueBinding
-import com.thinlineit.ctrlf.issue.IssueDao
+import com.thinlineit.ctrlf.issue.Issue
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
-class MainIssueAdapter(private val clickListener: (IssueDao) -> Unit) :
+class MainIssueAdapter(private val clickListener: (Issue) -> Unit) :
     RecyclerView.Adapter<MainIssueAdapter.ViewHolder>(),
-    BindingRecyclerViewAdapter<List<IssueDao>> {
-    private var issueList = emptyList<IssueDao>()
+    BindingRecyclerViewAdapter<List<Issue>> {
+    private var issueList = emptyList<Issue>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.from(parent)
@@ -26,7 +26,7 @@ class MainIssueAdapter(private val clickListener: (IssueDao) -> Unit) :
 
     class ViewHolder(private val dataBinding: ListItemMainIssueBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
-        fun bind(issueDao: IssueDao, clickListener: (IssueDao) -> Unit, position: Int) {
+        fun bind(issue: Issue, clickListener: (Issue) -> Unit, position: Int) {
             val resourceId: Int = when (position % 3) {
                 1 -> R.drawable.icon_issue_prelude
                 2 -> R.drawable.icon_issue_bluechalk
@@ -34,9 +34,9 @@ class MainIssueAdapter(private val clickListener: (IssueDao) -> Unit) :
             }
             dataBinding.apply {
                 mainIssueItemImage.setImageResource(resourceId)
-                issue = issueDao
+                this.issue = issue
                 root.setOnClickListener {
-                    clickListener(issueDao)
+                    clickListener(issue)
                 }
             }
         }
@@ -55,7 +55,7 @@ class MainIssueAdapter(private val clickListener: (IssueDao) -> Unit) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun setData(data: List<IssueDao>) {
+    override fun setData(data: List<Issue>) {
         issueList = data
         notifyDataSetChanged()
     }

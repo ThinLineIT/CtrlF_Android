@@ -7,7 +7,7 @@
 
         <variable
             name="pageViewModel"
-            type="com.thinlineit.ctrlf.page.PageViewModel" />
+            type="com.thinlineit.ctrlf.page.detail.PageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

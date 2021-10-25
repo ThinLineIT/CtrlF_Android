@@ -8,7 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.thinlineit.ctrlf.databinding.ActivityMainBinding
 import com.thinlineit.ctrlf.databinding.ActivityMainBindingImpl
-import com.thinlineit.ctrlf.logout.LogoutActivity
+import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {

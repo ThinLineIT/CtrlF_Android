@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.thinlineit.ctrlf.registration.LoginViewModel" />
+            type="com.thinlineit.ctrlf.registration.signin.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/background_graphpaper"
-        tools:context=".registration.LoginActivity">
+        tools:context=".registration.signin.LoginActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
@@ -151,27 +151,15 @@
             app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
         <TextView
-            android:id="@+id/findId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/sc_dream_3"
-            android:text="@string/button_find_id"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/findPassword"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerButton" />
-
-        <TextView
             android:id="@+id/findPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/sc_dream_3"
             android:text="@string/button_find_password"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/findId"
-            app:layout_constraintTop_toTopOf="@+id/findId" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registerButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

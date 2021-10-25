@@ -8,11 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ListItemMainNoteBinding
 import com.thinlineit.ctrlf.databinding.ListItemNoteBinding
+import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
 class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<NoteDao>> {
-    var noteList: List<NoteDao> = emptyList()
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<Note>> {
+    var noteList: List<Note> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
@@ -46,7 +47,7 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
     class VerticalViewHolder(private val dataBinding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
         fun bind(
-            noteDao: NoteDao,
+            note: Note,
             clickListener: (Int) -> Unit,
             position: Int,
             resources: Resources
@@ -55,9 +56,9 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
             val noteResourceId = noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
-                note = noteDao
+                this.note = note
                 root.setOnClickListener {
-                    clickListener(noteDao.id)
+                    clickListener(note.id)
                 }
             }
         }
@@ -78,7 +79,7 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
     class HorizontalViewHolder(private val dataBinding: ListItemMainNoteBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
         fun bind(
-            noteDao: NoteDao,
+            note: Note,
             clickListener: (Int) -> Unit,
             position: Int,
             resources: Resources
@@ -87,9 +88,9 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
             val noteResourceId = noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
-                note = noteDao
+                this.note = note
                 root.setOnClickListener {
-                    clickListener(noteDao.id)
+                    clickListener(note.id)
                 }
             }
         }
@@ -108,7 +109,7 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    override fun setData(data: List<NoteDao>) {
+    override fun setData(data: List<Note>) {
         noteList = data
         notifyDataSetChanged()
     }

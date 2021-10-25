@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.databinding.FragmentMainBinding
-import com.thinlineit.ctrlf.main.viewpager.MainViewPagerAdapter
+import com.thinlineit.ctrlf.main.banner.MainBannerViewPagerAdapter
 import com.thinlineit.ctrlf.notes.NotesAdapter
 
 class MainFragment : Fragment() {
@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         ).apply {
             mainViewModel = this@MainFragment.mainViewModel
             lifecycleOwner = this@MainFragment
-            mainViewPager.adapter = MainViewPagerAdapter(requireActivity())
+            mainViewPager.adapter = MainBannerViewPagerAdapter(requireActivity())
             noteListRecyclerView.adapter = noteAdapter
             issueListRecyclerView.adapter = issueAdapter
 
