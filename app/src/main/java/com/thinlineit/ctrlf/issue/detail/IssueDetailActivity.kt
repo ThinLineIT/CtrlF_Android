@@ -11,8 +11,7 @@ import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
-import com.thinlineit.ctrlf.issue.Issue
-import com.thinlineit.ctrlf.page.detail.PageActivity
+import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 
 class IssueDetailActivity : AppCompatActivity() {
@@ -36,9 +35,11 @@ class IssueDetailActivity : AppCompatActivity() {
             this.issueDetailViewModel = issueDetailViewModel
             lifecycleOwner = this@IssueDetailActivity
             detailButton.setOnClickListener {
+                /*
                 val intent = Intent(this@IssueDetailActivity, PageActivity::class.java)
                 intent.putExtra("pageId", issueDetailViewModel.issueInfo.value!!.id)
                 startActivity(intent)
+                 */
             }
         }
     }

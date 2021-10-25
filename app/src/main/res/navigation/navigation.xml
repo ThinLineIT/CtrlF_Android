@@ -63,7 +63,7 @@
         tools:layout="@layout/activity_issue_detail">
         <argument
             android:name="issueInfo"
-            app:argType="com.thinlineit.ctrlf.issue.Issue" />
+            app:argType="com.thinlineit.ctrlf.entity.Issue" />
     </activity>
 
     <activity

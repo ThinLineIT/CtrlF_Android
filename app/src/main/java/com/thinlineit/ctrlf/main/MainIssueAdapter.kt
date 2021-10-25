@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ListItemMainIssueBinding
-import com.thinlineit.ctrlf.issue.Issue
+import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
 class MainIssueAdapter(private val clickListener: (Issue) -> Unit) :
@@ -20,8 +20,8 @@ class MainIssueAdapter(private val clickListener: (Issue) -> Unit) :
     override fun getItemCount(): Int = issueList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val issueDao = issueList[position]
-        holder.bind(issueDao, clickListener, position)
+        val issue = issueList[position]
+        holder.bind(issue, clickListener, position)
     }
 
     class ViewHolder(private val dataBinding: ListItemMainIssueBinding) :

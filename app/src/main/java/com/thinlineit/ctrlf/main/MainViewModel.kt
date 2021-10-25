@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
-import com.thinlineit.ctrlf.issue.Issue
 import com.thinlineit.ctrlf.main.banner.IdeaCountBannerFragment
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.repository.network.ContentService

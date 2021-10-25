@@ -1,18 +1,18 @@
 package com.thinlineit.ctrlf.issue.list
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.thinlineit.ctrlf.issue.Issue
+import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.base.BaseViewModel
-import com.thinlineit.ctrlf.util.base.ListLiveData
 
 class IssueListViewModel : BaseViewModel() {
     private val issueRepository by lazy {
         IssueRepository()
     }
 
-    private val _issueList = ListLiveData<Issue>()
+    private val _issueList = MutableLiveData<List<Issue>>(emptyList())
     val issueList: LiveData<List<Issue>>
         get() = _issueList
 

@@ -2,7 +2,7 @@ package com.thinlineit.ctrlf.issue.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.thinlineit.ctrlf.issue.Issue
+import com.thinlineit.ctrlf.entity.Issue
 
 class IssueDetailViewModelFactory(private val issueInfo: Issue) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

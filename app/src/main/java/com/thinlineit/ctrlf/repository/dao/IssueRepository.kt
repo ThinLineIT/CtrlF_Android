@@ -1,6 +1,6 @@
 package com.thinlineit.ctrlf.repository.dao
 
-import com.thinlineit.ctrlf.issue.Issue
+import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.network.IssueService
 
 class IssueRepository {
@@ -9,7 +9,7 @@ class IssueRepository {
         return getIssueList()
     }
 
-    fun getmockIssueList(): List<Issue> {
+    fun getMockIssueList(): List<Issue> {
         // TODO : Room 사용시 api로 로드할것인지, Room에서 로드할것인지 로직 구현
         val contentStr =
             "가나다라마바사아자차카타파하가나다라마바사아자차카타파하" +
