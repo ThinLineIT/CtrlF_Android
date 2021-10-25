@@ -10,6 +10,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
+import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.observeIfNotHandled
 import kotlinx.android.synthetic.main.activity_page_editor.pager
 import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 
@@ -26,10 +28,13 @@ class PageEditorActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
-        val pageInfo = intent.getParcelableExtra("pageInfo") ?: Page()
-        val viewModelFactory = PageEditorViewModelFactory(pageInfo)
+        val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
+        val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
+        val topicId = intent.getIntExtra(TOPIC_ID, 0)
+        val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
+
         binding.apply {
             this.viewModel = viewModel
             lifecycleOwner = this@PageEditorActivity
@@ -46,9 +51,19 @@ class PageEditorActivity : FragmentActivity() {
             if (position == 0) tab.setText(R.string.button_edit)
             else tab.setText(R.string.button_preview)
         }.attach()
+
+        viewModel.createPageStatus.observeIfNotHandled(this) {
+            if (it == Status.SUCCESS) {
+                PageEditorCompleteDialog(this).show()
+            }
+        }
     }
 
     companion object {
+        const val PAGE_INFO = "pageInfo"
+        const val TOPIC_TITLE = "topicTitle"
+        const val TOPIC_ID = "topicId"
+
         fun start(context: Context) {
             val intent = Intent(context, PageEditorActivity::class.java)
             context.startActivity(intent)
