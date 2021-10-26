@@ -7,8 +7,8 @@ import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageBinding
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
@@ -24,10 +24,7 @@ import kotlinx.android.synthetic.main.activity_page.shareButton
 import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
 
 class PageActivity : AppCompatActivity() {
-    val pageViewModel by lazy {
-        val noteId = intent.getIntExtra(NOTE_ID, 0)
-        ViewModelProvider(this, PageViewModelFactory(noteId)).get(PageViewModel::class.java)
-    }
+    val pageViewModel by viewModels<PageViewModel>()
     private val binding: ActivityPageBinding by lazy {
         ActivityPageBinding.inflate(layoutInflater)
     }
@@ -39,6 +36,9 @@ class PageActivity : AppCompatActivity() {
             pageViewModel = this@PageActivity.pageViewModel
             lifecycleOwner = this@PageActivity
         }
+        val noteId = intent.getIntExtra(NOTE_ID, 0)
+        pageViewModel.loadNote(noteId)
+
         initObserver()
         initButton()
         FloatingMenuUIController(this, pageViewModel.isFabOpen, fabButton, fabChildButtonList)
