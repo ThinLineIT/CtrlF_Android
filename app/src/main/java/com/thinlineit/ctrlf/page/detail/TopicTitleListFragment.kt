@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.thinlineit.ctrlf.databinding.FragmentTopicTitleBinding
 
 class TopicTitleListFragment : Fragment() {
-    private val topicTitleListAdapter = TopicTitleListAdapter { topicId, topicTitle ->
-        pageViewModel.selectTopic(topicId, topicTitle)
+    private val topicTitleListAdapter = TopicTitleListAdapter { topic ->
+        pageViewModel.selectTopic(topic)
         this.findNavController().navigate(
             TopicTitleListFragmentDirections.actionNotesFragmentToPageFragment()
         )

@@ -12,7 +12,7 @@ import com.thinlineit.ctrlf.databinding.ListItemTopicTitleBinding
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
-class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
+class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     RecyclerView.Adapter<TopicTitleListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<Topic>>,
     ListButtonInterface {
@@ -40,10 +40,10 @@ class TopicTitleListAdapter(private val clickListener: (Int, String) -> Unit) :
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
-        fun bind(topic: Topic, clickListener: (Int, String) -> Unit) {
+        fun bind(topic: Topic, clickListener: (Topic) -> Unit) {
             dataBinding.topic = topic
             dataBinding.root.setOnClickListener {
-                clickListener(topic.id, topic.title)
+                clickListener(topic)
             }
         }
 
