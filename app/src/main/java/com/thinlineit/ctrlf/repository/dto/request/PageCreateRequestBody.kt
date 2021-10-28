@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.data.request
+package com.thinlineit.ctrlf.repository.dto.request
 
 import com.google.gson.annotations.SerializedName
 

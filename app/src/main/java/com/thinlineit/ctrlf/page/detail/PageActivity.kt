@@ -12,17 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageBinding
 import com.thinlineit.ctrlf.entity.UNSET_ID
+import com.thinlineit.ctrlf.issue.detail.IssueDetailActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
-import kotlinx.android.synthetic.main.activity_page.bookMarkButton
-import kotlinx.android.synthetic.main.activity_page.editButton
-import kotlinx.android.synthetic.main.activity_page.fabButton
-import kotlinx.android.synthetic.main.activity_page.fabChildButtonList
-import kotlinx.android.synthetic.main.activity_page.pageActivityToolBar
-import kotlinx.android.synthetic.main.activity_page.relatedIssueButton
-import kotlinx.android.synthetic.main.activity_page.shareButton
-import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
+import kotlinx.android.synthetic.main.activity_page.*
 
 class PageActivity : AppCompatActivity() {
     private val pageViewModel by viewModels<PageViewModel>()
@@ -73,8 +67,11 @@ class PageActivity : AppCompatActivity() {
             Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
         }
         relatedIssueButton.setOnClickListener {
-            // TODO: go to issue detail
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            val issueId = pageViewModel.page.value?.issueId
+            if (issueId != null)
+                IssueDetailActivity.start(this, issueId.toInt())
+            else
+                Toast.makeText(this, "관련 이슈가 없습니다.", Toast.LENGTH_SHORT).show()
         }
         editButton.setOnClickListener {
             // TODO: go to edit mode
