@@ -5,11 +5,11 @@ import java.io.Serializable
 
 data class Issue(
     @SerializedName("note_id")
-    val noteId: String? = null,
+    val noteId: Int? = null,
     @SerializedName("topic_id")
-    val topicId: String? = null,
+    val topicId: Int? = null,
     @SerializedName("page_id")
-    val pageId: String? = null,
+    val pageId: Int? = null,
     val id: Int,
     val owner: String,
     val title: String,

@@ -41,7 +41,7 @@ data class Topic(
 data class Page(
     val id: Int = -1,
     @SerializedName("issue_id")
-    val issueId: String? = null,
+    val issueId: Int? = null,
     @SerializedName("created_at")
     val createdAt: String? = null,
     @SerializedName("updated_at")

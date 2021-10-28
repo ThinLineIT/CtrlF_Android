@@ -16,9 +16,9 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
     val issueId: LiveData<Int>
         get() = _issueId
 
-    private val _issueInfo = MutableLiveData<Issue>()
-    val issueInfo: LiveData<Issue>
-        get() = _issueInfo
+    private val _issue = MutableLiveData<Issue>()
+    val issue: LiveData<Issue>
+        get() = _issue
 
     init {
         loadIssue(issueId)
@@ -27,7 +27,7 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
     fun loadIssue(issueId: Int) {
         viewModelScope.loadingLaunch {
             try {
-                _issueInfo.value = issueRepository.getIssueDetail(issueId.toString())
+                _issue.value = issueRepository.getIssueDetail(issueId.toString())
             } catch (e: Exception) {
             }
         }

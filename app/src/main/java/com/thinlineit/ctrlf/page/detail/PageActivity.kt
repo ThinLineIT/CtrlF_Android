@@ -69,7 +69,7 @@ class PageActivity : AppCompatActivity() {
         relatedIssueButton.setOnClickListener {
             val issueId = pageViewModel.page.value?.issueId
             if (issueId != null)
-                IssueDetailActivity.start(this, issueId.toInt())
+                IssueDetailActivity.start(this, issueId)
             else
                 Toast.makeText(this, "관련 이슈가 없습니다.", Toast.LENGTH_SHORT).show()
         }
