@@ -30,13 +30,13 @@ interface ContentApi {
     // note_id에 해당하는 topic들의 list를 리턴
     @GET("notes/{note_id}/topics")
     suspend fun getNote(
-        @Path("note_id") noteId: String
+        @Path("note_id") noteId: Int
     ): List<Topic>
 
     // 해당하는 페이지에 대한 정보를 리턴
     @GET("pages/{page_id}")
     suspend fun getPage(
-        @Path("page_id") pageId: String
+        @Path("page_id") pageId: Int
     ): Page
 
     @GET("topics/{topic_id}")
@@ -47,7 +47,7 @@ interface ContentApi {
     // topic_id에 해당하는 page list를 리턴
     @GET("topics/{topic_id}/pages")
     suspend fun getPageList(
-        @Path("topic_id") topic_id: String,
+        @Path("topic_id") topic_id: Int,
     ): List<Page>
 
     @POST("pages/")

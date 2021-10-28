@@ -9,19 +9,19 @@ import com.thinlineit.ctrlf.repository.network.ContentService
 class PageRepository {
 
     suspend fun loadPage(pageId: Int): Page {
-        return ContentService.retrofitService.getPage(pageId.toString())
+        return ContentService.retrofitService.getPage(pageId)
     }
 
-    suspend fun loadNoteInfo(noteId: String): List<Topic> {
+    suspend fun loadTopicList(noteId: Int): List<Topic> {
         return ContentService.retrofitService.getNote(noteId)
     }
 
-    suspend fun loadNoteDetailInfo(noteId: String): Note {
-        return ContentService.retrofitService.getNoteDetail(Integer.parseInt(noteId))
+    suspend fun loadNote(noteId: Int): Note {
+        return ContentService.retrofitService.getNoteDetail(noteId)
     }
 
     suspend fun loadPageList(topicId: Int): List<Page> {
-        return ContentService.retrofitService.getPageList(topicId.toString())
+        return ContentService.retrofitService.getPageList(topicId)
     }
 
     suspend fun createPage(topicId: Int, title: String, content: String, summary: String): Int {

@@ -13,8 +13,8 @@ import com.thinlineit.ctrlf.databinding.FragmentPageTitleBinding
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 
 class PageTitleListFragment : Fragment() {
-    private val pageTitleListAdapter = PageTitleListAdapter { pageId ->
-        pageViewModel.openPage(pageId)
+    private val pageTitleListAdapter = PageTitleListAdapter { page ->
+        pageViewModel.selectPage(page)
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
@@ -39,11 +39,17 @@ class PageTitleListFragment : Fragment() {
         }
 
         binding.addPageBtn.setOnClickListener {
+            val topic = pageViewModel.topic.value ?: return@setOnClickListener
             val intent = Intent(activity, PageEditorActivity::class.java)
+<<<<<<< HEAD
             // TODO : create 인지 update 인지 mode 추가
             intent.putExtra(PageEditorActivity.TOPIC_ID, pageViewModel.topicIdInfo.value)
             intent.putExtra(PageEditorActivity.TOPIC_TITLE, pageViewModel.topicTitleTop.value)
 
+=======
+            intent.putExtra(PageEditorActivity.TOPIC_ID, topic.id)
+            intent.putExtra(PageEditorActivity.TOPIC_TITLE, topic.title)
+>>>>>>> dev
             startActivity(intent)
         }
         return binding.root
