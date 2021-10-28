@@ -42,7 +42,7 @@ data class Topic(
 data class Page(
     val id: Int? = null,
     @SerializedName("issue_id")
-    val issueId: Int? = null,
+    val issueId: String? = null,
     @SerializedName("created_at")
     val createdAt: String? = null,
     @SerializedName("updated_at")

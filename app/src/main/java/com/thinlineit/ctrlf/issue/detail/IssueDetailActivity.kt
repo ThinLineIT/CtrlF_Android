@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
-import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 
 class IssueDetailActivity : AppCompatActivity() {
@@ -61,7 +60,7 @@ class IssueDetailActivity : AppCompatActivity() {
         const val ISSUE_ID = "issueId"
 
         fun start(context: Context, issueId: Int) {
-            val intent = Intent(context, PageActivity::class.java).apply {
+            val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)
             }
             context.startActivity(intent)

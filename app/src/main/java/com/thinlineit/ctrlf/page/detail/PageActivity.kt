@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageBinding
+import com.thinlineit.ctrlf.issue.detail.IssueDetailActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
@@ -63,8 +64,11 @@ class PageActivity : AppCompatActivity() {
             Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
         }
         relatedIssueButton.setOnClickListener {
-            // TODO: go to issue detail
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            val issueId = pageViewModel.page.value?.issueId
+            if (issueId != null)
+                IssueDetailActivity.start(this, issueId.toInt())
+            else
+                Toast.makeText(this, "관련 이슈가 없습니다.", Toast.LENGTH_SHORT).show()
         }
         editButton.setOnClickListener {
             // TODO: go to edit mode
