@@ -40,6 +40,7 @@ class PageTitleListFragment : Fragment() {
 
         binding.addPageBtn.setOnClickListener {
             val intent = Intent(activity, PageEditorActivity::class.java)
+            // TODO : create 인지 update 인지 mode 추가
             intent.putExtra(PageEditorActivity.TOPIC_ID, pageViewModel.topicIdInfo.value)
             intent.putExtra(PageEditorActivity.TOPIC_TITLE, pageViewModel.topicTitleTop.value)
 

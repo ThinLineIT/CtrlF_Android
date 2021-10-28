@@ -11,9 +11,9 @@ import com.thinlineit.ctrlf.databinding.FragmentIssueListBinding
 
 class IssueListFragment : Fragment() {
     private val issueViewModel by viewModels<IssueListViewModel>()
-    private val issueAdapter = IssueListAdapter { issueInfo ->
+    private val issueAdapter = IssueListAdapter { issueId ->
         this.findNavController().navigate(
-            IssueListFragmentDirections.actionIssueListFragmentToIssueDetailActivity(issueInfo)
+            IssueListFragmentDirections.actionIssueListFragmentToIssueDetailActivity(issueId)
         )
     }
 

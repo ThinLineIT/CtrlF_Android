@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
-import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 
@@ -24,8 +23,8 @@ class IssueDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val issue = intent.getSerializableExtra(ISSUE_INFO) as Issue
-        val viewModelFactory = IssueDetailViewModelFactory(issue)
+        val issueId = intent.getIntExtra(ISSUE_ID, 0)
+        val viewModelFactory = IssueDetailViewModelFactory(issueId)
         val issueDetailViewModel =
             ViewModelProvider(this, viewModelFactory).get(IssueDetailViewModel::class.java)
 
@@ -59,7 +58,6 @@ class IssueDetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val ISSUE_INFO = "issueInfo"
         const val ISSUE_ID = "issueId"
 
         fun start(context: Context, issueId: Int) {

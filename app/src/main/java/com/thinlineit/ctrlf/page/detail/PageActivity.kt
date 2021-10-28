@@ -14,19 +14,14 @@ import com.thinlineit.ctrlf.databinding.ActivityPageBinding
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
-import kotlinx.android.synthetic.main.activity_page.bookMarkButton
-import kotlinx.android.synthetic.main.activity_page.editButton
-import kotlinx.android.synthetic.main.activity_page.fabButton
-import kotlinx.android.synthetic.main.activity_page.fabChildButtonList
-import kotlinx.android.synthetic.main.activity_page.pageActivityToolBar
-import kotlinx.android.synthetic.main.activity_page.relatedIssueButton
-import kotlinx.android.synthetic.main.activity_page.shareButton
-import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
+import kotlinx.android.synthetic.main.activity_page.*
 
 class PageActivity : AppCompatActivity() {
     val pageViewModel by lazy {
         val noteId = intent.getIntExtra(NOTE_ID, 0)
-        ViewModelProvider(this, PageViewModelFactory(noteId)).get(PageViewModel::class.java)
+        ViewModelProvider(this, PageViewModelFactory(noteId)).get(PageViewModel::class.java).apply {
+            // TODO : 여기서 viewmodel 프로퍼티 세팅
+        }
     }
     private val binding: ActivityPageBinding by lazy {
         ActivityPageBinding.inflate(layoutInflater)

@@ -10,7 +10,7 @@ import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 import com.thinlineit.ctrlf.util.setBackgroundById
 
-class IssueListAdapter(private val clickListener: (Issue) -> Unit) :
+class IssueListAdapter(private val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<IssueListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<Issue>> {
     private var issueList = emptyList<Issue>()
@@ -27,7 +27,7 @@ class IssueListAdapter(private val clickListener: (Issue) -> Unit) :
 
     class ViewHolder(private val dataBinding: ListItemIssueBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
-        fun bind(issue: Issue, clickListener: (Issue) -> Unit, position: Int) {
+        fun bind(issue: Issue, clickListener: (Int) -> Unit, position: Int) {
             val resourceId: Int = when (position % 3) {
                 1 -> R.drawable.icon_issue_prelude
                 2 -> R.drawable.icon_issue_bluechalk
@@ -37,7 +37,7 @@ class IssueListAdapter(private val clickListener: (Issue) -> Unit) :
                 issueItem.setBackgroundById(resourceId)
                 this.issue = issue
                 root.setOnClickListener {
-                    clickListener(issue)
+                    clickListener(issue.id)
                 }
             }
         }
