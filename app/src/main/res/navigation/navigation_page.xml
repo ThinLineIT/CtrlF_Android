@@ -21,7 +21,7 @@
         android:label="@string/fragment_notes"
         tools:layout="@layout/fragment_page_title">
         <action
-            android:id="@+id/action_page_fragment_to_page_fragment"
+            android:id="@+id/action_page_fragment_to_topic_fragment"
             app:destination="@id/topic_title_list_fragment" />
     </fragment>
 

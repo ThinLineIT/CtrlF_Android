@@ -1,60 +1,80 @@
 package com.thinlineit.ctrlf.page.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.PageRepository
+import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class PageViewModel(
     private val pageRepository: PageRepository = PageRepository()
 ) : BaseViewModel() {
-    private val _note = MutableLiveData<Note>()
-    private val _topic = MutableLiveData<Topic>()
-    private val _page = MutableLiveData<Page>()
+
+    private val curNoteId = MutableLiveData<Int>()
+    private val curTopicId = MutableLiveData<Int>()
+    private val curPageId = MutableLiveData<Int>()
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
     private val _isFabOpen = MutableLiveData<Boolean>(false)
 
-    val note: LiveData<Note>
-        get() = _note
-    val topic: LiveData<Topic>
-        get() = _topic
-    val page: LiveData<Page>
-        get() = _page
-    val topicList = Transformations.map(note) { it.topicList }
-    val pageList = Transformations.map(topic) { it.pageList }
+    val note: LiveData<Note?> = curNoteId.switchMap { noteId ->
+        liveData {
+            val note = if (noteId == UNSET_ID) null else pageRepository.loadNote(noteId)
+            emit(note)
+        }
+    }
+    val topicList: LiveData<List<Topic>?> = curNoteId.switchMap { noteId ->
+        liveData {
+            val topicList = if (noteId == UNSET_ID) null else pageRepository.loadTopicList(noteId)
+            emit(topicList)
+        }
+    }
+    val topic: LiveData<Topic?> = MediatorLiveData<Topic?>().apply {
+        addSourceList(topicList, curTopicId) {
+            topicList.value?.find { it.id == curTopicId.value }
+        }
+    }
+    val pageList: LiveData<List<Page>?> = curTopicId.switchMap { topicId ->
+        liveData {
+            val pageList = if (topicId == UNSET_ID) null else pageRepository.loadPageList(topicId)
+            emit(pageList)
+        }
+    }
+    val page: LiveData<Page?> = MediatorLiveData<Page?>().apply {
+        addSourceList(pageList, curPageId) {
+            pageList.value?.find { it.id == curPageId.value }?.also {
+                openRightPane()
+            }
+        }
+    }
 
     val isRightPaneOpen: LiveData<Boolean>
         get() = _isRightPaneOpen
     val isFabOpen: LiveData<Boolean>
         get() = _isFabOpen
 
-    init {
-        closeRightPane()
+    fun setPageHierarchy(newNoteId: Int, newTopicId: Int, newPageId: Int) {
+        selectNote(newNoteId)
+        selectTopic(newTopicId)
+        selectPage(newPageId)
     }
 
-    fun loadNote(noteId: Int) {
-        viewModelScope.loadingLaunch {
-            try {
-                _note.value = pageRepository.loadNote(noteId)
-                loadTopicList(noteId)
-            } catch (e: Exception) {
-            }
-        }
+    fun selectNote(noteId: Int) {
+        curNoteId.value = noteId
     }
 
-    fun selectTopic(topic: Topic) {
-        _topic.value = topic
-        loadPageList(topic.id)
+    fun selectTopic(topicId: Int) {
+        curTopicId.value = topicId
     }
 
-    fun selectPage(page: Page) {
-        _page.value = page
-        openRightPane()
+    fun selectPage(page: Int) {
+        curPageId.value = page
     }
 
     fun openRightPane() {
@@ -69,23 +89,27 @@ class PageViewModel(
         _isFabOpen.value = _isFabOpen.value?.not() ?: true
     }
 
-    private fun loadTopicList(noteId: Int) {
-        viewModelScope.loadingLaunch {
-            try {
-                val topicList = pageRepository.loadTopicList(noteId)
-                _note.value = note.value?.copy(topicList = topicList)
-            } catch (e: Exception) {
+    fun onBackPressed(): Boolean {
+        return when {
+            isRightPaneOpen.value == true -> {
+                closeRightPane()
+                true
+            }
+            curTopicId.value != UNSET_ID -> {
+                selectPage(UNSET_ID)
+                selectTopic(UNSET_ID)
+                true
+            }
+            else -> {
+                false
             }
         }
     }
 
-    private fun loadPageList(topicId: Int) {
-        viewModelScope.loadingLaunch {
-            try {
-                val pageList = pageRepository.loadPageList(topicId)
-                _topic.value = topic.value?.copy(pageList = pageList)
-            } catch (e: Exception) {
-            }
-        }
+    init {
+        closeRightPane()
+    }
+
+    companion object {
     }
 }

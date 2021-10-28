@@ -1,10 +1,10 @@
 package com.thinlineit.ctrlf.util
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 
 fun <T> MediatorLiveData<T>.addSourceList(
-    vararg liveDataArgument: MutableLiveData<*>,
+    vararg liveDataArgument: LiveData<*>,
     onChange: () -> T
 ) {
     liveDataArgument.forEach {
