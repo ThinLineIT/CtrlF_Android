@@ -17,16 +17,7 @@ import kotlin.properties.Delegates
 import kotlinx.android.synthetic.main.activity_page.*
 
 class PageActivity : AppCompatActivity() {
-<<<<<<< HEAD
-    val pageViewModel by lazy {
-        val noteId = intent.getIntExtra(NOTE_ID, 0)
-        ViewModelProvider(this, PageViewModelFactory(noteId)).get(PageViewModel::class.java).apply {
-            // TODO : 여기서 viewmodel 프로퍼티 세팅
-        }
-    }
-=======
     val pageViewModel by viewModels<PageViewModel>()
->>>>>>> dev
     private val binding: ActivityPageBinding by lazy {
         ActivityPageBinding.inflate(layoutInflater)
     }
