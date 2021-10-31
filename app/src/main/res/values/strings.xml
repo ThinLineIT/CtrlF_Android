@@ -119,7 +119,8 @@
     <string name="label_issue_content">Issue Content</string>
 
     <string name="button_approve">승인</string>
-    <string name="button_detail">자세히보기</string>
+    <string name="button_reject">미승인</string>
+    <string name="button_detail">자세히 보러 가기 -></string>
 
     <string name="format_timer">%02d</string>
 

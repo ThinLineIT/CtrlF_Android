@@ -3,13 +3,13 @@ package com.thinlineit.ctrlf.issue.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
-import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBindingImpl
 import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
@@ -17,7 +17,7 @@ import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 class IssueDetailActivity : AppCompatActivity() {
 
     private val binding: ActivityIssueDetailBinding by lazy {
-        ActivityIssueDetailBindingImpl.inflate(layoutInflater).also {
+        ActivityIssueDetailBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
     }
@@ -31,7 +31,10 @@ class IssueDetailActivity : AppCompatActivity() {
 
         binding.apply {
             setSupportActionBar(toolBar)
-            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.apply {
+                setDisplayHomeAsUpEnabled(true)
+                setDisplayShowTitleEnabled(false)
+            }
             this.issueDetailViewModel = issueDetailViewModel
             lifecycleOwner = this@IssueDetailActivity
             detailButton.setOnClickListener {
@@ -55,6 +58,11 @@ class IssueDetailActivity : AppCompatActivity() {
         R.id.userCircleBtn -> {
             val intent = Intent(this, LogoutActivity::class.java)
             startActivity(intent)
+            true
+        }
+        android.R.id.home -> {
+            onBackPressed()
+            Log.d("testttt", "tttt")
             true
         }
         else -> super.onOptionsItemSelected(item)
