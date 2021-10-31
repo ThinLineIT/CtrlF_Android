@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
     private val issueRepository by lazy {
@@ -29,6 +30,14 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
             } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun approveIssue() {
+        viewModelScope.launch {
+            if (issueId.value != null) {
+                val message = issueRepository.approveIssue(issueId.value!!.toInt())
             }
         }
     }

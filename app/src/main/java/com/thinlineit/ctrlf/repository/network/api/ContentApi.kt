@@ -4,7 +4,7 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
-import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequestBody
+import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -53,6 +53,6 @@ interface ContentApi {
     @POST("pages/")
     suspend fun createPage(
         @Header("Authorization") Authorization: String,
-        @Body body: PageCreateRequestBody
+        @Body body: PageCreateRequest
     ): Response<Void>
 }

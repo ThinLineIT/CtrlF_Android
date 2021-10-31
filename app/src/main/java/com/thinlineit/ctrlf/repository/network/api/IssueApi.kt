@@ -2,7 +2,12 @@ package com.thinlineit.ctrlf.repository.network.api
 
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.IssueList
+import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -16,4 +21,10 @@ interface IssueApi {
     suspend fun DetailIssue(
         @Path("issue_id") issueId: String,
     ): Issue
+
+    @POST("actions/issue-approve/")
+    suspend fun ApproveIssue(
+        @Header("Authorization") Authorization: String,
+        @Body body: IssueApproveRequest
+    ): Response<Void>
 }
