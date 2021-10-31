@@ -3,9 +3,9 @@ package com.thinlineit.ctrlf.issue.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.thinlineit.ctrlf.R
@@ -13,6 +13,8 @@ import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
+import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.observeIfNotHandled
 
 class IssueDetailActivity : AppCompatActivity() {
 
@@ -47,6 +49,13 @@ class IssueDetailActivity : AppCompatActivity() {
                 )
             }
         }
+
+        issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
+            if (it == Status.SUCCESS)
+                Toast.makeText(this, "승인에 성공하셨습니다.", Toast.LENGTH_LONG).show()
+            else
+                Toast.makeText(this, "승인 권한이 없습니다.", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -62,7 +71,6 @@ class IssueDetailActivity : AppCompatActivity() {
         }
         android.R.id.home -> {
             onBackPressed()
-            Log.d("testttt", "tttt")
             true
         }
         else -> super.onOptionsItemSelected(item)

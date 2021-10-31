@@ -23,7 +23,7 @@ class IssueRepository {
         return IssueService.retrofitService.DetailIssue(issueId)
     }
 
-    suspend fun approveIssue(issueId: Int): String {
+    suspend fun approveIssue(issueId: Int): Int {
         return try {
             IssueService.retrofitService.ApproveIssue(
                 "Bearer " + com.thinlineit.ctrlf.util.Application.preferenceUtil.getString(
@@ -31,13 +31,14 @@ class IssueRepository {
                     ""
                 ),
                 IssueApproveRequest(issueId)
-            ).message()
+            ).code()
         } catch (e: Exception) {
-            e.toString()
+            SERVER_ERROR
         }
     }
 
     companion object {
-        private const val TOKEN = "token"
+        const val TOKEN = "token"
+        const val SERVER_ERROR = 500
     }
 }

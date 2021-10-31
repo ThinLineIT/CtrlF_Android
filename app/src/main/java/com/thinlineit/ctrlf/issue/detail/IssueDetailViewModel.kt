@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
+import com.thinlineit.ctrlf.util.Event
+import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 import kotlinx.coroutines.launch
 
@@ -26,9 +28,11 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
     val toolbarTitle: LiveData<String>
         get() = _toolbarTitle
 
+    val issueApproveStatus = MutableLiveData<Event<Status>>()
+
     init {
-        initToolbarTitle()
         loadIssue(issueId)
+        initToolbarTitle()
     }
 
     fun loadIssue(issueId: Int) {
@@ -43,12 +47,15 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
     fun approveIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                val message = issueRepository.approveIssue(issueId.value!!.toInt())
+                when (issueRepository.approveIssue(issueId.value!!.toInt())) {
+                    200 -> issueApproveStatus.value = Event(Status.SUCCESS)
+                    else -> issueApproveStatus.value = Event(Status.FAILURE)
+                }
             }
         }
     }
 
-    fun issueNullCheck(topicId: Int, pageId: Int): String {
+    private fun issueNullCheck(topicId: Int, pageId: Int): String {
         return if (pageId != UNSET_ID)
             PAGE
         else if (topicId != UNSET_ID)
@@ -57,7 +64,7 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
             NOTE
     }
 
-    fun initToolbarTitle() {
+    private fun initToolbarTitle() {
         _toolbarTitle.value = CREATE +
             issueNullCheck(
                 issue.value?.topicId ?: UNSET_ID,
