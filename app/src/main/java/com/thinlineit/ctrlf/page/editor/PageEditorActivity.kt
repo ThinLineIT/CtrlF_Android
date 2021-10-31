@@ -10,12 +10,12 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
+import com.thinlineit.ctrlf.util.CustomDialogInterface
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.pager
-import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
+import kotlinx.android.synthetic.main.activity_page_editor.*
 
-class PageEditorActivity : FragmentActivity() {
+class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     private lateinit var pageEditorAdapter: PageEditorAdapter
 
     private val binding: ActivityPageEditorBinding by lazy {
@@ -54,9 +54,13 @@ class PageEditorActivity : FragmentActivity() {
 
         viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
-                PageEditorCompleteDialog(this).show()
+                PageEditorCompleteDialog(this, this).show()
             }
         }
+    }
+
+    override fun onFinishButton() {
+        finish()
     }
 
     companion object {
