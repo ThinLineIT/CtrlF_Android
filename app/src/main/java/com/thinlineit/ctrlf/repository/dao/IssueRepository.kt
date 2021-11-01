@@ -8,10 +8,10 @@ import com.thinlineit.ctrlf.util.Application
 class IssueRepository {
 
     suspend fun loadIssueList(): List<Issue> {
-        return getIssueList()
+        return getIssueListViaNetwork()
     }
 
-    private suspend fun getIssueList(): List<Issue> {
+    private suspend fun getIssueListViaNetwork(): List<Issue> {
         return try {
             val issueList = IssueService.retrofitService.listIssue(0).issues!!
             issueList

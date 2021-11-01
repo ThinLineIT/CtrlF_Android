@@ -28,7 +28,9 @@ class IssueDetailViewModel(
     val toolbarTitle: LiveData<String>
         get() = _toolbarTitle
 
-    val issueApproveStatus = MutableLiveData<Event<Status>>()
+    private val _issueApproveStatus = MutableLiveData<Event<Status>>()
+    val issueApproveStatus: LiveData<Event<Status>>
+        get() = _issueApproveStatus
 
     init {
         loadIssue(issueId)
@@ -48,8 +50,8 @@ class IssueDetailViewModel(
         viewModelScope.launch {
             if (issueId.value != null) {
                 when (issueRepository.approveIssue(issueId.value!!.toInt())) {
-                    200 -> issueApproveStatus.value = Event(Status.SUCCESS)
-                    else -> issueApproveStatus.value = Event(Status.FAILURE)
+                    200 -> _issueApproveStatus.value = Event(Status.SUCCESS)
+                    else -> _issueApproveStatus.value = Event(Status.FAILURE)
                 }
             }
         }
