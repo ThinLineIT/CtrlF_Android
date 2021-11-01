@@ -13,7 +13,8 @@ import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.CustomDialogInterface
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.*
+import kotlinx.android.synthetic.main.activity_page_editor.pager
+import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 
 class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     private lateinit var pageEditorAdapter: PageEditorAdapter

@@ -19,13 +19,12 @@ import com.thinlineit.ctrlf.util.observeIfNotHandled
 class IssueDetailActivity : AppCompatActivity() {
 
     private val binding: ActivityIssueDetailBinding by lazy {
-        ActivityIssueDetailBinding.inflate(layoutInflater).also {
-            setContentView(it.root)
-        }
+        ActivityIssueDetailBinding.inflate(layoutInflater)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         val issueId = intent.getIntExtra(ISSUE_ID, 0)
         val viewModelFactory = IssueDetailViewModelFactory(issueId)
         val issueDetailViewModel =
@@ -52,9 +51,9 @@ class IssueDetailActivity : AppCompatActivity() {
 
         issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS)
-                Toast.makeText(this, "승인에 성공하셨습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.notice_complete_approve, Toast.LENGTH_LONG).show()
             else
-                Toast.makeText(this, "승인 권한이 없습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.notice_non_authority, Toast.LENGTH_LONG).show()
         }
     }
 

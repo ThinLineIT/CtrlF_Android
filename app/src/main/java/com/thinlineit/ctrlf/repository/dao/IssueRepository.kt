@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.repository.dao
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
 import com.thinlineit.ctrlf.repository.network.IssueService
+import com.thinlineit.ctrlf.util.Application
 
 class IssueRepository {
 
@@ -26,7 +27,7 @@ class IssueRepository {
     suspend fun approveIssue(issueId: Int): Int {
         return try {
             IssueService.retrofitService.ApproveIssue(
-                "Bearer " + com.thinlineit.ctrlf.util.Application.preferenceUtil.getString(
+                "Bearer " + Application.preferenceUtil.getString(
                     TOKEN,
                     ""
                 ),

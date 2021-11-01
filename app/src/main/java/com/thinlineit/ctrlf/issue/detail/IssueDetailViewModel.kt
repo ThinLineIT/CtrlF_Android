@@ -11,10 +11,10 @@ import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
-    private val issueRepository by lazy {
-        IssueRepository()
-    }
+class IssueDetailViewModel(
+    issueId: Int,
+    private val issueRepository: IssueRepository = IssueRepository()
+) : BaseViewModel() {
 
     private val _issueId = MutableLiveData<Int>(issueId)
     val issueId: LiveData<Int>
@@ -55,7 +55,7 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
         }
     }
 
-    private fun issueNullCheck(topicId: Int, pageId: Int): String {
+    private fun parseIssueContentType(topicId: Int, pageId: Int): String {
         return if (pageId != UNSET_ID)
             PAGE
         else if (topicId != UNSET_ID)
@@ -66,7 +66,7 @@ class IssueDetailViewModel(issueId: Int) : BaseViewModel() {
 
     private fun initToolbarTitle() {
         _toolbarTitle.value = CREATE +
-            issueNullCheck(
+            parseIssueContentType(
                 issue.value?.topicId ?: UNSET_ID,
                 issue.value?.pageId ?: UNSET_ID
             )

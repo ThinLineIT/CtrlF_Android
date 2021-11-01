@@ -10,8 +10,10 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.util.CustomDialogInterface
 import kotlinx.android.synthetic.main.dialog_create_issue.*
 
-class PageEditorCompleteDialog(context: Context, Interface: CustomDialogInterface) :
-    Dialog(context) {
+class PageEditorCompleteDialog(
+    context: Context,
+    private val Interface: CustomDialogInterface
+) : Dialog(context) {
     private var customDialogInterface: CustomDialogInterface = Interface
 
     override fun onCreate(savedInstanceState: Bundle?) {

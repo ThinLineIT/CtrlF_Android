@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.databinding.ListItemTagBinding
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
+// Issue List 에서 Tag 기능 구현 시 사용되는 리사이클러뷰 어댑터입니다.
 class TagListAdapter(private val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<TagListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<String>> {

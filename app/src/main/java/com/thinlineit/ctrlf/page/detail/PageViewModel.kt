@@ -9,12 +9,12 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.entity.UNSET_ID
-import com.thinlineit.ctrlf.repository.dao.PageRepository
+import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
 class PageViewModel(
-    private val pageRepository: PageRepository = PageRepository()
+    private val pageRepository: ContentRepository = ContentRepository()
 ) : BaseViewModel() {
 
     private val curNoteId = MutableLiveData<Int>()

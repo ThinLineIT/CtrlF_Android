@@ -9,15 +9,14 @@ import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.main.banner.IdeaCountBannerFragment
+import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
-import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
-class MainViewModel : BaseViewModel() {
-
-    private val issueRepository by lazy {
-        IssueRepository()
-    }
+class MainViewModel(
+    private val issueRepository: IssueRepository = IssueRepository(),
+    private val contentRepository: ContentRepository = ContentRepository()
+) : BaseViewModel() {
 
     private val _noteList = MutableLiveData<NoteList>()
     val noteList: LiveData<NoteList>
@@ -48,7 +47,7 @@ class MainViewModel : BaseViewModel() {
     private fun loadNote() {
         viewModelScope.loadingLaunch {
             try {
-                _noteList.value = ContentService.retrofitService.listNote(cursor)
+                _noteList.value = contentRepository.loadNoteList(cursor)
                 /* TODO: Implement loading with cursor by scrolling
                     .also {
                         cursor = it.nextCursor

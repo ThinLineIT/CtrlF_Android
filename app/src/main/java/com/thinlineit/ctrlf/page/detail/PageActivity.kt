@@ -60,22 +60,23 @@ class PageActivity : AppCompatActivity() {
 
         shareButton.setOnClickListener {
             // TODO: copy the uri on clipboard
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
         bookMarkButton.setOnClickListener {
             // TODO: save this page as bookmark
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
         relatedIssueButton.setOnClickListener {
             val issueId = pageViewModel.page.value?.issueId
             if (issueId != null)
                 IssueDetailActivity.start(this, issueId)
             else
-                Toast.makeText(this, "관련 이슈가 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, R.string.notice_non_exist_related_issue, Toast.LENGTH_SHORT)
+                    .show()
         }
         editButton.setOnClickListener {
             // TODO: go to edit mode
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
     }
 
