@@ -9,50 +9,118 @@
             type="com.thinlineit.ctrlf.issue.detail.IssueDetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".issue.detail.IssueDetailActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/issueTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@{issueDetailViewModel.issueInfo.title}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/label_title" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/issueId"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@{String.valueOf(issueDetailViewModel.issueInfo.id)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/issueTitle"
-            tools:text="@string/label_id" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/toolbar_main">
 
-        <TextView
-            android:id="@+id/issueContent"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@{issueDetailViewModel.issueInfo.content}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/issueId"
-            tools:text="@string/label_content" />
+                <TextView
+                    android:id="@+id/toolBarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:padding="12dp"
+                    android:src="@drawable/icon_logo"
+                    android:text="@{issueDetailViewModel.toolbarTitle}"
+                    android:textSize="30sp"
+                    tools:text="@string/label_create_page" />
 
-        <TextView
-            android:id="@+id/issueRegistrationDate"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@{issueDetailViewModel.issueInfo.registrationDate}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/issueContent"
-            tools:text="@string/label_registration_date" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/typeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="@{String.valueOf(issueDetailViewModel.issue.title)}"
+                android:textColor="@color/skyblue"
+                android:textSize="25sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                tools:text="@string/label_page_title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/issueLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:minHeight="350dp"
+                android:paddingBottom="20dp"
+                app:cardCornerRadius="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/typeTitle">
+
+                <TextView
+                    android:id="@+id/isseuContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="@{issueDetailViewModel.issue.content}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/label_issue_content" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/detailButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="@string/button_detail"
+                app:cornerRadius="10dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/issueLayout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/approveButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/skyblue"
+                android:onClick="@{()->issueDetailViewModel.approveIssue()}"
+                android:text="@string/button_approve"
+                app:cornerRadius="10dp"
+                app:layout_constraintLeft_toLeftOf="@id/detailButton"
+                app:layout_constraintRight_toLeftOf="@+id/rejectButton"
+                app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/rejectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:backgroundTint="@color/skyblue"
+                android:text="@string/button_reject"
+                app:cornerRadius="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/approveButton"
+                app:layout_constraintRight_toRightOf="@id/detailButton"
+                app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

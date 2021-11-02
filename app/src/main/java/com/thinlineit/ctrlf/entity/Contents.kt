@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.entity
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+const val UNSET_ID = -1
 
 data class NoteList(
     @SerializedName("next_cursor")
@@ -21,7 +22,6 @@ data class Note(
     @SerializedName("is_approved")
     val isApproved: Boolean,
     val owners: List<Int>,
-    val topicList: List<Topic>? = null
 )
 
 data class Topic(
@@ -35,12 +35,13 @@ data class Topic(
     val isApproved: Boolean,
     val note: Int,
     val owners: List<Int>,
-    val pageList: List<Page>? = null
 )
 
 @Parcelize
 data class Page(
-    val id: Int? = null,
+    val id: Int = -1,
+    @SerializedName("issue_id")
+    val issueId: Int? = null,
     @SerializedName("created_at")
     val createdAt: String? = null,
     @SerializedName("updated_at")

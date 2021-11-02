@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         binding.apply {
             setSupportActionBar(toolBar)
             supportActionBar?.setDisplayShowTitleEnabled(false)

@@ -5,16 +5,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.NoteList
-import com.thinlineit.ctrlf.repository.network.ContentService
+import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 
-class NotesViewModel : BaseViewModel() {
+class NotesViewModel(
+    private val contentRepository: ContentRepository = ContentRepository()
+) : BaseViewModel() {
     private val _noteList = MutableLiveData<NoteList>()
     val noteList: LiveData<NoteList>
         get() = _noteList
     val alertLiveData = MutableLiveData<String>()
 
     val notes = Transformations.map(noteList) { it.notes }
+
+    var cursor: Int = 0
 
     init {
         loadNote()
@@ -23,9 +27,13 @@ class NotesViewModel : BaseViewModel() {
     private fun loadNote() {
         viewModelScope.loadingLaunch {
             try {
-                _noteList.value = ContentService.retrofitService.listNote(0)
+                _noteList.value = contentRepository.loadNoteList(cursor)
+                /* TODO: Implement loading with cursor by scrolling
+                    .also {
+                        cursor = it.nextCursor
+                    }
+                */
             } catch (e: Exception) {
-                alertLiveData.postValue(e.toString())
             }
         }
     }

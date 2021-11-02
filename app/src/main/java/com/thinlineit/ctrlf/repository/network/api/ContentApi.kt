@@ -4,7 +4,12 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -44,4 +49,10 @@ interface ContentApi {
     suspend fun getPageList(
         @Path("topic_id") topic_id: Int,
     ): List<Page>
+
+    @POST("pages/")
+    suspend fun createPage(
+        @Header("Authorization") Authorization: String,
+        @Body body: PageCreateRequest
+    ): Response<Void>
 }

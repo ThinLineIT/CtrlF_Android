@@ -2,10 +2,15 @@ package com.thinlineit.ctrlf.issue.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.thinlineit.ctrlf.issue.Issue
+import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.entity.Issue
+import com.thinlineit.ctrlf.repository.dao.IssueRepository
+import com.thinlineit.ctrlf.util.base.BaseViewModel
 
-class IssueListViewModel : ViewModel() {
+class IssueListViewModel(
+    private val issueRepository: IssueRepository = IssueRepository()
+) : BaseViewModel() {
+
     private val _issueList = MutableLiveData<List<Issue>>(emptyList())
     val issueList: LiveData<List<Issue>>
         get() = _issueList
@@ -15,17 +20,11 @@ class IssueListViewModel : ViewModel() {
     }
 
     private fun loadIssue() {
-        // TODO: Load the list of issue using "getIssue" api
-        _issueList.value = createIssue()
-    }
-
-    private fun createIssue(): List<Issue> {
-        val contentStr =
-            "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz" +
-                "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz"
-        return (1..9).map { i ->
-            if (i % 2 != 0) Issue(i, "title$i", 1, 1, "2021-07-12", contentStr)
-            else Issue(i, "title$i", 1, 1, "2021-07-12", contentStr + contentStr)
+        viewModelScope.loadingLaunch {
+            try {
+                _issueList.value = issueRepository.loadIssueList()
+            } catch (e: Exception) {
+            }
         }
     }
 }

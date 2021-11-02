@@ -14,10 +14,7 @@ import com.thinlineit.ctrlf.databinding.FragmentTopicTitleBinding
 
 class TopicTitleListFragment : Fragment() {
     private val topicTitleListAdapter = TopicTitleListAdapter { topic ->
-        pageViewModel.selectTopic(topic)
-        this.findNavController().navigate(
-            TopicTitleListFragmentDirections.actionNotesFragmentToPageFragment()
-        )
+        pageViewModel.selectTopic(topic.id)
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
@@ -41,6 +38,13 @@ class TopicTitleListFragment : Fragment() {
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
             addTopicBtn.setOnClickListener { view ->
                 Toast.makeText(activity, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        pageViewModel.topic.observe(viewLifecycleOwner) {
+            if (it != null) {
+                this.findNavController().navigate(
+                    TopicTitleListFragmentDirections.actionNotesFragmentToPageFragment()
+                )
             }
         }
         return binding.root

@@ -11,20 +11,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageBinding
+import com.thinlineit.ctrlf.entity.UNSET_ID
+import com.thinlineit.ctrlf.issue.detail.IssueDetailActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
-import kotlinx.android.synthetic.main.activity_page.bookMarkButton
-import kotlinx.android.synthetic.main.activity_page.editButton
-import kotlinx.android.synthetic.main.activity_page.fabButton
-import kotlinx.android.synthetic.main.activity_page.fabChildButtonList
-import kotlinx.android.synthetic.main.activity_page.pageActivityToolBar
-import kotlinx.android.synthetic.main.activity_page.relatedIssueButton
-import kotlinx.android.synthetic.main.activity_page.shareButton
-import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
+import kotlinx.android.synthetic.main.activity_page.*
 
 class PageActivity : AppCompatActivity() {
-    val pageViewModel by viewModels<PageViewModel>()
+    private val pageViewModel by viewModels<PageViewModel>()
     private val binding: ActivityPageBinding by lazy {
         ActivityPageBinding.inflate(layoutInflater)
     }
@@ -36,8 +31,10 @@ class PageActivity : AppCompatActivity() {
             pageViewModel = this@PageActivity.pageViewModel
             lifecycleOwner = this@PageActivity
         }
-        val noteId = intent.getIntExtra(NOTE_ID, 0)
-        pageViewModel.loadNote(noteId)
+        val noteId = intent.getIntExtra(NOTE_ID, UNSET_ID)
+        val topicId = intent.getIntExtra(TOPIC_ID, UNSET_ID)
+        val pageId = intent.getIntExtra(PAGE_ID, UNSET_ID)
+        pageViewModel.setPageHierarchy(noteId, topicId, pageId)
 
         initObserver()
         initButton()
@@ -63,19 +60,23 @@ class PageActivity : AppCompatActivity() {
 
         shareButton.setOnClickListener {
             // TODO: copy the uri on clipboard
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
         bookMarkButton.setOnClickListener {
             // TODO: save this page as bookmark
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
         relatedIssueButton.setOnClickListener {
-            // TODO: go to issue detail
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            val issueId = pageViewModel.page.value?.issueId
+            if (issueId != null)
+                IssueDetailActivity.start(this, issueId)
+            else
+                Toast.makeText(this, R.string.notice_non_exist_related_issue, Toast.LENGTH_SHORT)
+                    .show()
         }
         editButton.setOnClickListener {
             // TODO: go to edit mode
-            Toast.makeText(this, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -89,7 +90,6 @@ class PageActivity : AppCompatActivity() {
         }
 
         val loadingDialog = LoadingDialog(this)
-
         pageViewModel.isLoading.observe(this) {
             if (it) loadingDialog.show()
             else loadingDialog.dismiss()
@@ -111,23 +111,18 @@ class PageActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (slidingPaneLayout.isOpen && slidingPaneLayout.isSlideable) {
-            pageViewModel.closeRightPane()
-        } else {
-            super.onBackPressed()
-        }
+        if (!pageViewModel.onBackPressed())
+            finish()
     }
 
     companion object {
         const val NOTE_ID = "noteId"
-        const val TOPIC_ID = "noteId"
-        const val PAGE_ID = "noteId"
-        const val PAGE_INFO = "pageInfo"
-        const val UNSET = -1
+        const val TOPIC_ID = "topicId"
+        const val PAGE_ID = "pageId"
 
         var dpWidth by Delegates.notNull<Float>()
 
-        fun start(context: Context, noteId: Int, topicId: Int = UNSET, pageId: Int = UNSET) {
+        fun start(context: Context, noteId: Int, topicId: Int = UNSET_ID, pageId: Int = UNSET_ID) {
             val intent = Intent(context, PageActivity::class.java).apply {
                 putExtra(NOTE_ID, noteId)
                 putExtra(TOPIC_ID, topicId)

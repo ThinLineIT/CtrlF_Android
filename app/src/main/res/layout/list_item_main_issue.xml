@@ -7,7 +7,7 @@
 
         <variable
             name="issue"
-            type="com.thinlineit.ctrlf.issue.Issue" />
+            type="com.thinlineit.ctrlf.entity.Issue" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/mainIssueItemImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             android:src="@drawable/icon_issue_lightgreen"
@@ -30,14 +30,17 @@
 
         <TextView
             android:id="@+id/issueTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:fontFamily="@font/sc_dream_2"
             android:text="@{issue.title}"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/mainIssueItemImage"
+            app:layout_constraintEnd_toEndOf="@+id/mainIssueItemImage"
             app:layout_constraintTop_toTopOf="@id/mainIssueItemImage"
             tool:text="@string/label_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>

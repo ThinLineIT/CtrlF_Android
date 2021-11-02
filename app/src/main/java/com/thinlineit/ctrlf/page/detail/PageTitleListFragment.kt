@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thinlineit.ctrlf.databinding.FragmentPageTitleBinding
@@ -14,7 +15,7 @@ import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 
 class PageTitleListFragment : Fragment() {
     private val pageTitleListAdapter = PageTitleListAdapter { page ->
-        pageViewModel.selectPage(page)
+        pageViewModel.selectPage(page.id)
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
@@ -44,6 +45,13 @@ class PageTitleListFragment : Fragment() {
             intent.putExtra(PageEditorActivity.TOPIC_ID, topic.id)
             intent.putExtra(PageEditorActivity.TOPIC_TITLE, topic.title)
             startActivity(intent)
+        }
+        pageViewModel.topic.observe(viewLifecycleOwner) {
+            if (it == null) {
+                findNavController().navigate(
+                    PageTitleListFragmentDirections.actionPageFragmentToTopicFragment()
+                )
+            }
         }
         return binding.root
     }

@@ -28,6 +28,7 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
         val pageDao = pageList[position]
         holder.bind(pageDao, clickListener)
     }
+
     // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
     override fun onDelete(context: Context) {
         TopicFragmentDialog(context).topicDialog(context)
@@ -41,9 +42,16 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
     class ViewHolder(private val dataBinding: ListItemPageTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
         fun bind(page: Page, clickListener: (Page) -> Unit) {
-            dataBinding.page = page
-            dataBinding.root.setOnClickListener {
-                clickListener(page)
+            val resourceId = when (page.isApproved) {
+                true -> R.color.white
+                else -> R.color.gray
+            }
+            dataBinding.apply {
+                swipePageListView.setBackgroundResource(resourceId)
+                this.page = page
+                root.setOnClickListener {
+                    clickListener(page)
+                }
             }
         }
 
@@ -59,6 +67,7 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
                 return ViewHolder(dataBinding)
             }
         }
+
         override fun getSwipeWidth(): Int = dataBinding.pageTitleDeleteButton.width
         override fun getSwipeLayout(): LinearLayout = dataBinding.swipePageListView
     }
