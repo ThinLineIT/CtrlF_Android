@@ -12,10 +12,8 @@ import kotlinx.android.synthetic.main.dialog_create_issue.*
 
 class PageEditorCompleteDialog(
     context: Context,
-    private val Interface: CustomDialogInterface
+    private val customDialogInterface: CustomDialogInterface
 ) : Dialog(context) {
-    private var customDialogInterface: CustomDialogInterface = Interface
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
