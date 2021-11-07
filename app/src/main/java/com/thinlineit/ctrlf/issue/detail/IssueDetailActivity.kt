@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -47,6 +49,13 @@ class IssueDetailActivity : AppCompatActivity() {
                     issue.pageId ?: UNSET_ID
                 )
             }
+
+            issueDetailViewModel.issue.observe(this@IssueDetailActivity) {
+                updateDetailButtonViewVisibility(
+                    detailButton,
+                    it.relatedModelType
+                )
+            }
         }
 
         issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
@@ -75,9 +84,20 @@ class IssueDetailActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    private fun updateDetailButtonViewVisibility(
+        buttonView: Button,
+        contentType: String
+    ) {
+        if (contentType == PAGE) {
+            buttonView.visibility = View.VISIBLE
+        } else {
+            buttonView.visibility = View.GONE
+        }
+    }
+
     companion object {
         const val ISSUE_ID = "issueId"
-
+        const val PAGE = "PAGE"
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)

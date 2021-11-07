@@ -34,13 +34,13 @@ class IssueDetailViewModel(
 
     init {
         loadIssue(issueId)
-        initToolbarTitle()
     }
 
     fun loadIssue(issueId: Int) {
         viewModelScope.loadingLaunch {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
+                initToolbarTitle()
             } catch (e: Exception) {
             }
         }
@@ -57,21 +57,9 @@ class IssueDetailViewModel(
         }
     }
 
-    private fun parseIssueContentType(topicId: Int, pageId: Int): String {
-        return if (pageId != UNSET_ID)
-            PAGE
-        else if (topicId != UNSET_ID)
-            TOPIC
-        else
-            NOTE
-    }
-
     private fun initToolbarTitle() {
         _toolbarTitle.value = CREATE +
-            parseIssueContentType(
-                issue.value?.topicId ?: UNSET_ID,
-                issue.value?.pageId ?: UNSET_ID
-            )
+            (issue.value?.relatedModelType ?: UNSET_ID)
     }
 
     companion object {
