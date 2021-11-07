@@ -4,7 +4,9 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -54,5 +56,19 @@ interface ContentApi {
     suspend fun createPage(
         @Header("Authorization") Authorization: String,
         @Body body: PageCreateRequest
+    ): Response<Void>
+
+    // note_id에 해당하는 note에 새로운 토픽 생성
+    @POST("topics/")
+    suspend fun createTopic(
+        @Header("Authorization") Authorization: String,
+        @Body request: TopicCreateRequest
+    ): Response<Void>
+
+    // 새로운 노트 생성
+    @POST("notes/")
+    suspend fun createNote(
+        @Header("Authorization") Authorization: String,
+        @Body request: NoteCreateRequest
     ): Response<Void>
 }

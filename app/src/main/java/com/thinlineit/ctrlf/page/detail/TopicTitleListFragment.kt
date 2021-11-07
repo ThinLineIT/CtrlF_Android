@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentTopicTitleBinding
 
 class TopicTitleListFragment : Fragment() {
@@ -37,7 +37,17 @@ class TopicTitleListFragment : Fragment() {
                 LinearLayoutManager(this@TopicTitleListFragment.context)
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
             addTopicBtn.setOnClickListener { view ->
-                Toast.makeText(activity, "해당 서비스는 준비중입니다.", Toast.LENGTH_SHORT).show()
+                val dialog = CreateDialog(
+                    resources.getString(R.string.hint_dialog_topic_title)
+                ) { title, reason ->
+                    pageViewModel?.complete(title, reason)
+                }
+                activity?.supportFragmentManager?.let { fragmentManager ->
+                    dialog.show(
+                        fragmentManager,
+                        "add topic"
+                    )
+                }
             }
         }
         pageViewModel.topic.observe(viewLifecycleOwner) {

@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.notes
+package com.thinlineit.ctrlf.main
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
@@ -6,39 +6,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.ListItemNoteBinding
+import com.thinlineit.ctrlf.databinding.ListItemMainNoteBinding
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
-class NotesAdapter(private val clickListener: (Int) -> Unit) :
+class MainNoteAdapter(private val clickListener: (Int) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<Note>> {
     var noteList: List<Note> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         ViewHolder.from(parent)
 
-    override fun getItemCount(): Int = (noteList.size + 1)
+    override fun getItemCount(): Int = noteList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val noteDao = if (position == 0) Note(
-            -1,
-            "",
-            "",
-            "add note",
-            true,
-            emptyList()
-        )
-        else noteList[position - 1]
+        val noteDao = noteList[position]
         val resource = holder.itemView.resources
-        (holder as ViewHolder).bind(
-            noteDao,
-            clickListener,
-            position,
-            resource
-        )
+        (holder as ViewHolder).bind(noteDao, clickListener, position, resource)
     }
 
-    class ViewHolder(private val dataBinding: ListItemNoteBinding) :
+    class ViewHolder(private val dataBinding: ListItemMainNoteBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
         fun bind(
             note: Note,
@@ -47,7 +34,8 @@ class NotesAdapter(private val clickListener: (Int) -> Unit) :
             resources: Resources
         ) {
             val noteDesignArray = resources.obtainTypedArray(R.array.notes)
-            val noteResourceId = noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
+            val noteResourceId =
+                noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
                 this.note = note
@@ -60,7 +48,7 @@ class NotesAdapter(private val clickListener: (Int) -> Unit) :
         companion object {
             fun from(parent: ViewGroup): RecyclerView.ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val dataBinding = ListItemNoteBinding.inflate(
+                val dataBinding = ListItemMainNoteBinding.inflate(
                     layoutInflater,
                     parent,
                     false

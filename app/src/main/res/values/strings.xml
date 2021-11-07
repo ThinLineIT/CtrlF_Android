@@ -129,4 +129,14 @@
 
     <string name="format_timer">%02d</string>
 
+    <!-- dialog -->
+    <string name="button_dialog_confirm">확인</string>
+    <string name="button_dialog_cancel">취소</string>
+    <string name="hint_dialog_note_title">Note Title</string>
+    <string name="hint_dialog_content">내용 요약</string>
+    <string name="hint_dialog_topic_title">Topic Title</string>
+
+    <!-- notes -->
+    <string name="label_add_note">add note</string>
+
 </resources>

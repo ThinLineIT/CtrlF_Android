@@ -11,12 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.databinding.FragmentMainBinding
 import com.thinlineit.ctrlf.main.banner.MainBannerViewPagerAdapter
-import com.thinlineit.ctrlf.notes.NotesAdapter
 
 class MainFragment : Fragment() {
 
     private val mainViewModel by viewModels<MainViewModel>()
-    private val noteAdapter = NotesAdapter(NotesAdapter.TYPE_HORIZONTAL) { noteId ->
+    private val noteAdapter = MainNoteAdapter { noteId ->
         this.findNavController().navigate(
             MainFragmentDirections.actionMainFragmentToPageActivity(noteId)
         )

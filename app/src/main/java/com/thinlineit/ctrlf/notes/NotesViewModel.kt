@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 class NotesViewModel(
     private val contentRepository: ContentRepository = ContentRepository()
@@ -34,6 +35,21 @@ class NotesViewModel(
                     }
                 */
             } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun createNote(noteTitleEdit: String, reasonEdit: String) {
+        val noteTitle = noteTitleEdit
+        val reason = reasonEdit
+
+        // TODO: if it's true, inform success
+        viewModelScope.launch {
+            if (noteTitle != "" && reason != "") {
+                contentRepository.createNote(
+                    noteTitle,
+                    reason
+                )
             }
         }
     }
