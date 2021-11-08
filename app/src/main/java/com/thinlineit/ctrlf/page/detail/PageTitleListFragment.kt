@@ -55,4 +55,9 @@ class PageTitleListFragment : Fragment() {
         }
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        pageViewModel.selectTopic(pageViewModel.topic.value?.id ?: return)
+    }
 }
