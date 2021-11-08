@@ -55,13 +55,19 @@ class IssueDetailActivity : AppCompatActivity() {
                     detailButton,
                     it.relatedModelType
                 )
+                updateApproveButtonViewVisibility(
+                    approveButton,
+                    rejectButton,
+                    it.status
+                )
             }
         }
 
         issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
-            if (it == Status.SUCCESS)
+            if (it == Status.SUCCESS) {
                 Toast.makeText(this, R.string.notice_complete_approve, Toast.LENGTH_LONG).show()
-            else
+                finish()
+            } else
                 Toast.makeText(this, R.string.notice_non_authority, Toast.LENGTH_LONG).show()
         }
     }
@@ -95,9 +101,24 @@ class IssueDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateApproveButtonViewVisibility(
+        approveButtonView: Button,
+        rejectButtonView: Button,
+        status: String
+    ) {
+        if (status == REQUESTED) {
+            approveButtonView.visibility = View.VISIBLE
+            rejectButtonView.visibility = View.VISIBLE
+        } else {
+            approveButtonView.visibility = View.GONE
+            rejectButtonView.visibility = View.GONE
+        }
+    }
+
     companion object {
         const val ISSUE_ID = "issueId"
         const val PAGE = "PAGE"
+        const val REQUESTED = "REQUESTED"
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)
