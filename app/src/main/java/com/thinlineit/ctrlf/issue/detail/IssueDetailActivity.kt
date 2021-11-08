@@ -50,16 +50,20 @@ class IssueDetailActivity : AppCompatActivity() {
                 )
             }
 
-            issueDetailViewModel.issue.observe(this@IssueDetailActivity) {
-                updateDetailButtonViewVisibility(
-                    detailButton,
-                    it.relatedModelType
-                )
-                updateApproveButtonViewVisibility(
-                    approveButton,
-                    rejectButton,
-                    it.status
-                )
+            issueDetailViewModel.apply {
+                detailButtonStatus.observe(this@IssueDetailActivity) {
+                    updateDetailButtonViewVisibility(
+                        detailButton,
+                        it
+                    )
+                }
+                approveButtonStatus.observe(this@IssueDetailActivity) {
+                    updateApproveButtonViewVisibility(
+                        approveButton,
+                        rejectButton,
+                        it
+                    )
+                }
             }
         }
 
@@ -92,9 +96,9 @@ class IssueDetailActivity : AppCompatActivity() {
 
     private fun updateDetailButtonViewVisibility(
         buttonView: Button,
-        contentType: String
+        visible: Boolean
     ) {
-        if (contentType == PAGE) {
+        if (visible) {
             buttonView.visibility = View.VISIBLE
         } else {
             buttonView.visibility = View.GONE
@@ -104,9 +108,9 @@ class IssueDetailActivity : AppCompatActivity() {
     private fun updateApproveButtonViewVisibility(
         approveButtonView: Button,
         rejectButtonView: Button,
-        status: String
+        visible: Boolean
     ) {
-        if (status == REQUESTED) {
+        if (visible) {
             approveButtonView.visibility = View.VISIBLE
             rejectButtonView.visibility = View.VISIBLE
         } else {

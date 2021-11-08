@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.Issue
-import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
@@ -32,6 +31,14 @@ class IssueDetailViewModel(
     val issueApproveStatus: LiveData<Event<Status>>
         get() = _issueApproveStatus
 
+    private val _detailButtonStatus = MutableLiveData<Boolean>(false)
+    val detailButtonStatus: LiveData<Boolean>
+        get() = _detailButtonStatus
+
+    private val _approveButtonStatus = MutableLiveData<Boolean>(false)
+    val approveButtonStatus: LiveData<Boolean>
+        get() = _approveButtonStatus
+
     init {
         loadIssue(issueId)
     }
@@ -41,6 +48,7 @@ class IssueDetailViewModel(
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
                 initToolbarTitle()
+                initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
             } catch (e: Exception) {
             }
         }
@@ -59,13 +67,19 @@ class IssueDetailViewModel(
 
     private fun initToolbarTitle() {
         _toolbarTitle.value = CREATE +
-            (issue.value?.relatedModelType ?: UNSET_ID)
+            (issue.value?.relatedModelType ?: PAGE)
+    }
+
+    private fun initButtonVisible(contentType: String, status: String) {
+        _detailButtonStatus.value = contentType == PAGE
+        _approveButtonStatus.value = status == REQUESTED
     }
 
     companion object {
+        const val REQUESTED = "REQUESTED"
         const val NOTE = "Note"
         const val TOPIC = " Topic"
-        const val PAGE = "Page"
+        const val PAGE = "PAGE"
         const val CREATE = "Create"
     }
 }
