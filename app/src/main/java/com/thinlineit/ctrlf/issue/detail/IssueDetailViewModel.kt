@@ -68,11 +68,11 @@ class IssueDetailViewModel(
 
     private fun initToolbarTitle() {
         _toolbarTitle.value =
-            when (issue.value?.relatedModelType ?: "") {
+            when (issue.value?.relatedModelType ?: NULL) {
                 NOTE -> R.string.label_create_note
                 TOPIC -> R.string.label_create_topic
                 PAGE -> R.string.label_create_page
-                else -> R.string.empty_text
+                else -> NULL_ID
             }
     }
 
@@ -86,5 +86,7 @@ class IssueDetailViewModel(
         const val NOTE = "NOTE"
         const val TOPIC = " TOPIC"
         const val PAGE = "PAGE"
+        const val NULL = "null"
+        const val NULL_ID = -1
     }
 }

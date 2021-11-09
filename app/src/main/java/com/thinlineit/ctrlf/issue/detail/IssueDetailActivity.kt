@@ -74,6 +74,10 @@ class IssueDetailActivity : AppCompatActivity() {
             } else
                 Toast.makeText(this, R.string.notice_non_authority, Toast.LENGTH_LONG).show()
         }
+
+        issueDetailViewModel.toolbarTitle.observe(this) {
+            if (it == NULL_ID) finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -122,7 +126,7 @@ class IssueDetailActivity : AppCompatActivity() {
     companion object {
         const val ISSUE_ID = "issueId"
         const val PAGE = "PAGE"
-        const val REQUESTED = "REQUESTED"
+        const val NULL_ID = -1
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)
