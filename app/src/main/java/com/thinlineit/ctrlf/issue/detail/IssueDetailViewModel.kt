@@ -24,7 +24,7 @@ class IssueDetailViewModel(
     val issue: LiveData<Issue>
         get() = _issue
 
-    private val _toolbarTitle = MutableLiveData<Int>(R.string.label_create_page)
+    private val _toolbarTitle = MutableLiveData<Int>(R.string.empty_text)
     val toolbarTitle: LiveData<Int>
         get() = _toolbarTitle
 
@@ -68,10 +68,11 @@ class IssueDetailViewModel(
 
     private fun initToolbarTitle() {
         _toolbarTitle.value =
-            when (issue.value?.relatedModelType ?: PAGE) {
+            when (issue.value?.relatedModelType ?: "") {
                 NOTE -> R.string.label_create_note
                 TOPIC -> R.string.label_create_topic
-                else -> R.string.label_create_page
+                PAGE -> R.string.label_create_page
+                else -> R.string.empty_text
             }
     }
 
@@ -85,6 +86,5 @@ class IssueDetailViewModel(
         const val NOTE = "NOTE"
         const val TOPIC = " TOPIC"
         const val PAGE = "PAGE"
-        const val CREATE = "Create"
     }
 }
