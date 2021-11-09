@@ -35,9 +35,9 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:padding="12dp"
+                    android:padding="8dp"
                     android:src="@drawable/icon_logo"
-                    android:text="@{issueDetailViewModel.toolbarTitle}"
+                    android:text='@{issueDetailViewModel.toolbarTitle}'
                     android:textSize="30sp"
                     tools:text="@string/label_create_page" />
 

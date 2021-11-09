@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.issue.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.Event
@@ -23,8 +24,8 @@ class IssueDetailViewModel(
     val issue: LiveData<Issue>
         get() = _issue
 
-    private val _toolbarTitle = MutableLiveData<String>()
-    val toolbarTitle: LiveData<String>
+    private val _toolbarTitle = MutableLiveData<Int>(R.string.label_create_page)
+    val toolbarTitle: LiveData<Int>
         get() = _toolbarTitle
 
     private val _issueApproveStatus = MutableLiveData<Event<Status>>()
@@ -66,8 +67,12 @@ class IssueDetailViewModel(
     }
 
     private fun initToolbarTitle() {
-        _toolbarTitle.value = CREATE +
-            (issue.value?.relatedModelType ?: PAGE)
+        _toolbarTitle.value =
+            when (issue.value?.relatedModelType ?: PAGE) {
+                NOTE -> R.string.label_create_note
+                TOPIC -> R.string.label_create_topic
+                else -> R.string.label_create_page
+            }
     }
 
     private fun initButtonVisible(contentType: String, status: String) {
@@ -77,8 +82,8 @@ class IssueDetailViewModel(
 
     companion object {
         const val REQUESTED = "REQUESTED"
-        const val NOTE = "Note"
-        const val TOPIC = " Topic"
+        const val NOTE = "NOTE"
+        const val TOPIC = " TOPIC"
         const val PAGE = "PAGE"
         const val CREATE = "Create"
     }
