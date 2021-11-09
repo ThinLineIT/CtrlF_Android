@@ -58,7 +58,7 @@ class MainViewModel(
         }
     }
 
-    private fun loadIssue() {
+    fun loadIssue() {
         viewModelScope.loadingLaunch {
             try {
                 _issueList.value = issueRepository.loadIssueList()

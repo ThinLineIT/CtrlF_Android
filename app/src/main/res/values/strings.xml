@@ -116,6 +116,8 @@
     <string name="notice_non_exist_related_issue">관련 이슈가 없습니다.</string>
 
     <!-- issue -->
+    <string name="label_create_note">Create Note</string>
+    <string name="label_create_topic">Create Topic</string>
     <string name="label_create_page">Create Page</string>
     <string name="label_page_title">PAGE TITLE</string>
     <string name="label_issue_content">Issue Content</string>

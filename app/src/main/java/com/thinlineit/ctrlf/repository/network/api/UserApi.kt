@@ -26,24 +26,24 @@ interface UserApi {
         @Body request: SignUpRequest
     )
 
-    @POST("auth/signup/email")
+    @POST("auth/signup/email/")
     suspend fun sendingAuthEmail(
         @Body request: AuthEmailRequest
     ): AuthEmailResponse
 
-    @POST("auth/verification-code/check")
+    @POST("auth/verification-code/check/")
     suspend fun requestCodeCheck(
         @Body request: CodeCheckRequest
     ): CodeCheckResponse
 
-    @POST("auth/reset_password")
+    @POST("auth/reset_password/")
     suspend fun resetPassword(
         @Body request: ResetPasswordRequest
     )
 
-    @GET("auth/signup/nickname/duplicate")
+    @GET("auth/signup/nickname/duplicate/")
     suspend fun checkNickname(@Query("data") data: String): EmailCheckResponse
 
-    @GET("auth/signup/email/duplicate")
+    @GET("auth/signup/email/duplicate/")
     suspend fun checkEmail(@Query("data") data: String): EmailCheckResponse
 }

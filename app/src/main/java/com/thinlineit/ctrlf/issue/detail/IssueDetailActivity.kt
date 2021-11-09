@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -47,13 +49,34 @@ class IssueDetailActivity : AppCompatActivity() {
                     issue.pageId ?: UNSET_ID
                 )
             }
+
+            issueDetailViewModel.apply {
+                detailButtonStatus.observe(this@IssueDetailActivity) {
+                    updateDetailButtonViewVisibility(
+                        detailButton,
+                        it
+                    )
+                }
+                approveButtonStatus.observe(this@IssueDetailActivity) {
+                    updateApproveButtonViewVisibility(
+                        approveButton,
+                        rejectButton,
+                        it
+                    )
+                }
+            }
         }
 
         issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
-            if (it == Status.SUCCESS)
+            if (it == Status.SUCCESS) {
                 Toast.makeText(this, R.string.notice_complete_approve, Toast.LENGTH_LONG).show()
-            else
+                finish()
+            } else
                 Toast.makeText(this, R.string.notice_non_authority, Toast.LENGTH_LONG).show()
+        }
+
+        issueDetailViewModel.toolbarTitle.observe(this) {
+            if (it == R.string.empty_text) finish()
         }
     }
 
@@ -75,9 +98,34 @@ class IssueDetailActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    private fun updateDetailButtonViewVisibility(
+        buttonView: Button,
+        visible: Boolean
+    ) {
+        if (visible) {
+            buttonView.visibility = View.VISIBLE
+        } else {
+            buttonView.visibility = View.GONE
+        }
+    }
+
+    private fun updateApproveButtonViewVisibility(
+        approveButtonView: Button,
+        rejectButtonView: Button,
+        visible: Boolean
+    ) {
+        if (visible) {
+            approveButtonView.visibility = View.VISIBLE
+            rejectButtonView.visibility = View.VISIBLE
+        } else {
+            approveButtonView.visibility = View.GONE
+            rejectButtonView.visibility = View.GONE
+        }
+    }
+
     companion object {
         const val ISSUE_ID = "issueId"
-
+        const val PAGE = "PAGE"
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)
