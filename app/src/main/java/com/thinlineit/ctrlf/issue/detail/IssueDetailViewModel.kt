@@ -24,7 +24,7 @@ class IssueDetailViewModel(
     val issue: LiveData<Issue>
         get() = _issue
 
-    private val _toolbarTitle = MutableLiveData<Int>(R.string.empty_text)
+    private val _toolbarTitle = MutableLiveData<Int>(R.string.label_create_page)
     val toolbarTitle: LiveData<Int>
         get() = _toolbarTitle
 
@@ -72,7 +72,7 @@ class IssueDetailViewModel(
                 NOTE -> R.string.label_create_note
                 TOPIC -> R.string.label_create_topic
                 PAGE -> R.string.label_create_page
-                else -> NULL_ID
+                else -> R.string.empty_text
             }
     }
 
@@ -84,9 +84,8 @@ class IssueDetailViewModel(
     companion object {
         const val REQUESTED = "REQUESTED"
         const val NOTE = "NOTE"
-        const val TOPIC = " TOPIC"
+        const val TOPIC = "TOPIC"
         const val PAGE = "PAGE"
         const val NULL = "null"
-        const val NULL_ID = -1
     }
 }

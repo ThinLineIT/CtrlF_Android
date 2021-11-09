@@ -76,7 +76,7 @@ class IssueDetailActivity : AppCompatActivity() {
         }
 
         issueDetailViewModel.toolbarTitle.observe(this) {
-            if (it == NULL_ID) finish()
+            if (it == R.string.empty_text) finish()
         }
     }
 
@@ -126,7 +126,6 @@ class IssueDetailActivity : AppCompatActivity() {
     companion object {
         const val ISSUE_ID = "issueId"
         const val PAGE = "PAGE"
-        const val NULL_ID = -1
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)
