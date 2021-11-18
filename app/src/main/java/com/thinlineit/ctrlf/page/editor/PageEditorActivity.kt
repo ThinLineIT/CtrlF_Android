@@ -2,7 +2,9 @@ package com.thinlineit.ctrlf.page.editor
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
@@ -20,6 +22,25 @@ import kotlinx.android.synthetic.main.activity_page_editor.*
 
 class PageEditorActivity : FragmentActivity() {
     private lateinit var pageEditorAdapter: PageEditorAdapter
+    private val leftSelected by lazy {
+        AppCompatResources.getDrawable(this, R.drawable.background_left_selected_tab_purple)
+    }
+    private val leftUnSelected by lazy {
+        AppCompatResources.getDrawable(this, R.drawable.background_left_unselected_tab_white)
+    }
+    private val rightSelected by lazy {
+        AppCompatResources.getDrawable(this, R.drawable.background_right_selected_tab_purple)
+    }
+    private val rightUnSelected by lazy {
+        AppCompatResources.getDrawable(this, R.drawable.background_right_unselected_tab_white)
+    }
+
+    private val editTab by lazy {
+        (tabLayout.getChildAt(0) as ViewGroup).getChildAt(0)
+    }
+    private val previewTab by lazy {
+        (tabLayout.getChildAt(0) as ViewGroup).getChildAt(1)
+    }
 
     private val binding: ActivityPageEditorBinding by lazy {
         DataBindingUtil.setContentView(
@@ -49,10 +70,7 @@ class PageEditorActivity : FragmentActivity() {
         }
 
         replaceFragment(PageEditFragment())
-        setTabBackground(
-            R.drawable.background_left_selected_tab_purple,
-            R.drawable.background_right_unselected_tab_white
-        )
+        setTabBackground(leftSelected, rightUnSelected)
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -60,18 +78,12 @@ class PageEditorActivity : FragmentActivity() {
                     0 -> {
                         val editFragment = PageEditFragment.newInstance()
                         replaceFragment(editFragment)
-                        setTabBackground(
-                            R.drawable.background_left_selected_tab_purple,
-                            R.drawable.background_right_unselected_tab_white
-                        )
+                        setTabBackground(leftSelected, rightUnSelected)
                     }
                     1 -> {
                         val previewFragment = PagePreviewFragment.newInstance()
                         replaceFragment(previewFragment)
-                        setTabBackground(
-                            R.drawable.background_left_unselected_tab_white,
-                            R.drawable.background_right_selected_tab_purple
-                        )
+                        setTabBackground(leftUnSelected, rightSelected)
                     }
                 }
             }
@@ -97,18 +109,9 @@ class PageEditorActivity : FragmentActivity() {
         }
     }
 
-    private fun setTabBackground(tab1: Int, tab2: Int) {
-        val editTab = tabLayout.getChildAt(0)
-        val previewTab = tabLayout.getChildAt(1)
-        if (editTab != null) {
-            ViewCompat.setBackground(editTab, AppCompatResources.getDrawable(editTab.context, tab1))
-        }
-        if (previewTab != null) {
-            ViewCompat.setBackground(
-                previewTab,
-                AppCompatResources.getDrawable(previewTab.context, tab2)
-            )
-        }
+    private fun setTabBackground(editTabBackground: Drawable?, previewTabBackground: Drawable?) {
+        ViewCompat.setBackground(editTab, editTabBackground)
+        ViewCompat.setBackground(previewTab, previewTabBackground)
     }
 
     companion object {
