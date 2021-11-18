@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
+import kotlinx.android.synthetic.main.fragment_edit.*
 
 class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
     private val viewModel by activityViewModels<PageEditorViewModel>()
@@ -82,5 +82,14 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
     fun numberList() {
         val numberStart = markdownEdit.selectionStart
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
+    }
+
+    companion object {
+        fun newInstance(): PageEditFragment {
+            val args = Bundle()
+            val fragment = PageEditFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

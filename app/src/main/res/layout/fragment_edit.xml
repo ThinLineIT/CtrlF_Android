@@ -12,86 +12,106 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".page.PageEditFragment">
 
-                <ScrollView
-                    android:id="@+id/markdownEditContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".page.PageEditFragment">
-                    <EditText
-                        android:id="@+id/markdownEdit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/label_markdown_edit"
-                        android:fontFamily="@font/sc_dream_5"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingBottom="16dp"
-                        android:text="@={viewModel.content}" />
+        <ScrollView
+            android:id="@+id/markdownEditContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".page.PageEditFragment">
 
-                </ScrollView>
+            <EditText
+                android:id="@+id/markdownEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/sc_dream_5"
+                android:hint="@string/label_markdown_edit"
+                android:inputType="textMultiLine"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="16dp"
+                android:text="@={viewModel.content}" />
 
-                <HorizontalScrollView
+        </ScrollView>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    >
+
                     <Button
                         android:id="@+id/headerText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_header" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_header"
+                         />
 
                     <Button
                         android:id="@+id/boldText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_bold" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_bold"
+                        />
 
                     <Button
                         android:id="@+id/italicText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_italic" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_italic"
+                        />
 
                     <Button
                         android:id="@+id/quoteText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
                         android:text="@string/button_editor_quote" />
+
                     <Button
                         android:id="@+id/codeText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_code" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_code"
+                        />
+
                     <Button
                         android:id="@+id/link"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_link" />
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_link"
+                    />
+
                     <Button
                         android:id="@+id/bulletedList"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/dark_blue"
-                        android:text="@string/button_editor_bulleted" />
-                        <Button
-                            android:id="@+id/numberList"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/dark_blue"
-                            android:text="@string/button_editor_number_list" />
-                    </LinearLayout>
-                </HorizontalScrollView>
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_bullet_list" />
+
+                    <Button
+                        android:id="@+id/numberList"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@color/wild_sand"
+                        android:drawableTop="@drawable/icon_number_list" />
+                </LinearLayout>
+            </HorizontalScrollView>
     </RelativeLayout>
 </layout>

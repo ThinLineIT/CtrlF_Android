@@ -82,7 +82,6 @@
     <string name="label_markdown_edit">수정 사항 작성</string>
     <string name="button_edit">Edit</string>
     <string name="button_preview">Preview</string>
-    <string name="button_complete">완 료</string>
     <string name="button_bold">**</string>
     <string name="button_header">"### "</string>
     <string name="button_italic">_</string>
@@ -91,9 +90,14 @@
     <string name="button_link">[](url)</string>
     <string name="button_bulleted_list">"- "</string>
     <string name="button_number_list">1.</string>
+    <string name="button_task_list">- []</string>
     <string name="label_complete_create_issue">"이슈가 등록되었습니다.\n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
     <string name="button_confirm">"확 인"</string>
+    <string name="button_complete">"확 인"</string>
+    <string name="button_cancel_editor">"취 소"</string>
     <string name="label_reason_for_revision">"수정 사유"</string>
+    <string name="label_summary">"내용 요약"</string>
+    <string name="label_add_page">"add page"</string>
     <string name="button_share">공유하기</string>
     <string name="button_related_issue">관련된이슈</string>
     <string name="button_bookmark">북마크</string>
@@ -103,9 +107,10 @@
     <string name="button_editor_italic">I</string>
     <string name="button_editor_quote">Q</string>
     <string name="button_editor_code">C</string>
-    <string name="button_editor_link">Link</string>
+    <string name="button_editor_link">Lk</string>
     <string name="button_editor_bulleted">BL</string>
     <string name="button_editor_number_list">NL</string>
+    <string name="button_editor_task_list">TL</string>
 
 
     <!-- General -->
