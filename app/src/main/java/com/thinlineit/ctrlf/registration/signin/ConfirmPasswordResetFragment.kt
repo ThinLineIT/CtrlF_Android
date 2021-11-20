@@ -9,8 +9,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentPasswordResetConfirmBinding
-import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
+import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import com.thinlineit.ctrlf.util.setBackgroundById
 
