@@ -36,11 +36,11 @@ class TopicTitleListFragment : Fragment() {
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
-            addTopicBtn.setOnClickListener { view ->
+            addTopicBtn.setOnClickListener { _ ->
                 val dialog = CreateDialog(
                     resources.getString(R.string.hint_dialog_topic_title)
                 ) { title, reason ->
-                    pageViewModel?.complete(title, reason)
+                    pageViewModel?.createTopic(title, reason)
                 }
                 activity?.supportFragmentManager?.let { fragmentManager ->
                     dialog.show(

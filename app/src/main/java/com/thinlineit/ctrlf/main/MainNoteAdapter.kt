@@ -1,7 +1,6 @@
 package com.thinlineit.ctrlf.main
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,25 +14,23 @@ class MainNoteAdapter(private val clickListener: (Int) -> Unit) :
     var noteList: List<Note> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        ViewHolder.from(parent)
+        MainNoteViewHolder.from(parent)
 
     override fun getItemCount(): Int = noteList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val noteDao = noteList[position]
-        val resource = holder.itemView.resources
-        (holder as ViewHolder).bind(noteDao, clickListener, position, resource)
+        (holder as MainNoteViewHolder).bind(noteDao, clickListener, position)
     }
 
-    class ViewHolder(private val dataBinding: ListItemMainNoteBinding) :
+    class MainNoteViewHolder(private val dataBinding: ListItemMainNoteBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
         fun bind(
             note: Note,
             clickListener: (Int) -> Unit,
-            position: Int,
-            resources: Resources
+            position: Int
         ) {
-            val noteDesignArray = resources.obtainTypedArray(R.array.notes)
+            val noteDesignArray = dataBinding.root.resources.obtainTypedArray(R.array.notes)
             val noteResourceId =
                 noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
             dataBinding.apply {
@@ -53,7 +50,7 @@ class MainNoteAdapter(private val clickListener: (Int) -> Unit) :
                     parent,
                     false
                 )
-                return ViewHolder(dataBinding)
+                return MainNoteViewHolder(dataBinding)
             }
         }
     }

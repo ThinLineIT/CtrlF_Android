@@ -25,7 +25,7 @@ class NotesViewModel(
         loadNote()
     }
 
-    private fun loadNote() {
+    fun loadNote() {
         viewModelScope.loadingLaunch {
             try {
                 _noteList.value = contentRepository.loadNoteList(cursor)
@@ -40,16 +40,13 @@ class NotesViewModel(
     }
 
     fun createNote(noteTitleEdit: String, reasonEdit: String) {
-        val noteTitle = noteTitleEdit
-        val reason = reasonEdit
-
-        // TODO: if it's true, inform success
         viewModelScope.launch {
-            if (noteTitle != "" && reason != "") {
+            if (noteTitleEdit != "" && reasonEdit != "") {
                 contentRepository.createNote(
-                    noteTitle,
-                    reason
+                    noteTitleEdit,
+                    reasonEdit
                 )
+                loadNote()
             }
         }
     }

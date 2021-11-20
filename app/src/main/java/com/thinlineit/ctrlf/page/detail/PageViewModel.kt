@@ -107,27 +107,19 @@ class PageViewModel(
             }
         }
     }
-    fun complete(topicTitleEdit: String, reasonEdit: String) {
+
+    fun createTopic(topicTitleEdit: String, reasonEdit: String) {
         val noteId = curNoteId.value ?: return
-        val topicTitle = topicTitleEdit
-        val reason = reasonEdit
 
         viewModelScope.launch {
-            if (topicTitle != "" && reason != "") {
-                pageRepository.createTopic(
-                    noteId,
-                    topicTitle,
-                    reason
-                )
-            } else {
+            if (topicTitleEdit != "" && reasonEdit != "") {
+                pageRepository.createTopic(noteId, topicTitleEdit, reasonEdit)
             }
         }
+        selectNote(noteId)
     }
 
     init {
         closeRightPane()
-    }
-
-    companion object {
     }
 }

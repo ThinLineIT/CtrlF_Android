@@ -64,6 +64,11 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.loadNote()
+    }
+
     private fun updateIssueViewVisibility(
         recyclerView: RecyclerView,
         textView: TextView,

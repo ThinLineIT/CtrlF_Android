@@ -44,7 +44,7 @@ class MainViewModel(
         _fragmentList.value = mutableListOf(IdeaCountBannerFragment())
     }
 
-    private fun loadNote() {
+    fun loadNote() {
         viewModelScope.loadingLaunch {
             try {
                 _noteList.value = contentRepository.loadNoteList(cursor)

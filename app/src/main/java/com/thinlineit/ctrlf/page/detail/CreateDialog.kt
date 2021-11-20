@@ -15,13 +15,14 @@ import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogTitle
 
 class CreateDialog(
     private val titleHint: String,
-    private val onCreateClicked: (title: String, content: String) -> Unit
-) :
-    DialogFragment() {
+    private val onCreateClicked: (title: String, reason: String) -> Unit
+) : DialogFragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = true
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +38,7 @@ class CreateDialog(
         }
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createDialogButton.setOnClickListener {
