@@ -19,7 +19,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".page.editor.PageEditorActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
         <activity
             android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />

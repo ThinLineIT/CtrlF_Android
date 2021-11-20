@@ -1,7 +1,9 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -13,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_edit.*
 class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
     private val viewModel by activityViewModels<PageEditorViewModel>()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +32,13 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             bulletedList.setOnClickListener { bulletedList() }
             link.setOnClickListener { linkText() }
             numberList.setOnClickListener { numberList() }
+        }
+        binding.markdownEdit.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
         return binding.root
     }

@@ -1,9 +1,12 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
@@ -18,7 +21,8 @@ import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.*
+import kotlinx.android.synthetic.main.activity_page_editor.summary
+import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
 
 class PageEditorActivity : FragmentActivity() {
     private lateinit var pageEditorAdapter: PageEditorAdapter
@@ -49,6 +53,7 @@ class PageEditorActivity : FragmentActivity() {
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
@@ -87,8 +92,10 @@ class PageEditorActivity : FragmentActivity() {
                     }
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
+
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
@@ -97,6 +104,14 @@ class PageEditorActivity : FragmentActivity() {
             if (it == Status.SUCCESS) {
                 PageEditorCompleteDialog(this).show()
             }
+        }
+
+        summary.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
     }
 

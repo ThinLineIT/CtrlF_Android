@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".page.PageEditFragment">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/markdownEditContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,13 +30,18 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/sc_dream_5"
                 android:hint="@string/label_markdown_edit"
-                android:inputType="textMultiLine"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="16dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+                android:overScrollMode="always"
+                android:maxLines="15"
+                android:inputType="textMultiLine|textCapSentences"
                 android:text="@={viewModel.content}" />
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
             <HorizontalScrollView
@@ -51,66 +56,73 @@
                     android:orientation="horizontal"
                     >
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/headerText"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_header"
+                        android:src="@drawable/icon_header"
                          />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/boldText"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_bold"
+                        android:src="@drawable/icon_bold"
                         />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/italicText"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_italic"
+                        android:src="@drawable/icon_italic"
                         />
 
-                    <Button
-                        android:id="@+id/quoteText"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                    <ImageButton
+                        android:id="@+id/bulletedList"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:text="@string/button_editor_quote" />
+                        android:src="@drawable/icon_bullet_list" />
 
-                    <Button
+                    <ImageButton
+                        android:id="@+id/numberList"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@color/wild_sand"
+                        android:src="@drawable/icon_number_list" />
+
+                    <ImageButton
                         android:id="@+id/codeText"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_code"
+                        android:src="@drawable/icon_code"
                         />
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_link"
+                        android:src="@drawable/icon_link"
                     />
 
-                    <Button
-                        android:id="@+id/bulletedList"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                    <ImageButton
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_bullet_list" />
+                        android:src="@drawable/icon_image"/>
 
-                    <Button
-                        android:id="@+id/numberList"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                    <ImageButton
+                        android:id="@+id/quoteText"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:background="@color/wild_sand"
-                        android:drawableTop="@drawable/icon_number_list" />
+                        android:text="@string/button_editor_quote" />
                 </LinearLayout>
             </HorizontalScrollView>
     </RelativeLayout>
