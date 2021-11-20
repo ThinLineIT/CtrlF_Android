@@ -80,8 +80,8 @@
     <string name="label_topic">TOPIC</string>
     <string name="label_page">PAGE</string>
     <string name="label_markdown_edit">수정 사항 작성</string>
-    <string name="button_edit">Edit</string>
-    <string name="button_preview">Preview</string>
+    <string name="button_edit">edit</string>
+    <string name="button_preview">preview</string>
     <string name="button_bold">**</string>
     <string name="button_header">"### "</string>
     <string name="button_italic">_</string>

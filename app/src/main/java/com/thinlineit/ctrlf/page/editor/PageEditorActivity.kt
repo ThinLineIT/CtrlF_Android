@@ -128,6 +128,10 @@ class PageEditorActivity : FragmentActivity() {
         ViewCompat.setBackground(previewTab, previewTabBackground)
     }
 
+    fun finishActivity(view: View) {
+        finish()
+    }
+
     companion object {
         const val PAGE_INFO = "pageInfo"
         const val TOPIC_TITLE = "topicTitle"

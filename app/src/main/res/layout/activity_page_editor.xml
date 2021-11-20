@@ -39,157 +39,162 @@
                 android:textSize="20dp" />
         </androidx.appcompat.widget.Toolbar>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/scrollview">
-        <LinearLayout
-            android:id="@+id/layoutFrame"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolBar">
 
-            <TextView
-                android:id="@+id/topicText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/background_round_onlyright_purple"
-                android:elevation="5dp"
-                android:fontFamily="@font/sc_dream_5"
-                android:maxLines="1"
-                android:paddingStart="50dp"
-                android:paddingEnd="20dp"
-                android:text="@{viewModel.topicTitleStr}"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolBar"
-                tools:text="@string/label_topic" />
-
-            <EditText
-                android:id="@+id/pageText"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/background_round_white"
-                android:fontFamily="@font/sc_dream_5"
-                android:hint="@string/label_page"
-                android:maxLines="1"
-                android:paddingStart="10dp"
-                android:paddingTop="6dp"
-                android:paddingBottom="5dp"
-                android:text="@={viewModel.pageTitle}"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/topicText"
-                app:layout_constraintTop_toBottomOf="@+id/topicText" />
-
-            <EditText
-                android:id="@+id/summary"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/background_round_white"
-                android:elevation="5dp"
-                android:fontFamily="@font/sc_dream_5"
-                android:hint="@string/label_summary"
-                android:paddingStart="8dp"
-                android:text="@={viewModel.summary}"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/pageText" />
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/summary"
-                app:tabGravity="fill"
-                app:tabMode="fixed"
-                android:background="#00000000"
-                app:tabSelectedTextColor="@color/white"
-                app:tabTextColor="@color/purple">
-
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/editTab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_edit" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/previewTab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_preview" />
-            </com.google.android.material.tabs.TabLayout>
-
-            <FrameLayout
-                android:id="@+id/editorContainer"
-                android:layout_width="match_parent"
-                android:layout_height="380dp"
-                app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:orientation="horizontal">
+                android:id="@+id/layoutFrame"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar">
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:id="@+id/confirmButton"
+                <TextView
+                    android:id="@+id/topicText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/background_round_purple"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/background_round_onlyright_purple"
                     android:elevation="5dp"
-                    android:fontFamily="@font/sc_dream_3"
-                    android:onClick="@{()->viewModel.complete()}"
-                    android:paddingStart="20dp"
-                    android:paddingTop="5dp"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:maxLines="1"
+                    android:paddingStart="50dp"
                     android:paddingEnd="20dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/button_confirm"
+                    android:text="@{viewModel.topicTitleStr}"
                     android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolBar"
+                    tools:text="@string/label_topic" />
 
-                <Button
-                    android:id="@+id/cancelButton"
+                <EditText
+                    android:id="@+id/pageText"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/background_round_white"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:hint="@string/label_page"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:text="@={viewModel.pageTitle}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/topicText"
+                    app:layout_constraintTop_toBottomOf="@+id/topicText" />
+
+                <EditText
+                    android:id="@+id/summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/background_round_white"
+                    android:elevation="5dp"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:hint="@string/label_summary"
+                    android:paddingStart="8dp"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:scrollHorizontally="false"
+                    android:overScrollMode="always"
+                    android:maxLines="5"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:text="@={viewModel.summary}"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/pageText" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="#00000000"
+                    app:layout_constraintTop_toBottomOf="@+id/summary"
+                    app:tabGravity="fill"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/purple"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/editTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_edit"
+                        android:textAllCaps="false"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/previewTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_preview"
+                        android:textAllCaps="false"/>
+                </com.google.android.material.tabs.TabLayout>
+
+                <FrameLayout
+                    android:id="@+id/editorContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="380dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/background_round_purple"
-                    android:elevation="5dp"
-                    android:fontFamily="@font/sc_dream_3"
-                    android:paddingStart="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/button_cancel_editor"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/confirmButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/background_round_purple"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->viewModel.complete()}"
+                        android:text="@string/button_confirm"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/cancelButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/background_round_purple"
+                        android:elevation="5dp"
+                        android:onClick="finishActivity"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:text="@string/button_cancel_editor"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
