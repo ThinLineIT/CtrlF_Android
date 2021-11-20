@@ -35,7 +35,7 @@ class ContentRepository {
     suspend fun createNote(title: String, reason: String): String {
         return try {
             ContentService.retrofitService.createNote(
-                "Bearer " + com.thinlineit.ctrlf.util.Application.preferenceUtil.getString(
+                "Bearer " + Application.preferenceUtil.getString(
                     TOKEN,
                     ""
                 ),

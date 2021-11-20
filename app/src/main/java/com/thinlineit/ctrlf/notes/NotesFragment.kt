@@ -22,7 +22,7 @@ class NotesFragment : Fragment() {
                 resources.getString(R.string.hint_dialog_note_title)
             ) { title, content -> noteViewModel.createNote(title, content) }
             activity?.supportFragmentManager?.let { fragmentManager ->
-                dialog.show(fragmentManager, "add note")
+                dialog.show(fragmentManager, ADD_NOTE)
             }
         },
         { noteId ->
@@ -59,5 +59,8 @@ class NotesFragment : Fragment() {
             else loadingDialog.dismiss()
         }
         return binding.root
+    }
+    companion object {
+        const val ADD_NOTE = "add note"
     }
 }

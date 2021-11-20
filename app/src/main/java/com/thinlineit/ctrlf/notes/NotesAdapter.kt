@@ -26,10 +26,7 @@ class NotesAdapter(
 
     override fun getItemCount(): Int = (noteList.size + 1)
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) ADD_NOTE
-        else NOTE
-    }
+    override fun getItemViewType(position: Int): Int = if (position == 0) ADD_NOTE else NOTE
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == ADD_NOTE) {

@@ -45,7 +45,7 @@ class TopicTitleListFragment : Fragment() {
                 activity?.supportFragmentManager?.let { fragmentManager ->
                     dialog.show(
                         fragmentManager,
-                        "add topic"
+                        ADD_TOPIC
                     )
                 }
             }
@@ -58,5 +58,8 @@ class TopicTitleListFragment : Fragment() {
             }
         }
         return binding.root
+    }
+    companion object {
+        const val ADD_TOPIC = "add topic"
     }
 }
