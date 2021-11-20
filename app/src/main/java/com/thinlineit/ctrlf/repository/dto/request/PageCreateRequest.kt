@@ -7,5 +7,5 @@ data class PageCreateRequest(
     val topicId: Int,
     val title: String,
     val content: String,
-    val summary: String
+    val reason: String
 )

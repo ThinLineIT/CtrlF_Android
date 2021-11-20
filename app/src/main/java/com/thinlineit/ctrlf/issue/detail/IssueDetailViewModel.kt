@@ -3,8 +3,8 @@ package com.thinlineit.ctrlf.issue.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.entity.Issue
-import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
@@ -24,23 +24,32 @@ class IssueDetailViewModel(
     val issue: LiveData<Issue>
         get() = _issue
 
-    private val _toolbarTitle = MutableLiveData<String>()
-    val toolbarTitle: LiveData<String>
+    private val _toolbarTitle = MutableLiveData<Int>(R.string.label_create_page)
+    val toolbarTitle: LiveData<Int>
         get() = _toolbarTitle
 
     private val _issueApproveStatus = MutableLiveData<Event<Status>>()
     val issueApproveStatus: LiveData<Event<Status>>
         get() = _issueApproveStatus
 
+    private val _detailButtonStatus = MutableLiveData<Boolean>(false)
+    val detailButtonStatus: LiveData<Boolean>
+        get() = _detailButtonStatus
+
+    private val _approveButtonStatus = MutableLiveData<Boolean>(false)
+    val approveButtonStatus: LiveData<Boolean>
+        get() = _approveButtonStatus
+
     init {
         loadIssue(issueId)
-        initToolbarTitle()
     }
 
     fun loadIssue(issueId: Int) {
         viewModelScope.loadingLaunch {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
+                initToolbarTitle()
+                initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
             } catch (e: Exception) {
             }
         }
@@ -57,27 +66,26 @@ class IssueDetailViewModel(
         }
     }
 
-    private fun parseIssueContentType(topicId: Int, pageId: Int): String {
-        return if (pageId != UNSET_ID)
-            PAGE
-        else if (topicId != UNSET_ID)
-            TOPIC
-        else
-            NOTE
+    private fun initToolbarTitle() {
+        _toolbarTitle.value =
+            when (issue.value?.relatedModelType ?: NULL) {
+                NOTE -> R.string.label_create_note
+                TOPIC -> R.string.label_create_topic
+                PAGE -> R.string.label_create_page
+                else -> R.string.empty_text
+            }
     }
 
-    private fun initToolbarTitle() {
-        _toolbarTitle.value = CREATE +
-            parseIssueContentType(
-                issue.value?.topicId ?: UNSET_ID,
-                issue.value?.pageId ?: UNSET_ID
-            )
+    private fun initButtonVisible(contentType: String, status: String) {
+        _detailButtonStatus.value = contentType == PAGE
+        _approveButtonStatus.value = status == REQUESTED
     }
 
     companion object {
-        const val NOTE = "Note"
-        const val TOPIC = " Topic"
-        const val PAGE = "Page"
-        const val CREATE = "Create"
+        const val REQUESTED = "REQUESTED"
+        const val NOTE = "NOTE"
+        const val TOPIC = "TOPIC"
+        const val PAGE = "PAGE"
+        const val NULL = "null"
     }
 }

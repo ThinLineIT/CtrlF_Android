@@ -67,6 +67,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         mainViewModel.loadNote()
+        mainViewModel.loadIssue()
     }
 
     private fun updateIssueViewVisibility(

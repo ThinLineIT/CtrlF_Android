@@ -13,8 +13,13 @@ data class Issue(
     val id: Int,
     val owner: String,
     val title: String,
-    val content: String,
-    val status: String
+    val reason: String,
+    val status: String,
+    @SerializedName("related_model_type")
+    val relatedModelType: String,
+    @SerializedName("related_model_id")
+    val relatedModelId: Int,
+    val action: String
 ) : Serializable
 
 data class IssueList(
