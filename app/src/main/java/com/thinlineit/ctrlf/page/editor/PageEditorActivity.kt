@@ -89,12 +89,8 @@ class PageEditorActivity : FragmentActivity() {
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
-
-<<<<<<< HEAD
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
-=======
->>>>>>> feature/remove-viewpager
         })
 
         viewModel.createPageStatus.observeIfNotHandled(this) {
