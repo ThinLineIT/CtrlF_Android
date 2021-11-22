@@ -11,9 +11,9 @@ import com.thinlineit.ctrlf.util.Status
 import kotlinx.coroutines.launch
 
 class PageEditorViewModel(
-    private val pageInfo: Page,
-    private val topicTitle: String,
-    private val topicId: Int,
+    pageInfo: Page,
+    topicTitle: String,
+    topicId: Int,
     private val contentRepository: ContentRepository = ContentRepository()
 ) : ViewModel() {
 
@@ -26,6 +26,7 @@ class PageEditorViewModel(
     private val _createPageStatus = MutableLiveData<Event<Status>>()
     val createPageStatus: LiveData<Event<Status>>
         get() = _createPageStatus
+    var toolboxController: ToolboxController? = null
 
     fun complete() {
         val topicId = topicIdInfo.value ?: return

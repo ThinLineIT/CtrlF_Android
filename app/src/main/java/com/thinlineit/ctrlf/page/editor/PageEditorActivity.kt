@@ -57,13 +57,15 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
+
         val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
         val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
         val topicId = intent.getIntExtra(TOPIC_ID, 0)
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
         val viewModel =
-            ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
-
+            ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
+                toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
+            }
         binding.apply {
             this.viewModel = viewModel
             lifecycleOwner = this@PageEditorActivity

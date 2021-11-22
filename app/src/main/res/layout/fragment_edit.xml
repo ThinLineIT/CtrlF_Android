@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,99 +14,22 @@
         android:layout_height="match_parent"
         tools:context=".page.PageEditFragment">
 
-
         <EditText
             android:id="@+id/markdownEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:isScrollContainer="false"
-            android:minHeight="250dp"
-            android:gravity="top"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:background="@color/white"
             android:fontFamily="@font/sc_dream_5"
+            android:gravity="top"
             android:hint="@string/label_markdown_edit"
             android:inputType="textMultiLine|textCapSentences"
+            android:isScrollContainer="false"
+            android:minHeight="250dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingBottom="16dp"
             android:text="@={viewModel.content}" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/headerText"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_header" />
-
-                <ImageButton
-                    android:id="@+id/boldText"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_bold" />
-
-                <ImageButton
-                    android:id="@+id/italicText"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_italic" />
-
-                <ImageButton
-                    android:id="@+id/bulletedList"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_bullet_list" />
-
-                <ImageButton
-                    android:id="@+id/numberList"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_number_list" />
-
-                <ImageButton
-                    android:id="@+id/codeText"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_code" />
-
-                <ImageButton
-                    android:id="@+id/link"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_link" />
-
-                <ImageButton
-                    android:id="@+id/image"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:src="@drawable/icon_image" />
-
-                <ImageButton
-                    android:id="@+id/quoteText"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@color/wild_sand"
-                    android:text="@string/button_editor_quote" />
-            </LinearLayout>
-        </HorizontalScrollView>
     </RelativeLayout>
 </layout>
