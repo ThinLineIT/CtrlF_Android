@@ -19,7 +19,8 @@ class NotesFragment : Fragment() {
     private val noteAdapter = NotesAdapter(
         {
             val dialog = CreateDialog(
-                resources.getString(R.string.hint_dialog_note_title)
+                resources.getString(R.string.hint_dialog_note_title),
+                resources.getString(R.string.hint_dialog_note_title_hint)
             ) { title, content -> noteViewModel.createNote(title, content) }
             activity?.supportFragmentManager?.let { fragmentManager ->
                 dialog.show(fragmentManager, ADD_NOTE)

@@ -38,7 +38,8 @@ class TopicTitleListFragment : Fragment() {
             // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
             addTopicBtn.setOnClickListener { _ ->
                 val dialog = CreateDialog(
-                    resources.getString(R.string.hint_dialog_topic_title)
+                    resources.getString(R.string.hint_dialog_topic_title),
+                    resources.getString(R.string.hint_dialog_topic_title_hint)
                 ) { title, reason ->
                     pageViewModel?.createTopic(title, reason)
                 }

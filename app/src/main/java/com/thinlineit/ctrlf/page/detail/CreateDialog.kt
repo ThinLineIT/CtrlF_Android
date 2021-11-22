@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogReason
 import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogTitle
 
 class CreateDialog(
+    private val titleText: String,
     private val titleHint: String,
     private val onCreateClicked: (title: String, reason: String) -> Unit
 ) : DialogFragment() {
@@ -33,6 +34,7 @@ class CreateDialog(
             container,
             false
         ).apply {
+            createDialog.text = titleText
             createDialogTitle.hint = titleHint
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
