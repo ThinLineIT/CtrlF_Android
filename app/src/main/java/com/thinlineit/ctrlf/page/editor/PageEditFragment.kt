@@ -1,16 +1,25 @@
 package com.thinlineit.ctrlf.page.editor
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
+import java.io.File
 import kotlinx.android.synthetic.main.fragment_edit.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
     private val viewModel by activityViewModels<PageEditorViewModel>()
@@ -31,6 +40,7 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             codeText.setOnClickListener { codeText() }
             bulletedList.setOnClickListener { bulletedList() }
             link.setOnClickListener { linkText() }
+            image.setOnClickListener { imageText() }
             numberList.setOnClickListener { numberList() }
         }
         binding.markdownEdit.setOnTouchListener { view, event ->
@@ -93,6 +103,42 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         val numberStart = markdownEdit.selectionStart
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
     }
+
+    fun imageText() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        getImage.launch(intent)
+    }
+
+    private val getImage =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            val data = result.data
+            if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
+            } else {   // 이미지를 하나라도 선택한 경우
+                val clipData = data.clipData
+                val imageUri = clipData!!.getItemAt(0).uri
+/*
+                val file = File(context?.cacheDir,System.currentTimeMillis().toString())
+                file.outputStream().use {
+                    activity?.contentResolver?.openInputStream(imageUri)?.copyTo(it)
+                }
+                file.outputStream().close()
+
+                Log.d(TAG, "absolute path file : ${file.toURI()}")
+
+                val fileFormDatarequestBody : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file)
+                val fileFormData : MultipartBody.Part = MultipartBody.Part.createFormData("ImageUploadRequestBody",file.name,fileFormDatarequestBody)
+                viewModel.getImage(fileFormData)*/
+
+                val linkStart = markdownEdit.selectionStart
+                markdownEdit.text.insert(linkStart, getString(R.string.button_image_link_back))
+                //markdownEdit.text.insert(linkStart, viewModel.imgUrl.value.toString()) 가운데에 URI
+                markdownEdit.text.insert(linkStart, getString(R.string.button_image_link_front))
+            }
+        }
+
 
     companion object {
         fun newInstance(): PageEditFragment {

@@ -88,6 +88,8 @@
     <string name="button_quote">">"</string>
     <string name="button_code_block">```</string>
     <string name="button_link">[](url)</string>
+    <string name="button_image_link_front">![image](</string>
+    <string name="button_image_link_back">)</string>
     <string name="button_bulleted_list">"- "</string>
     <string name="button_number_list">1.</string>
     <string name="button_task_list">- []</string>

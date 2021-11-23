@@ -1,14 +1,18 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -64,6 +68,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
 
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
+        }
         binding.apply {
             this.viewModel = viewModel
             lifecycleOwner = this@PageEditorActivity
