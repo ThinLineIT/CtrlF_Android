@@ -6,8 +6,8 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
@@ -21,8 +21,7 @@ import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.summary
-import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
+import kotlinx.android.synthetic.main.activity_page_editor.*
 
 class PageEditorActivity : FragmentActivity() {
     private lateinit var pageEditorAdapter: PageEditorAdapter
@@ -103,6 +102,12 @@ class PageEditorActivity : FragmentActivity() {
         viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorCompleteDialog(this).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    getString(R.string.notice_invalid_add_page),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -128,8 +133,8 @@ class PageEditorActivity : FragmentActivity() {
         ViewCompat.setBackground(previewTab, previewTabBackground)
     }
 
-    fun finishActivity(view: View) {
-        finish()
+    fun cancelActivity() {
+        PageEditorCancelDialog(this).show()
     }
 
     companion object {

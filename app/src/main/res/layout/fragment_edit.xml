@@ -15,34 +15,20 @@
         android:layout_height="match_parent"
         tools:context=".page.PageEditFragment">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/markdownEditContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".page.PageEditFragment">
-
             <EditText
                 android:id="@+id/markdownEdit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@android:color/transparent"
+                android:background="@color/white"
                 android:fontFamily="@font/sc_dream_5"
                 android:hint="@string/label_markdown_edit"
+                android:inputType="textMultiLine|textCapSentences"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:paddingBottom="16dp"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:scrollHorizontally="false"
-                android:overScrollMode="always"
-                android:maxLines="15"
-                android:inputType="textMultiLine|textCapSentences"
                 android:text="@={viewModel.content}" />
-
-        </androidx.core.widget.NestedScrollView>
-
 
             <HorizontalScrollView
                 android:layout_width="match_parent"

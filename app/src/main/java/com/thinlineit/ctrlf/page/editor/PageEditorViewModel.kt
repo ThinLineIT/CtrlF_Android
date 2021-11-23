@@ -38,6 +38,7 @@ class PageEditorViewModel(
             ) {
                 createPageStatus.value = Event(Status.SUCCESS)
             } else {
+                createPageStatus.value = Event(Status.FAILURE)
             }
         }
     }
