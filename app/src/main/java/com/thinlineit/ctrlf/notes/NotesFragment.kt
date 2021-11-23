@@ -9,16 +9,29 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentNotesBinding
+import com.thinlineit.ctrlf.page.detail.CreateDialog
 import com.thinlineit.ctrlf.util.LoadingDialog
 
 class NotesFragment : Fragment() {
     private val noteViewModel by viewModels<NotesViewModel>()
-    private val noteAdapter = NotesAdapter(NotesAdapter.TYPE_VERTICAL) { noteId ->
-        this.findNavController().navigate(
-            NotesFragmentDirections.actionNotesFragmentToPageActivity(noteId)
-        )
-    }
+    private val noteAdapter = NotesAdapter(
+        {
+            val dialog = CreateDialog(
+                resources.getString(R.string.hint_dialog_note_title),
+                resources.getString(R.string.hint_dialog_note_title_hint)
+            ) { title, content -> noteViewModel.createNote(title, content) }
+            activity?.supportFragmentManager?.let { fragmentManager ->
+                dialog.show(fragmentManager, ADD_NOTE)
+            }
+        },
+        { noteId ->
+            this.findNavController().navigate(
+                NotesFragmentDirections.actionNotesFragmentToPageActivity(noteId)
+            )
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,5 +60,8 @@ class NotesFragment : Fragment() {
             else loadingDialog.dismiss()
         }
         return binding.root
+    }
+    companion object {
+        const val ADD_NOTE = "add note"
     }
 }

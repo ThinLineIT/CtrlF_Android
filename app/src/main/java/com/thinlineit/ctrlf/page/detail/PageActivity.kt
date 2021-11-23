@@ -3,7 +3,6 @@ package com.thinlineit.ctrlf.page.detail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -15,8 +14,14 @@ import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.issue.detail.IssueDetailActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
-import kotlin.properties.Delegates
-import kotlinx.android.synthetic.main.activity_page.*
+import kotlinx.android.synthetic.main.activity_page.bookMarkButton
+import kotlinx.android.synthetic.main.activity_page.editButton
+import kotlinx.android.synthetic.main.activity_page.fabButton
+import kotlinx.android.synthetic.main.activity_page.fabChildButtonList
+import kotlinx.android.synthetic.main.activity_page.pageActivityToolBar
+import kotlinx.android.synthetic.main.activity_page.relatedIssueButton
+import kotlinx.android.synthetic.main.activity_page.shareButton
+import kotlinx.android.synthetic.main.activity_page.slidingPaneLayout
 
 class PageActivity : AppCompatActivity() {
     private val pageViewModel by viewModels<PageViewModel>()
@@ -42,15 +47,6 @@ class PageActivity : AppCompatActivity() {
 
         setSupportActionBar(pageActivityToolBar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        // TODO: Do not use deprecated methods.
-        val display = windowManager.defaultDisplay
-        val outMetrics = DisplayMetrics()
-        display.getMetrics(outMetrics)
-
-        val density = resources.displayMetrics.density
-        dpWidth = if (outMetrics.widthPixels > 1080) (outMetrics.widthPixels / density) / 6
-        else (outMetrics.widthPixels / density) / 3
     }
 
     private fun initButton() {
@@ -119,8 +115,6 @@ class PageActivity : AppCompatActivity() {
         const val NOTE_ID = "noteId"
         const val TOPIC_ID = "topicId"
         const val PAGE_ID = "pageId"
-
-        var dpWidth by Delegates.notNull<Float>()
 
         fun start(context: Context, noteId: Int, topicId: Int = UNSET_ID, pageId: Int = UNSET_ID) {
             val intent = Intent(context, PageActivity::class.java).apply {
