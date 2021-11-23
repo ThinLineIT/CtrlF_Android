@@ -102,10 +102,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
         viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
-<<<<<<< HEAD
                 PageEditorCompleteDialog(this, this).show()
-=======
-                PageEditorCompleteDialog(this).show()
             } else {
                 Toast.makeText(
                     this,
@@ -119,16 +116,11 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             view.parent.requestDisallowInterceptTouchEvent(true)
             if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
                 view.parent.requestDisallowInterceptTouchEvent(false)
->>>>>>> feature/markdown-editor
             }
             return@setOnTouchListener false
         }
     }
 
-<<<<<<< HEAD
-    override fun onFinishButton() {
-        finish()
-=======
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.editorContainer, fragment)
@@ -144,7 +136,6 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
     fun cancelActivity() {
         PageEditorCancelDialog(this).show()
->>>>>>> feature/markdown-editor
     }
 
     companion object {
@@ -156,5 +147,9 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             val intent = Intent(context, PageEditorActivity::class.java)
             context.startActivity(intent)
         }
+    }
+
+    override fun onFinishButton() {
+        finish()
     }
 }
