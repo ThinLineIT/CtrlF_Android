@@ -1,18 +1,21 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
+import kotlinx.android.synthetic.main.fragment_edit.*
 
 class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
     private val viewModel by activityViewModels<PageEditorViewModel>()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +32,13 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             bulletedList.setOnClickListener { bulletedList() }
             link.setOnClickListener { linkText() }
             numberList.setOnClickListener { numberList() }
+        }
+        binding.markdownEdit.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
         return binding.root
     }
@@ -82,5 +92,14 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
     fun numberList() {
         val numberStart = markdownEdit.selectionStart
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
+    }
+
+    companion object {
+        fun newInstance(): PageEditFragment {
+            val args = Bundle()
+            val fragment = PageEditFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

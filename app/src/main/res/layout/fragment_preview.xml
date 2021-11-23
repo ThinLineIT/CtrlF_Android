@@ -14,6 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".page.PageFragment"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/background_graphpaper">
 
         <com.mukesh.MarkdownView

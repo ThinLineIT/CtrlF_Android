@@ -44,8 +44,14 @@ class PageEditorViewModel(
                     summary
                 )
             ) {
+
                 201 -> _createPageStatus.value = Event(Status.SUCCESS)
                 else -> _createPageStatus.value = Event(Status.FAILURE)
+=======
+                createPageStatus.value = Event(Status.SUCCESS)
+            } else {
+                createPageStatus.value = Event(Status.FAILURE)
+>>>>>>> feature/markdown-editor
             }
         }
     }
