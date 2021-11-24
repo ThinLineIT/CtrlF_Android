@@ -113,7 +113,8 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
             val data = result.data
-            if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
+            if (data == null) {
+                // 어떤 이미지도 선택하지 않은 경우
                 Toast.makeText(activity, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
             } else {
                 val clipData = data.clipData
@@ -127,7 +128,7 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
                     // 현재 클립 데이터 uri
                     val imageUri = clipData!!.getItemAt(0).uri
 
-                    // uri -> temp -> 파일 -> 폼데이터
+                    // uri -> temp -> 파일 -> 폼데이터 과정 생략
 
                     val linkStart = markdownEdit.selectionStart
                     markdownEdit.text.insert(
