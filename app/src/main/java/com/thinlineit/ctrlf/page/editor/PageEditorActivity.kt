@@ -68,9 +68,15 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
 
-
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),0)
+        if (ContextCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                0
+            )
         }
         binding.apply {
             this.viewModel = viewModel
