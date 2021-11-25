@@ -112,12 +112,12 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
-            val data = result.data
+            val data = result.data?.clipData
             if (data == null) {
                 // 어떤 이미지도 선택하지 않은 경우
                 Toast.makeText(activity, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
             } else {
-                val clipData = data.clipData
+                val clipData = data
                 // 이미지를 하나라도 선택한 경우
                 if (clipData!!.itemCount > 1) {
                     Toast.makeText(
