@@ -129,13 +129,12 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
                     val imageUri = clipData!!.getItemAt(0).uri
 
                     // uri -> temp -> 파일 -> 폼데이터 과정 생략
-
                     val linkStart = markdownEdit.selectionStart
                     markdownEdit.text.insert(
                         linkStart,
                         getString(R.string.button_image_link_back)
                     )
-                    // markdownEdit.text.insert(linkStart, viewModel~~) 가운데에 URI
+                    // markdownEdit.text.insert(linkStart, viewModel~~) 가운데에 결과값
                     markdownEdit.text.insert(
                         linkStart,
                         getString(R.string.button_image_link_front)
