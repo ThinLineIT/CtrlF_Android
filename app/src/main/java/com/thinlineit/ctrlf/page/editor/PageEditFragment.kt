@@ -101,10 +101,11 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
     }
 
     fun imageText() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = MediaStore.Images.Media.CONTENT_TYPE
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = MediaStore.Images.Media.CONTENT_TYPE
+            data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            putExtra(Intent.ACTION_GET_CONTENT, true)
+        }
         getImage.launch(intent)
     }
 
@@ -112,35 +113,22 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
-            val data = result.data?.clipData
-            if (data == null) {
-                // 어떤 이미지도 선택하지 않은 경우
+            val data = result.data?.clipData ?: run {
                 Toast.makeText(activity, "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show()
-            } else {
-                val clipData = data
-                // 이미지를 하나라도 선택한 경우
-                if (clipData!!.itemCount > 1) {
-                    Toast.makeText(
-                        activity, "이미지는 1개만 선택 가능합니다.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    // 현재 클립 데이터 uri
-                    val imageUri = clipData!!.getItemAt(0).uri
-
-                    // uri -> temp -> 파일 -> 폼데이터 과정 생략
-                    val linkStart = markdownEdit.selectionStart
-                    markdownEdit.text.insert(
-                        linkStart,
-                        getString(R.string.button_image_link_back)
-                    )
-                    // markdownEdit.text.insert(linkStart, viewModel~~) 가운데에 결과값
-                    markdownEdit.text.insert(
-                        linkStart,
-                        getString(R.string.button_image_link_front)
-                    )
-                }
+                return@registerForActivityResult
             }
+            val clipData = data
+
+            // 현재 클립 데이터 uri
+            val imageUri = clipData!!.getItemAt(0).uri
+
+            // uri -> temp -> 파일 -> 폼데이터 과정 생략
+            val linkStart = markdownEdit.selectionStart
+            val linkUrl = String.format(getString(R.string.button_image_link_front), "url")
+            markdownEdit.text.insert(
+                linkStart,
+                linkUrl
+            )
         }
 
     companion object {
