@@ -102,7 +102,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
         viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
-                PageEditorCompleteDialog(this, this).show()
+                PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
                 Toast.makeText(
                     this,
@@ -119,6 +119,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
             return@setOnTouchListener false
         }
+
+        cancelButton.setOnClickListener {
+            PageEditorDialog(this, this, R.layout.dialog_cancel_editor).show()
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -132,10 +136,6 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     private fun setTabBackground(editTabBackground: Drawable?, previewTabBackground: Drawable?) {
         ViewCompat.setBackground(editTab, editTabBackground)
         ViewCompat.setBackground(previewTab, previewTabBackground)
-    }
-
-    fun cancelActivity() {
-        PageEditorCancelDialog(this).show()
     }
 
     companion object {
