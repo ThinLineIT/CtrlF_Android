@@ -102,7 +102,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
         viewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
-                PageEditorCompleteDialog(this, this).show()
+                PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
                 Toast.makeText(
                     this,
@@ -121,7 +121,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         }
 
         cancelButton.setOnClickListener {
-            PageEditorCancelDialog(this, this).show()
+            PageEditorDialog(this, this, R.layout.dialog_cancel_editor).show()
         }
     }
 

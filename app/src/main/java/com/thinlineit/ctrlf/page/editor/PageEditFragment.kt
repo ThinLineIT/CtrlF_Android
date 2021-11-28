@@ -32,15 +32,6 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             link.setOnClickListener { linkText() }
             numberList.setOnClickListener { numberList() }
         }
-       /* binding.markdownEdit.setOnTouchListener { view, event ->
-            view.parent.requestDisallowInterceptTouchEvent(true)
-            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
-                view.parent.requestDisallowInterceptTouchEvent(false)
-            }
-            return@setOnTouchListener false
-        }*/
-
-        binding.markdownEdit.movementMethod = null
         return binding.root
     }
 
