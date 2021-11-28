@@ -119,6 +119,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
             return@setOnTouchListener false
         }
+
+        cancelButton.setOnClickListener {
+            PageEditorCancelDialog(this, this).show()
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -132,10 +136,6 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     private fun setTabBackground(editTabBackground: Drawable?, previewTabBackground: Drawable?) {
         ViewCompat.setBackground(editTab, editTabBackground)
         ViewCompat.setBackground(previewTab, previewTabBackground)
-    }
-
-    fun cancelActivity() {
-        PageEditorCancelDialog(this).show()
     }
 
     companion object {
