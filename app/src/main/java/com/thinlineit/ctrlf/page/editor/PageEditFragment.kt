@@ -3,7 +3,6 @@ package com.thinlineit.ctrlf.page.editor
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -33,13 +32,15 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             link.setOnClickListener { linkText() }
             numberList.setOnClickListener { numberList() }
         }
-        binding.markdownEdit.setOnTouchListener { view, event ->
+       /* binding.markdownEdit.setOnTouchListener { view, event ->
             view.parent.requestDisallowInterceptTouchEvent(true)
             if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
                 view.parent.requestDisallowInterceptTouchEvent(false)
             }
             return@setOnTouchListener false
-        }
+        }*/
+
+        binding.markdownEdit.movementMethod = null
         return binding.root
     }
 
