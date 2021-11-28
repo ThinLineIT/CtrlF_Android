@@ -115,6 +115,8 @@
     <string name="button_editor_task_list">TL</string>
     <string name="notice_invalid_add_page">항목을 모두 기입해주세요.</string>
 
+    <string name="notice_no_img_selected">이미지를 선택하지 않았습니다.</string>
+
     <!-- General -->
     <string name="button_general_delete">삭제</string>
     <string name="button_general_modify">수정</string>
