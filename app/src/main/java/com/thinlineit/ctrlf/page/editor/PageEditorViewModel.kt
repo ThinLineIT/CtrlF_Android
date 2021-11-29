@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.page.editor
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,6 +28,10 @@ class PageEditorViewModel(
     val createPageStatus: LiveData<Event<Status>>
         get() = _createPageStatus
 
+    private val _url = MutableLiveData<String>()
+    val url: LiveData<String>
+        get() = _url
+
     fun complete() {
         val topicId = topicIdInfo.value ?: return
         val pageTitle = pageTitle.value ?: return
@@ -46,6 +51,21 @@ class PageEditorViewModel(
             ) {
                 201 -> _createPageStatus.value = Event(Status.SUCCESS)
                 else -> _createPageStatus.value = Event(Status.FAILURE)
+            }
+        }
+    }
+
+    fun addImageUrl(url: String) {
+        _url.value = url
+        _url.value = ""
+    }
+
+    fun loadImageUrl(uri: Uri) {
+        viewModelScope.launch {
+            try {
+                addImageUrl(contentRepository.uploadImage(uri))
+            } catch (e: Exception) {
+                return@launch
             }
         }
     }
