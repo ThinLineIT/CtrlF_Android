@@ -63,4 +63,3 @@ interface ToolboxEventListener {
     fun numberList()
     fun attachImage()
 }
-
