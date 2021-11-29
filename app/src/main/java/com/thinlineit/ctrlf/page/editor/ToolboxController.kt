@@ -15,26 +15,32 @@ class ToolboxController(private val viewGroup: ViewGroup) {
         }
 
     init {
-        viewGroup.findViewById<ImageButton>(R.id.boldText).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.boldTextTool).setOnClickListener {
             toolboxEventListener?.boldText()
         }
-        viewGroup.findViewById<ImageButton>(R.id.headerText).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.headerTextTool).setOnClickListener {
             toolboxEventListener?.headerText()
         }
-        viewGroup.findViewById<ImageButton>(R.id.italicText).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.italicTextTool).setOnClickListener {
             toolboxEventListener?.italicText()
         }
-        viewGroup.findViewById<ImageButton>(R.id.quoteText).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.quoteTextTool).setOnClickListener {
             toolboxEventListener?.quoteText()
         }
-        viewGroup.findViewById<ImageButton>(R.id.codeText).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.codeTextTool).setOnClickListener {
             toolboxEventListener?.codeText()
         }
-        viewGroup.findViewById<ImageButton>(R.id.bulletedList).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.bulletedListTool).setOnClickListener {
             toolboxEventListener?.bulletedList()
         }
-        viewGroup.findViewById<ImageButton>(R.id.numberList).setOnClickListener {
+        viewGroup.findViewById<ImageButton>(R.id.numberListTool).setOnClickListener {
             toolboxEventListener?.numberList()
+        }
+        viewGroup.findViewById<ImageButton>(R.id.linkTool).setOnClickListener {
+            toolboxEventListener?.linkText()
+        }
+        viewGroup.findViewById<ImageButton>(R.id.imageTool).setOnClickListener {
+            toolboxEventListener?.attachImage()
         }
         toggleVisible()
     }

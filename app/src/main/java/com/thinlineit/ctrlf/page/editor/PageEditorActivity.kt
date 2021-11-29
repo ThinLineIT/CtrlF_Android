@@ -21,6 +21,7 @@ import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.CustomDialogInterface
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.checkImgPermission
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import kotlinx.android.synthetic.main.activity_page_editor.*
 
@@ -52,7 +53,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             R.layout.activity_page_editor
         )
     }
-
+    lateinit var viewModel: PageEditorViewModel
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
         val topicId = intent.getIntExtra(TOPIC_ID, 0)
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
-        val viewModel =
+        viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
                 toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
             }
@@ -70,7 +71,12 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             this.viewModel = viewModel
             lifecycleOwner = this@PageEditorActivity
         }
+        initView()
+        checkImgPermission(this)
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initView() {
         pageEditorAdapter = PageEditorAdapter(this).apply {
             addFragment(PageEditFragment())
             addFragment(PagePreviewFragment())
