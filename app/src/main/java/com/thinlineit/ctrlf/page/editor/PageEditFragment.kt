@@ -121,10 +121,9 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
                 ).show()
                 return@registerForActivityResult
             }
-            val clipData = data
 
             // 현재 클립 데이터 uri
-            val imageUri = clipData.getItemAt(0).uri
+            val imageUri = data.getItemAt(0).uri
 
             // uri -> temp -> 파일 -> 폼데이터 과정 생략
             val linkStart = markdownEdit.selectionStart
