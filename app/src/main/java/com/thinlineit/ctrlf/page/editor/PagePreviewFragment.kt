@@ -22,4 +22,13 @@ class PagePreviewFragment : BaseFragment<FragmentPreviewBinding>(R.layout.fragme
         binding.viewModel = this@PagePreviewFragment.viewModel
         return binding.root
     }
+
+    companion object {
+        fun newInstance(): PagePreviewFragment {
+            val args = Bundle()
+            val fragment = PagePreviewFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 }

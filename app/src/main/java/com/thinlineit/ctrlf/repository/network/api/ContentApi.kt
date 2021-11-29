@@ -51,7 +51,7 @@ interface ContentApi {
     // topic_id에 해당하는 page list를 리턴
     @GET("topics/{topic_id}/pages")
     suspend fun getPageList(
-        @Path("topic_id") topic_id: Int,
+        @Path("topic_id") topic_id: Int
     ): List<Page>
 
     @POST("pages/")
