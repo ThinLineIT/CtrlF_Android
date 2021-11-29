@@ -1,10 +1,15 @@
 package com.thinlineit.ctrlf.page.editor
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
@@ -30,6 +35,7 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
             codeText.setOnClickListener { codeText() }
             bulletedList.setOnClickListener { bulletedList() }
             link.setOnClickListener { linkText() }
+            image.setOnClickListener { imageText() }
             numberList.setOnClickListener { numberList() }
         }
         return binding.root
@@ -85,6 +91,40 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         val numberStart = markdownEdit.selectionStart
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
     }
+
+    fun imageText() {
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = MediaStore.Images.Media.CONTENT_TYPE
+            data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            putExtra(Intent.ACTION_GET_CONTENT, true)
+        }
+        getImage.launch(intent)
+    }
+
+    private val getImage =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            val data = result.data?.clipData ?: run {
+                Toast.makeText(
+                    activity,
+                    getString(R.string.notice_no_img_selected),
+                    Toast.LENGTH_LONG
+                ).show()
+                return@registerForActivityResult
+            }
+
+            // 현재 클립 데이터 uri
+            val imageUri = data.getItemAt(0).uri
+
+            // uri -> temp -> 파일 -> 폼데이터 과정 생략
+            val linkStart = markdownEdit.selectionStart
+            val linkUrl = String.format(getString(R.string.button_image_link_front), "url")
+            markdownEdit.text.insert(
+                linkStart,
+                linkUrl
+            )
+        }
 
     companion object {
         fun newInstance(): PageEditFragment {

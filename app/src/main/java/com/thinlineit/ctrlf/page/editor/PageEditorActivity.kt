@@ -21,6 +21,7 @@ import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.CustomDialogInterface
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.checkImgPermission
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 import kotlinx.android.synthetic.main.activity_page_editor.*
 
@@ -63,6 +64,8 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
+
+        checkImgPermission(this)
 
         binding.apply {
             this.viewModel = viewModel
