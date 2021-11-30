@@ -52,7 +52,7 @@ class PageEditFragment :
             }
         }
         viewModel.toolboxController?.toolboxEventListener = this
-        ImageDropListener()
+        ImageDropListenerInit()
         return binding.root
     }
 
@@ -116,7 +116,7 @@ class PageEditFragment :
         getImage.launch(intent)
     }
 
-    private fun ImageDropListener() {
+    private fun ImageDropListenerInit() {
         binding.markdownEdit.setOnDragListener { view, event ->
             when (event.action) {
                 DragEvent.ACTION_DROP -> {
