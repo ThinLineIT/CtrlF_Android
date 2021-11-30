@@ -39,20 +39,18 @@
                 android:textSize="20dp" />
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar">
+            app:layout_constraintBottom_toTopOf="@id/toolbox"
+            app:layout_constraintTop_toBottomOf="@id/toolBar">
 
             <LinearLayout
                 android:id="@+id/layoutFrame"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolBar">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/topicText"
@@ -105,13 +103,13 @@
                     android:elevation="5dp"
                     android:fontFamily="@font/sc_dream_5"
                     android:hint="@string/label_summary"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="5"
+                    android:overScrollMode="always"
                     android:paddingStart="8dp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false"
-                    android:overScrollMode="always"
-                    android:maxLines="5"
-                    android:inputType="textMultiLine|textCapSentences"
                     android:text="@={viewModel.summary}"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -125,27 +123,27 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="#00000000"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="false"
                     app:layout_constraintTop_toBottomOf="@+id/summary"
                     app:tabGravity="fill"
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@color/white"
-                    app:tabTextColor="@color/purple"
-                    android:textAlignment="viewStart"
-                    android:textAllCaps="false">
+                    app:tabTextColor="@color/purple">
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/editTab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/button_edit"
-                        android:textAllCaps="false"/>
+                        android:textAllCaps="false" />
 
                     <com.google.android.material.tabs.TabItem
                         android:id="@+id/previewTab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/button_preview"
-                        android:textAllCaps="false"/>
+                        android:textAllCaps="false" />
                 </com.google.android.material.tabs.TabLayout>
 
                 <FrameLayout
@@ -158,13 +156,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:layout_gravity="end"
                     android:orientation="horizontal">
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
 
                     <Button
                         android:id="@+id/confirmButton"
@@ -195,6 +188,12 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
+
+        <include
+            layout="@layout/include_editor_toolbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

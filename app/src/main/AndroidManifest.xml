@@ -3,7 +3,7 @@
     package="com.thinlineit.ctrlf">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:name=".util.Application"
         android:allowBackup="true"
@@ -19,7 +19,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".page.editor.PageEditorActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".registration.signup.RegistrationActivity"
             android:windowSoftInputMode="adjustResize" />

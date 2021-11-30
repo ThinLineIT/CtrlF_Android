@@ -109,7 +109,4 @@ class PageViewModel(
     init {
         closeRightPane()
     }
-
-    companion object {
-    }
 }

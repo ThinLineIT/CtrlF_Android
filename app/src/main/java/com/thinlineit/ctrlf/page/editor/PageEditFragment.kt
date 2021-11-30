@@ -16,7 +16,9 @@ import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_edit.*
 
-class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edit) {
+class PageEditFragment :
+    BaseFragment<FragmentEditBinding>(R.layout.fragment_edit),
+    ToolboxEventListener {
     private val viewModel by activityViewModels<PageEditorViewModel>()
 
     @SuppressLint("ClickableViewAccessibility")
@@ -27,21 +29,14 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding.viewModel = this@PageEditFragment.viewModel
-        binding.apply {
-            boldText.setOnClickListener { boldText() }
-            headerText.setOnClickListener { headerText() }
-            italicText.setOnClickListener { italicText() }
-            quoteText.setOnClickListener { quoteText() }
-            codeText.setOnClickListener { codeText() }
-            bulletedList.setOnClickListener { bulletedList() }
-            link.setOnClickListener { linkText() }
-            image.setOnClickListener { imageText() }
-            numberList.setOnClickListener { numberList() }
+        binding.markdownEdit.setOnFocusChangeListener { v, hasFocus ->
+            viewModel.toolboxController?.isActive = hasFocus
         }
+        viewModel.toolboxController?.toolboxEventListener = this
         return binding.root
     }
 
-    fun boldText() {
+    override fun boldText() {
         val boldStart = markdownEdit.selectionStart
         val boldEnd = markdownEdit.selectionEnd
 
@@ -49,13 +44,13 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         markdownEdit.text.insert(boldEnd + 2, getString(R.string.button_bold))
     }
 
-    fun headerText() {
+    override fun headerText() {
         val headerStart = markdownEdit.selectionStart
 
         markdownEdit.text.insert(headerStart, getString(R.string.button_header))
     }
 
-    fun italicText() {
+    override fun italicText() {
         val italicStart = markdownEdit.selectionStart
         val italicEnd = markdownEdit.selectionEnd
 
@@ -63,13 +58,13 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         markdownEdit.text.insert(italicEnd + 1, getString(R.string.button_italic))
     }
 
-    fun quoteText() {
+    override fun quoteText() {
         val quoteStart = markdownEdit.selectionStart
 
         markdownEdit.text.insert(quoteStart, getString(R.string.button_quote))
     }
 
-    fun codeText() {
+    override fun codeText() {
         val codeStart = markdownEdit.selectionStart
         val codeEnd = markdownEdit.selectionEnd
 
@@ -77,22 +72,22 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         markdownEdit.text.insert(codeEnd + 3, getString(R.string.button_code_block))
     }
 
-    fun linkText() {
+    override fun linkText() {
         val linkStart = markdownEdit.selectionStart
         markdownEdit.text.insert(linkStart, getString(R.string.button_link))
     }
 
-    fun bulletedList() {
+    override fun bulletedList() {
         val bulletStart = markdownEdit.selectionStart
         markdownEdit.text.insert(bulletStart, getString(R.string.button_bulleted_list))
     }
 
-    fun numberList() {
+    override fun numberList() {
         val numberStart = markdownEdit.selectionStart
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
     }
 
-    fun imageText() {
+    override fun attachImage() {
         val intent = Intent(Intent.ACTION_PICK).apply {
             type = MediaStore.Images.Media.CONTENT_TYPE
             data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -105,7 +100,7 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
-            val data = result.data?.clipData ?: run {
+            val imageUri = result.data?.data ?: run {
                 Toast.makeText(
                     activity,
                     getString(R.string.notice_no_img_selected),
@@ -114,12 +109,9 @@ class PageEditFragment : BaseFragment<FragmentEditBinding>(R.layout.fragment_edi
                 return@registerForActivityResult
             }
 
-            // 현재 클립 데이터 uri
-            val imageUri = data.getItemAt(0).uri
-
             // uri -> temp -> 파일 -> 폼데이터 과정 생략
             val linkStart = markdownEdit.selectionStart
-            val linkUrl = String.format(getString(R.string.button_image_link_front), "url")
+            val linkUrl = String.format(getString(R.string.button_image_link_front), "$imageUri")
             markdownEdit.text.insert(
                 linkStart,
                 linkUrl

@@ -54,24 +54,31 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         )
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page_editor)
+    val pageEditorViewModel: PageEditorViewModel by lazy {
         val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
         val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
         val topicId = intent.getIntExtra(TOPIC_ID, 0)
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
-        val viewModel =
-            ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
+            toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
+        }
+    }
 
-        checkImgPermission(this)
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_page_editor)
 
         binding.apply {
-            this.viewModel = viewModel
+            viewModel = pageEditorViewModel
             lifecycleOwner = this@PageEditorActivity
         }
+        initView()
+        checkImgPermission(this)
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initView() {
         pageEditorAdapter = PageEditorAdapter(this).apply {
             addFragment(PageEditFragment())
             addFragment(PagePreviewFragment())
@@ -103,7 +110,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
         })
 
-        viewModel.createPageStatus.observeIfNotHandled(this) {
+        pageEditorViewModel.createPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
