@@ -160,9 +160,6 @@ class PageEditFragment :
                 ).show()
                 return@registerForActivityResult
             }
-
-<<<<<<< HEAD
-            val imageUri = data.getItemAt(0).uri
             val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
             if (MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE) && mimeType != null) {
@@ -177,15 +174,6 @@ class PageEditFragment :
                     ATTACH_IMAGE_TYPE
                 )
             }
-=======
-            // uri -> temp -> 파일 -> 폼데이터 과정 생략
-            val linkStart = markdownEdit.selectionStart
-            val linkUrl = String.format(getString(R.string.button_image_link_front), "$imageUri")
-            markdownEdit.text.insert(
-                linkStart,
-                linkUrl
-            )
->>>>>>> feature/editor
         }
 
     companion object {
