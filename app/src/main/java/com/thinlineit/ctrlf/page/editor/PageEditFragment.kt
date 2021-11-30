@@ -40,13 +40,15 @@ class PageEditFragment :
                 this@PageEditFragment.viewModel.toolboxController?.isActive = hasFocus
             }
 
-            this@PageEditFragment.viewModel.dropUrl.observe(viewLifecycleOwner) {
-                val cursorStart = markdownEdit.selectionStart
-                markdownEdit.text.insert(cursorStart, it)
-            }
-            this@PageEditFragment.viewModel.attachUrl.observe(viewLifecycleOwner) {
-                val cursorStart = markdownEdit.selectionStart
-                markdownEdit.text.insert(cursorStart, "![]($it)")
+            this@PageEditFragment.viewModel.apply {
+                dropUrl.observe(viewLifecycleOwner) {
+                    val cursorStart = markdownEdit.selectionStart
+                    markdownEdit.text.insert(cursorStart, it)
+                }
+                attachUrl.observe(viewLifecycleOwner) {
+                    val cursorStart = markdownEdit.selectionStart
+                    markdownEdit.text.insert(cursorStart, "![]($it)")
+                }
             }
         }
         viewModel.toolboxController?.toolboxEventListener = this
