@@ -42,12 +42,16 @@ class PageEditFragment :
 
             this@PageEditFragment.viewModel.apply {
                 dropUrl.observe(viewLifecycleOwner) {
-                    val cursorStart = markdownEdit.selectionStart
-                    markdownEdit.text.insert(cursorStart, it)
+                    if (it != null) {
+                        val cursorStart = markdownEdit.selectionStart
+                        markdownEdit.text.insert(cursorStart, it)
+                    }
                 }
                 attachUrl.observe(viewLifecycleOwner) {
-                    val cursorStart = markdownEdit.selectionStart
-                    markdownEdit.text.insert(cursorStart, "![]($it)")
+                    if (it != null) {
+                        val cursorStart = markdownEdit.selectionStart
+                        markdownEdit.text.insert(cursorStart, "![]($it)")
+                    }
                 }
             }
         }

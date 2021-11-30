@@ -29,12 +29,12 @@ class PageEditorViewModel(
         get() = _createPageStatus
     var toolboxController: ToolboxController? = null
 
-    private val _dropUrl = MutableLiveData<String>()
-    val dropUrl: LiveData<String>
+    private val _dropUrl = MutableLiveData<String?>()
+    val dropUrl: LiveData<String?>
         get() = _dropUrl
 
-    private val _attachUrl = MutableLiveData<String>()
-    val attachUrl: LiveData<String>
+    private val _attachUrl = MutableLiveData<String?>()
+    val attachUrl: LiveData<String?>
         get() = _attachUrl
 
     fun complete() {
@@ -61,8 +61,14 @@ class PageEditorViewModel(
 
     private fun addImageUrl(url: String, type: String) {
         when (type) {
-            DROP_IMAGE_TYPE -> _dropUrl.value = url
-            ATTACH_IMAGE_TYPE -> _attachUrl.value = url
+            DROP_IMAGE_TYPE -> {
+                _dropUrl.value = url
+                _dropUrl.value = null
+            }
+            ATTACH_IMAGE_TYPE -> {
+                _attachUrl.value = url
+                _attachUrl.value = null
+            }
             else -> return
         }
     }
