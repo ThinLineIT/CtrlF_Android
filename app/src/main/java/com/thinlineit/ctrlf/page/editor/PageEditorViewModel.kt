@@ -57,7 +57,6 @@ class PageEditorViewModel(
 
     fun addImageUrl(url: String) {
         _url.value = url
-        _url.value = ""
     }
 
     fun loadImageUrl(uri: Uri) {

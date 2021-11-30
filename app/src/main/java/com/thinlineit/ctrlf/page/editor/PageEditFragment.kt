@@ -1,36 +1,25 @@
 package com.thinlineit.ctrlf.page.editor
 
-<<<<<<< HEAD
-import android.content.ClipData
-import android.os.Bundle
-import android.view.DragEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.MimeTypeFilter
-=======
 import android.annotation.SuppressLint
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
->>>>>>> origin/feature/editor-toolbox
+import androidx.core.app.ActivityCompat
+import androidx.core.content.MimeTypeFilter
 import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
-<<<<<<< HEAD
 import com.thinlineit.ctrlf.util.copyUri
 import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
-=======
-import kotlinx.android.synthetic.main.fragment_edit.*
->>>>>>> origin/feature/editor-toolbox
 
 class PageEditFragment :
     BaseFragment<FragmentEditBinding>(R.layout.fragment_edit),
@@ -44,32 +33,20 @@ class PageEditFragment :
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-<<<<<<< HEAD
+
         binding.apply {
             viewModel = this@PageEditFragment.viewModel
-
-            boldText.setOnClickListener { boldText() }
-            headerText.setOnClickListener { headerText() }
-            italicText.setOnClickListener { italicText() }
-            quoteText.setOnClickListener { quoteText() }
-            codeText.setOnClickListener { codeText() }
-            bulletedList.setOnClickListener { bulletedList() }
-            link.setOnClickListener { linkText() }
-            numberList.setOnClickListener { numberList() }
+            markdownEdit.setOnFocusChangeListener { v, hasFocus ->
+                this@PageEditFragment.viewModel.toolboxController?.isActive = hasFocus
+            }
 
             this@PageEditFragment.viewModel.url.observe(viewLifecycleOwner) {
                 val cursorStart = markdownEdit.selectionStart
                 markdownEdit.text.insert(cursorStart, it)
             }
         }
-        ImageDropListener()
-=======
-        binding.viewModel = this@PageEditFragment.viewModel
-        binding.markdownEdit.setOnFocusChangeListener { v, hasFocus ->
-            viewModel.toolboxController?.isActive = hasFocus
-        }
         viewModel.toolboxController?.toolboxEventListener = this
->>>>>>> origin/feature/editor-toolbox
+        ImageDropListener()
         return binding.root
     }
 
@@ -124,10 +101,19 @@ class PageEditFragment :
         markdownEdit.text.insert(numberStart, getString(R.string.button_number_list))
     }
 
-<<<<<<< HEAD
+    override fun attachImage() {
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = MediaStore.Images.Media.CONTENT_TYPE
+            data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            putExtra(Intent.ACTION_GET_CONTENT, true)
+        }
+        getImage.launch(intent)
+    }
+
     // EditText drop action 관련 이슈 때문에 Button Layout에 드래그앤드롭 범위 지정
+
     private fun ImageDropListener() {
-        binding.buttonLayout.setOnDragListener { view, event ->
+        binding.markdownEdit.setOnDragListener { view, event ->
             when (event.action) {
                 DragEvent.ACTION_DROP -> {
                     val imageItem: ClipData.Item = event.clipData.getItemAt(0)
@@ -157,18 +143,6 @@ class PageEditFragment :
         }
     }
 
-    companion object {
-        const val IMAGE_MIME_TYPE = "image/*"
-=======
-    override fun attachImage() {
-        val intent = Intent(Intent.ACTION_PICK).apply {
-            type = MediaStore.Images.Media.CONTENT_TYPE
-            data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            putExtra(Intent.ACTION_GET_CONTENT, true)
-        }
-        getImage.launch(intent)
-    }
-
     private val getImage =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -195,12 +169,12 @@ class PageEditFragment :
         }
 
     companion object {
+        const val IMAGE_MIME_TYPE = "image/*"
         fun newInstance(): PageEditFragment {
             val args = Bundle()
             val fragment = PageEditFragment()
             fragment.arguments = args
             return fragment
         }
->>>>>>> origin/feature/editor-toolbox
     }
 }
