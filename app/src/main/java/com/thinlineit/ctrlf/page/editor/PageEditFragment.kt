@@ -40,9 +40,13 @@ class PageEditFragment :
                 this@PageEditFragment.viewModel.toolboxController?.isActive = hasFocus
             }
 
-            this@PageEditFragment.viewModel.url.observe(viewLifecycleOwner) {
+            this@PageEditFragment.viewModel.dropUrl.observe(viewLifecycleOwner) {
                 val cursorStart = markdownEdit.selectionStart
                 markdownEdit.text.insert(cursorStart, it)
+            }
+            this@PageEditFragment.viewModel.attachUrl.observe(viewLifecycleOwner) {
+                val cursorStart = markdownEdit.selectionStart
+                markdownEdit.text.insert(cursorStart, "![]($it)")
             }
         }
         viewModel.toolboxController?.toolboxEventListener = this
@@ -110,8 +114,6 @@ class PageEditFragment :
         getImage.launch(intent)
     }
 
-    // EditText drop action 관련 이슈 때문에 Button Layout에 드래그앤드롭 범위 지정
-
     private fun ImageDropListener() {
         binding.markdownEdit.setOnDragListener { view, event ->
             when (event.action) {
@@ -130,7 +132,8 @@ class PageEditFragment :
                                 uri,
                                 imageName ?: "",
                                 mimeType
-                            )
+                            ),
+                            DROP_IMAGE_TYPE
                         )
                         dropPermissions?.release()
                     }
@@ -156,20 +159,27 @@ class PageEditFragment :
                 return@registerForActivityResult
             }
 
-            // 현재 클립 데이터 uri
             val imageUri = data.getItemAt(0).uri
+            val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
-            // uri -> temp -> 파일 -> 폼데이터 과정 생략
-            val linkStart = markdownEdit.selectionStart
-            val linkUrl = String.format(getString(R.string.button_image_link_front), "url")
-            markdownEdit.text.insert(
-                linkStart,
-                linkUrl
-            )
+            if (MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE) && mimeType != null) {
+                val imageName = imageUri.lastPathSegment
+                viewModel.loadImageUrl(
+                    copyUri(
+                        requireContext(),
+                        imageUri,
+                        imageName ?: "",
+                        mimeType
+                    ),
+                    ATTACH_IMAGE_TYPE
+                )
+            }
         }
 
     companion object {
         const val IMAGE_MIME_TYPE = "image/*"
+        const val DROP_IMAGE_TYPE = "dropImageType"
+        const val ATTACH_IMAGE_TYPE = "attachImageType"
         fun newInstance(): PageEditFragment {
             val args = Bundle()
             val fragment = PageEditFragment()
