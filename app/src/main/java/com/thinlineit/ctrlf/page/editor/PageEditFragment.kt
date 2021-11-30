@@ -152,7 +152,7 @@ class PageEditFragment :
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
-            val data = result.data?.clipData ?: run {
+            val imageUri = result.data?.data ?: run {
                 Toast.makeText(
                     activity,
                     getString(R.string.notice_no_img_selected),
@@ -161,6 +161,7 @@ class PageEditFragment :
                 return@registerForActivityResult
             }
 
+<<<<<<< HEAD
             val imageUri = data.getItemAt(0).uri
             val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
@@ -176,6 +177,15 @@ class PageEditFragment :
                     ATTACH_IMAGE_TYPE
                 )
             }
+=======
+            // uri -> temp -> 파일 -> 폼데이터 과정 생략
+            val linkStart = markdownEdit.selectionStart
+            val linkUrl = String.format(getString(R.string.button_image_link_front), "$imageUri")
+            markdownEdit.text.insert(
+                linkStart,
+                linkUrl
+            )
+>>>>>>> feature/editor
         }
 
     companion object {
