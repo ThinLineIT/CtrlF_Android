@@ -64,6 +64,8 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
         val viewModel =
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
+        val editFragment = PageEditFragment.newInstance()
+        val previewFragment = PagePreviewFragment.newInstance()
 
         checkImgPermission(this)
 
@@ -84,12 +86,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        val editFragment = PageEditFragment.newInstance()
                         replaceFragment(editFragment)
                         setTabBackground(leftSelected, rightUnSelected)
                     }
                     1 -> {
-                        val previewFragment = PagePreviewFragment.newInstance()
                         replaceFragment(previewFragment)
                         setTabBackground(leftUnSelected, rightSelected)
                     }
