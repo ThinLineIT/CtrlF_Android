@@ -1,7 +1,6 @@
 package com.thinlineit.ctrlf.page.editor
 
 import android.annotation.SuppressLint
-import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
@@ -56,7 +55,7 @@ class PageEditFragment :
             }
         }
         viewModel.toolboxController?.toolboxEventListener = this
-        ImageDropListenerInit()
+        initImageDropListener()
         return binding.root
     }
 
@@ -120,18 +119,18 @@ class PageEditFragment :
         getImage.launch(intent)
     }
 
-    private fun ImageDropListenerInit() {
+    private fun initImageDropListener() {
         binding.markdownEdit.setOnDragListener { view, event ->
             when (event.action) {
                 DragEvent.ACTION_DROP -> {
-                    val imageItem: ClipData.Item = event.clipData.getItemAt(0)
-                    val uri = imageItem.uri
+                    val dropPermissions =
+                        ActivityCompat.requestDragAndDropPermissions(requireActivity(), event)
+                    val uri = event.clipData.getItemAt(0).uri
                     val mimeType = requireActivity().contentResolver.getType(uri) ?: null
 
-                    if (MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE) && mimeType != null) {
+                    if (mimeType != null && MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE)) {
                         val imageName = uri.lastPathSegment
-                        val dropPermissions =
-                            ActivityCompat.requestDragAndDropPermissions(requireActivity(), event)
+
                         viewModel.loadImageUrl(
                             copyUri(
                                 requireContext(),
@@ -141,8 +140,8 @@ class PageEditFragment :
                             ),
                             DROP_IMAGE_TYPE
                         )
-                        dropPermissions?.release()
                     }
+                    dropPermissions?.release()
                     return@setOnDragListener true
                 }
                 else -> {
