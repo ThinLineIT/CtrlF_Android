@@ -29,13 +29,9 @@ class PageEditorViewModel(
         get() = _createPageStatus
     var toolboxController: ToolboxController? = null
 
-    private val _dropUrl = MutableLiveData<String?>()
-    val dropUrl: LiveData<String?>
-        get() = _dropUrl
-
-    private val _attachUrl = MutableLiveData<String?>()
-    val attachUrl: LiveData<String?>
-        get() = _attachUrl
+    private val _url = MutableLiveData<String?>()
+    val url: LiveData<String?>
+        get() = _url
 
     fun complete() {
         val topicId = topicIdInfo.value ?: return
@@ -59,32 +55,18 @@ class PageEditorViewModel(
         }
     }
 
-    private fun addImageUrl(url: String, type: String) {
-        when (type) {
-            DROP_IMAGE_TYPE -> {
-                _dropUrl.value = url
-                _dropUrl.value = null
-            }
-            ATTACH_IMAGE_TYPE -> {
-                _attachUrl.value = url
-                _attachUrl.value = null
-            }
-            else -> return
-        }
+    private fun addImageUrl(url: String) {
+        _url.value = url
+        _url.value = null
     }
 
-    fun loadImageUrl(uri: Uri, type: String) {
+    fun loadImageUrl(uri: Uri) {
         viewModelScope.launch {
             try {
-                addImageUrl(contentRepository.uploadImage(uri), type)
+                addImageUrl(contentRepository.uploadImage(uri))
             } catch (e: Exception) {
                 return@launch
             }
         }
-    }
-
-    companion object {
-        const val DROP_IMAGE_TYPE = "dropImageType"
-        const val ATTACH_IMAGE_TYPE = "attachImageType"
     }
 }

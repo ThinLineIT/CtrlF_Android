@@ -39,21 +39,14 @@ class PageEditFragment :
                 this@PageEditFragment.viewModel.toolboxController?.isActive = hasFocus
             }
 
-            this@PageEditFragment.viewModel.apply {
-                dropUrl.observe(viewLifecycleOwner) {
-                    if (it != null) {
-                        val cursorStart = markdownEdit.selectionStart
-                        markdownEdit.text.insert(cursorStart, it)
-                    }
-                }
-                attachUrl.observe(viewLifecycleOwner) {
-                    if (it != null) {
-                        val cursorStart = markdownEdit.selectionStart
-                        markdownEdit.text.insert(cursorStart, "![]($it)")
-                    }
+            this@PageEditFragment.viewModel.url.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    val cursorStart = markdownEdit.selectionStart
+                    markdownEdit.text.insert(cursorStart, "![]($it)")
                 }
             }
         }
+
         viewModel.toolboxController?.toolboxEventListener = this
         initImageDropListener()
         return binding.root
@@ -137,8 +130,7 @@ class PageEditFragment :
                                 uri,
                                 imageName ?: "",
                                 mimeType
-                            ),
-                            DROP_IMAGE_TYPE
+                            )
                         )
                     }
                     dropPermissions?.release()
@@ -173,16 +165,13 @@ class PageEditFragment :
                         imageUri,
                         imageName ?: "",
                         mimeType
-                    ),
-                    ATTACH_IMAGE_TYPE
+                    )
                 )
             }
         }
 
     companion object {
         const val IMAGE_MIME_TYPE = "image/*"
-        const val DROP_IMAGE_TYPE = "dropImageType"
-        const val ATTACH_IMAGE_TYPE = "attachImageType"
         fun newInstance(): PageEditFragment {
             val args = Bundle()
             val fragment = PageEditFragment()
