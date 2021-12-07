@@ -18,6 +18,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
 import com.thinlineit.ctrlf.util.copyUri
+import com.thinlineit.ctrlf.util.uri.getName
 import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
 
 class PageEditFragment :
@@ -42,7 +43,10 @@ class PageEditFragment :
             this@PageEditFragment.viewModel.url.observe(viewLifecycleOwner) {
                 if (it != null) {
                     val cursorStart = markdownEdit.selectionStart
-                    markdownEdit.text.insert(cursorStart, "![]($it)")
+                    markdownEdit.text.insert(
+                        cursorStart,
+                        "![${this@PageEditFragment.viewModel.fileName.value}]($it)"
+                    )
                 }
             }
         }
@@ -122,15 +126,13 @@ class PageEditFragment :
                     val mimeType = requireActivity().contentResolver.getType(uri) ?: null
 
                     if (mimeType != null && MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE)) {
-                        val imageName = uri.lastPathSegment
-
                         viewModel.loadImageUrl(
                             copyUri(
                                 requireContext(),
                                 uri,
-                                imageName ?: "",
                                 mimeType
-                            )
+                            ),
+                            getName(requireContext(), uri)
                         )
                     }
                     dropPermissions?.release()
@@ -158,14 +160,13 @@ class PageEditFragment :
             val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
             if (MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE) && mimeType != null) {
-                val imageName = imageUri.lastPathSegment
                 viewModel.loadImageUrl(
                     copyUri(
                         requireContext(),
                         imageUri,
-                        imageName ?: "",
                         mimeType
-                    )
+                    ),
+                    getName(requireContext(), imageUri)
                 )
             }
         }
