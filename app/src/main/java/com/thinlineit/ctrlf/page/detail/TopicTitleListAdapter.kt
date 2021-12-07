@@ -18,6 +18,16 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     ListButtonInterface {
     var topicList = emptyList<Topic>()
 
+    interface SwipeBtnClickListener {
+        fun onModify(topicId: Int)
+    }
+
+    private lateinit var mSwipeBtnClickListener: SwipeBtnClickListener
+
+    fun setSwipeBtnClickListener(swipeBtnClickListener: SwipeBtnClickListener) {
+        mSwipeBtnClickListener = swipeBtnClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.from(parent)
 
@@ -26,6 +36,9 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topicDao = topicList[position]
         holder.bind(topicDao, clickListener)
+        holder.dataBinding.topicTitleModifyButton.setOnClickListener {
+            mSwipeBtnClickListener.onModify(holder.dataBinding.topic!!.id)
+        }
     }
 
     // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
@@ -38,7 +51,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
         TopicFragmentDialog(context).topicDialog(context)
     }
 
-    class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
+    class ViewHolder(val dataBinding: ListItemTopicTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
         fun bind(topic: Topic, clickListener: (Topic) -> Unit) {
             dataBinding.topic = topic
@@ -60,6 +73,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
                 return ViewHolder(dataBinding)
             }
         }
+
         override fun getSwipeWidth(): Int = dataBinding.topicTitleDeleteButton.width
         override fun getSwipeLayout(): LinearLayout = dataBinding.swipeTopicListView
     }

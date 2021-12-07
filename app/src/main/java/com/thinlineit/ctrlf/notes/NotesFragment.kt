@@ -18,12 +18,14 @@ class NotesFragment : Fragment() {
     private val noteViewModel by viewModels<NotesViewModel>()
     private val noteAdapter = NotesAdapter(
         {
-            val dialog = CreateDialog(
-                resources.getString(R.string.hint_dialog_note_title),
-                resources.getString(R.string.hint_dialog_note_title_hint)
-            ) { title, content -> noteViewModel.createNote(title, content) }
-            activity?.supportFragmentManager?.let { fragmentManager ->
-                dialog.show(fragmentManager, ADD_NOTE)
+            context?.let {
+                CreateDialog(
+                    it,
+                    resources.getString(R.string.hint_dialog_note_title),
+                    resources.getString(R.string.hint_dialog_note_title_hint)
+                ) { title, reason ->
+                    noteViewModel.createNote(title, reason)
+                }.openDialog()
             }
         },
         { noteId ->
@@ -60,8 +62,5 @@ class NotesFragment : Fragment() {
             else loadingDialog.dismiss()
         }
         return binding.root
-    }
-    companion object {
-        const val ADD_NOTE = "add note"
     }
 }

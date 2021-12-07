@@ -5,13 +5,18 @@ import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
+import com.thinlineit.ctrlf.repository.dto.response.NoteUpdateResponse
+import com.thinlineit.ctrlf.repository.dto.response.TopicUpdateResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -71,4 +76,20 @@ interface ContentApi {
         @Header("Authorization") Authorization: String,
         @Body request: NoteCreateRequest
     ): Response<Void>
+
+    // 토픽 수정
+    @PUT("topics/{topic_id}/")
+    suspend fun updateTopic(
+        @Header("Authorization") Authorization: String,
+        @Path("topic_id") topicId: Int,
+        @Body request: TopicUpdateRequest
+    ): TopicUpdateResponse
+
+    // 노트 수정
+    @PUT("notes/{note_id}/")
+    suspend fun updateNote(
+        @Header("Authorization") Authorization: String,
+        @Path("note_id") noteId: Int,
+        @Body request: NoteUpdateRequest
+    ): NoteUpdateResponse
 }
