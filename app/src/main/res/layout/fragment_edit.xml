@@ -31,5 +31,6 @@
             android:paddingRight="8dp"
             android:paddingBottom="16dp"
             android:text="@={viewModel.content}" />
+
     </RelativeLayout>
 </layout>

@@ -4,17 +4,22 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.DragEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.MimeTypeFilter
 import androidx.fragment.app.activityViewModels
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentEditBinding
 import com.thinlineit.ctrlf.util.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_edit.*
+import com.thinlineit.ctrlf.util.copyUri
+import com.thinlineit.ctrlf.util.uri.getName
+import kotlinx.android.synthetic.main.fragment_edit.markdownEdit
 
 class PageEditFragment :
     BaseFragment<FragmentEditBinding>(R.layout.fragment_edit),
@@ -28,11 +33,26 @@ class PageEditFragment :
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding.viewModel = this@PageEditFragment.viewModel
-        binding.markdownEdit.setOnFocusChangeListener { v, hasFocus ->
-            viewModel.toolboxController?.isActive = hasFocus
+
+        binding.apply {
+            viewModel = this@PageEditFragment.viewModel
+            markdownEdit.setOnFocusChangeListener { v, hasFocus ->
+                this@PageEditFragment.viewModel.toolboxController?.isActive = hasFocus
+            }
+
+            this@PageEditFragment.viewModel.url.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    val cursorStart = markdownEdit.selectionStart
+                    markdownEdit.text.insert(
+                        cursorStart,
+                        "![${this@PageEditFragment.viewModel.fileName.value}]($it)"
+                    )
+                }
+            }
         }
+
         viewModel.toolboxController?.toolboxEventListener = this
+        initImageDropListener()
         return binding.root
     }
 
@@ -96,6 +116,35 @@ class PageEditFragment :
         getImage.launch(intent)
     }
 
+    private fun initImageDropListener() {
+        binding.markdownEdit.setOnDragListener { view, event ->
+            when (event.action) {
+                DragEvent.ACTION_DROP -> {
+                    val dropPermissions =
+                        ActivityCompat.requestDragAndDropPermissions(requireActivity(), event)
+                    val uri = event.clipData.getItemAt(0).uri
+                    val mimeType = requireActivity().contentResolver.getType(uri) ?: null
+
+                    if (mimeType != null && MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE)) {
+                        viewModel.loadImageUrl(
+                            copyUri(
+                                requireContext(),
+                                uri,
+                                mimeType
+                            ),
+                            getName(requireContext(), uri)
+                        )
+                    }
+                    dropPermissions?.release()
+                    return@setOnDragListener true
+                }
+                else -> {
+                    return@setOnDragListener true
+                }
+            }
+        }
+    }
+
     private val getImage =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
@@ -108,17 +157,22 @@ class PageEditFragment :
                 ).show()
                 return@registerForActivityResult
             }
+            val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
-            // uri -> temp -> 파일 -> 폼데이터 과정 생략
-            val linkStart = markdownEdit.selectionStart
-            val linkUrl = String.format(getString(R.string.button_image_link_front), "$imageUri")
-            markdownEdit.text.insert(
-                linkStart,
-                linkUrl
-            )
+            if (mimeType != null && MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE)) {
+                viewModel.loadImageUrl(
+                    copyUri(
+                        requireContext(),
+                        imageUri,
+                        mimeType
+                    ),
+                    getName(requireContext(), imageUri)
+                )
+            }
         }
 
     companion object {
+        const val IMAGE_MIME_TYPE = "image/*"
         fun newInstance(): PageEditFragment {
             val args = Bundle()
             val fragment = PageEditFragment()
