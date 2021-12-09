@@ -33,7 +33,7 @@ class TopicTitleListFragment : Fragment() {
             lifecycleOwner = this@TopicTitleListFragment
             topicTitleListAdapter.setSwipeBtnClickListener(
                 object : TopicTitleListAdapter.SwipeBtnClickListener {
-                    override fun onModify(topicId: Int) {
+                    override fun onUpdate(topicId: Int) {
                         context?.let {
                             CreateDialog(
                                 it,
@@ -49,15 +49,14 @@ class TopicTitleListFragment : Fragment() {
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
-            // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
 
-            updateDeleteNote.setOnClickListener {
-                when (noteTitleTextBox.visibility) {
-                    View.GONE -> noteTitleTextBox.visibility = View.VISIBLE
-                    else -> noteTitleTextBox.visibility = View.GONE
+            seeMoreOfNoteBoxBtn.setOnClickListener {
+                when (seeMoreOfNoteBox.visibility) {
+                    View.GONE -> seeMoreOfNoteBox.visibility = View.VISIBLE
+                    else -> seeMoreOfNoteBox.visibility = View.GONE
                 }
             }
-            updateNote.setOnClickListener { _ ->
+            updateNoteTitleBtn.setOnClickListener { _ ->
                 context?.let {
                     CreateDialog(
                         it,

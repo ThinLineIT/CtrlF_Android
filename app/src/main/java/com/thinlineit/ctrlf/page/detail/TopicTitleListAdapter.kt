@@ -19,7 +19,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     var topicList = emptyList<Topic>()
 
     interface SwipeBtnClickListener {
-        fun onModify(topicId: Int)
+        fun onUpdate(topicId: Int)
     }
 
     private lateinit var mSwipeBtnClickListener: SwipeBtnClickListener
@@ -35,10 +35,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topicDao = topicList[position]
-        holder.bind(topicDao, clickListener)
-        holder.dataBinding.topicTitleModifyButton.setOnClickListener {
-            mSwipeBtnClickListener.onModify(holder.dataBinding.topic!!.id)
-        }
+        holder.bind(topicDao, clickListener, mSwipeBtnClickListener)
     }
 
     // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
@@ -51,12 +48,19 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
         TopicFragmentDialog(context).topicDialog(context)
     }
 
-    class ViewHolder(val dataBinding: ListItemTopicTitleBinding) :
+    class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
-        fun bind(topic: Topic, clickListener: (Topic) -> Unit) {
+        fun bind(
+            topic: Topic,
+            clickListener: (Topic) -> Unit,
+            mSwipeBtnClickListener: SwipeBtnClickListener
+        ) {
             dataBinding.topic = topic
             dataBinding.root.setOnClickListener {
                 clickListener(topic)
+            }
+            dataBinding.topicTitleUpdateBtn.setOnClickListener {
+                mSwipeBtnClickListener.onUpdate(topic.id)
             }
         }
 

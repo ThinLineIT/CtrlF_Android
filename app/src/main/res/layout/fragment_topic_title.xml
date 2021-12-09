@@ -42,12 +42,12 @@
             android:textSize="33sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/noteInfo"
-            app:layout_constraintEnd_toStartOf="@id/updateDeleteNote"
+            app:layout_constraintEnd_toStartOf="@id/seeMoreOfNoteBoxBtn"
             app:layout_constraintStart_toStartOf="@id/noteInfo"
             app:layout_constraintTop_toTopOf="@id/noteInfo" />
 
         <ImageView
-            android:id="@+id/updateDeleteNote"
+            android:id="@+id/seeMoreOfNoteBoxBtn"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginEnd="20dp"
@@ -74,17 +74,17 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/noteTitleTextBox"
+            android:id="@+id/seeMoreOfNoteBox"
             android:layout_width="65dp"
             android:layout_height="70dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/icon_note_title_textbox"
-            app:layout_constraintEnd_toEndOf="@id/updateDeleteNote"
-            app:layout_constraintTop_toBottomOf="@id/updateDeleteNote"
+            app:layout_constraintEnd_toEndOf="@id/seeMoreOfNoteBoxBtn"
+            app:layout_constraintTop_toBottomOf="@id/seeMoreOfNoteBoxBtn"
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/updateNote"
+                android:id="@+id/updateNoteTitleBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sc_dream_3"
@@ -99,13 +99,13 @@
                 android:layout_width="50dp"
                 android:layout_height="1px"
                 android:background="@color/light_gray"
-                app:layout_constraintBottom_toTopOf="@id/deleteNote"
+                app:layout_constraintBottom_toTopOf="@id/deleteNoteBtn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/updateNote" />
+                app:layout_constraintTop_toBottomOf="@id/updateNoteTitleBtn" />
 
             <TextView
-                android:id="@+id/deleteNote"
+                android:id="@+id/deleteNoteBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sc_dream_3"
