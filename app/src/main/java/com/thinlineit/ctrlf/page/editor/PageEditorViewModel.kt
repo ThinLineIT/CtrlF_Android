@@ -68,7 +68,7 @@ class PageEditorViewModel(
     fun loadImageUrl(uri: Uri, name: String) {
         viewModelScope.launch {
             try {
-                addImageUrl(contentRepository.uploadImage(uri), name)
+                addImageUrl(contentRepository.uploadImage(uri, name), name)
             } catch (e: Exception) {
                 return@launch
             }

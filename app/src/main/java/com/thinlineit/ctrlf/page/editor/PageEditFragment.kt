@@ -159,7 +159,7 @@ class PageEditFragment :
             }
             val mimeType = requireActivity().contentResolver.getType(imageUri) ?: null
 
-            if (MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE) && mimeType != null) {
+            if (mimeType != null && MimeTypeFilter.matches(mimeType, IMAGE_MIME_TYPE)) {
                 viewModel.loadImageUrl(
                     copyUri(
                         requireContext(),

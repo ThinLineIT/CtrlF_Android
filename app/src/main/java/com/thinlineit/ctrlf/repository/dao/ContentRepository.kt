@@ -54,10 +54,9 @@ class ContentRepository {
         }
     }
 
-    suspend fun uploadImage(uri: Uri): String {
+    suspend fun uploadImage(uri: Uri, fileName: String): String {
         return try {
             val file = File(uri.path)
-            val fileName = file.name
             val requestImage: RequestBody =
                 RequestBody.create(MediaType.parse("multipart/form-data"), file)
             val fileBody: MultipartBody.Part =
