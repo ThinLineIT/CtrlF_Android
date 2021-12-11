@@ -20,6 +20,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.CustomDialogInterface
+import com.thinlineit.ctrlf.util.LoadingDialog
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.checkImgPermission
 import com.thinlineit.ctrlf.util.observeIfNotHandled
@@ -70,6 +71,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
         val editFragment = PageEditFragment.newInstance()
         val previewFragment = PagePreviewFragment.newInstance()
+        val loadingDialog = LoadingDialog(this)
 
         checkImgPermission(this)
 
@@ -117,6 +119,11 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        viewModel.isLoading.observe(this) {
+            if (it) loadingDialog.show()
+            else loadingDialog.dismiss()
         }
 
         summary.setOnTouchListener { view, event ->
