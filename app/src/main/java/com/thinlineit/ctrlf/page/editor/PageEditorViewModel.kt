@@ -11,6 +11,7 @@ import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Mode.EDIT
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class PageEditorViewModel(
@@ -19,7 +20,7 @@ class PageEditorViewModel(
     private val topicId: Int,
     private val mode: PageEditorActivity.Mode,
     private val contentRepository: ContentRepository = ContentRepository()
-) : ViewModel() {
+) : BaseViewModel() {
 
     val content = MutableLiveData<String>(pageInfo.content)
     val pageTitle = MutableLiveData<String>(pageInfo.title)
