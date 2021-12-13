@@ -58,20 +58,18 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolBar">
+            app:layout_constraintBottom_toTopOf="@id/toolbox"
+            app:layout_constraintTop_toBottomOf="@id/toolBar">
 
             <LinearLayout
                 android:id="@+id/layoutFrame"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolBar">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/topicText"
@@ -123,7 +121,11 @@
                     android:background="@drawable/background_round_white"
                     android:elevation="5dp"
                     android:fontFamily="@font/sc_dream_5"
+<<<<<<< HEAD
                     android:hint="@{viewModel.summaryHint}"
+=======
+                    android:hint="@string/label_summary"
+>>>>>>> feature/editor
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
                     android:overScrollMode="always"
@@ -173,7 +175,51 @@
                     android:layout_height="wrap_content"
                     android:minHeight="250dp"
                     app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+<<<<<<< HEAD
+=======
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/confirmButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/background_round_purple"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->viewModel.complete()}"
+                        android:text="@string/button_confirm"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/cancelButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/background_round_purple"
+                        android:elevation="5dp"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:text="@string/button_cancel_editor"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+>>>>>>> feature/editor
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
+
+        <include
+            layout="@layout/include_editor_toolbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
