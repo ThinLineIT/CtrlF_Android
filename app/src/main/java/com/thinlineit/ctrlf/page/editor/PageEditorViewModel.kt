@@ -2,7 +2,6 @@ package com.thinlineit.ctrlf.page.editor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.entity.Page
@@ -37,9 +36,9 @@ class PageEditorViewModel(
         EDIT -> R.string.label_reason_for_revision
     }
 
-    private val _createPageStatus = MutableLiveData<Event<Status>>()
-    val createPageStatus: LiveData<Event<Status>>
-        get() = _createPageStatus
+    private val _editPageStatus = MutableLiveData<Event<Status>>()
+    val editPageStatus: LiveData<Event<Status>>
+        get() = _editPageStatus
 
     fun complete() {
         val topicId = topicIdInfo.value ?: return
@@ -58,11 +57,11 @@ class PageEditorViewModel(
                             summary
                         )
                     ) {
-                        201 -> _createPageStatus.value = Event(Status.SUCCESS)
-                        else -> _createPageStatus.value = Event(Status.FAILURE)
+                        201 -> _editPageStatus.value = Event(Status.SUCCESS)
+                        else -> _editPageStatus.value = Event(Status.FAILURE)
                     }
                 }
-            EDIT -> TODO()
+            EDIT -> _editPageStatus.value = Event(Status.SUCCESS)
         }
     }
 }

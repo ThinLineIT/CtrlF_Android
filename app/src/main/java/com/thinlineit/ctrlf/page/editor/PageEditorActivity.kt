@@ -110,7 +110,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
         })
 
-        viewModel.createPageStatus.observeIfNotHandled(this) {
+        viewModel.editPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
@@ -135,7 +135,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             return@setOnTouchListener false
         }
 
-        cancelButton.setOnClickListener {
+        binding.cancelButton.setOnClickListener {
             PageEditorDialog(this, this, R.layout.dialog_cancel_editor).show()
         }
     }
