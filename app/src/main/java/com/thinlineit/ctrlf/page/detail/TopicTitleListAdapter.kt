@@ -22,10 +22,10 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
         fun onUpdate(topicId: Int)
     }
 
-    private lateinit var mSwipeBtnClickListener: SwipeBtnClickListener
+    private lateinit var topicTitleListSwipeBtnClickListener: SwipeBtnClickListener
 
     fun setSwipeBtnClickListener(swipeBtnClickListener: SwipeBtnClickListener) {
-        mSwipeBtnClickListener = swipeBtnClickListener
+        topicTitleListSwipeBtnClickListener = swipeBtnClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -35,7 +35,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topicDao = topicList[position]
-        holder.bind(topicDao, clickListener, mSwipeBtnClickListener)
+        holder.bind(topicDao, clickListener, topicTitleListSwipeBtnClickListener)
     }
 
     // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그

@@ -50,10 +50,10 @@ class TopicTitleListFragment : Fragment() {
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
 
-            seeMoreOfNoteBoxBtn.setOnClickListener {
-                when (seeMoreOfNoteBox.visibility) {
-                    View.GONE -> seeMoreOfNoteBox.visibility = View.VISIBLE
-                    else -> seeMoreOfNoteBox.visibility = View.GONE
+            seeMoreBoxOfNoteBtn.setOnClickListener {
+                when (seeMoreBoxOfNote.visibility) {
+                    View.GONE -> seeMoreBoxOfNote.visibility = View.VISIBLE
+                    else -> seeMoreBoxOfNote.visibility = View.GONE
                 }
             }
             updateNoteTitleBtn.setOnClickListener { _ ->

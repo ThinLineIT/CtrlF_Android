@@ -42,12 +42,12 @@
             android:textSize="33sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/noteInfo"
-            app:layout_constraintEnd_toStartOf="@id/seeMoreOfNoteBoxBtn"
+            app:layout_constraintEnd_toStartOf="@id/seeMoreBoxOfNoteBtn"
             app:layout_constraintStart_toStartOf="@id/noteInfo"
             app:layout_constraintTop_toTopOf="@id/noteInfo" />
 
         <ImageView
-            android:id="@+id/seeMoreOfNoteBoxBtn"
+            android:id="@+id/seeMoreBoxOfNoteBtn"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginEnd="20dp"
@@ -76,13 +76,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/seeMoreOfNoteBox"
+            android:id="@+id/seeMoreBoxOfNote"
             android:layout_width="65dp"
             android:layout_height="70dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/icon_note_title_textbox"
-            app:layout_constraintEnd_toEndOf="@id/seeMoreOfNoteBoxBtn"
-            app:layout_constraintTop_toBottomOf="@id/seeMoreOfNoteBoxBtn"
+            app:layout_constraintEnd_toEndOf="@id/seeMoreBoxOfNoteBtn"
+            app:layout_constraintTop_toBottomOf="@id/seeMoreBoxOfNoteBtn"
             android:visibility="gone">
 
             <TextView
