@@ -7,8 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
 import com.thinlineit.ctrlf.util.CustomDialogInterface
-import kotlinx.android.synthetic.main.activity_page_editor.*
-import kotlinx.android.synthetic.main.dialog_create_issue.confirmButton
+import kotlinx.android.synthetic.main.dialog_cancel_editor.cancelButton
+import kotlinx.android.synthetic.main.dialog_cancel_editor.confirmButton
 
 class PageEditorDialog(
     context: Context,
@@ -24,7 +24,7 @@ class PageEditorDialog(
             dismiss()
             customDialogInterface.onFinishButton()
         }
-        cancelButton.setOnClickListener {
+        cancelButton?.setOnClickListener {
             dismiss()
         }
     }

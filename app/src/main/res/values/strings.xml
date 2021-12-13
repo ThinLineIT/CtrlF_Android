@@ -79,7 +79,7 @@
     <!-- page -->
     <string name="label_topic">TOPIC</string>
     <string name="label_page">PAGE</string>
-    <string name="label_markdown_edit">수정 사항 작성</string>
+    <string name="label_markdown_edit">내용 작성</string>
     <string name="button_edit">edit</string>
     <string name="button_preview">preview</string>
     <string name="button_bold">**</string>
@@ -93,10 +93,12 @@
     <string name="button_number_list">1.</string>
     <string name="button_task_list">- []</string>
     <string name="label_complete_create_issue">"작성된 페이지는\n 노트 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
-    <string name="label_cancel_create_issue">"이 페이지를 벗어나면\n 작성한 내용은 \n저장되지 않습니다."</string>
+    <string name="label_cancel_create_issue">"이 페이지를 벗어나면\n 작성한 내용은 저장되지 않습니다. \n\n 작성을 취소하시겠습니까?"</string>
     <string name="button_confirm">"확 인"</string>
+    <string name="button_back_to_page">"돌아가기"</string>
     <string name="button_complete">"확 인"</string>
     <string name="button_cancel_editor">"취 소"</string>
+    <string name="button_cancel_page">"작성취소"</string>
     <string name="label_reason_for_revision">"수정 사유"</string>
     <string name="label_summary">"내용 요약"</string>
     <string name="label_add_page">"add page"</string>
