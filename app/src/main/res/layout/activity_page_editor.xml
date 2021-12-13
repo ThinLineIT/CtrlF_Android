@@ -121,11 +121,7 @@
                     android:background="@drawable/background_round_white"
                     android:elevation="5dp"
                     android:fontFamily="@font/sc_dream_5"
-<<<<<<< HEAD
                     android:hint="@{viewModel.summaryHint}"
-=======
-                    android:hint="@string/label_summary"
->>>>>>> feature/editor
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
                     android:overScrollMode="always"
@@ -175,47 +171,8 @@
                     android:layout_height="wrap_content"
                     android:minHeight="250dp"
                     app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
-<<<<<<< HEAD
-=======
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/confirmButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/background_round_purple"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/sc_dream_3"
-                        android:onClick="@{()->viewModel.complete()}"
-                        android:text="@string/button_confirm"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/cancelButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/background_round_purple"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/sc_dream_3"
-                        android:text="@string/button_cancel_editor"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
->>>>>>> feature/editor
             </LinearLayout>
         </ScrollView>
-
         <include
             layout="@layout/include_editor_toolbox"
             android:layout_width="match_parent"

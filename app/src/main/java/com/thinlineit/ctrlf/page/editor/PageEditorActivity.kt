@@ -24,8 +24,7 @@ import com.thinlineit.ctrlf.util.LoadingDialog
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.checkImgPermission
 import com.thinlineit.ctrlf.util.observeIfNotHandled
-import kotlinx.android.synthetic.main.activity_page_editor.summary
-import kotlinx.android.synthetic.main.activity_page_editor.tabLayout
+import kotlinx.android.synthetic.main.activity_page_editor.*
 
 class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     private lateinit var pageEditorAdapter: PageEditorAdapter
@@ -55,42 +54,22 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             R.layout.activity_page_editor
         )
     }
-
-<<<<<<< HEAD
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_page_editor)
+    val pageEditorViewModel: PageEditorViewModel by lazy {
         val pageInfo = intent.getParcelableExtra(PAGE) ?: Page()
         val topicTitle = intent.getStringExtra(TOPICTITLE) ?: ""
         val topicId = intent.getIntExtra(TOPICID, 0)
         val mode = intent.getSerializableExtra(MODE)
-        val viewModelFactory = PageEditorViewModelFactory(
-            pageInfo, topicTitle, topicId,
-            mode as Mode
-        )
-        val viewModel =
-            ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java)
-        val editFragment = PageEditFragment.newInstance()
-        val previewFragment = PagePreviewFragment.newInstance()
-        val loadingDialog = LoadingDialog(this)
-=======
-    val pageEditorViewModel: PageEditorViewModel by lazy {
-        val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
-        val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
-        val topicId = intent.getIntExtra(TOPIC_ID, 0)
-        val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
+        val viewModelFactory =
+            PageEditorViewModelFactory(pageInfo, topicTitle, topicId, mode as Mode)
         ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
             toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
         }
     }
->>>>>>> feature/editor
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
-
         binding.apply {
             viewModel = pageEditorViewModel
             lifecycleOwner = this@PageEditorActivity
@@ -101,12 +80,14 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
-        pageEditorAdapter = PageEditorAdapter(this).apply {
-            addFragment(PageEditFragment())
-            addFragment(PagePreviewFragment())
-        }
+        val editFragment = PageEditFragment.newInstance()
+        val previewFragment = PagePreviewFragment.newInstance()
 
-        replaceFragment(PageEditFragment())
+        pageEditorAdapter = PageEditorAdapter(this).apply {
+            addFragment(editFragment)
+            addFragment(previewFragment)
+        }
+        replaceFragment(editFragment)
         setTabBackground(leftSelected, rightUnSelected)
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -130,11 +111,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
         })
 
-<<<<<<< HEAD
-        viewModel.editPageStatus.observeIfNotHandled(this) {
-=======
-        pageEditorViewModel.createPageStatus.observeIfNotHandled(this) {
->>>>>>> feature/editor
+        pageEditorViewModel.editPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
@@ -145,8 +122,9 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
                 ).show()
             }
         }
+        val loadingDialog = LoadingDialog(this)
 
-        viewModel.isLoading.observe(this) {
+        pageEditorViewModel.isLoading.observe(this) {
             if (it) loadingDialog.show()
             else loadingDialog.dismiss()
         }
@@ -172,7 +150,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         }
     }
 
-    private fun setTabBackground(editTabBackground: Drawable?, previewTabBackground: Drawable?) {
+    private fun setTabBackground(
+        editTabBackground: Drawable?,
+        previewTabBackground: Drawable?
+    ) {
         ViewCompat.setBackground(editTab, editTabBackground)
         ViewCompat.setBackground(previewTab, previewTabBackground)
     }

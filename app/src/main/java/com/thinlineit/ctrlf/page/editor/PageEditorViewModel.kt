@@ -15,16 +15,10 @@ import com.thinlineit.ctrlf.util.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class PageEditorViewModel(
-<<<<<<< HEAD
     private val pageInfo: Page,
     private val topicTitle: String,
     private val topicId: Int,
     private val mode: PageEditorActivity.Mode,
-=======
-    pageInfo: Page,
-    topicTitle: String,
-    topicId: Int,
->>>>>>> feature/editor
     private val contentRepository: ContentRepository = ContentRepository()
 ) : BaseViewModel() {
 
@@ -43,14 +37,10 @@ class PageEditorViewModel(
         EDIT -> R.string.label_reason_for_revision
     }
 
-<<<<<<< HEAD
     private val _editPageStatus = MutableLiveData<Event<Status>>()
     val editPageStatus: LiveData<Event<Status>>
         get() = _editPageStatus
-=======
-    private val _createPageStatus = MutableLiveData<Event<Status>>()
-    val createPageStatus: LiveData<Event<Status>>
-        get() = _createPageStatus
+
     var toolboxController: ToolboxController? = null
 
     private val _url = MutableLiveData<String?>()
@@ -60,7 +50,6 @@ class PageEditorViewModel(
     private val _fileName = MutableLiveData<String?>()
     val fileName: LiveData<String?>
         get() = _fileName
->>>>>>> feature/editor
 
     fun complete() {
         val topicId = topicIdInfo.value ?: return
