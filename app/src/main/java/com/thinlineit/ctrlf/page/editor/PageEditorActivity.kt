@@ -170,6 +170,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         }
     }
 
+    override fun onBackPressed() {
+        // super.onBackPressed()
+    }
+
     override fun onFinishButton() {
         finish()
     }
