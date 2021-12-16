@@ -1,56 +1,50 @@
 package com.thinlineit.ctrlf.page.detail
 
+import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
-import com.thinlineit.ctrlf.databinding.FragmentCreateDialogBinding
+import android.view.WindowManager
+import com.thinlineit.ctrlf.R
 import kotlinx.android.synthetic.main.fragment_create_dialog.cancelDialogButton
+import kotlinx.android.synthetic.main.fragment_create_dialog.createDialog
 import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogButton
 import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogReason
 import kotlinx.android.synthetic.main.fragment_create_dialog.createDialogTitle
 
 class CreateDialog(
+    context: Context,
     private val titleText: String,
     private val titleHint: String,
     private val onCreateClicked: (title: String, reason: String) -> Unit
-) : DialogFragment() {
+) {
+    private val dialog = Dialog(context)
+    fun openDialog() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        isCancelable = true
-    }
+        dialog.apply {
+            setContentView(R.layout.fragment_create_dialog)
+            window!!.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val binding = FragmentCreateDialogBinding.inflate(
-            inflater,
-            container,
-            false
-        ).apply {
             createDialog.text = titleText
             createDialogTitle.hint = titleHint
-            dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        }
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        createDialogButton.setOnClickListener {
-            val title = createDialogTitle.text.toString()
-            val reason = createDialogReason.text.toString()
-            onCreateClicked(title, reason)
-            dismiss()
-        }
-        cancelDialogButton.setOnClickListener {
-            dismiss()
+            setCanceledOnTouchOutside(true)
+            setCancelable(true)
+            show()
+
+            createDialogButton.setOnClickListener {
+                val title = dialog.createDialogTitle.text.toString()
+                val reason = dialog.createDialogReason.text.toString()
+                onCreateClicked(title, reason)
+                dismiss()
+            }
+            cancelDialogButton.setOnClickListener {
+                dismiss()
+            }
         }
     }
 }

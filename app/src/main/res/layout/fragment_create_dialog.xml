@@ -38,7 +38,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="ADD TOPIC"
+                    android:text="@string/hint_dialog_note_title"
                     android:textSize="30sp"
                     android:fontFamily="@font/sc_dream_6"
                     android:textColor="@color/black"

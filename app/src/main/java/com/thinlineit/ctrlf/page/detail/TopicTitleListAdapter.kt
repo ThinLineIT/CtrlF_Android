@@ -18,6 +18,16 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     ListButtonInterface {
     var topicList = emptyList<Topic>()
 
+    interface SwipeBtnClickListener {
+        fun onUpdate(topicId: Int)
+    }
+
+    private lateinit var swipeBtnClickListener: SwipeBtnClickListener
+
+    fun setSwipeBtnClickListener(swipeBtnClickListener: SwipeBtnClickListener) {
+        this.swipeBtnClickListener = swipeBtnClickListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.from(parent)
 
@@ -25,7 +35,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topicDao = topicList[position]
-        holder.bind(topicDao, clickListener)
+        holder.bind(topicDao, clickListener, swipeBtnClickListener)
     }
 
     // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
@@ -40,10 +50,17 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
-        fun bind(topic: Topic, clickListener: (Topic) -> Unit) {
+        fun bind(
+            topic: Topic,
+            clickListener: (Topic) -> Unit,
+            mSwipeBtnClickListener: SwipeBtnClickListener
+        ) {
             dataBinding.topic = topic
             dataBinding.root.setOnClickListener {
                 clickListener(topic)
+            }
+            dataBinding.topicTitleUpdateBtn.setOnClickListener {
+                mSwipeBtnClickListener.onUpdate(topic.id)
             }
         }
 
@@ -60,6 +77,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
                 return ViewHolder(dataBinding)
             }
         }
+
         override fun getSwipeWidth(): Int = dataBinding.topicTitleDeleteButton.width
         override fun getSwipeLayout(): LinearLayout = dataBinding.swipeTopicListView
     }

@@ -31,23 +31,52 @@ class TopicTitleListFragment : Fragment() {
         ).apply {
             this.pageViewModel = this@TopicTitleListFragment.pageViewModel
             lifecycleOwner = this@TopicTitleListFragment
+            topicTitleListAdapter.setSwipeBtnClickListener(
+                object : TopicTitleListAdapter.SwipeBtnClickListener {
+                    override fun onUpdate(topicId: Int) {
+                        context?.let {
+                            CreateDialog(
+                                it,
+                                resources.getString(R.string.hint_dialog_topic_title_modify),
+                                resources.getString(R.string.hint_dialog_topic_title_hint_modify)
+                            ) { title, reason ->
+                                pageViewModel?.updateTopic(topicId, title, reason)
+                            }.openDialog()
+                        }
+                    }
+                })
             topicListRecyclerView.adapter = topicTitleListAdapter
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
-            // TODO: 툴바 이미지 변경, 클릭 시 준비중입니다 다이얼로그 적용
-            addTopicBtn.setOnClickListener { _ ->
-                val dialog = CreateDialog(
-                    resources.getString(R.string.hint_dialog_topic_title),
-                    resources.getString(R.string.hint_dialog_topic_title_hint)
-                ) { title, reason ->
-                    pageViewModel?.createTopic(title, reason)
+
+            seeMoreBoxOfNoteBtn.setOnClickListener {
+                when (seeMoreBoxOfNote.visibility) {
+                    View.GONE -> seeMoreBoxOfNote.visibility = View.VISIBLE
+                    else -> seeMoreBoxOfNote.visibility = View.GONE
                 }
-                activity?.supportFragmentManager?.let { fragmentManager ->
-                    dialog.show(
-                        fragmentManager,
-                        ADD_TOPIC
-                    )
+            }
+            updateNoteTitleBtn.setOnClickListener { _ ->
+                context?.let {
+                    CreateDialog(
+                        it,
+                        resources.getString(R.string.hint_dialog_note_title_modify),
+                        resources.getString(R.string.hint_dialog_note_title_hint_modify)
+                    ) { title, reason ->
+                        pageViewModel?.updateNote(title, reason)
+                    }.openDialog()
+                }
+            }
+
+            addTopicBtn.setOnClickListener { _ ->
+                context?.let {
+                    CreateDialog(
+                        it,
+                        resources.getString(R.string.hint_dialog_topic_title),
+                        resources.getString(R.string.hint_dialog_topic_title_hint)
+                    ) { title, reason ->
+                        pageViewModel?.createTopic(title, reason)
+                    }.openDialog()
                 }
             }
         }
@@ -59,8 +88,5 @@ class TopicTitleListFragment : Fragment() {
             }
         }
         return binding.root
-    }
-    companion object {
-        const val ADD_TOPIC = "add topic"
     }
 }
