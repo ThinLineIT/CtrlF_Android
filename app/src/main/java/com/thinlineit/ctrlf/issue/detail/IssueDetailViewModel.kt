@@ -69,9 +69,24 @@ class IssueDetailViewModel(
     private fun initToolbarTitle() {
         _toolbarTitle.value =
             when (issue.value?.relatedModelType ?: NULL) {
-                NOTE -> R.string.label_create_note
-                TOPIC -> R.string.label_create_topic
-                PAGE -> R.string.label_create_page
+                NOTE -> when (issue.value?.action) {
+                    CREATE -> R.string.label_create_note
+                    UPDATE -> R.string.label_update_note
+                    DELETE -> R.string.label_delete_note
+                    else -> R.string.empty_text
+                }
+                TOPIC -> when (issue.value?.action) {
+                    CREATE -> R.string.label_create_topic
+                    UPDATE -> R.string.label_update_topic
+                    DELETE -> R.string.label_delete_topic
+                    else -> R.string.empty_text
+                }
+                PAGE -> when (issue.value?.action) {
+                    CREATE -> R.string.label_create_page
+                    UPDATE -> R.string.label_update_page
+                    DELETE -> R.string.label_delete_page
+                    else -> R.string.empty_text
+                }
                 else -> R.string.empty_text
             }
     }
@@ -87,5 +102,8 @@ class IssueDetailViewModel(
         const val TOPIC = "TOPIC"
         const val PAGE = "PAGE"
         const val NULL = "null"
+        const val CREATE = "CREATE"
+        const val UPDATE = "UPDATE"
+        const val DELETE = "DELETE"
     }
 }
