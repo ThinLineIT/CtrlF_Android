@@ -56,8 +56,8 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     }
     val pageEditorViewModel: PageEditorViewModel by lazy {
         val pageInfo = intent.getParcelableExtra(PAGE) ?: Page()
-        val topicTitle = intent.getStringExtra(TOPICTITLE) ?: ""
-        val topicId = intent.getIntExtra(TOPICID, 0)
+        val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
+        val topicId = intent.getIntExtra(TOPIC_ID, 0)
         val mode = intent.getSerializableExtra(MODE)
         val viewModelFactory =
             PageEditorViewModelFactory(pageInfo, topicTitle, topicId, mode as Mode)
@@ -159,8 +159,8 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     }
 
     companion object {
-        const val TOPICTITLE = "topicTitle"
-        const val TOPICID = "topicId"
+        const val TOPIC_TITLE = "topicTitle"
+        const val TOPIC_ID = "topicId"
         const val PAGE = "page"
         const val MODE = "mode"
 

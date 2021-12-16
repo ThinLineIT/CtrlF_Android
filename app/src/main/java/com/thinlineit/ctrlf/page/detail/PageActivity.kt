@@ -16,7 +16,7 @@ import com.thinlineit.ctrlf.issue.detail.IssueDetailActivity
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Companion.MODE
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Companion.PAGE
-import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Companion.TOPICTITLE
+import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Companion.TOPIC_TITLE
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.LoadingDialog
 import kotlin.properties.Delegates
@@ -82,7 +82,7 @@ class PageActivity : AppCompatActivity() {
             val topic = pageViewModel.topic.value ?: return@setOnClickListener
             val intent = Intent(this, PageEditorActivity::class.java).apply {
                 putExtra(PAGE, pageViewModel.page.value)
-                putExtra(TOPICTITLE, topic.title)
+                putExtra(TOPIC_TITLE, topic.title)
                 putExtra(MODE, PageEditorActivity.Mode.EDIT)
             }
             startActivity(intent)
