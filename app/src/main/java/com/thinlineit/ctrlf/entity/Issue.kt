@@ -11,14 +11,14 @@ data class Issue(
     @SerializedName("page_id")
     val pageId: Int? = null,
     val id: Int,
-    val owner: String,
+    val owner: String? = null,
     val title: String,
     val reason: String,
-    val status: String,
+    val status: String? = null,
     @SerializedName("related_model_type")
     val relatedModelType: String,
     @SerializedName("related_model_id")
-    val relatedModelId: Int,
+    val relatedModelId: Int? = null,
     val action: String
 ) : Serializable
 

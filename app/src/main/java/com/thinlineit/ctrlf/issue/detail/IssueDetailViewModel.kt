@@ -44,7 +44,7 @@ class IssueDetailViewModel(
         loadIssue(issueId)
     }
 
-    fun loadIssue(issueId: Int) {
+    private fun loadIssue(issueId: Int) {
         viewModelScope.loadingLaunch {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
