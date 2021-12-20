@@ -1,59 +1,74 @@
 package com.thinlineit.ctrlf.notes
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.databinding.ListItemMainNoteBinding
 import com.thinlineit.ctrlf.databinding.ListItemNoteBinding
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
-class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -> Unit) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<Note>> {
-    var noteList: List<Note> = emptyList()
+class NotesAdapter(
+    private val addNoteClickListener: () -> Unit,
+    private val noteClickListener: (Int) -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<Note>> {
+    private var noteList: List<Note> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            TYPE_VERTICAL -> VerticalViewHolder.from(parent)
-            else -> HorizontalViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == ADD_NOTE) {
+            AddViewHolder.from(parent)
+        } else {
+            NoteViewHolder.from(parent)
         }
+    }
 
-    override fun getItemCount(): Int = noteList.size
+    override fun getItemCount(): Int = (noteList.size + 1)
+
+    override fun getItemViewType(position: Int): Int = if (position == 0) ADD_NOTE else NOTE
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val noteDao = noteList[position]
-        val resource = holder.itemView.resources
-        when (viewType) {
-            TYPE_VERTICAL -> (holder as VerticalViewHolder).bind(
-                noteDao,
-                clickListener,
-                position,
-                resource
+        if (getItemViewType(position) == ADD_NOTE) {
+            (holder as AddViewHolder).bind(
+                addNoteClickListener
             )
-            else -> (holder as HorizontalViewHolder).bind(
-                noteDao,
-                clickListener,
-                position,
-                resource
+        } else {
+            (holder as NoteViewHolder).bind(
+                noteList[position - 1],
+                noteClickListener,
+                position
             )
         }
     }
 
-    override fun getItemViewType(position: Int): Int = viewType
+    class AddViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(addNoteClickListener: () -> Unit) {
+            itemView.setOnClickListener {
+                addNoteClickListener()
+            }
+        }
 
-    class VerticalViewHolder(private val dataBinding: ListItemNoteBinding) :
+        companion object {
+            fun from(parent: ViewGroup): RecyclerView.ViewHolder {
+                val itemView =
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.list_item_add_note, parent, false
+                    )
+                return AddViewHolder(itemView)
+            }
+        }
+    }
+
+    class NoteViewHolder(private val dataBinding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(dataBinding.root) {
         fun bind(
             note: Note,
             clickListener: (Int) -> Unit,
-            position: Int,
-            resources: Resources
+            position: Int
         ) {
-            val noteDesignArray = resources.obtainTypedArray(R.array.notes)
-            val noteResourceId = noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
+            val noteDesignArray = dataBinding.root.resources.obtainTypedArray(R.array.notes)
+            val noteResourceId = noteDesignArray.getResourceId(position % NOTE_DESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
                 this.note = note
@@ -61,6 +76,7 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
                     clickListener(note.id)
                 }
             }
+            noteDesignArray.recycle()
         }
 
         companion object {
@@ -71,39 +87,7 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
                     parent,
                     false
                 )
-                return VerticalViewHolder(dataBinding)
-            }
-        }
-    }
-
-    class HorizontalViewHolder(private val dataBinding: ListItemMainNoteBinding) :
-        RecyclerView.ViewHolder(dataBinding.root) {
-        fun bind(
-            note: Note,
-            clickListener: (Int) -> Unit,
-            position: Int,
-            resources: Resources
-        ) {
-            val noteDesignArray = resources.obtainTypedArray(R.array.notes)
-            val noteResourceId = noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
-            dataBinding.apply {
-                noteItemImage.setImageResource(noteResourceId)
-                this.note = note
-                root.setOnClickListener {
-                    clickListener(note.id)
-                }
-            }
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): RecyclerView.ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val dataBinding = ListItemMainNoteBinding.inflate(
-                    layoutInflater,
-                    parent,
-                    false
-                )
-                return HorizontalViewHolder(dataBinding)
+                return NoteViewHolder(dataBinding)
             }
         }
     }
@@ -115,8 +99,9 @@ class NotesAdapter(private val viewType: Int, private val clickListener: (Int) -
     }
 
     companion object {
-        const val NOTEDESIGN_NUM = 15
-        const val TYPE_VERTICAL = 1
-        const val TYPE_HORIZONTAL = 2
+        private const val NOTE_DESIGN_NUM = 15
+
+        private const val ADD_NOTE = 0
+        private const val NOTE = 1
     }
 }

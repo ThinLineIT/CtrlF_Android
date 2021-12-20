@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
@@ -12,6 +13,7 @@ import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.launch
 
 class PageViewModel(
     private val pageRepository: ContentRepository = ContentRepository()
@@ -106,7 +108,36 @@ class PageViewModel(
         }
     }
 
+    fun createTopic(topicTitleEdit: String, reasonEdit: String) {
+        val noteId = curNoteId.value ?: return
+
+        viewModelScope.launch {
+            if (topicTitleEdit != "" && reasonEdit != "") {
+                pageRepository.createTopic(noteId, topicTitleEdit, reasonEdit)
+            }
+        }
+        selectNote(noteId)
+    }
+<<<<<<< HEAD
+=======
+
+    fun updateTopic(topicId: Int, newTopicTitle: String, reason: String) {
+        val noteId = curNoteId.value ?: return
+        viewModelScope.launch {
+            pageRepository.updateTopic(topicId, newTopicTitle, reason)
+        }
+        selectNote(noteId)
+    }
+
+    fun updateNote(newNoteTitle: String, reason: String) {
+        val noteId = curNoteId.value ?: return
+        viewModelScope.launch {
+            pageRepository.updateNote(noteId, newNoteTitle, reason)
+        }
+    }
+
     init {
         closeRightPane()
     }
+>>>>>>> dev
 }

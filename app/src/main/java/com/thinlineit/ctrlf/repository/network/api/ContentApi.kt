@@ -4,16 +4,29 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+<<<<<<< HEAD
 import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
 import okhttp3.MultipartBody
+=======
+import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
+import com.thinlineit.ctrlf.repository.dto.response.NoteUpdateResponse
+import com.thinlineit.ctrlf.repository.dto.response.TopicUpdateResponse
+>>>>>>> dev
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+<<<<<<< HEAD
 import retrofit2.http.Part
+=======
+import retrofit2.http.PUT
+>>>>>>> dev
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -60,9 +73,41 @@ interface ContentApi {
         @Body body: PageCreateRequest
     ): Response<Void>
 
+<<<<<<< HEAD
     @Multipart
     @POST("actions/images/")
     suspend fun uploadImage(
         @Part image: MultipartBody.Part
     ): ImageUploadResponse
+=======
+    // note_id에 해당하는 note에 새로운 토픽 생성
+    @POST("topics/")
+    suspend fun createTopic(
+        @Header("Authorization") Authorization: String,
+        @Body request: TopicCreateRequest
+    ): Response<Void>
+
+    // 새로운 노트 생성
+    @POST("notes/")
+    suspend fun createNote(
+        @Header("Authorization") Authorization: String,
+        @Body request: NoteCreateRequest
+    ): Response<Void>
+
+    // 토픽 수정
+    @PUT("topics/{topic_id}/")
+    suspend fun updateTopic(
+        @Header("Authorization") Authorization: String,
+        @Path("topic_id") topicId: Int,
+        @Body request: TopicUpdateRequest
+    ): TopicUpdateResponse
+
+    // 노트 수정
+    @PUT("notes/{note_id}/")
+    suspend fun updateNote(
+        @Header("Authorization") Authorization: String,
+        @Path("note_id") noteId: Int,
+        @Body request: NoteUpdateRequest
+    ): NoteUpdateResponse
+>>>>>>> dev
 }
