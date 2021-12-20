@@ -26,17 +26,36 @@
             android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toTopOf="@id/scrollview"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:menu="@menu/toolbar_main">
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@color/white"
+                android:src="@drawable/icon_back_button" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/font_sc_dream_7"
-                android:gravity="center"
-                android:text="@string/label_add_page"
+                android:text="@{viewModel.headerText}"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                tools:text="add page" />
+
+            <TextView
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="7dp"
+                android:onClick="@{()->viewModel.complete()}"
+                android:text="@string/button_confirm"
+                android:textColor="@color/skyblue" />
+
         </androidx.appcompat.widget.Toolbar>
 
         <ScrollView
@@ -102,7 +121,7 @@
                     android:background="@drawable/background_round_white"
                     android:elevation="5dp"
                     android:fontFamily="@font/sc_dream_5"
-                    android:hint="@string/label_summary"
+                    android:hint="@{viewModel.summaryHint}"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
                     android:overScrollMode="always"
@@ -152,44 +171,8 @@
                     android:layout_height="wrap_content"
                     android:minHeight="250dp"
                     app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/confirmButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/background_round_purple"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/sc_dream_3"
-                        android:onClick="@{()->viewModel.complete()}"
-                        android:text="@string/button_confirm"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <Button
-                        android:id="@+id/cancelButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/background_round_purple"
-                        android:elevation="5dp"
-                        android:fontFamily="@font/sc_dream_3"
-                        android:text="@string/button_cancel_editor"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
         <include
             layout="@layout/include_editor_toolbox"
             android:layout_width="match_parent"

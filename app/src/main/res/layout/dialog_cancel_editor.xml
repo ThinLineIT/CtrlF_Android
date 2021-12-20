@@ -38,35 +38,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/confirmButton"
-                android:layout_width="80dp"
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/skyblue"
                 android:fontFamily="@font/sc_dream_3"
-                android:text="@string/button_confirm"
+                android:text="@string/button_back_to_page"
+                android:textSize="10sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cancelButton"
+                app:layout_constraintEnd_toStartOf="@+id/confirmButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cancelText" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/cancelButton"
-                android:layout_width="80dp"
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="@color/skyblue"
                 android:fontFamily="@font/sc_dream_3"
-                android:text="@string/button_cancel_editor"
+                android:text="@string/button_cancel_page"
+                android:textSize="10sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/confirmButton"
+                app:layout_constraintStart_toEndOf="@+id/cancelButton"
                 app:layout_constraintTop_toBottomOf="@+id/cancelText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

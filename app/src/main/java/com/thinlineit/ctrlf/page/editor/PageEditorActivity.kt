@@ -20,6 +20,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityPageEditorBinding
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.util.CustomDialogInterface
+import com.thinlineit.ctrlf.util.LoadingDialog
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.checkImgPermission
 import com.thinlineit.ctrlf.util.observeIfNotHandled
@@ -53,12 +54,13 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             R.layout.activity_page_editor
         )
     }
-
     val pageEditorViewModel: PageEditorViewModel by lazy {
-        val pageInfo = intent.getParcelableExtra(PAGE_INFO) ?: Page()
+        val pageInfo = intent.getParcelableExtra(PAGE) ?: Page()
         val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
         val topicId = intent.getIntExtra(TOPIC_ID, 0)
-        val viewModelFactory = PageEditorViewModelFactory(pageInfo, topicTitle, topicId)
+        val mode = intent.getSerializableExtra(MODE)
+        val viewModelFactory =
+            PageEditorViewModelFactory(pageInfo, topicTitle, topicId, mode as Mode)
         ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
             toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
         }
@@ -68,7 +70,6 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_page_editor)
-
         binding.apply {
             viewModel = pageEditorViewModel
             lifecycleOwner = this@PageEditorActivity
@@ -79,24 +80,24 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
-        pageEditorAdapter = PageEditorAdapter(this).apply {
-            addFragment(PageEditFragment())
-            addFragment(PagePreviewFragment())
-        }
+        val editFragment = PageEditFragment.newInstance()
+        val previewFragment = PagePreviewFragment.newInstance()
 
-        replaceFragment(PageEditFragment())
+        pageEditorAdapter = PageEditorAdapter(this).apply {
+            addFragment(editFragment)
+            addFragment(previewFragment)
+        }
+        replaceFragment(editFragment)
         setTabBackground(leftSelected, rightUnSelected)
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
                     0 -> {
-                        val editFragment = PageEditFragment.newInstance()
                         replaceFragment(editFragment)
                         setTabBackground(leftSelected, rightUnSelected)
                     }
                     1 -> {
-                        val previewFragment = PagePreviewFragment.newInstance()
                         replaceFragment(previewFragment)
                         setTabBackground(leftUnSelected, rightSelected)
                     }
@@ -110,7 +111,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             }
         })
 
-        pageEditorViewModel.createPageStatus.observeIfNotHandled(this) {
+        pageEditorViewModel.editPageStatus.observeIfNotHandled(this) {
             if (it == Status.SUCCESS) {
                 PageEditorDialog(this, this, R.layout.dialog_create_issue).show()
             } else {
@@ -121,6 +122,12 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
                 ).show()
             }
         }
+        val loadingDialog = LoadingDialog(this)
+
+        pageEditorViewModel.isLoading.observe(this) {
+            if (it) loadingDialog.show()
+            else loadingDialog.dismiss()
+        }
 
         summary.setOnTouchListener { view, event ->
             view.parent.requestDisallowInterceptTouchEvent(true)
@@ -130,7 +137,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
             return@setOnTouchListener false
         }
 
-        cancelButton.setOnClickListener {
+        binding.cancelButton.setOnClickListener {
             PageEditorDialog(this, this, R.layout.dialog_cancel_editor).show()
         }
     }
@@ -143,15 +150,19 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         }
     }
 
-    private fun setTabBackground(editTabBackground: Drawable?, previewTabBackground: Drawable?) {
+    private fun setTabBackground(
+        editTabBackground: Drawable?,
+        previewTabBackground: Drawable?
+    ) {
         ViewCompat.setBackground(editTab, editTabBackground)
         ViewCompat.setBackground(previewTab, previewTabBackground)
     }
 
     companion object {
-        const val PAGE_INFO = "pageInfo"
         const val TOPIC_TITLE = "topicTitle"
         const val TOPIC_ID = "topicId"
+        const val PAGE = "page"
+        const val MODE = "mode"
 
         fun start(context: Context) {
             val intent = Intent(context, PageEditorActivity::class.java)
@@ -159,7 +170,15 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         }
     }
 
+    override fun onBackPressed() {
+        // super.onBackPressed()
+    }
+
     override fun onFinishButton() {
         finish()
+    }
+
+    enum class Mode {
+        CREATE, EDIT
     }
 }
