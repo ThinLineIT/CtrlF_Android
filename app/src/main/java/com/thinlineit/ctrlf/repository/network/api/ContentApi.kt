@@ -9,14 +9,18 @@ import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
+import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
 import com.thinlineit.ctrlf.repository.dto.response.NoteUpdateResponse
 import com.thinlineit.ctrlf.repository.dto.response.TopicUpdateResponse
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -54,7 +58,7 @@ interface ContentApi {
     // topic_id에 해당하는 page list를 리턴
     @GET("topics/{topic_id}/pages")
     suspend fun getPageList(
-        @Path("topic_id") topic_id: Int,
+        @Path("topic_id") topic_id: Int
     ): List<Page>
 
     @POST("pages/")
@@ -62,6 +66,12 @@ interface ContentApi {
         @Header("Authorization") Authorization: String,
         @Body body: PageCreateRequest
     ): Response<Void>
+
+    @Multipart
+    @POST("actions/images/")
+    suspend fun uploadImage(
+        @Part image: MultipartBody.Part
+    ): ImageUploadResponse
 
     // note_id에 해당하는 note에 새로운 토픽 생성
     @POST("topics/")

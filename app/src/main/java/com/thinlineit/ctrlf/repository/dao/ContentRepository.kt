@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.repository.dao
 
+import android.net.Uri
 import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
@@ -11,6 +12,10 @@ import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
 import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.Application
+import java.io.File
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ContentRepository {
 
@@ -85,6 +90,19 @@ class ContentRepository {
             ).code()
         } catch (e: Exception) {
             SERVER_ERROR
+        }
+    }
+
+    suspend fun uploadImage(uri: Uri, fileName: String): String {
+        return try {
+            val file = File(uri.path)
+            val requestImage: RequestBody =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val fileBody: MultipartBody.Part =
+                MultipartBody.Part.createFormData("image", fileName, requestImage)
+            ContentService.retrofitService.uploadImage(fileBody).imageUrl
+        } catch (e: Exception) {
+            e.toString()
         }
     }
 
