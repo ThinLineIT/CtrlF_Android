@@ -68,23 +68,23 @@ class IssueDetailViewModel(
 
     private fun initToolbarTitle() {
         _toolbarTitle.value =
-            when (issue.value?.relatedModelType ?: NULL) {
-                NOTE -> when (issue.value?.action) {
-                    CREATE -> R.string.label_create_note
-                    UPDATE -> R.string.label_update_note
-                    DELETE -> R.string.label_delete_note
+            when (issue.value?.relatedModelType) {
+                ModelType.NOTE.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_note
+                    ModelAction.UPDATE.name -> R.string.label_update_note
+                    ModelAction.DELETE.name -> R.string.label_delete_note
                     else -> R.string.empty_text
                 }
-                TOPIC -> when (issue.value?.action) {
-                    CREATE -> R.string.label_create_topic
-                    UPDATE -> R.string.label_update_topic
-                    DELETE -> R.string.label_delete_topic
+                ModelType.TOPIC.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_topic
+                    ModelAction.UPDATE.name -> R.string.label_update_topic
+                    ModelAction.DELETE.name -> R.string.label_delete_topic
                     else -> R.string.empty_text
                 }
-                PAGE -> when (issue.value?.action) {
-                    CREATE -> R.string.label_create_page
-                    UPDATE -> R.string.label_update_page
-                    DELETE -> R.string.label_delete_page
+                ModelType.PAGE.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_page
+                    ModelAction.UPDATE.name -> R.string.label_update_page
+                    ModelAction.DELETE.name -> R.string.label_delete_page
                     else -> R.string.empty_text
                 }
                 else -> R.string.empty_text
@@ -92,18 +92,23 @@ class IssueDetailViewModel(
     }
 
     private fun initButtonVisible(contentType: String, status: String) {
-        _detailButtonStatus.value = contentType == PAGE
+        _detailButtonStatus.value = contentType == ModelType.PAGE.name
         _approveButtonStatus.value = status == REQUESTED
     }
 
     companion object {
         const val REQUESTED = "REQUESTED"
-        const val NOTE = "NOTE"
-        const val TOPIC = "TOPIC"
-        const val PAGE = "PAGE"
-        const val NULL = "null"
-        const val CREATE = "CREATE"
-        const val UPDATE = "UPDATE"
-        const val DELETE = "DELETE"
     }
+}
+
+enum class ModelType {
+    NOTE,
+    TOPIC,
+    PAGE
+}
+
+enum class ModelAction {
+    CREATE,
+    UPDATE,
+    DELETE
 }
