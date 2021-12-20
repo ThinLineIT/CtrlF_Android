@@ -92,7 +92,7 @@
     <string name="button_bulleted_list">"- "</string>
     <string name="button_number_list">1.</string>
     <string name="button_task_list">- []</string>
-    <string name="label_complete_create_issue">"작성된 페이지는\n 노트 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="label_complete_create_issue">"작성된 페이지는\n 토픽 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
     <string name="label_cancel_create_issue">"이 페이지를 벗어나면\n 작성한 내용은 저장되지 않습니다. \n\n 작성을 취소하시겠습니까?"</string>
     <string name="button_confirm">"확 인"</string>
     <string name="button_back_to_page">"돌아가기"</string>
@@ -110,12 +110,6 @@
     <string name="button_editor_header">H</string>
     <string name="button_editor_bold">B</string>
     <string name="button_editor_italic">I</string>
-    <string name="button_editor_quote">Q</string>
-    <string name="button_editor_code">C</string>
-    <string name="button_editor_link">Lk</string>
-    <string name="button_editor_bulleted">BL</string>
-    <string name="button_editor_number_list">NL</string>
-    <string name="button_editor_task_list">TL</string>
     <string name="notice_invalid_add_page">항목을 모두 기입해주세요.</string>
 
     <string name="notice_no_img_selected">이미지를 선택하지 않았습니다.</string>

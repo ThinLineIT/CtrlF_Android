@@ -46,6 +46,13 @@
             android:src="@drawable/icon_number_list" />
 
         <ImageButton
+            android:id="@+id/quoteTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_quote" />
+
+        <ImageButton
             android:id="@+id/codeTextTool"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -65,12 +72,5 @@
             android:layout_height="40dp"
             android:background="@color/wild_sand"
             android:src="@drawable/icon_image" />
-
-        <ImageButton
-            android:id="@+id/quoteTextTool"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@color/wild_sand"
-            android:text="@string/button_editor_quote" />
     </LinearLayout>
 </merge>
