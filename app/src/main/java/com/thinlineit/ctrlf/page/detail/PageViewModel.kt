@@ -118,8 +118,6 @@ class PageViewModel(
         }
         selectNote(noteId)
     }
-<<<<<<< HEAD
-=======
 
     fun updateTopic(topicId: Int, newTopicTitle: String, reason: String) {
         val noteId = curNoteId.value ?: return
@@ -139,5 +137,4 @@ class PageViewModel(
     init {
         closeRightPane()
     }
->>>>>>> dev
 }

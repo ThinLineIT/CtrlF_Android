@@ -7,26 +7,20 @@ import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
-<<<<<<< HEAD
-import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
-import okhttp3.MultipartBody
-=======
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
+import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
 import com.thinlineit.ctrlf.repository.dto.response.NoteUpdateResponse
 import com.thinlineit.ctrlf.repository.dto.response.TopicUpdateResponse
->>>>>>> dev
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
-<<<<<<< HEAD
-import retrofit2.http.Part
-=======
 import retrofit2.http.PUT
->>>>>>> dev
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -73,13 +67,12 @@ interface ContentApi {
         @Body body: PageCreateRequest
     ): Response<Void>
 
-<<<<<<< HEAD
     @Multipart
     @POST("actions/images/")
     suspend fun uploadImage(
         @Part image: MultipartBody.Part
     ): ImageUploadResponse
-=======
+
     // note_id에 해당하는 note에 새로운 토픽 생성
     @POST("topics/")
     suspend fun createTopic(
@@ -109,5 +102,4 @@ interface ContentApi {
         @Path("note_id") noteId: Int,
         @Body request: NoteUpdateRequest
     ): NoteUpdateResponse
->>>>>>> dev
 }

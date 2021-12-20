@@ -93,7 +93,6 @@ class ContentRepository {
         }
     }
 
-<<<<<<< HEAD
     suspend fun uploadImage(uri: Uri, fileName: String): String {
         return try {
             val file = File(uri.path)
@@ -104,7 +103,9 @@ class ContentRepository {
             ContentService.retrofitService.uploadImage(fileBody).imageUrl
         } catch (e: Exception) {
             e.toString()
-=======
+        }
+    }
+
     suspend fun updateTopic(topicId: Int, newTopicTitle: String, reason: String): Boolean {
         return try {
             ContentService.retrofitService.updateTopic(
@@ -134,7 +135,6 @@ class ContentRepository {
             true
         } catch (e: Exception) {
             false
->>>>>>> dev
         }
     }
 
