@@ -43,7 +43,7 @@ class PageViewModel(
     }
     val topic: LiveData<Topic?> = MediatorLiveData<Topic?>().apply {
         addSourceList(topicList, curTopicId) {
-            topicList.value?.find { it.id == curTopicId.value }
+            value = topicList.value?.find { it.id == curTopicId.value }
         }
     }
     val pageList: LiveData<List<Page>?> = curTopicId.switchMap { topicId ->
@@ -52,31 +52,24 @@ class PageViewModel(
             emit(pageList)
         }
     }
-    val page: LiveData<Page?> = MediatorLiveData<Page?>().apply {
+    val page: LiveData<Page?> = MediatorLiveData<Page>().apply {
         addSourceList(curPageId, curVersionId) {
-            Log.d("pageLog", "In addSourceList")
-            liveData {
-                Log.d("pageLog", "In LiveDataScope")
-                withContext(Dispatchers.IO) {
-                    Log.d("pageLog", "In withContext")
-                    val pageId = curPageId.value
-                    val versionNo = curVersionId.value
-                    if (pageId == UNSET_ID || versionNo == UNSET_ID) {
-                        emit(null)
-                    } else if (pageId != null && versionNo != null) {
-                        openRightPane()
-                        emit(
-                            pageRepository.loadPage(
-                                pageId,
-                                versionNo
-                            )
-                        )
-                    } else {
-                        emit(null)
-                    }
-                }
-            }.value
+            viewModelScope.launch {
+                this@apply.value = loadPage()
+                openRightPane()
+            }
         }
+    }
+
+    private suspend fun loadPage(): Page? = withContext(Dispatchers.IO) {
+        Log.d("pageLog", "In withContext")
+        val pageId = curPageId.value ?: return@withContext null
+        val versionNo = curVersionId.value ?: return@withContext null
+        if (pageId == UNSET_ID || versionNo == UNSET_ID) return@withContext null
+        pageRepository.loadPage(
+            pageId,
+            versionNo
+        )
     }
 
     val isRightPaneOpen: LiveData<Boolean>
