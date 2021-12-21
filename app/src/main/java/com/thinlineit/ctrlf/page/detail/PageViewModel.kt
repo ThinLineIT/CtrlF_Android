@@ -55,8 +55,9 @@ class PageViewModel(
     val page: LiveData<Page?> = MediatorLiveData<Page>().apply {
         addSourceList(curPageId, curVersionId) {
             viewModelScope.launch {
-                this@apply.value = loadPage()
-                openRightPane()
+                this@apply.value = loadPage()?.also {
+                    openRightPane()
+                }
             }
         }
     }
