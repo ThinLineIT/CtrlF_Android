@@ -171,7 +171,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     }
 
     override fun onBackPressed() {
-        // super.onBackPressed()
+        PageEditorDialog(this, this, R.layout.dialog_cancel_editor).show()
     }
 
     override fun onFinishButton() {
