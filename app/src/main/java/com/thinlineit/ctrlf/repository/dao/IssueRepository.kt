@@ -21,12 +21,12 @@ class IssueRepository {
     }
 
     suspend fun getIssueDetail(issueId: String): Issue {
-        return IssueService.retrofitService.DetailIssue(issueId)
+        return IssueService.retrofitService.detailIssue(issueId)
     }
 
     suspend fun approveIssue(issueId: Int): Int {
         return try {
-            IssueService.retrofitService.ApproveIssue(
+            IssueService.retrofitService.approveIssue(
                 "Bearer " + Application.preferenceUtil.getString(
                     TOKEN,
                     ""

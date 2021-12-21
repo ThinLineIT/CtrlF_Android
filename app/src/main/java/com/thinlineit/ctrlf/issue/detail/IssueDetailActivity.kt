@@ -46,7 +46,8 @@ class IssueDetailActivity : AppCompatActivity() {
                     it.context,
                     issue.noteId ?: UNSET_ID,
                     issue.topicId ?: UNSET_ID,
-                    issue.pageId ?: UNSET_ID
+                    issue.pageId ?: UNSET_ID,
+                    issue.versionNo ?: UNSET_ID
                 )
             }
 

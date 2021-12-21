@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.page.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,9 @@ import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PageViewModel(
     private val pageRepository: ContentRepository = ContentRepository()
@@ -22,6 +25,7 @@ class PageViewModel(
     private val curNoteId = MutableLiveData<Int>()
     private val curTopicId = MutableLiveData<Int>()
     private val curPageId = MutableLiveData<Int>()
+    private val curVersionId = MutableLiveData<Int>()
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
     private val _isFabOpen = MutableLiveData<Boolean>(false)
 
@@ -39,7 +43,7 @@ class PageViewModel(
     }
     val topic: LiveData<Topic?> = MediatorLiveData<Topic?>().apply {
         addSourceList(topicList, curTopicId) {
-            topicList.value?.find { it.id == curTopicId.value }
+            value = topicList.value?.find { it.id == curTopicId.value }
         }
     }
     val pageList: LiveData<List<Page>?> = curTopicId.switchMap { topicId ->
@@ -48,12 +52,25 @@ class PageViewModel(
             emit(pageList)
         }
     }
-    val page: LiveData<Page?> = MediatorLiveData<Page?>().apply {
-        addSourceList(pageList, curPageId) {
-            pageList.value?.find { it.id == curPageId.value }?.also {
-                openRightPane()
+    val page: LiveData<Page?> = MediatorLiveData<Page>().apply {
+        addSourceList(curPageId, curVersionId) {
+            viewModelScope.launch {
+                this@apply.value = loadPage()?.also {
+                    openRightPane()
+                }
             }
         }
+    }
+
+    private suspend fun loadPage(): Page? = withContext(Dispatchers.IO) {
+        Log.d("pageLog", "In withContext")
+        val pageId = curPageId.value ?: return@withContext null
+        val versionNo = curVersionId.value ?: return@withContext null
+        if (pageId == UNSET_ID || versionNo == UNSET_ID) return@withContext null
+        pageRepository.loadPage(
+            pageId,
+            versionNo
+        )
     }
 
     val isRightPaneOpen: LiveData<Boolean>
@@ -61,10 +78,11 @@ class PageViewModel(
     val isFabOpen: LiveData<Boolean>
         get() = _isFabOpen
 
-    fun setPageHierarchy(newNoteId: Int, newTopicId: Int, newPageId: Int) {
+    fun setPageHierarchy(newNoteId: Int, newTopicId: Int, newPageId: Int, newVersionNo: Int) {
         selectNote(newNoteId)
         selectTopic(newTopicId)
         selectPage(newPageId)
+        selectVersionNo(newVersionNo)
     }
 
     fun selectNote(noteId: Int) {
@@ -77,6 +95,10 @@ class PageViewModel(
 
     fun selectPage(page: Int) {
         curPageId.value = page
+    }
+
+    fun selectVersionNo(version: Int) {
+        curVersionId.value = version
     }
 
     fun openRightPane() {
@@ -99,6 +121,7 @@ class PageViewModel(
             }
             curTopicId.value != UNSET_ID -> {
                 selectPage(UNSET_ID)
+                selectVersionNo(UNSET_ID)
                 selectTopic(UNSET_ID)
                 true
             }

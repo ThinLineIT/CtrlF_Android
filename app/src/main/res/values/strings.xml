@@ -132,6 +132,15 @@
     <string name="label_create_note">Create Note</string>
     <string name="label_create_topic">Create Topic</string>
     <string name="label_create_page">Create Page</string>
+
+    <string name="label_update_note">Update Note</string>
+    <string name="label_update_topic">Update Topic</string>
+    <string name="label_update_page">Update Page</string>
+
+    <string name="label_delete_note">Delete Note</string>
+    <string name="label_delete_topic">Delete Topic</string>
+    <string name="label_delete_page">Delete Page</string>
+
     <string name="label_page_title">PAGE TITLE</string>
     <string name="label_issue_content">Issue Content</string>
 

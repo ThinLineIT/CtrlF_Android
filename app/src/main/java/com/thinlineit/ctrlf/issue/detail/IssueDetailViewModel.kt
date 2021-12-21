@@ -44,7 +44,7 @@ class IssueDetailViewModel(
         loadIssue(issueId)
     }
 
-    fun loadIssue(issueId: Int) {
+    private fun loadIssue(issueId: Int) {
         viewModelScope.loadingLaunch {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
@@ -68,24 +68,47 @@ class IssueDetailViewModel(
 
     private fun initToolbarTitle() {
         _toolbarTitle.value =
-            when (issue.value?.relatedModelType ?: NULL) {
-                NOTE -> R.string.label_create_note
-                TOPIC -> R.string.label_create_topic
-                PAGE -> R.string.label_create_page
+            when (issue.value?.relatedModelType) {
+                ModelType.NOTE.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_note
+                    ModelAction.UPDATE.name -> R.string.label_update_note
+                    ModelAction.DELETE.name -> R.string.label_delete_note
+                    else -> R.string.empty_text
+                }
+                ModelType.TOPIC.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_topic
+                    ModelAction.UPDATE.name -> R.string.label_update_topic
+                    ModelAction.DELETE.name -> R.string.label_delete_topic
+                    else -> R.string.empty_text
+                }
+                ModelType.PAGE.name -> when (issue.value?.action) {
+                    ModelAction.CREATE.name -> R.string.label_create_page
+                    ModelAction.UPDATE.name -> R.string.label_update_page
+                    ModelAction.DELETE.name -> R.string.label_delete_page
+                    else -> R.string.empty_text
+                }
                 else -> R.string.empty_text
             }
     }
 
     private fun initButtonVisible(contentType: String, status: String) {
-        _detailButtonStatus.value = contentType == PAGE
+        _detailButtonStatus.value = contentType == ModelType.PAGE.name
         _approveButtonStatus.value = status == REQUESTED
     }
 
     companion object {
         const val REQUESTED = "REQUESTED"
-        const val NOTE = "NOTE"
-        const val TOPIC = "TOPIC"
-        const val PAGE = "PAGE"
-        const val NULL = "null"
     }
+}
+
+enum class ModelType {
+    NOTE,
+    TOPIC,
+    PAGE
+}
+
+enum class ModelAction {
+    CREATE,
+    UPDATE,
+    DELETE
 }
