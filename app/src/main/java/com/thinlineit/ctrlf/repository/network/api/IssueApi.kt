@@ -18,13 +18,8 @@ interface IssueApi {
     ): IssueList
 
     @GET("issues/{issue_id}")
-<<<<<<< HEAD
     suspend fun detailIssue(
         @Path("issue_id") issueId: String,
-=======
-    suspend fun DetailIssue(
-        @Path("issue_id") issueId: String
->>>>>>> dev
     ): Issue
 
     @POST("actions/issue-approve/")
