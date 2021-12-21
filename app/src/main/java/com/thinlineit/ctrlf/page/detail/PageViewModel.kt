@@ -142,6 +142,21 @@ class PageViewModel(
         selectNote(noteId)
     }
 
+    fun updateTopic(topicId: Int, newTopicTitle: String, reason: String) {
+        val noteId = curNoteId.value ?: return
+        viewModelScope.launch {
+            pageRepository.updateTopic(topicId, newTopicTitle, reason)
+        }
+        selectNote(noteId)
+    }
+
+    fun updateNote(newNoteTitle: String, reason: String) {
+        val noteId = curNoteId.value ?: return
+        viewModelScope.launch {
+            pageRepository.updateNote(noteId, newNoteTitle, reason)
+        }
+    }
+
     init {
         closeRightPane()
     }

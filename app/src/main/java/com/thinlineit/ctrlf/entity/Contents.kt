@@ -22,7 +22,7 @@ data class Note(
     val title: String,
     @SerializedName("is_approved")
     val isApproved: Boolean,
-    val owners: List<Int>,
+    val owners: List<Int>
 )
 
 data class Topic(
@@ -35,7 +35,7 @@ data class Topic(
     @SerializedName("is_approved")
     val isApproved: Boolean,
     val note: Int,
-    val owners: List<Int>,
+    val owners: List<Int>
 )
 
 @Parcelize

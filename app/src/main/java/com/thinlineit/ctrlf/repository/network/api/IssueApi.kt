@@ -14,12 +14,17 @@ import retrofit2.http.Query
 interface IssueApi {
     @GET("issues")
     suspend fun listIssue(
-        @Query("cursor") cursor: Int,
+        @Query("cursor") cursor: Int
     ): IssueList
 
     @GET("issues/{issue_id}")
+<<<<<<< HEAD
     suspend fun detailIssue(
         @Path("issue_id") issueId: String,
+=======
+    suspend fun DetailIssue(
+        @Path("issue_id") issueId: String
+>>>>>>> dev
     ): Issue
 
     @POST("actions/issue-approve/")

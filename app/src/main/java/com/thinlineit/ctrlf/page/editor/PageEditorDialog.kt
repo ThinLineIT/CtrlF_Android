@@ -6,22 +6,26 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Window
-import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.util.CustomDialogInterface
-import kotlinx.android.synthetic.main.dialog_create_issue.*
+import kotlinx.android.synthetic.main.dialog_cancel_editor.cancelButton
+import kotlinx.android.synthetic.main.dialog_cancel_editor.confirmButton
 
-class PageEditorCompleteDialog(
+class PageEditorDialog(
     context: Context,
-    private val customDialogInterface: CustomDialogInterface
+    private val customDialogInterface: CustomDialogInterface,
+    private val resID: Int
 ) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.dialog_create_issue)
+        setContentView(resID)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         confirmButton.setOnClickListener {
             dismiss()
             customDialogInterface.onFinishButton()
+        }
+        cancelButton?.setOnClickListener {
+            dismiss()
         }
     }
 }
