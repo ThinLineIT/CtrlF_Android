@@ -8,6 +8,7 @@ import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.PageUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
 import com.thinlineit.ctrlf.repository.network.ContentService
@@ -131,6 +132,27 @@ class ContentRepository {
                 ),
                 noteId,
                 NoteUpdateRequest(newNoteTitle, reason)
+            )
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun updatePage(
+        pageId: Int,
+        newPageTitle: String,
+        newContent: String,
+        reason: String
+    ): Boolean {
+        return try {
+            ContentService.retrofitService.updatePage(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                pageId,
+                PageUpdateRequest(newPageTitle, newContent, reason)
             )
             true
         } catch (e: Exception) {

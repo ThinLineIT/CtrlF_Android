@@ -7,6 +7,7 @@ import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.PageUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
@@ -103,4 +104,11 @@ interface ContentApi {
         @Path("note_id") noteId: Int,
         @Body request: NoteUpdateRequest
     ): NoteUpdateResponse
+
+    @PUT("pages/{page_id}/")
+    suspend fun updatePage(
+        @Header("Authorization") Authorization: String,
+        @Path("page_id") pageId: Int,
+        @Body request: PageUpdateRequest
+    )
 }
