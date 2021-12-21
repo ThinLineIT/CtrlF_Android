@@ -1,7 +1,6 @@
 package com.thinlineit.ctrlf.page.detail
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -14,8 +13,7 @@ import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
 class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     RecyclerView.Adapter<TopicTitleListAdapter.ViewHolder>(),
-    BindingRecyclerViewAdapter<List<Topic>>,
-    ListButtonInterface {
+    BindingRecyclerViewAdapter<List<Topic>> {
     var topicList = emptyList<Topic>()
 
     interface SwipeBtnClickListener {
@@ -36,16 +34,6 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topicDao = topicList[position]
         holder.bind(topicDao, clickListener, swipeBtnClickListener)
-    }
-
-    // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
-    override fun onDelete(context: Context) {
-        TopicFragmentDialog(context).topicDialog(context)
-    }
-
-    // TODO: 준비중입니다 토스트 메세지 -> 다이얼로그
-    override fun onModify(context: Context) {
-        TopicFragmentDialog(context).topicDialog(context)
     }
 
     class ViewHolder(private val dataBinding: ListItemTopicTitleBinding) :
