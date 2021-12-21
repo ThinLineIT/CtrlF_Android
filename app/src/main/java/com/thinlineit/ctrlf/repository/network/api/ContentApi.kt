@@ -38,7 +38,8 @@ interface ContentApi {
     // 해당하는 페이지에 대한 정보를 리턴
     @GET("pages/{page_id}")
     suspend fun getPage(
-        @Path("page_id") pageId: Int
+        @Path("page_id") pageId: Int,
+        @Query("version_no") versionNo: Int
     ): Page
 
     @GET("topics/{topic_id}")

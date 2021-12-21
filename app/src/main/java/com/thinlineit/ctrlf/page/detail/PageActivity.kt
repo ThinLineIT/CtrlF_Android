@@ -39,7 +39,8 @@ class PageActivity : AppCompatActivity() {
         val noteId = intent.getIntExtra(NOTE_ID, UNSET_ID)
         val topicId = intent.getIntExtra(TOPIC_ID, UNSET_ID)
         val pageId = intent.getIntExtra(PAGE_ID, UNSET_ID)
-        pageViewModel.setPageHierarchy(noteId, topicId, pageId)
+        val versionNo = intent.getIntExtra(VERSION_NO, UNSET_ID)
+        pageViewModel.setPageHierarchy(noteId, topicId, pageId, versionNo)
 
         initObserver()
         initButton()
@@ -115,12 +116,20 @@ class PageActivity : AppCompatActivity() {
         const val NOTE_ID = "noteId"
         const val TOPIC_ID = "topicId"
         const val PAGE_ID = "pageId"
+        const val VERSION_NO = "versionNo"
 
-        fun start(context: Context, noteId: Int, topicId: Int = UNSET_ID, pageId: Int = UNSET_ID) {
+        fun start(
+            context: Context,
+            noteId: Int,
+            topicId: Int = UNSET_ID,
+            pageId: Int = UNSET_ID,
+            versionNo: Int = UNSET_ID
+        ) {
             val intent = Intent(context, PageActivity::class.java).apply {
                 putExtra(NOTE_ID, noteId)
                 putExtra(TOPIC_ID, topicId)
                 putExtra(PAGE_ID, pageId)
+                putExtra(VERSION_NO, versionNo)
             }
             context.startActivity(intent)
         }

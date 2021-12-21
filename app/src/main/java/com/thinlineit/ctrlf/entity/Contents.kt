@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.entity
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+
 const val UNSET_ID = -1
 
 data class NoteList(
@@ -40,6 +41,8 @@ data class Topic(
 @Parcelize
 data class Page(
     val id: Int = -1,
+    val topic: Int? = null,
+    val owners: List<Int>? = null,
     @SerializedName("issue_id")
     val issueId: Int? = null,
     @SerializedName("created_at")
@@ -50,6 +53,8 @@ data class Page(
     val content: String? = null,
     @SerializedName("is_approved")
     val isApproved: Boolean? = null,
-    val topic: Int? = null,
-    val owners: List<Int>? = null
+    @SerializedName("version_no")
+    val versionNo: Int = -1,
+    @SerializedName("version_type")
+    val versionType: String? = null,
 ) : Parcelable
