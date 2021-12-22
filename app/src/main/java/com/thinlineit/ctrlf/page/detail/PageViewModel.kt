@@ -23,7 +23,7 @@ class PageViewModel(
 
     private val curNoteId = MutableLiveData<Int>()
     private val curTopicId = MutableLiveData<Int>()
-    private val curPageIdInfo = MutableLiveData<Pair<Int, Int>>()
+    private val curPageIdAndVersionNo = MutableLiveData<Pair<Int, Int>>()
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
     private val _isFabOpen = MutableLiveData<Boolean>(false)
 
@@ -50,19 +50,19 @@ class PageViewModel(
             emit(pageList)
         }
     }
-    val page: LiveData<Page?> = curPageIdInfo.switchMap { pageId ->
+    val page: LiveData<Page?> = curPageIdAndVersionNo.switchMap { pageIdAndVersionNo ->
         liveData {
-            val page = if (pageId.first == UNSET_ID || pageId.second == UNSET_ID) null
-            else {
-                emit(loadPage())
+            val pageId = pageIdAndVersionNo.first
+            val versionNo = pageIdAndVersionNo.second
+            val page = loadPage(pageId, versionNo)
+            if(page != null) {
+                emit(loadPage(pageId, versionNo))
                 openRightPane()
             }
         }
     }
 
-    private suspend fun loadPage(): Page? = withContext(Dispatchers.IO) {
-        val pageId = curPageIdInfo.value?.first ?: return@withContext null
-        val versionNo = curPageIdInfo.value?.second ?: return@withContext null
+    private suspend fun loadPage(pageId : Int, versionNo : Int): Page? = withContext(Dispatchers.IO) {
         if (pageId == UNSET_ID || versionNo == UNSET_ID) return@withContext null
         pageRepository.loadPage(
             pageId,
@@ -90,7 +90,7 @@ class PageViewModel(
     }
 
     fun selectPage(pageIdInfo: Pair<Int, Int>) {
-        curPageIdInfo.value = pageIdInfo
+        curPageIdAndVersionNo.value = pageIdInfo
     }
 
     fun openRightPane() {
