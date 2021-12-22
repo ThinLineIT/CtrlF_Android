@@ -41,7 +41,8 @@ data class Topic(
 @Parcelize
 data class Page(
     val id: Int = -1,
-    val topic: Int? = null,
+    @SerializedName("topic")
+    val topicId: Int? = null,
     val owners: List<Int>? = null,
     @SerializedName("issue_id")
     val issueId: Int? = null,

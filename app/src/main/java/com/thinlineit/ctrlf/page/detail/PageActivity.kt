@@ -44,7 +44,7 @@ class PageActivity : AppCompatActivity() {
         val topicId = intent.getIntExtra(TOPIC_ID, UNSET_ID)
         val pageId = intent.getIntExtra(PAGE_ID, UNSET_ID)
         val versionNo = intent.getIntExtra(VERSION_NO, UNSET_ID)
-        pageViewModel.setPageHierarchy(noteId, topicId, pageId, versionNo)
+        pageViewModel.setPageHierarchy(noteId, topicId, Pair(pageId, versionNo))
 
         initObserver()
         initButton()

@@ -15,8 +15,7 @@ import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 
 class PageTitleListFragment : Fragment() {
     private val pageTitleListAdapter = PageTitleListAdapter { page ->
-        pageViewModel.selectPage(page.id)
-        pageViewModel.selectVersionNo(page.versionNo)
+        pageViewModel.selectPage(Pair(page.id, page.versionNo))
     }
     private val swipeController = SwipeController()
     private val itemTouchHelper = ItemTouchHelper(swipeController)
