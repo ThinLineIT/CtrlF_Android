@@ -1,6 +1,7 @@
 package com.thinlineit.ctrlf.main
 
 import android.annotation.SuppressLint
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,9 @@ class MainNoteAdapter(private val clickListener: (Int) -> Unit) :
                 noteDesignArray.getResourceId(position % NOTEDESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
+                if (!note.isApproved) {
+                    noteItemImage.setColorFilter(R.color.light_gray, PorterDuff.Mode.DARKEN)
+                }
                 this.note = note
                 root.setOnClickListener {
                     clickListener(note.id)

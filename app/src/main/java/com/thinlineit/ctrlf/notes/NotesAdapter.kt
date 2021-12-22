@@ -1,8 +1,8 @@
 package com.thinlineit.ctrlf.notes
 
 import android.annotation.SuppressLint
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
@@ -11,53 +11,21 @@ import com.thinlineit.ctrlf.entity.Note
 import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 
 class NotesAdapter(
-    private val addNoteClickListener: () -> Unit,
     private val noteClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), BindingRecyclerViewAdapter<List<Note>> {
     private var noteList: List<Note> = emptyList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == ADD_NOTE) {
-            AddViewHolder.from(parent)
-        } else {
-            NoteViewHolder.from(parent)
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        NoteViewHolder.from(parent)
 
-    override fun getItemCount(): Int = (noteList.size + 1)
-
-    override fun getItemViewType(position: Int): Int = if (position == 0) ADD_NOTE else NOTE
+    override fun getItemCount(): Int = noteList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == ADD_NOTE) {
-            (holder as AddViewHolder).bind(
-                addNoteClickListener
-            )
-        } else {
-            (holder as NoteViewHolder).bind(
-                noteList[position - 1],
-                noteClickListener,
-                position
-            )
-        }
-    }
-
-    class AddViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(addNoteClickListener: () -> Unit) {
-            itemView.setOnClickListener {
-                addNoteClickListener()
-            }
-        }
-
-        companion object {
-            fun from(parent: ViewGroup): RecyclerView.ViewHolder {
-                val itemView =
-                    LayoutInflater.from(parent.context).inflate(
-                        R.layout.list_item_add_note, parent, false
-                    )
-                return AddViewHolder(itemView)
-            }
-        }
+        (holder as NoteViewHolder).bind(
+            noteList[position],
+            noteClickListener,
+            position
+        )
     }
 
     class NoteViewHolder(private val dataBinding: ListItemNoteBinding) :
@@ -71,6 +39,9 @@ class NotesAdapter(
             val noteResourceId = noteDesignArray.getResourceId(position % NOTE_DESIGN_NUM, 0)
             dataBinding.apply {
                 noteItemImage.setImageResource(noteResourceId)
+                if (!note.isApproved) {
+                    noteItemImage.setColorFilter(R.color.light_gray, PorterDuff.Mode.DARKEN)
+                }
                 this.note = note
                 root.setOnClickListener {
                     clickListener(note.id)
@@ -100,8 +71,5 @@ class NotesAdapter(
 
     companion object {
         private const val NOTE_DESIGN_NUM = 15
-
-        private const val ADD_NOTE = 0
-        private const val NOTE = 1
     }
 }

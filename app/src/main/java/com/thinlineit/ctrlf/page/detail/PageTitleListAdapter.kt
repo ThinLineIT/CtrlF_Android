@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
@@ -58,6 +59,8 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
 
         override fun getSwipeWidth(): Int = dataBinding.pageTitleDeleteButton.width
         override fun getSwipeLayout(): LinearLayout = dataBinding.swipePageListView
+        override fun getUpdateButton(): TextView = dataBinding.pageTitleUpdateButton
+        override fun getDeleteButton(): TextView = dataBinding.pageTitleDeleteButton
     }
 
     @SuppressLint("NotifyDataSetChanged")

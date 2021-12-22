@@ -28,7 +28,8 @@
                 android:background="@color/skyblue"
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:text="@string/button_general_delete" />
+                android:text="@string/button_general_delete"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/topicTitleUpdateBtn"
@@ -39,7 +40,8 @@
                 android:gravity="center"
                 android:text="@string/button_general_modify"
                 app:layout_constraintEnd_toStartOf="@id/topicTitleDeleteButton"
-                app:layout_constraintStart_toEndOf="@id/modifyBtnTopGuideline"/>
+                app:layout_constraintStart_toEndOf="@id/modifyBtnTopGuideline"
+                android:visibility="gone"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/deleteBtnTopGuideline"
