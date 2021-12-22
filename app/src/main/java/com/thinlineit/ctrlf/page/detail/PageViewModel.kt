@@ -55,14 +55,14 @@ class PageViewModel(
             val pageId = pageIdAndVersionNo.first
             val versionNo = pageIdAndVersionNo.second
             val page = loadPage(pageId, versionNo)
-            if(page != null) {
+            if (page != null) {
                 emit(loadPage(pageId, versionNo))
                 openRightPane()
             }
         }
     }
 
-    private suspend fun loadPage(pageId : Int, versionNo : Int): Page? = withContext(Dispatchers.IO) {
+    private suspend fun loadPage(pageId: Int, versionNo: Int): Page? = withContext(Dispatchers.IO) {
         if (pageId == UNSET_ID || versionNo == UNSET_ID) return@withContext null
         pageRepository.loadPage(
             pageId,
