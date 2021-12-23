@@ -19,6 +19,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
     interface SwipeBtnClickListener {
         fun onUpdate(topicId: Int)
+        fun onDelete(topicId: Int)
     }
 
     private lateinit var swipeBtnClickListener: SwipeBtnClickListener
@@ -56,6 +57,10 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
                 }
                 topicTitleUpdateBtn.setOnClickListener {
                     mSwipeBtnClickListener.onUpdate(topic.id)
+                }
+                topicTitleDeleteButton.setOnClickListener {
+                    // TODO: make issue delete this topic
+                    mSwipeBtnClickListener.onDelete(topic.id)
                 }
             }
         }

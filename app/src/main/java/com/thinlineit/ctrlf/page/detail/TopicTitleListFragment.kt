@@ -45,6 +45,14 @@ class TopicTitleListFragment : Fragment() {
                             }.openDialog()
                         }
                     }
+
+                    override fun onDelete(topicId: Int) {
+                        // TODO: make issue delete this topic
+                        Toast.makeText(
+                            context,
+                            R.string.notice_service_prepare, Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 })
             topicListRecyclerView.adapter = topicTitleListAdapter
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
