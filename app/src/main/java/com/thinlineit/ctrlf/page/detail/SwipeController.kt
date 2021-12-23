@@ -2,6 +2,7 @@ package com.thinlineit.ctrlf.page.detail
 
 import android.graphics.Canvas
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.max
@@ -77,6 +78,12 @@ class SwipeController() : ItemTouchHelper.Callback() {
                 actionState,
                 isCurrentlyActive
             )
+            getUpdateButton(viewHolder).visibility = View.VISIBLE
+            getDeleteButton(viewHolder).visibility = View.VISIBLE
+            if (x == 0f) {
+                getUpdateButton(viewHolder).visibility = View.GONE
+                getDeleteButton(viewHolder).visibility = View.GONE
+            }
         }
     }
 
@@ -108,6 +115,14 @@ class SwipeController() : ItemTouchHelper.Callback() {
     private fun getView(viewHolder: RecyclerView.ViewHolder): View {
         setClamp(2 * (viewHolder as SwipeInterface).getSwipeWidth().toFloat())
         return (viewHolder as SwipeInterface).getSwipeLayout()
+    }
+
+    private fun getUpdateButton(viewHolder: RecyclerView.ViewHolder): TextView {
+        return (viewHolder as SwipeInterface).getUpdateButton()
+    }
+
+    private fun getDeleteButton(viewHolder: RecyclerView.ViewHolder): TextView {
+        return (viewHolder as SwipeInterface).getDeleteButton()
     }
 
     fun setClamp(clamp: Float) {

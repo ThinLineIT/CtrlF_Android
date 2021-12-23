@@ -22,10 +22,22 @@
                 android:padding="10dp"
                 app:data="@{noteViewModel.notes}"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/addNoteBtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="3"
                 tools:listitem="@layout/list_item_note" />
+
+            <Button
+                android:id="@+id/addNoteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/white"
+                android:text="@string/button_add_note"
+                android:textAllCaps="false"
+                android:textColor="@color/light_dark_gray"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_weight="1" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

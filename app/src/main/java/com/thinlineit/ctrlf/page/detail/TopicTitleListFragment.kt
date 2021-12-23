@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -66,6 +67,11 @@ class TopicTitleListFragment : Fragment() {
                         pageViewModel?.updateNote(title, reason)
                     }.openDialog()
                 }
+            }
+
+            deleteNoteBtn.setOnClickListener {
+                // TODO: make issue delete this note
+                Toast.makeText(context, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
             }
 
             addTopicBtn.setOnClickListener { _ ->
