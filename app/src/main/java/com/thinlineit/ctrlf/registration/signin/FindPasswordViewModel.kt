@@ -59,7 +59,7 @@ class FindPasswordViewModel : ViewModel() {
             passwordStatus,
             passwordConfirmStatus
         ) {
-            isPasswordResetValid()
+            value = isPasswordResetValid()
         }
     }
 

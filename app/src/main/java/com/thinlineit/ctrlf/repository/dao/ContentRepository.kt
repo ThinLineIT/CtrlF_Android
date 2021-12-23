@@ -19,8 +19,8 @@ import okhttp3.RequestBody
 
 class ContentRepository {
 
-    suspend fun loadPage(pageId: Int): Page {
-        return ContentService.retrofitService.getPage(pageId)
+    suspend fun loadPage(pageId: Int, versionNo: Int): Page {
+        return ContentService.retrofitService.getPage(pageId, versionNo)
     }
 
     suspend fun loadNoteList(cursor: Int): NoteList {

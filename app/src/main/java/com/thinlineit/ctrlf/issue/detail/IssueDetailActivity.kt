@@ -46,8 +46,17 @@ class IssueDetailActivity : AppCompatActivity() {
                     it.context,
                     issue.noteId ?: UNSET_ID,
                     issue.topicId ?: UNSET_ID,
-                    issue.pageId ?: UNSET_ID
+                    issue.pageId ?: UNSET_ID,
+                    issue.versionNo ?: UNSET_ID
                 )
+            }
+
+            rejectButton.setOnClickListener {
+                Toast.makeText(
+                    this@IssueDetailActivity,
+                    R.string.notice_service_prepare,
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
             issueDetailViewModel.apply {

@@ -18,12 +18,12 @@ interface IssueApi {
     ): IssueList
 
     @GET("issues/{issue_id}")
-    suspend fun DetailIssue(
-        @Path("issue_id") issueId: String
+    suspend fun detailIssue(
+        @Path("issue_id") issueId: String,
     ): Issue
 
     @POST("actions/issue-approve/")
-    suspend fun ApproveIssue(
+    suspend fun approveIssue(
         @Header("Authorization") Authorization: String,
         @Body body: IssueApproveRequest
     ): Response<Void>

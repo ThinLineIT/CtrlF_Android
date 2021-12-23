@@ -52,7 +52,7 @@ class RegistrationViewModel : ViewModel() {
             passwordStatus,
             passwordConfirmStatus
         ) {
-            isSignUpValid()
+            value = isSignUpValid()
         }
     }
 

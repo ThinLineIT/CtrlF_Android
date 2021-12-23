@@ -13,7 +13,9 @@ import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.util.addSourceList
 import com.thinlineit.ctrlf.util.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PageViewModel(
     private val pageRepository: ContentRepository = ContentRepository()
@@ -21,7 +23,7 @@ class PageViewModel(
 
     private val curNoteId = MutableLiveData<Int>()
     private val curTopicId = MutableLiveData<Int>()
-    private val curPageId = MutableLiveData<Int>()
+    private val curPageIdAndVersionNo = MutableLiveData<Pair<Int, Int>>()
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
     private val _isFabOpen = MutableLiveData<Boolean>(false)
 
@@ -39,7 +41,7 @@ class PageViewModel(
     }
     val topic: LiveData<Topic?> = MediatorLiveData<Topic?>().apply {
         addSourceList(topicList, curTopicId) {
-            topicList.value?.find { it.id == curTopicId.value }
+            value = topicList.value?.find { it.id == curTopicId.value }
         }
     }
     val pageList: LiveData<List<Page>?> = curTopicId.switchMap { topicId ->
@@ -48,12 +50,24 @@ class PageViewModel(
             emit(pageList)
         }
     }
-    val page: LiveData<Page?> = MediatorLiveData<Page?>().apply {
-        addSourceList(pageList, curPageId) {
-            pageList.value?.find { it.id == curPageId.value }?.also {
+    val page: LiveData<Page?> = curPageIdAndVersionNo.switchMap { pageIdAndVersionNo ->
+        liveData {
+            val pageId = pageIdAndVersionNo.first
+            val versionNo = pageIdAndVersionNo.second
+            val page = loadPage(pageId, versionNo)
+            if (page != null) {
+                emit(loadPage(pageId, versionNo))
                 openRightPane()
             }
         }
+    }
+
+    private suspend fun loadPage(pageId: Int, versionNo: Int): Page? = withContext(Dispatchers.IO) {
+        if (pageId == UNSET_ID || versionNo == UNSET_ID) return@withContext null
+        pageRepository.loadPage(
+            pageId,
+            versionNo
+        )
     }
 
     val isRightPaneOpen: LiveData<Boolean>
@@ -61,10 +75,10 @@ class PageViewModel(
     val isFabOpen: LiveData<Boolean>
         get() = _isFabOpen
 
-    fun setPageHierarchy(newNoteId: Int, newTopicId: Int, newPageId: Int) {
+    fun setPageHierarchy(newNoteId: Int, newTopicId: Int, newPageIdInfo: Pair<Int, Int>) {
         selectNote(newNoteId)
         selectTopic(newTopicId)
-        selectPage(newPageId)
+        selectPage(newPageIdInfo)
     }
 
     fun selectNote(noteId: Int) {
@@ -75,8 +89,8 @@ class PageViewModel(
         curTopicId.value = topicId
     }
 
-    fun selectPage(page: Int) {
-        curPageId.value = page
+    fun selectPage(pageIdInfo: Pair<Int, Int>) {
+        curPageIdAndVersionNo.value = pageIdInfo
     }
 
     fun openRightPane() {
@@ -98,7 +112,7 @@ class PageViewModel(
                 true
             }
             curTopicId.value != UNSET_ID -> {
-                selectPage(UNSET_ID)
+                selectPage(Pair(UNSET_ID, UNSET_ID))
                 selectTopic(UNSET_ID)
                 true
             }
