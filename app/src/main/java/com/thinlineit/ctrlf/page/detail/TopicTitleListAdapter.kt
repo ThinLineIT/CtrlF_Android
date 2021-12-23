@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.thinlineit.ctrlf.R
@@ -43,17 +44,22 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
             clickListener: (Topic) -> Unit,
             mSwipeBtnClickListener: SwipeBtnClickListener
         ) {
-            dataBinding.topic = topic
-            dataBinding.root.setOnClickListener {
-                clickListener(topic)
+            val resourceId = when (topic.isApproved) {
+                true -> R.color.white
+                else -> R.color.gray
             }
-            dataBinding.topicTitleUpdateBtn.setOnClickListener {
-                mSwipeBtnClickListener.onUpdate(topic.id)
+            dataBinding.apply {
+                this.topic = topic
+                swipeTopicListView.setBackgroundResource(resourceId)
+                root.setOnClickListener {
+                    clickListener(topic)
+                }
+                topicTitleUpdateBtn.setOnClickListener {
+                    mSwipeBtnClickListener.onUpdate(topic.id)
+                }
             }
         }
-
         companion object {
-
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val dataBinding = DataBindingUtil.inflate<ListItemTopicTitleBinding>(
@@ -68,6 +74,8 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
 
         override fun getSwipeWidth(): Int = dataBinding.topicTitleDeleteButton.width
         override fun getSwipeLayout(): LinearLayout = dataBinding.swipeTopicListView
+        override fun getUpdateButton(): TextView = dataBinding.topicTitleUpdateBtn
+        override fun getDeleteButton(): TextView = dataBinding.topicTitleDeleteButton
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -87,8 +87,9 @@
 
             <TextView
                 android:id="@+id/updateNoteTitleBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_dialog_modify"
                 android:textColor="@color/black"
@@ -108,8 +109,9 @@
 
             <TextView
                 android:id="@+id/deleteNoteBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_dialog_delete"
                 android:textColor="@color/black"

@@ -16,25 +16,11 @@ import com.thinlineit.ctrlf.util.LoadingDialog
 
 class NotesFragment : Fragment() {
     private val noteViewModel by viewModels<NotesViewModel>()
-    private val noteAdapter = NotesAdapter(
-        {
-            context?.let {
-                CreateDialog(
-                    it,
-                    resources.getString(R.string.hint_dialog_note_title),
-                    resources.getString(R.string.hint_dialog_note_title_hint)
-                ) { title, reason ->
-                    noteViewModel.createNote(title, reason)
-                }.openDialog()
-            }
-        },
-        { noteId ->
-            this.findNavController().navigate(
-                NotesFragmentDirections.actionNotesFragmentToPageActivity(noteId)
-            )
-        }
-    )
-
+    private val noteAdapter = NotesAdapter { noteId ->
+        this.findNavController().navigate(
+            NotesFragmentDirections.actionNotesFragmentToPageActivity(noteId)
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +34,17 @@ class NotesFragment : Fragment() {
             this.noteViewModel = this@NotesFragment.noteViewModel
             lifecycleOwner = this@NotesFragment
             noteListRecyclerView.adapter = noteAdapter
+            addNoteBtn.setOnClickListener {
+                context?.let {
+                    CreateDialog(
+                        it,
+                        resources.getString(R.string.hint_dialog_note_title),
+                        resources.getString(R.string.hint_dialog_note_title_hint)
+                    ) { title, reason ->
+                        noteViewModel?.createNote(title, reason)
+                    }.openDialog()
+                }
+            }
         }
 
         noteViewModel.alertLiveData.observe(viewLifecycleOwner) {
