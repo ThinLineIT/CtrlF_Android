@@ -72,7 +72,18 @@ class PageEditorViewModel(
                         else -> _editPageStatus.value = Event(Status.FAILURE)
                     }
                 }
-            EDIT -> _editPageStatus.value = Event(Status.SUCCESS)
+            EDIT ->
+                viewModelScope.launch {
+                    _editPageStatus.value = if (
+                        contentRepository.updatePage(
+                            pageInfo.id,
+                            pageTitle,
+                            content,
+                            summary
+                        )
+                    ) Event(Status.SUCCESS)
+                    else Event(Status.FAILURE)
+                }
         }
     }
 
