@@ -52,9 +52,7 @@
         tools:layout="@layout/fragment_issue_list">
         <action
             android:id="@+id/action_issue_list_fragment_to_issue_detail_activity"
-            app:destination="@id/issue_detail_activity"
-            app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_right" />
+            app:destination="@id/issue_detail_activity" />
     </fragment>
 
     <activity
