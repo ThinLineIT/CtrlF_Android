@@ -145,6 +145,7 @@
 
     <string name="notice_complete_approve">승인이 완료되었습니다.</string>
     <string name="notice_non_authority">승인 권한이 없습니다.</string>
+    <string name="notice_issue_non_exist">현재 확인 가능한 이슈가 없습니다.</string>
 
     <string name="format_timer">%02d</string>
 
