@@ -95,6 +95,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/issueContent" />
 
+<<<<<<< HEAD
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/detailButton"
                     android:layout_width="0dp"
@@ -132,6 +133,54 @@
                     app:cornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+=======
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/detailButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:text="@string/button_detail"
+                app:cornerRadius="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/buttonStartGuideline"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/issueLayout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/approveButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:onClick="@{()->issueDetailViewModel.approveIssue()}"
+                android:text="@string/button_approve"
+                app:cornerRadius="10dp"
+                app:layout_constraintLeft_toLeftOf="@id/buttonStartGuideline"
+                app:layout_constraintRight_toLeftOf="@+id/rejectButton"
+                app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/rejectButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="@color/skyblue"
+                android:text="@string/button_reject"
+                app:cornerRadius="10dp"
+                app:layout_constraintLeft_toRightOf="@+id/approveButton"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/buttonStartGuideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4">
+            </androidx.constraintlayout.widget.Guideline>
+>>>>>>> dev
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
