@@ -24,6 +24,10 @@ class IssueRepository {
         return IssueService.retrofitService.detailIssue(issueId)
     }
 
+    suspend fun getIssueCount(): Int {
+        return IssueService.retrofitService.issueCount().issuesCount
+    }
+
     suspend fun approveIssue(issueId: Int): Int {
         return try {
             IssueService.retrofitService.approveIssue(
