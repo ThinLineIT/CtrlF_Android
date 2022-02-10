@@ -14,15 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/pageActivityToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/toolbar_main">
@@ -63,44 +58,44 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
-                    tools:text="@string/label_topic"
                     android:background="@drawable/background_round_onlyleft_purple"
+                    android:fontFamily="@font/sc_dream_6"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:fontFamily="@font/sc_dream_6"
                     android:text="@{pageViewModel.topic.title}"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/markdown_view"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/markdown_view"/>
+                    tools:text="@string/label_topic" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:text="@string/label_page"
+                    android:layout_marginEnd="10dp"
                     android:background="@drawable/background_round_onlyright_white"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:maxLines="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:fontFamily="@font/sc_dream_5"
                     android:text="@{pageViewModel.page.title}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/topicText"
                     app:layout_constraintTop_toTopOf="@+id/topicText"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    tools:text="@string/label_page" />
 
                 <com.mukesh.MarkdownView
                     android:id="@+id/markdown_view"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintTop_toBottomOf="@+id/topicText"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topicText"
                     app:markdownString="@{pageViewModel.page.content}" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -125,52 +120,36 @@
                     app:layout_constraintBottom_toTopOf="@id/fabButton"
                     app:layout_constraintEnd_toEndOf="@id/fabButton">
 
-                <Button
-                    android:id="@+id/shareButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/icon_back_button"
-                    android:fontFamily="@font/font_sc_dream_5"
-                    android:text="@string/button_share"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:background="@color/white" />
+                    <Button
+                        android:id="@+id/shareButton"
+                        style="@style/FloatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:drawableLeft="@drawable/icon_back_button"
+                        android:text="@string/button_share" />
 
-                <Button
-                    android:id="@+id/relatedIssueButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:backgroundTint="@color/white"
-                    android:fontFamily="@font/font_sc_dream_5"
-                    android:text="@string/button_related_issue"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:background="@color/white" />
+                    <Button
+                        android:id="@+id/relatedIssueButton"
+                        style="@style/FloatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:text="@string/button_related_issue" />
 
-                <Button
-                    android:id="@+id/bookMarkButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/icon_bookmark"
-                    android:fontFamily="@font/font_sc_dream_5"
-                    android:text="@string/button_bookmark"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:background="@color/white" />
+                    <Button
+                        android:id="@+id/bookMarkButton"
+                        style="@style/FloatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:drawableLeft="@drawable/icon_bookmark"
+                        android:text="@string/button_bookmark" />
 
-                <Button
-                    android:id="@+id/editButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/icon_edit"
-                    android:fontFamily="@font/font_sc_dream_5"
-                    android:text="@string/button_do_edit"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    app:background="@color/white" />
+                    <Button
+                        android:id="@+id/editButton"
+                        style="@style/FloatingActionButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:drawableLeft="@drawable/icon_edit"
+                        android:text="@string/button_do_edit" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

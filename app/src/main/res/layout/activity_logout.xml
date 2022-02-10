@@ -18,10 +18,6 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -47,14 +43,13 @@
 
                 <TextView
                     android:id="@+id/logoutText"
+                    style="@style/LargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:fontFamily="@font/sc_dream_6"
                     android:text="@string/label_logout"
-                    android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="37sp"
                     app:layout_constraintBottom_toTopOf="@+id/logoutPhraseText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,13 +57,13 @@
 
                 <TextView
                     android:id="@+id/logoutPhraseText"
+                    style="@style/LargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="30dp"
-                    android:fontFamily="@font/sc_dream_6"
                     android:gravity="center"
                     android:text="@string/notice_confirm_logout"
-                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -78,14 +73,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutBtn"
+            style="@style/BasicMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:backgroundTint="@color/skyblue"
-            android:fontFamily="@font/sc_dream_6"
             android:text="@string/label_logout"
-            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

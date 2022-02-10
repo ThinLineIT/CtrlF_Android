@@ -21,10 +21,6 @@
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
-                android:elevation="4dp"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:menu="@menu/toolbar_main">
@@ -38,7 +34,8 @@
                     android:padding="8dp"
                     android:src="@drawable/icon_logo"
                     android:text='@{issueDetailViewModel.toolbarTitle}'
-                    android:textSize="30sp"
+                    android:textSize="27.5sp"
+                    android:fontFamily="@font/sc_dream_7"
                     tools:text="@string/label_create_page" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -51,7 +48,7 @@
                 android:layout_marginTop="20dp"
                 android:text="@{String.valueOf(issueDetailViewModel.issue.title)}"
                 android:textColor="@color/skyblue"
-                android:textSize="25sp"
+                android:textSize="32.5sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolBar"
                 tools:text="@string/label_page_title" />
@@ -72,7 +69,7 @@
                     android:id="@+id/isseuContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_margin="17.5sp"
                     android:text="@{issueDetailViewModel.issue.reason}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +88,8 @@
                 android:paddingRight="30dp"
                 android:text="@string/button_detail"
                 app:cornerRadius="10dp"
+                android:fontFamily="@font/sc_dream_4"
+                android:textSize="15sp"
                 app:layout_constraintLeft_toRightOf="@+id/buttonStartGuideline"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/issueLayout" />
@@ -104,6 +103,8 @@
                 android:backgroundTint="@color/skyblue"
                 android:onClick="@{()->issueDetailViewModel.approveIssue()}"
                 android:text="@string/button_approve"
+                android:fontFamily="@font/sc_dream_4"
+                android:textSize="15sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintLeft_toLeftOf="@id/buttonStartGuideline"
                 app:layout_constraintRight_toLeftOf="@+id/rejectButton"
@@ -117,6 +118,8 @@
                 android:layout_marginRight="20dp"
                 android:backgroundTint="@color/skyblue"
                 android:text="@string/button_reject"
+                android:fontFamily="@font/sc_dream_4"
+                android:textSize="15sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintLeft_toRightOf="@+id/approveButton"
                 app:layout_constraintRight_toRightOf="parent"

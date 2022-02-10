@@ -48,7 +48,7 @@
                 android:text="@string/label_note"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="25dp"
+                android:textSize="35dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -61,7 +61,7 @@
                 android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_show_all_note"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="22.5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -105,7 +105,7 @@
                 android:text="@string/label_issue"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="25sp"
+                android:textSize="35sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +118,7 @@
                 android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_show_all_note"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="22.5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

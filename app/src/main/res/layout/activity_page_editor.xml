@@ -20,10 +20,6 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toTopOf="@id/scrollview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,7 +39,7 @@
                 android:fontFamily="@font/font_sc_dream_7"
                 android:text="@{viewModel.headerText}"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textSize="27.5dp"
                 tools:text="add page" />
 
             <TextView
@@ -54,6 +50,8 @@
                 android:layout_marginEnd="7dp"
                 android:onClick="@{()->viewModel.complete()}"
                 android:text="@string/button_confirm"
+                android:textSize="19.5dp"
+                android:fontFamily="@font/sc_dream_4"
                 android:textColor="@color/skyblue" />
 
         </androidx.appcompat.widget.Toolbar>
@@ -84,7 +82,7 @@
                     android:paddingEnd="20dp"
                     android:text="@{viewModel.topicTitleStr}"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="18.5sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolBar"
@@ -106,7 +104,7 @@
                     android:singleLine="true"
                     android:text="@={viewModel.pageTitle}"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/topicText"
                     app:layout_constraintTop_toBottomOf="@+id/topicText" />
@@ -130,7 +128,7 @@
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false"
                     android:text="@={viewModel.summary}"
-                    android:textSize="16sp"
+                    android:textSize="17.5sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/pageText" />
 
