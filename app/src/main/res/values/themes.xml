@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:toolbarStyle">@style/BasicToolBar</item>
         <item name="android:button">@style/BasicButton</item>
-        <!--<item name="materialButtonStyle">@style/BasicMaterialButton</item>-->
+        <item name="materialButtonStyle">@style/BasicMaterialButton</item>
     </style>
 
 </resources>

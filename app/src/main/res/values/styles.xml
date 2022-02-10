@@ -38,21 +38,21 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="BasicMaterialButton.Large">
+    <style name="LargeMaterialButton" parent="BasicMaterialButton">
         <item name="fontFamily">@font/sc_dream_6</item>
         <item name="android:textSize">17sp</item>
     </style>
 
-    <style name="BasicMaterialButton.Medium">
+    <style name="MediumMaterialButton" parent="BasicMaterialButton">
         <item name="fontFamily">@font/sc_dream_4</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="BasicMaterialButton.Small">
+    <style name="SmallMaterialButton" parent="BasicMaterialButton">
         <item name="fontFamily">@font/sc_dream_3</item>
         <item name="android:textSize">17sp</item>
     </style>
-
+    
     <!--EditText-->
     <style name="SingleLineEditText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/background_round_white</item>

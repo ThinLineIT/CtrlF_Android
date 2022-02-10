@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="issueDetailViewModel"
             type="com.thinlineit.ctrlf.issue.detail.IssueDetailViewModel" />
@@ -31,11 +32,11 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
+                    android:fontFamily="@font/sc_dream_7"
                     android:padding="8dp"
                     android:src="@drawable/icon_logo"
                     android:text='@{issueDetailViewModel.toolbarTitle}'
                     android:textSize="27.5sp"
-                    android:fontFamily="@font/sc_dream_7"
                     tools:text="@string/label_create_page" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -80,47 +81,38 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/detailButton"
+                style="@style/MediumMaterialButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:backgroundTint="@color/skyblue"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:text="@string/button_detail"
-                app:cornerRadius="10dp"
-                android:fontFamily="@font/sc_dream_4"
-                android:textSize="15sp"
                 app:layout_constraintLeft_toRightOf="@+id/buttonStartGuideline"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/issueLayout" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/approveButton"
+                style="@style/MediumMaterialButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="20dp"
-                android:backgroundTint="@color/skyblue"
+                android:layout_marginRight="10dp"
                 android:onClick="@{()->issueDetailViewModel.approveIssue()}"
                 android:text="@string/button_approve"
-                android:fontFamily="@font/sc_dream_4"
-                android:textSize="15sp"
-                app:cornerRadius="10dp"
                 app:layout_constraintLeft_toLeftOf="@id/buttonStartGuideline"
                 app:layout_constraintRight_toLeftOf="@+id/rejectButton"
                 app:layout_constraintTop_toBottomOf="@+id/detailButton" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/rejectButton"
+                style="@style/MediumMaterialButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:backgroundTint="@color/skyblue"
                 android:text="@string/button_reject"
-                android:fontFamily="@font/sc_dream_4"
-                android:textSize="15sp"
-                app:cornerRadius="10dp"
                 app:layout_constraintLeft_toRightOf="@+id/approveButton"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailButton" />
@@ -130,8 +122,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.4">
-            </androidx.constraintlayout.widget.Guideline>
+                app:layout_constraintGuide_percent="0.4"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

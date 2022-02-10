@@ -88,18 +88,15 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/duplicateNicknameBtn"
+                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/skyblue"
-                    android:fontFamily="@font/sc_dream_3"
                     android:onClick="@{()->viewModel.checkDuplicateNickname()}"
                     android:text="@string/button_duplicate"
-                    android:textSize="17sp"
-                    app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/regNickname"
                     app:layout_constraintTop_toBottomOf="@+id/regNameText" />

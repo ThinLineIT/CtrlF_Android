@@ -114,33 +114,27 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/resendCodeButton"
+                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="20dp"
-                    android:backgroundTint="@color/skyblue"
-                    android:fontFamily="@font/sc_dream_3"
                     android:onClick="@{()->viewModel.sendAuthEmail()}"
                     android:text="@string/button_resend_code"
-                    android:textSize="17sp"
-                    app:cornerRadius="10dp"
                     app:layout_constraintStart_toStartOf="@+id/codeFrameLayout"
                     app:layout_constraintTop_toBottomOf="@+id/regCodeText" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/confirmCodeBtn"
+                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/skyblue"
-                    android:fontFamily="@font/sc_dream_3"
                     android:onClick="@{()->viewModel.checkCodeValid()}"
                     android:text="@string/button_next_wide"
-                    android:textSize="17sp"
-                    app:cornerRadius="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/codeFrameLayout"
                     app:layout_constraintTop_toBottomOf="@+id/resendCodeButton" />

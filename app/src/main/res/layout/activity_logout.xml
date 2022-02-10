@@ -73,7 +73,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logoutBtn"
-            style="@style/BasicMaterialButton"
+            style="@style/LargeMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -86,11 +86,11 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancelBtn"
+            style="@style/LargeMaterialButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            style="@style/BasicMaterialButton.Large"
             android:text="@string/button_cancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
