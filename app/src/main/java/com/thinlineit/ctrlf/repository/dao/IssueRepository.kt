@@ -20,13 +20,10 @@ class IssueRepository {
         }
     }
 
-    suspend fun getIssueDetail(issueId: String): Issue {
-        return IssueService.retrofitService.detailIssue(issueId)
-    }
+    suspend fun getIssueDetail(issueId: String): Issue =
+        IssueService.retrofitService.detailIssue(issueId)
 
-    suspend fun getIssueCount(): Int {
-        return IssueService.retrofitService.issueCount().issuesCount
-    }
+    suspend fun getIssueCount(): Int = IssueService.retrofitService.issueCount().issuesCount
 
     suspend fun approveIssue(issueId: Int): Int {
         return try {
