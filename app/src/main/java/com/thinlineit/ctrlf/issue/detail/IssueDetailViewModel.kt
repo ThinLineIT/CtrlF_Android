@@ -50,7 +50,7 @@ class IssueDetailViewModel(
         viewModelScope.loadingLaunch {
             try {
                 _issue.value = issueRepository.getIssueDetail(issueId.toString())
-                issueTitle.postValue(issue.value!!.title)
+                issueTitle.postValue(issue.value?.title ?: "")
                 initToolbarTitle()
                 initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
             } catch (e: Exception) {
