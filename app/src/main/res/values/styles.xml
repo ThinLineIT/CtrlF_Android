@@ -38,18 +38,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="SmallMaterialButton" parent="BasicMaterialButton">
-        <item name="fontFamily">@font/sc_dream_3</item>
+    <style name="BasicMaterialButton.Large">
+        <item name="fontFamily">@font/sc_dream_6</item>
         <item name="android:textSize">17sp</item>
     </style>
 
-    <style name="MediumMaterialButton" parent="BasicMaterialButton">
+    <style name="BasicMaterialButton.Medium">
         <item name="fontFamily">@font/sc_dream_4</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="LargeMaterialButton" parent="android:Widget.Material.Button">
-        <item name="fontFamily">@font/sc_dream_6</item>
+    <style name="BasicMaterialButton.Small">
+        <item name="fontFamily">@font/sc_dream_3</item>
         <item name="android:textSize">17sp</item>
     </style>
 
@@ -66,14 +66,14 @@
         <item name="backgroundTint">@color/white</item>
     </style>
 
-    <style name="FloatingActionButton" parent="BasicButton">
+    <style name="BasicButton.FloatingAction">
         <item name="android:fontFamily">@font/font_sc_dream_5</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">18sp</item>
         <item name="background">@color/white</item>
     </style>
 
-    <style name="AddButton" parent="BasicButton">
+    <style name="BasicButton.Add">
         <item name="android:textColor">@color/light_dark_gray</item>
         <item name="textAllCaps">false</item>
         <item name="android:layout_margin">10dp</item>

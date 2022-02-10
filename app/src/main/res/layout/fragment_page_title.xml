@@ -87,7 +87,7 @@
 
         <Button
             android:id="@+id/addPageBtn"
-            style="@style/AddButton"
+            style="@style/BasicButton.Add"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="@string/button_add_page"

@@ -122,7 +122,7 @@
 
                     <Button
                         android:id="@+id/shareButton"
-                        style="@style/FloatingActionButton"
+                        style="@style/BasicButton.FloatingAction"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:drawableLeft="@drawable/icon_back_button"
@@ -130,14 +130,14 @@
 
                     <Button
                         android:id="@+id/relatedIssueButton"
-                        style="@style/FloatingActionButton"
+                        style="@style/BasicButton.FloatingAction"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:text="@string/button_related_issue" />
 
                     <Button
                         android:id="@+id/bookMarkButton"
-                        style="@style/FloatingActionButton"
+                        style="@style/BasicButton.FloatingAction"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:drawableLeft="@drawable/icon_bookmark"
@@ -145,7 +145,7 @@
 
                     <Button
                         android:id="@+id/editButton"
-                        style="@style/FloatingActionButton"
+                        style="@style/BasicButton.FloatingAction"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:drawableLeft="@drawable/icon_edit"
