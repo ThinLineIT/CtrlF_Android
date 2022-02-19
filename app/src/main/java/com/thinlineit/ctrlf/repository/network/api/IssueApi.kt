@@ -29,6 +29,6 @@ interface IssueApi {
         @Body body: IssueApproveRequest
     ): Response<Void>
 
-    @GET("issues/issue-count/")
+    @GET("issues/count/")
     suspend fun issueCount(): IssueCountResponse
 }
