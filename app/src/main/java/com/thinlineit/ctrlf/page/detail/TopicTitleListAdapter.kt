@@ -17,14 +17,9 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
     BindingRecyclerViewAdapter<List<Topic>> {
     var topicList = emptyList<Topic>()
 
-    interface SwipeBtnClickListener {
-        fun onUpdate(topicId: Int)
-        fun onDelete(topicId: Int)
-    }
+    private lateinit var swipeBtnClickListener: SwipeButtonClickListener
 
-    private lateinit var swipeBtnClickListener: SwipeBtnClickListener
-
-    fun setSwipeBtnClickListener(swipeBtnClickListener: SwipeBtnClickListener) {
+    fun setSwipeBtnClickListener(swipeBtnClickListener: SwipeButtonClickListener) {
         this.swipeBtnClickListener = swipeBtnClickListener
     }
 
@@ -43,7 +38,7 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
         fun bind(
             topic: Topic,
             clickListener: (Topic) -> Unit,
-            mSwipeBtnClickListener: SwipeBtnClickListener
+            mSwipeBtnClickListener: SwipeButtonClickListener
         ) {
             val resourceId = when (topic.isApproved) {
                 true -> R.color.white
@@ -59,11 +54,11 @@ class TopicTitleListAdapter(private val clickListener: (Topic) -> Unit) :
                     mSwipeBtnClickListener.onUpdate(topic.id)
                 }
                 topicTitleDeleteButton.setOnClickListener {
-                    // TODO: make issue delete this topic
                     mSwipeBtnClickListener.onDelete(topic.id)
                 }
             }
         }
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

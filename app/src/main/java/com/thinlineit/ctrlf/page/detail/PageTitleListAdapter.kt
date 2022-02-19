@@ -15,8 +15,12 @@ import com.thinlineit.ctrlf.util.BindingRecyclerViewAdapter
 class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
     RecyclerView.Adapter<PageTitleListAdapter.ViewHolder>(),
     BindingRecyclerViewAdapter<List<Page>> {
-
+    private lateinit var swipeButtonClickListener: SwipeButtonClickListener
     private var pageList = emptyList<Page>()
+
+    fun setSwipeButtonClickListener(swipeBtnClickListener: SwipeButtonClickListener) {
+        this.swipeButtonClickListener = swipeBtnClickListener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.from(parent)
@@ -25,12 +29,16 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val pageDao = pageList[position]
-        holder.bind(pageDao, clickListener)
+        holder.bind(pageDao, clickListener, swipeButtonClickListener)
     }
 
     class ViewHolder(private val dataBinding: ListItemPageTitleBinding) :
         RecyclerView.ViewHolder(dataBinding.root), SwipeInterface {
-        fun bind(page: Page, clickListener: (Page) -> Unit) {
+        fun bind(
+            page: Page,
+            clickListener: (Page) -> Unit,
+            mSwipeButtonClickListener: SwipeButtonClickListener
+        ) {
             val resourceId = when (page.isApproved) {
                 true -> R.color.white
                 else -> R.color.gray
@@ -40,6 +48,9 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
                 this.page = page
                 root.setOnClickListener {
                     clickListener(page)
+                }
+                pageTitleDeleteButton.setOnClickListener {
+                    mSwipeButtonClickListener.onDelete(page.id)
                 }
             }
         }

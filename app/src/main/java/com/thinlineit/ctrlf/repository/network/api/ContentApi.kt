@@ -5,18 +5,25 @@ import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.NoteDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.PageDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.TopicDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.response.ImageUploadResponse
+import com.thinlineit.ctrlf.repository.dto.response.NoteDeleteResponse
 import com.thinlineit.ctrlf.repository.dto.response.NoteUpdateResponse
+import com.thinlineit.ctrlf.repository.dto.response.PageDeleteResponse
+import com.thinlineit.ctrlf.repository.dto.response.TopicDeleteResponse
 import com.thinlineit.ctrlf.repository.dto.response.TopicUpdateResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -111,4 +118,25 @@ interface ContentApi {
         @Path("page_id") pageId: Int,
         @Body request: PageUpdateRequest
     )
+
+    @HTTP(method = "DELETE", path = "pages/{page_id}/", hasBody = true)
+    suspend fun deletePage(
+        @Header("Authorization") Authorization: String,
+        @Path("page_id") pageId: Int,
+        @Body request: PageDeleteRequest
+    ): PageDeleteResponse
+
+    @HTTP(method = "DELETE", path = "notes/{note_id}/", hasBody = true)
+    suspend fun deleteNote(
+        @Header("Authorization") Authorization: String,
+        @Path("note_id") noteId: Int,
+        @Body request: NoteDeleteRequest
+    ): NoteDeleteResponse
+
+    @HTTP(method = "DELETE", path = "topics/{topic_id}/", hasBody = true)
+    suspend fun deleteTopic(
+        @Header("Authorization") Authorization: String,
+        @Path("topic_id") topicId: Int,
+        @Body request: TopicDeleteRequest
+    ): TopicDeleteResponse
 }
