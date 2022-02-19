@@ -16,10 +16,10 @@
         android:background="@android:color/transparent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,24 +76,24 @@
                     android:layout_width="70dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:backgroundTint="@color/skyblue"
                     android:fontFamily="@font/sc_dream_4"
                     android:text="@string/button_dialog_cancel"
                     app:cornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/createDialogReason"
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/createDialogButton"
                     android:layout_width="70dp"
                     android:layout_height="40dp"
-                    android:layout_margin="10dp"
+                    android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/skyblue"
                     android:fontFamily="@font/sc_dream_4"
                     android:text="@string/button_dialog_confirm"
                     app:cornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/cancelDialogButton"
                     app:layout_constraintEnd_toStartOf="@id/cancelDialogButton" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

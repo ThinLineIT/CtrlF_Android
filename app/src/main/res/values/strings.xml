@@ -44,7 +44,7 @@
     <string name="label_user_circle_button">userCircleBtn</string>
     <string name="button_show_all_note">전체보기 ></string>
     <string name="notice_nickname_valid_condition">닉네임은 2~10자, 공백이나 특수문자는 허용하지 않습니다.</string>
-    <string name="notice_password_valid_condition">비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상 조합하여 8~20자이내로 입력해주세요.</string>
+    <string name="notice_password_valid_condition">"비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상 \n조합하여 8~20자이내로 입력해주세요."</string>
     <string name="notice_enter_code">코드를 입력하세요.</string>
     <string name="notice_check_code">코드를 확인해주세요.</string>
     <string name="notice_code_is_not_valid">코드가 일치하지 않습니다.</string>
@@ -104,7 +104,7 @@
     <string name="label_add_page">"add page"</string>
     <string name="label_edit_page">"edit page"</string>
     <string name="button_share">공유하기</string>
-    <string name="button_related_issue">관련된이슈</string>
+    <string name="button_related_issue">관련이슈</string>
     <string name="button_bookmark">북마크</string>
     <string name="button_do_edit">수정하기</string>
     <string name="button_editor_header">H</string>
@@ -145,6 +145,7 @@
 
     <string name="notice_complete_approve">승인이 완료되었습니다.</string>
     <string name="notice_non_authority">승인 권한이 없습니다.</string>
+    <string name="notice_issue_non_exist">현재 확인 가능한 이슈가 없습니다.</string>
 
     <string name="format_timer">%02d</string>
 

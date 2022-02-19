@@ -30,6 +30,8 @@ class MainViewModel(
     val fragmentList: LiveData<List<Fragment>>
         get() = _fragmentList
 
+    val issueCount = MutableLiveData<Int>()
+
     val notes: LiveData<List<Note>> = Transformations.map(noteList) { it.notes }
 
     var cursor: Int = 0
@@ -62,6 +64,15 @@ class MainViewModel(
         viewModelScope.loadingLaunch {
             try {
                 _issueList.value = issueRepository.loadIssueList()
+            } catch (e: Exception) {
+            }
+        }
+    }
+
+    fun loadIssueCount() {
+        viewModelScope.loadingLaunch {
+            try {
+                issueCount.value = issueRepository.getIssueCount()
             } catch (e: Exception) {
             }
         }

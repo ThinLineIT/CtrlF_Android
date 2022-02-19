@@ -3,6 +3,7 @@ package com.thinlineit.ctrlf.repository.network.api
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.IssueList
 import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
+import com.thinlineit.ctrlf.repository.dto.response.IssueCountResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -27,4 +28,7 @@ interface IssueApi {
         @Header("Authorization") Authorization: String,
         @Body body: IssueApproveRequest
     ): Response<Void>
+
+    @GET("issues/count/")
+    suspend fun issueCount(): IssueCountResponse
 }
