@@ -120,36 +120,53 @@
                     app:layout_constraintBottom_toTopOf="@id/fabButton"
                     app:layout_constraintEnd_toEndOf="@id/fabButton">
 
-                    <Button
-                        android:id="@+id/shareButton"
-                        style="@style/BasicButton.FloatingAction"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:drawableLeft="@drawable/icon_back_button"
-                        android:text="@string/button_share" />
+                <Button
+                    android:id="@+id/shareButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_share"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_share"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
 
-                    <Button
-                        android:id="@+id/relatedIssueButton"
-                        style="@style/BasicButton.FloatingAction"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:text="@string/button_related_issue" />
+                <Button
+                    android:id="@+id/relatedIssueButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_issue"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_related_issue"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
 
-                    <Button
-                        android:id="@+id/bookMarkButton"
-                        style="@style/BasicButton.FloatingAction"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:drawableLeft="@drawable/icon_bookmark"
-                        android:text="@string/button_bookmark" />
+                <Button
+                    android:id="@+id/bookMarkButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_bookmark"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_bookmark"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
 
-                    <Button
-                        android:id="@+id/editButton"
-                        style="@style/BasicButton.FloatingAction"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:drawableLeft="@drawable/icon_edit"
-                        android:text="@string/button_do_edit" />
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_edit"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_do_edit"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

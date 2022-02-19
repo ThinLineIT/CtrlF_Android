@@ -38,6 +38,8 @@ class MainNoteAdapter(private val clickListener: (Int) -> Unit) :
                 noteItemImage.setImageResource(noteResourceId)
                 if (!note.isApproved) {
                     noteItemImage.setColorFilter(R.color.light_gray, PorterDuff.Mode.DARKEN)
+                } else {
+                    noteItemImage.colorFilter = null
                 }
                 this.note = note
                 root.setOnClickListener {
