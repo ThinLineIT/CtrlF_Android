@@ -39,28 +39,24 @@
             app:layout_constraintTop_toBottomOf="@+id/noteTextTopGuideline">
 
             <TextView
+                style="@style/LargeTextView"
                 android:id="@+id/noteText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/sc_dream_7"
+                android:layout_marginStart="20dp"
                 android:text="@string/label_note"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/MediumTextView"
                 android:id="@+id/showAllNoteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="12dp"
-                android:fontFamily="@font/sc_dream_3"
+                android:layout_marginEnd="12dp"
                 android:text="@string/button_show_all_note"
-                android:textColor="@color/black"
-                android:textSize="22.5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -96,28 +92,25 @@
             app:layout_constraintTop_toBottomOf="@+id/issueTextTopGuideline">
 
             <TextView
+                style="@style/LargeTextView"
                 android:id="@+id/issueText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/sc_dream_7"
+                android:layout_marginStart="20dp"
                 android:text="@string/label_issue"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="40sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/MediumTextView"
                 android:id="@+id/showAllIssueTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_show_all_note"
-                android:textColor="@color/black"
-                android:textSize="22.5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

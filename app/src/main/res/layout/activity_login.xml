@@ -15,10 +15,9 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_graphpaper"
         tools:context=".registration.signin.LoginActivity">
-
         <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -54,8 +53,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:text="@string/label_login"
-                    android:textColor="@color/black"
-                    android:textSize="30sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -92,15 +89,13 @@
 
                 <TextView
                     android:id="@+id/loginText"
+                    style="@style/WarningHintTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:fontFamily="@font/sc_dream_4"
                     android:text="@{viewModel.loginMessage}"
-                    android:textColor="@color/red"
-                    android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/loginPassword"
                     app:layout_constraintTop_toBottomOf="@+id/loginPassword"
@@ -112,13 +107,12 @@
             android:id="@+id/loginButton"
             style="@style/LargeMaterialButton"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
             android:onClick="@{() -> viewModel.checkLogin()}"
             android:text="@string/button_login"
-            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="@id/loginCardView"
             app:layout_constraintStart_toStartOf="@+id/loginCardView"
             app:layout_constraintTop_toBottomOf="@+id/loginCardView" />

@@ -29,6 +29,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            tools:text="NoteTitle"
+            style="@style/LargeTextView"
             android:id="@+id/noteTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -89,10 +91,8 @@
                 android:id="@+id/updateNoteTitleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sc_dream_3"
                 android:gravity="center"
                 android:text="@string/button_dialog_modify"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/noteTitleTextBoxStart" />
@@ -111,10 +111,8 @@
                 android:id="@+id/deleteNoteBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/sc_dream_3"
                 android:gravity="center"
                 android:text="@string/button_dialog_delete"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/noteTitleTextBoxEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -137,7 +135,7 @@
 
         <Button
             android:id="@+id/addTopicBtn"
-            style="@style/BasicButton.Add"
+            style="@style/AddButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="@string/button_add_topic"

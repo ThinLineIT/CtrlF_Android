@@ -47,7 +47,7 @@
 
                 <TextView
                     android:id="@+id/accountText"
-                    style="@style/RegistrationTextView"
+                    style="@style/MediumTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -65,7 +65,6 @@
                     android:layout_marginEnd="20dp"
                     style="@style/SingleLineEditText"
                     android:hint="@string/hint_nickname"
-                    android:paddingStart="10dp"
                     android:text="@={viewModel.nickName}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,22 +72,20 @@
                     app:onEditorActionListener="@{viewModel.nicknameInvoke}" />
 
                 <TextView
+                    style="@style/WarningHintTextView"
                     android:id="@+id/regNameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sc_dream_3"
                     android:text="@{viewModel.nicknameMessage}"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/regNickname"
                     app:layout_constraintTop_toBottomOf="@+id/regNickname"
                     tools:text="@string/label_duplicate_nickname" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
                     android:id="@+id/duplicateNicknameBtn"
-                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginStart="20dp"

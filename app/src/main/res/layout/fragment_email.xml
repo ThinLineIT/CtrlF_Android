@@ -35,7 +35,7 @@
 
                 <TextView
                     android:id="@+id/accountText"
-                    style="@style/RegistrationTextView"
+                    style="@style/MediumTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -74,22 +74,20 @@
                     app:onEditorActionListener="@{viewModel.emailInvoke}" />
 
                 <TextView
+                    style="@style/WarningHintTextView"
                     android:id="@+id/regEmailText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/sc_dream_3"
                     android:text="@{viewModel.emailMessage}"
-                    android:textColor="@color/red"
-                    android:textSize="12sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/regEmail"
                     app:layout_constraintTop_toBottomOf="@+id/regEmail"
                     tools:text="@string/notice_email_code_check" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
                     android:id="@+id/emailConfirmBtn"
-                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginStart="20dp"

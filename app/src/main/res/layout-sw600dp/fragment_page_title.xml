@@ -37,32 +37,31 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    style="@style/LargeTextView"
+                    tools:text="NoteTitle"
                     android:id="@+id/noteTitleInPageList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:fontFamily="@font/sc_dream_7"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
                     android:text="@{pageViewModel.note.title}"
-                    android:textColor="@color/black"
                     android:textSize="46sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    style="@style/MediumTextView"
+                    tools:text="TopicTitle"
                     android:id="@+id/topicTitleInPageList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:ellipsize="marquee"
-                    android:fontFamily="@font/sc_dream_4"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
                     android:text="@{pageViewModel.topic.title}"
-                    android:textColor="@color/black"
-                    android:textSize="40sp"
+                    android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/noteTitleInPageList" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,7 +88,7 @@
 
         <Button
             android:id="@+id/addPageBtn"
-            style="@style/BasicButton.Add"
+            style="@style/AddButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="@string/button_add_page"

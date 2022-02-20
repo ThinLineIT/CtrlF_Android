@@ -36,21 +36,20 @@
 
                 <TextView
                     android:id="@+id/accountText"
-                    style="@style/LargeTextView"
+                    style="@style/MediumTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:lineSpacingExtra="5dp"
                     android:text="@string/notice_confirm_go_back_to_email"
                     android:textAlignment="center"
-                    android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
                     android:id="@+id/backBtn"
-                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="20dp"
@@ -62,8 +61,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/accountText" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
                     android:id="@+id/cancelBtn"
-                    style="@style/SmallMaterialButton"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginStart="20dp"

@@ -23,28 +23,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/LargeTextView"
             android:id="@+id/ideaText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sc_dream_2"
             android:text="@string/label_current_collected_idea"
-            android:textColor="@color/black"
-            android:textSize="38.5sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/LargeTextView"
             android:id="@+id/ideaCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/sc_dream_6"
             android:gravity="center"
             android:text="@{viewModel.issueCount}"
-            android:textColor="@color/black"
             android:textSize="90sp"
-            android:textStyle="bold"
+            tools:text="33"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ideaText" />

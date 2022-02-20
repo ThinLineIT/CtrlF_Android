@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="issueViewModel"
             type="com.thinlineit.ctrlf.issue.list.IssueListViewModel" />

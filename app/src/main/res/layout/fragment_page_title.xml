@@ -37,32 +37,31 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    style="@style/LargeTextView"
                     android:id="@+id/noteTitleInPageList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:fontFamily="@font/sc_dream_7"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
                     android:text="@{pageViewModel.note.title}"
-                    android:textColor="@color/black"
+                    tools:text="NoteName"
                     android:textSize="46sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@id/topicTitleInPageList"
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
+                    style="@style/MediumTextView"
                     android:id="@+id/topicTitleInPageList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:ellipsize="marquee"
-                    android:fontFamily="@font/sc_dream_4"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
+                    android:textSize="30sp"
                     android:text="@{pageViewModel.topic.title}"
-                    android:textColor="@color/black"
-                    android:textSize="40sp"
+                    tools:text="TopicName"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/noteTitleInPageList" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -85,9 +84,10 @@
             app:layout_constraintTop_toBottomOf="@+id/topicInfo"
             tools:listitem="@layout/list_item_page_title" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/addPageBtn"
-            style="@style/BasicButton.Add"
+            style="@style/AddButton"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:text="@string/button_add_page"

@@ -136,12 +136,12 @@
     <string name="label_delete_topic">Delete Topic</string>
     <string name="label_delete_page">Delete Page</string>
 
-    <string name="label_page_title">PAGE TITLE</string>
+    <string name="label_page_title">Page Title</string>
     <string name="label_issue_content">Issue Content</string>
 
     <string name="button_approve">승인</string>
     <string name="button_reject">미승인</string>
-    <string name="button_detail">자세히 보러 가기 -></string>
+    <string name="button_detail">자세히 보러 가기 →</string>
 
     <string name="notice_complete_approve">승인이 완료되었습니다.</string>
     <string name="notice_non_authority">승인 권한이 없습니다.</string>
