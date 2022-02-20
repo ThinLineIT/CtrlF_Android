@@ -5,7 +5,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.util.CustomDialog
 
 class NoteDeleteClickListener(
-    val context: Context,
+    private val context: Context,
     private val pageViewModel: PageViewModel
 ) {
     private var curDialog: CustomDialog? = null

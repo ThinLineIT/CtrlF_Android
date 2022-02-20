@@ -33,7 +33,10 @@ class TopicTitleListFragment : Fragment() {
             lifecycleOwner = this@TopicTitleListFragment
             topicListRecyclerView.adapter = topicTitleListAdapter.apply {
                 setSwipeBtnClickListener(
-                    TopicTitleSwipeButtonClickListener(requireContext(), pageViewModel)
+                    TopicTitleSwipeButtonClickListener(
+                        requireContext(),
+                        this@TopicTitleListFragment.pageViewModel
+                    )
                 )
             }
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
@@ -59,7 +62,10 @@ class TopicTitleListFragment : Fragment() {
             }
 
             deleteNoteBtn.setOnClickListener {
-                NoteDeleteClickListener(requireContext(), pageViewModel).onDelete()
+                NoteDeleteClickListener(
+                    requireContext(),
+                    this@TopicTitleListFragment.pageViewModel
+                ).onDelete()
             }
 
             addTopicBtn.setOnClickListener { _ ->

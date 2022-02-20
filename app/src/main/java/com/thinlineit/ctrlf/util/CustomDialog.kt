@@ -110,8 +110,4 @@ class CustomDialog(
     enum class Gravity {
         CENTER, END
     }
-
-    interface DialogButtonClickListener {
-        fun onClick(title: String, contentText: String)
-    }
 }

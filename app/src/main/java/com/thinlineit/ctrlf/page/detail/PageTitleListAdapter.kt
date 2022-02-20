@@ -18,8 +18,8 @@ class PageTitleListAdapter(private val clickListener: (Page) -> Unit) :
     private lateinit var swipeButtonClickListener: SwipeButtonClickListener
     private var pageList = emptyList<Page>()
 
-    fun setSwipeButtonClickListener(swipeBtnClickListener: SwipeButtonClickListener) {
-        this.swipeButtonClickListener = swipeBtnClickListener
+    fun setSwipeButtonClickListener(swipeButtonClickListener: SwipeButtonClickListener) {
+        this.swipeButtonClickListener = swipeButtonClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =

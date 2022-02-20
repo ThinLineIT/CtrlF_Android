@@ -5,7 +5,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.util.CustomDialog
 
 class PageTitleSwipeButtonClickListener(
-    val context: Context,
+    private val context: Context,
     private val pageViewModel: PageViewModel
 ) : SwipeButtonClickListener {
     private var curDialog: CustomDialog? = null
