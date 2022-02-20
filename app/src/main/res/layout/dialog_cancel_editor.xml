@@ -21,34 +21,33 @@
             android:layout_height="wrap_content">
 
             <TextView
+<<<<<<< HEAD
                 android:id="@+id/dialogBodyText"
+=======
+                android:id="@+id/cancelText"
+                style="@style/MediumTextView"
+>>>>>>> dev
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="15dp"
-                android:fontFamily="@font/sc_dream_4"
                 android:padding="10dp"
                 android:text="@string/label_cancel_create_issue"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancelButton"
+                style="@style/MediumMaterialButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/skyblue"
-                android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_back_to_page"
-                android:textSize="10sp"
-                app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/confirmButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,16 +55,13 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirmButton"
+                style="@style/MediumMaterialButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/skyblue"
-                android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_cancel_page"
-                android:textSize="10sp"
-                app:cornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cancelButton"

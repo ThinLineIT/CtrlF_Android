@@ -91,7 +91,7 @@ class CustomDialog(
             cancelButton.visibility = View.GONE
         }
 
-        // page editor 에서 사용 
+        // page editor 에서 사용
 //        when (buttonGravity) {
 //            Gravity.CENTER -> {
 //                val constraintSet= ConstraintSet()

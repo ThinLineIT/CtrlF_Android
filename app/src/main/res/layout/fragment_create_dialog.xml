@@ -32,47 +32,50 @@
 
                 <TextView
                     android:id="@+id/createDialog"
+                    style="@style/LargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:text="@string/hint_dialog_note_title"
-                    android:textSize="30sp"
-                    android:fontFamily="@font/sc_dream_6"
-                    android:textColor="@color/black"
-                    />
+                    android:textSize="34.5sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/createDialogTitle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    android:padding="10dp"
-                    android:maxLines="1"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/background_round_shadow"
-                    app:layout_constraintTop_toBottomOf="@id/createDialog"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/createDialog" />
 
                 <EditText
                     android:id="@+id/createDialogReason"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="20dp"
-                    android:padding="10dp"
-                    android:hint="@string/hint_dialog_content"
-                    android:elevation="10dp"
                     android:background="@drawable/background_round_shadow"
-                    app:layout_constraintTop_toBottomOf="@id/createDialogTitle"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:hint="@string/hint_dialog_content"
+                    android:padding="10dp"
+                    android:textSize="17.5sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@id/createDialogTitle" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/cancelDialogButton"
+                    style="@style/MediumMaterialButton"
                     android:layout_width="70dp"
                     android:layout_height="40dp"
                     android:layout_marginRight="20dp"
@@ -86,6 +89,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/createDialogButton"
+                    style="@style/MediumMaterialButton"
                     android:layout_width="70dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="10dp"

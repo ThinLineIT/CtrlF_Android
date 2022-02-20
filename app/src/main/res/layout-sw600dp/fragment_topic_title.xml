@@ -29,6 +29,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            tools:text="NoteTitle"
+            style="@style/LargeTextView"
             android:id="@+id/noteTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +41,7 @@
             android:singleLine="true"
             android:text="@{pageViewModel.note.title}"
             android:textColor="@color/black"
-            android:textSize="33sp"
+            android:textSize="48sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/noteInfo"
             app:layout_constraintEnd_toStartOf="@id/seeMoreBoxOfNoteBtn"
@@ -81,18 +83,16 @@
             android:layout_height="70dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/icon_note_title_textbox"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/seeMoreBoxOfNoteBtn"
-            app:layout_constraintTop_toBottomOf="@id/seeMoreBoxOfNoteBtn"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@id/seeMoreBoxOfNoteBtn">
 
             <TextView
                 android:id="@+id/updateNoteTitleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_dialog_modify"
-                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/noteTitleTextBoxStart" />
@@ -112,9 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:fontFamily="@font/sc_dream_3"
                 android:text="@string/button_dialog_delete"
-                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="@id/noteTitleTextBoxEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -137,16 +135,12 @@
 
         <Button
             android:id="@+id/addTopicBtn"
+            style="@style/AddButton"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/white"
             android:text="@string/button_add_topic"
-            android:textAllCaps="false"
-            android:textColor="@color/light_dark_gray"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/topicListRecyclerView"
-            app:layout_constraintVertical_weight="1" />
+            app:layout_constraintTop_toBottomOf="@id/topicListRecyclerView" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topicListRecyclerViewTopGuideline"
