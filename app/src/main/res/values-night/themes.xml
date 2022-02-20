@@ -5,12 +5,20 @@
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/black</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_200</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/BasicTextView</item>
+        <item name="android:toolbarStyle">@style/BasicToolBar</item>
+        <item name="android:button">@style/BasicButton</item>
+        <item name="android:editTextStyle">@style/BasicEditText</item>
+        <item name="materialButtonStyle">@style/BasicMaterialButton</item>
     </style>
 </resources>

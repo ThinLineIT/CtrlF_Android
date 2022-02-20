@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
@@ -20,10 +19,6 @@
             android:id="@+id/toolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:layout_constraintBottom_toTopOf="@id/scrollview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,20 +32,19 @@
                 android:src="@drawable/icon_back_button" />
 
             <TextView
+                style="@style/LargeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/font_sc_dream_7"
                 android:text="@{viewModel.headerText}"
-                android:textColor="@color/black"
-                android:textSize="20dp"
                 tools:text="add page" />
 
             <TextView
+                style="@style/MediumTextView"
                 android:id="@+id/confirmButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginEnd="7dp"
                 android:onClick="@{()->viewModel.complete()}"
                 android:text="@string/button_confirm"
@@ -72,25 +66,24 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/MediumTextView"
                     android:id="@+id/topicText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/background_round_onlyright_purple"
                     android:elevation="5dp"
-                    android:fontFamily="@font/sc_dream_5"
                     android:maxLines="1"
                     android:paddingStart="50dp"
                     android:paddingEnd="20dp"
                     android:text="@{viewModel.topicTitleStr}"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/toolBar"
                     tools:text="@string/label_topic" />
 
                 <EditText
+                    style="@style/MediumTextView"
                     android:id="@+id/pageText"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -98,21 +91,18 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/background_round_white"
-                    android:fontFamily="@font/sc_dream_5"
                     android:hint="@string/label_page"
                     android:paddingStart="10dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="5dp"
                     android:singleLine="true"
                     android:text="@={viewModel.pageTitle}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/topicText"
                     app:layout_constraintTop_toBottomOf="@+id/topicText" />
 
                 <EditText
                     android:id="@+id/summary"
+                    android:gravity="top"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginStart="20dp"
@@ -120,18 +110,16 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/background_round_white"
                     android:elevation="5dp"
-                    android:fontFamily="@font/sc_dream_5"
                     android:hint="@{viewModel.summaryHint}"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
                     android:overScrollMode="always"
-                    android:paddingStart="8dp"
                     android:scrollbarStyle="insideInset"
                     android:scrollbars="vertical"
                     android:scrollHorizontally="false"
                     android:text="@={viewModel.summary}"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:padding="10dp"
+                    tools:hint="내용 요약"
                     app:layout_constraintTop_toBottomOf="@+id/pageText" />
 
                 <com.google.android.material.tabs.TabLayout

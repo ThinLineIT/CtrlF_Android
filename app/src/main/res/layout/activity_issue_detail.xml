@@ -32,6 +32,7 @@
 
                 <TextView
                     android:id="@+id/toolBarTitle"
+                    style="@style/LargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
@@ -39,7 +40,6 @@
                     android:padding="8dp"
                     android:src="@drawable/icon_logo"
                     android:text='@{issueDetailViewModel.toolbarTitle}'
-                    android:textSize="30sp"
                     tools:text="@string/label_create_page" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -59,11 +59,11 @@
 
                 <TextView
                     android:id="@+id/typeTitle"
+                    style="@style/LargeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{issueDetailViewModel.issueTitle}"
                     android:textColor="@color/skyblue"
-                    android:textSize="25sp"
                     android:paddingStart="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -109,14 +109,13 @@
                     app:layout_constraintEnd_toEndOf="@id/guideButton"
                     app:layout_constraintStart_toStartOf="@id/guideButton"
                     app:layout_constraintTop_toBottomOf="@id/issueContent" />
-                
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/approveButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="@color/skyblue"
-                    app:cornerRadius="10dp"
                     android:onClick="@{()->issueDetailViewModel.approveIssue()}"
                     android:text="@string/button_approve"
                     app:layout_constraintStart_toStartOf="@id/guideButton"
@@ -128,7 +127,6 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/skyblue"
                     android:text="@string/button_reject"
-                    app:cornerRadius="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailButton" />
 
