@@ -20,8 +20,7 @@ import kotlinx.coroutines.withContext
 class PageViewModel(
     private val pageRepository: ContentRepository = ContentRepository()
 ) : BaseViewModel() {
-
-    private val curNoteId = MutableLiveData<Int>()
+    val curNoteId = MutableLiveData<Int>()
     private val curTopicId = MutableLiveData<Int>()
     private val curPageIdAndVersionNo = MutableLiveData<Pair<Int, Int>>()
     private val _isRightPaneOpen = MutableLiveData<Boolean>(false)
@@ -145,6 +144,24 @@ class PageViewModel(
         val noteId = curNoteId.value ?: return
         viewModelScope.launch {
             pageRepository.updateNote(noteId, newNoteTitle, reason)
+        }
+    }
+
+    fun deletePage(reason: String, pageId: Int) {
+        viewModelScope.launch {
+            pageRepository.deletePage(pageId, reason)
+        }
+    }
+
+    fun deleteTopic(reason: String, topicId: Int) {
+        viewModelScope.launch {
+            pageRepository.deleteTopic(topicId, reason)
+        }
+    }
+
+    fun deleteNote(reason: String, noteId: Int) {
+        viewModelScope.launch {
+            pageRepository.deleteNote(noteId, reason)
         }
     }
 

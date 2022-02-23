@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -32,29 +31,14 @@ class TopicTitleListFragment : Fragment() {
         ).apply {
             this.pageViewModel = this@TopicTitleListFragment.pageViewModel
             lifecycleOwner = this@TopicTitleListFragment
-            topicTitleListAdapter.setSwipeBtnClickListener(
-                object : TopicTitleListAdapter.SwipeBtnClickListener {
-                    override fun onUpdate(topicId: Int) {
-                        context?.let {
-                            CreateDialog(
-                                it,
-                                resources.getString(R.string.hint_dialog_topic_title_modify),
-                                resources.getString(R.string.hint_dialog_topic_title_hint_modify)
-                            ) { title, reason ->
-                                pageViewModel?.updateTopic(topicId, title, reason)
-                            }.openDialog()
-                        }
-                    }
-
-                    override fun onDelete(topicId: Int) {
-                        // TODO: make issue delete this topic
-                        Toast.makeText(
-                            context,
-                            R.string.notice_service_prepare, Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
-            topicListRecyclerView.adapter = topicTitleListAdapter
+            topicListRecyclerView.adapter = topicTitleListAdapter.apply {
+                setSwipeBtnClickListener(
+                    TopicTitleSwipeButtonClickListener(
+                        requireContext(),
+                        this@TopicTitleListFragment.pageViewModel
+                    )
+                )
+            }
             itemTouchHelper.attachToRecyclerView(topicListRecyclerView)
             topicListRecyclerView.layoutManager =
                 LinearLayoutManager(this@TopicTitleListFragment.context)
@@ -72,14 +56,16 @@ class TopicTitleListFragment : Fragment() {
                         resources.getString(R.string.hint_dialog_note_title_modify),
                         resources.getString(R.string.hint_dialog_note_title_hint_modify)
                     ) { title, reason ->
-                        pageViewModel?.updateNote(title, reason)
+                        this@TopicTitleListFragment.pageViewModel.updateNote(title, reason)
                     }.openDialog()
                 }
             }
 
             deleteNoteBtn.setOnClickListener {
-                // TODO: make issue delete this note
-                Toast.makeText(context, R.string.notice_service_prepare, Toast.LENGTH_SHORT).show()
+                NoteDeleteClickListener(
+                    requireContext(),
+                    this@TopicTitleListFragment.pageViewModel
+                ).onDelete()
             }
 
             addTopicBtn.setOnClickListener { _ ->
@@ -89,7 +75,7 @@ class TopicTitleListFragment : Fragment() {
                         resources.getString(R.string.hint_dialog_topic_title),
                         resources.getString(R.string.hint_dialog_topic_title_hint)
                     ) { title, reason ->
-                        pageViewModel?.createTopic(title, reason)
+                        this@TopicTitleListFragment.pageViewModel.createTopic(title, reason)
                     }.openDialog()
                 }
             }

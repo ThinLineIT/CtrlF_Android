@@ -37,6 +37,12 @@ class PageTitleListFragment : Fragment() {
             itemTouchHelper.attachToRecyclerView(pageListRecyclerView)
             pageListRecyclerView.layoutManager =
                 LinearLayoutManager(this@PageTitleListFragment.context)
+            pageTitleListAdapter.setSwipeButtonClickListener(
+                PageTitleSwipeButtonClickListener(
+                    requireContext(),
+                    this@PageTitleListFragment.pageViewModel
+                )
+            )
         }
 
         binding.addPageBtn.setOnClickListener {

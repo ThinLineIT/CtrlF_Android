@@ -6,10 +6,13 @@ import com.thinlineit.ctrlf.entity.NoteList
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.entity.Topic
 import com.thinlineit.ctrlf.repository.dto.request.NoteCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.NoteDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.NoteUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.PageDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.PageUpdateRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicCreateRequest
+import com.thinlineit.ctrlf.repository.dto.request.TopicDeleteRequest
 import com.thinlineit.ctrlf.repository.dto.request.TopicUpdateRequest
 import com.thinlineit.ctrlf.repository.network.ContentService
 import com.thinlineit.ctrlf.util.Application
@@ -156,6 +159,64 @@ class ContentRepository {
             )
             true
         } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deletePage(
+        pageId: Int,
+        reason: String
+    ): Boolean {
+        return try {
+            ContentService.retrofitService.deletePage(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                pageId,
+                PageDeleteRequest(reason)
+            )
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deleteTopic(
+        topicId: Int,
+        reason: String
+    ): Boolean {
+        return try {
+            ContentService.retrofitService.deleteTopic(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                topicId,
+                TopicDeleteRequest(reason)
+            )
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun deleteNote(
+        noteId: Int,
+        reason: String
+    ): Boolean {
+        return try {
+            ContentService.retrofitService.deleteNote(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                noteId,
+                NoteDeleteRequest(reason)
+            )
+            true
+        } catch (e: Exception) {
+            println(e)
             false
         }
     }
