@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +15,7 @@ import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.page.detail.PageActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.Status
+import com.thinlineit.ctrlf.util.changeVisibilityState
 import com.thinlineit.ctrlf.util.observeIfNotHandled
 
 class IssueDetailActivity : AppCompatActivity() {
@@ -23,70 +23,18 @@ class IssueDetailActivity : AppCompatActivity() {
     private val binding: ActivityIssueDetailBinding by lazy {
         ActivityIssueDetailBinding.inflate(layoutInflater)
     }
+    lateinit var issueDetailViewModel: IssueDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val issueId = intent.getIntExtra(ISSUE_ID, 0)
         val viewModelFactory = IssueDetailViewModelFactory(issueId)
-        val issueDetailViewModel =
+        issueDetailViewModel =
             ViewModelProvider(this, viewModelFactory).get(IssueDetailViewModel::class.java)
-
-        binding.apply {
-            setSupportActionBar(toolBar)
-            supportActionBar?.apply {
-                setDisplayHomeAsUpEnabled(true)
-                setDisplayShowTitleEnabled(false)
-            }
-            this.issueDetailViewModel = issueDetailViewModel
-            lifecycleOwner = this@IssueDetailActivity
-            detailButton.setOnClickListener {
-                val issue = issueDetailViewModel.issue.value ?: return@setOnClickListener
-                PageActivity.start(
-                    it.context,
-                    issue.noteId ?: UNSET_ID,
-                    issue.topicId ?: UNSET_ID,
-                    issue.pageId ?: UNSET_ID,
-                    issue.versionNo ?: UNSET_ID
-                )
-            }
-
-            rejectButton.setOnClickListener {
-                Toast.makeText(
-                    this@IssueDetailActivity,
-                    R.string.notice_service_prepare,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            issueDetailViewModel.apply {
-                detailButtonStatus.observe(this@IssueDetailActivity) {
-                    updateDetailButtonViewVisibility(
-                        detailButton,
-                        it
-                    )
-                }
-                approveButtonStatus.observe(this@IssueDetailActivity) {
-                    updateApproveButtonViewVisibility(
-                        approveButton,
-                        rejectButton,
-                        it
-                    )
-                }
-            }
-        }
-
-        issueDetailViewModel.issueApproveStatus.observeIfNotHandled(this) {
-            if (it == Status.SUCCESS) {
-                Toast.makeText(this, R.string.notice_complete_approve, Toast.LENGTH_LONG).show()
-                finish()
-            } else
-                Toast.makeText(this, R.string.notice_non_authority, Toast.LENGTH_LONG).show()
-        }
-
-        issueDetailViewModel.toolbarTitle.observe(this) {
-            if (it == R.string.empty_text) finish()
-        }
+        binding.issueDetailViewModel = issueDetailViewModel
+        binding.lifecycleOwner = this
+        init()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -107,29 +55,101 @@ class IssueDetailActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun updateDetailButtonViewVisibility(
-        buttonView: Button,
-        visible: Boolean
-    ) {
-        if (visible) {
-            buttonView.visibility = View.VISIBLE
-        } else {
-            buttonView.visibility = View.GONE
+    private fun init() {
+        setToolbar()
+        initClickListener()
+        initObserveViewModel()
+    }
+
+    private fun setToolbar() {
+        setSupportActionBar(binding.toolBar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
         }
     }
 
-    private fun updateApproveButtonViewVisibility(
-        approveButtonView: Button,
-        rejectButtonView: Button,
+    private fun initClickListener() {
+        binding.apply {
+            detailButton.setOnClickListener {
+                val issue = issueDetailViewModel?.issue?.value ?: return@setOnClickListener
+                PageActivity.start(
+                    it.context,
+                    issue.noteId ?: UNSET_ID,
+                    issue.topicId ?: UNSET_ID,
+                    issue.pageId ?: UNSET_ID,
+                    issue.versionNo ?: UNSET_ID
+                )
+            }
+
+            rejectButton.setOnClickListener {
+                Toast.makeText(
+                    this@IssueDetailActivity,
+                    R.string.notice_service_prepare,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            moreActionButton.setOnClickListener {
+                issueMoreBox.changeVisibilityState()
+            }
+        }
+    }
+
+    private fun initObserveViewModel() {
+        issueDetailViewModel.apply {
+            detailButtonStatus.observe(this@IssueDetailActivity) {
+                updateViewVisibility(
+                    binding.detailButton,
+                    it
+                )
+            }
+            approveButtonStatus.observe(this@IssueDetailActivity) {
+                updateTwoViewVisibility(
+                    binding.approveButton,
+                    binding.rejectButton,
+                    it
+                )
+            }
+            issueApproveStatus.observeIfNotHandled(this@IssueDetailActivity) {
+                if (it == Status.SUCCESS) {
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_complete_approve,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    finish()
+                } else
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_non_authority,
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+            toolbarTitle.observe(this@IssueDetailActivity) {
+                if (it == R.string.empty_text) finish()
+            }
+        }
+    }
+
+    private fun updateViewVisibility(
+        view: View,
         visible: Boolean
     ) {
-        if (visible) {
-            approveButtonView.visibility = View.VISIBLE
-            rejectButtonView.visibility = View.VISIBLE
-        } else {
-            approveButtonView.visibility = View.GONE
-            rejectButtonView.visibility = View.GONE
-        }
+        view.visibility =
+            if (visible)
+                View.VISIBLE
+            else
+                View.GONE
+    }
+
+    private fun updateTwoViewVisibility(
+        firstView: View,
+        secondView: View,
+        visible: Boolean
+    ) {
+        updateViewVisibility(firstView, visible)
+        updateViewVisibility(secondView, visible)
     }
 
     companion object {
