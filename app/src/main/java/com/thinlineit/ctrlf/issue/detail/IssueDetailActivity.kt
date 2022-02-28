@@ -93,6 +93,16 @@ class IssueDetailActivity : AppCompatActivity() {
             moreActionButton.setOnClickListener {
                 issueMoreBox.changeVisibilityState()
             }
+
+            issueUpdateButton.setOnClickListener {
+                // TODO :
+            }
+            issueDeleteButton.setOnClickListener {
+                // TODO :
+            }
+            issueCloseButton.setOnClickListener {
+                // TODO :
+            }
         }
     }
 

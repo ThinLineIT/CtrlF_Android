@@ -32,6 +32,14 @@ class IssueDetailViewModel(
     val issueApproveStatus: LiveData<Event<Status>>
         get() = _issueApproveStatus
 
+    private val _issueRejectStatus = MutableLiveData<Event<Status>>()
+    val issueRejectStatus: LiveData<Event<Status>>
+        get() = _issueRejectStatus
+
+    private val _issueCloseStatus = MutableLiveData<Event<Status>>()
+    val issueCloseStatus: LiveData<Event<Status>>
+        get() = _issueCloseStatus
+
     private val _detailButtonStatus = MutableLiveData<Boolean>(false)
     val detailButtonStatus: LiveData<Boolean>
         get() = _detailButtonStatus
@@ -64,6 +72,28 @@ class IssueDetailViewModel(
                 when (issueRepository.approveIssue(issueId.value!!.toInt())) {
                     200 -> _issueApproveStatus.value = Event(Status.SUCCESS)
                     else -> _issueApproveStatus.value = Event(Status.FAILURE)
+                }
+            }
+        }
+    }
+
+    fun rejectIssue() {
+        viewModelScope.launch {
+            if (issueId.value != null) {
+                when (issueRepository.rejectIssue(issueId.value!!.toInt())) {
+                    200 -> _issueRejectStatus.value = Event(Status.SUCCESS)
+                    else -> _issueRejectStatus.value = Event(Status.FAILURE)
+                }
+            }
+        }
+    }
+
+    fun closeIssue() {
+        viewModelScope.launch {
+            if (issueId.value != null) {
+                when (issueRepository.rejectIssue(issueId.value!!.toInt())) {
+                    200 -> _issueCloseStatus.value = Event(Status.SUCCESS)
+                    else -> _issueCloseStatus.value = Event(Status.FAILURE)
                 }
             }
         }

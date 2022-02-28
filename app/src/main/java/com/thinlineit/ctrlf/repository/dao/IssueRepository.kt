@@ -39,6 +39,33 @@ class IssueRepository {
         }
     }
 
+    suspend fun rejectIssue(issueId: Int): Int {
+        return try {
+            // TODO : Set rejectIssue API
+            200
+        } catch (e: Exception) {
+            SERVER_ERROR
+        }
+    }
+
+    suspend fun deleteIssue(issueId: Int): Int {
+        return try {
+            // TODO : Set deleteIssue API
+            200
+        } catch (e: Exception) {
+            SERVER_ERROR
+        }
+    }
+
+    suspend fun closeIssue(issueId: Int): Int {
+        return try {
+            // TODO : Set closeIssue API
+            200
+        } catch (e: Exception) {
+            SERVER_ERROR
+        }
+    }
+
     companion object {
         const val TOKEN = "token"
         const val SERVER_ERROR = 500
