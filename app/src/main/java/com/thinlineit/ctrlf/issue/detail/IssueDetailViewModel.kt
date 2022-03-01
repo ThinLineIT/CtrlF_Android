@@ -40,6 +40,10 @@ class IssueDetailViewModel(
     val issueCloseStatus: LiveData<Event<Status>>
         get() = _issueCloseStatus
 
+    private val _issueDeleteStatus = MutableLiveData<Event<Status>>()
+    val issueDeleteStatus: LiveData<Event<Status>>
+        get() = _issueDeleteStatus
+
     private val _detailButtonStatus = MutableLiveData<Boolean>(false)
     val detailButtonStatus: LiveData<Boolean>
         get() = _detailButtonStatus
@@ -91,7 +95,7 @@ class IssueDetailViewModel(
     fun closeIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                when (issueRepository.rejectIssue(issueId.value!!.toInt())) {
+                when (issueRepository.closeIssue(issueId.value!!.toInt())) {
                     200 -> _issueCloseStatus.value = Event(Status.SUCCESS)
                     else -> _issueCloseStatus.value = Event(Status.FAILURE)
                 }
@@ -99,34 +103,65 @@ class IssueDetailViewModel(
         }
     }
 
+    fun deleteIssue() {
+        viewModelScope.launch {
+            if (issueId.value != null) {
+                when (issueRepository.deleteIssue(issueId.value!!.toInt())) {
+                    200 -> _issueDeleteStatus.value = Event(Status.SUCCESS)
+                    else -> _issueDeleteStatus.value = Event(Status.FAILURE)
+                }
+            }
+        }
+    }
+
     private fun initToolbarTitle() {
+        if (issue.value?.relatedModelType.isNullOrEmpty() || issue.value?.action.isNullOrEmpty())
+            return
+
+        val modelType = identifyModelType(issue.value!!.relatedModelType)
+        val modelAction = identifyModelAction(issue.value!!.action)
+
         _toolbarTitle.value =
-            when (issue.value?.relatedModelType) {
-                ModelType.NOTE.name -> when (issue.value?.action) {
-                    ModelAction.CREATE.name -> R.string.label_create_note
-                    ModelAction.UPDATE.name -> R.string.label_update_note
-                    ModelAction.DELETE.name -> R.string.label_delete_note
-                    else -> R.string.empty_text
+            when (modelType) {
+                ModelType.Note -> when (modelAction) {
+                    ModelAction.Create -> R.string.label_create_note
+                    ModelAction.Update -> R.string.label_update_note
+                    ModelAction.Delete -> R.string.label_delete_note
                 }
-                ModelType.TOPIC.name -> when (issue.value?.action) {
-                    ModelAction.CREATE.name -> R.string.label_create_topic
-                    ModelAction.UPDATE.name -> R.string.label_update_topic
-                    ModelAction.DELETE.name -> R.string.label_delete_topic
-                    else -> R.string.empty_text
+                ModelType.Topic -> when (modelAction) {
+                    ModelAction.Create -> R.string.label_create_topic
+                    ModelAction.Update -> R.string.label_update_topic
+                    ModelAction.Delete -> R.string.label_delete_topic
                 }
-                ModelType.PAGE.name -> when (issue.value?.action) {
-                    ModelAction.CREATE.name -> R.string.label_create_page
-                    ModelAction.UPDATE.name -> R.string.label_update_page
-                    ModelAction.DELETE.name -> R.string.label_delete_page
-                    else -> R.string.empty_text
+                ModelType.Page -> when (modelAction) {
+                    ModelAction.Create -> R.string.label_create_page
+                    ModelAction.Update -> R.string.label_update_page
+                    ModelAction.Delete -> R.string.label_delete_page
                 }
-                else -> R.string.empty_text
             }
     }
 
     private fun initButtonVisible(contentType: String, status: String) {
-        _detailButtonStatus.value = contentType == ModelType.PAGE.name
+        _detailButtonStatus.value = identifyModelType(contentType) == ModelType.Page
         _approveButtonStatus.value = status == REQUESTED
+    }
+
+    private fun identifyModelType(modelType: String): ModelType {
+        val type = when (modelType) {
+            "NOTE" -> ModelType.Note
+            "TOPIC" -> ModelType.Topic
+            else -> ModelType.Page
+        }
+        return type
+    }
+
+    private fun identifyModelAction(modelAction: String): ModelAction {
+        val action = when (modelAction) {
+            "CREATE" -> ModelAction.Create
+            "UPDATE" -> ModelAction.Update
+            else -> ModelAction.Delete
+        }
+        return action
     }
 
     companion object {
@@ -134,14 +169,14 @@ class IssueDetailViewModel(
     }
 }
 
-enum class ModelType {
-    NOTE,
-    TOPIC,
-    PAGE
+sealed class ModelType() {
+    object Note : ModelType()
+    object Topic : ModelType()
+    object Page : ModelType()
 }
 
-enum class ModelAction {
-    CREATE,
-    UPDATE,
-    DELETE
+sealed class ModelAction() {
+    object Create : ModelAction()
+    object Update : ModelAction()
+    object Delete : ModelAction()
 }

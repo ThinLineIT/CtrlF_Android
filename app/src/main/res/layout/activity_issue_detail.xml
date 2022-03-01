@@ -139,6 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->issueDetailViewModel.deleteIssue()}"
                         android:text="@string/button_delete"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="@+id/issueUpdateButton"
@@ -160,6 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->issueDetailViewModel.closeIssue()}"
                         android:text="@string/button_close"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="@+id/issueUpdateButton"
@@ -209,6 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/skyblue"
+                    android:onClick="@{()->issueDetailViewModel.rejectIssue()}"
                     android:text="@string/button_reject"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detailButton" />

@@ -97,12 +97,6 @@ class IssueDetailActivity : AppCompatActivity() {
             issueUpdateButton.setOnClickListener {
                 // TODO :
             }
-            issueDeleteButton.setOnClickListener {
-                // TODO :
-            }
-            issueCloseButton.setOnClickListener {
-                // TODO :
-            }
         }
     }
 
@@ -125,14 +119,59 @@ class IssueDetailActivity : AppCompatActivity() {
                 if (it == Status.SUCCESS) {
                     Toast.makeText(
                         this@IssueDetailActivity,
-                        R.string.notice_complete_approve,
+                        R.string.notice_approve_success,
                         Toast.LENGTH_LONG
                     ).show()
                     finish()
                 } else
                     Toast.makeText(
                         this@IssueDetailActivity,
-                        R.string.notice_non_authority,
+                        R.string.notice_approve_fail,
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+            issueRejectStatus.observeIfNotHandled(this@IssueDetailActivity) {
+                if (it == Status.SUCCESS) {
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_reject_success,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    finish()
+                } else
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_reject_fail,
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+            issueDeleteStatus.observeIfNotHandled(this@IssueDetailActivity) {
+                if (it == Status.SUCCESS) {
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_delete_success,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    finish()
+                } else
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_delete_fail,
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+            issueCloseStatus.observeIfNotHandled(this@IssueDetailActivity) {
+                if (it == Status.SUCCESS) {
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_close_success,
+                        Toast.LENGTH_LONG
+                    ).show()
+                    finish()
+                } else
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_close_fail,
                         Toast.LENGTH_LONG
                     ).show()
             }
