@@ -1,7 +1,7 @@
 package com.thinlineit.ctrlf.repository.dao
 
 import com.thinlineit.ctrlf.entity.Issue
-import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
+import com.thinlineit.ctrlf.repository.dto.request.IssueActionRequest
 import com.thinlineit.ctrlf.repository.network.IssueService
 import com.thinlineit.ctrlf.util.Application
 
@@ -32,7 +32,7 @@ class IssueRepository {
                     TOKEN,
                     ""
                 ),
-                IssueApproveRequest(issueId)
+                IssueActionRequest(issueId)
             ).code()
         } catch (e: Exception) {
             SERVER_ERROR
@@ -50,8 +50,13 @@ class IssueRepository {
 
     suspend fun deleteIssue(issueId: Int): Int {
         return try {
-            // TODO : Set deleteIssue API
-            200
+            IssueService.retrofitService.deleteIssue(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                IssueActionRequest(issueId)
+            ).code()
         } catch (e: Exception) {
             SERVER_ERROR
         }
@@ -59,8 +64,13 @@ class IssueRepository {
 
     suspend fun closeIssue(issueId: Int): Int {
         return try {
-            // TODO : Set closeIssue API
-            200
+            IssueService.retrofitService.closeIssue(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                IssueActionRequest(issueId)
+            ).code()
         } catch (e: Exception) {
             SERVER_ERROR
         }

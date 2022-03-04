@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.issue.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -95,7 +96,9 @@ class IssueDetailViewModel(
     fun closeIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                when (issueRepository.closeIssue(issueId.value!!.toInt())) {
+                val code = issueRepository.closeIssue(issueId.value!!.toInt())
+                Log.d(TAG, "closeIssue : $code")
+                when (code) {
                     200 -> _issueCloseStatus.value = Event(Status.SUCCESS)
                     else -> _issueCloseStatus.value = Event(Status.FAILURE)
                 }
@@ -106,7 +109,9 @@ class IssueDetailViewModel(
     fun deleteIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                when (issueRepository.deleteIssue(issueId.value!!.toInt())) {
+                val code = issueRepository.deleteIssue(issueId.value!!.toInt())
+                Log.d(TAG, "closeIssue : $code")
+                when (code) {
                     200 -> _issueDeleteStatus.value = Event(Status.SUCCESS)
                     else -> _issueDeleteStatus.value = Event(Status.FAILURE)
                 }
@@ -166,6 +171,7 @@ class IssueDetailViewModel(
 
     companion object {
         const val REQUESTED = "REQUESTED"
+        const val TAG = "IssueDetailViewModel"
     }
 }
 

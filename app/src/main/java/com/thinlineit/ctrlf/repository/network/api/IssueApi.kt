@@ -2,7 +2,7 @@ package com.thinlineit.ctrlf.repository.network.api
 
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.entity.IssueList
-import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
+import com.thinlineit.ctrlf.repository.dto.request.IssueActionRequest
 import com.thinlineit.ctrlf.repository.dto.response.IssueCountResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,7 +26,19 @@ interface IssueApi {
     @POST("actions/issue-approve/")
     suspend fun approveIssue(
         @Header("Authorization") Authorization: String,
-        @Body body: IssueApproveRequest
+        @Body body: IssueActionRequest
+    ): Response<Void>
+
+    @POST("actions/issue-close/")
+    suspend fun closeIssue(
+        @Header("Authorization") Authorization: String,
+        @Body body: IssueActionRequest
+    ): Response<Void>
+
+    @POST("actions/issue-delete/")
+    suspend fun deleteIssue(
+        @Header("Authorization") Authorization: String,
+        @Body body: IssueActionRequest
     ): Response<Void>
 
     @GET("issues/count/")
