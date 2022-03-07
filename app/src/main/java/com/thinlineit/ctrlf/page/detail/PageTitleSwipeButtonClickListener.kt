@@ -1,8 +1,14 @@
 package com.thinlineit.ctrlf.page.detail
 
 import android.content.Context
+import android.widget.Toast
 import com.thinlineit.ctrlf.R
+import com.thinlineit.ctrlf.issue.IssueMaterial
 import com.thinlineit.ctrlf.util.CustomDialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PageTitleSwipeButtonClickListener(
     private val context: Context,
@@ -26,17 +32,23 @@ class PageTitleSwipeButtonClickListener(
         curDialog?.show()
     }
 
-    private fun onDeleteConfirmClick(id: Int, title: String, contentText: String) {
-        pageViewModel.deletePage(contentText, id)
-        curDialog?.dismiss()
-        curDialog = CustomDialog(context, id).apply {
-            bodyText =
-                context.resources.getString(R.string.label_complete_delete_issue)
-            dismissButtonText =
-                context.resources.getString(R.string.button_dialog_confirm)
-            dismissClickListener = ::onDeleteDismissClick
+    private fun onDeleteConfirmClick(issueMaterial: IssueMaterial) {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (pageViewModel.deletePage(
+                    issueMaterial.reason ?: return@launch,
+                    issueMaterial.contentId ?: return@launch
+                )
+            ) {
+                curDialog?.dismiss()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        context.resources.getString(R.string.label_complete_delete_issue),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
-        curDialog?.show()
     }
 
     private fun onDeleteDismissClick() {

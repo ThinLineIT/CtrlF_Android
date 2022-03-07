@@ -151,10 +151,9 @@ class PageViewModel(
         return true
     }
 
-    fun deletePage(reason: String, pageId: Int) {
-        viewModelScope.launch {
-            pageRepository.deletePage(pageId, reason)
-        }
+    suspend fun deletePage(reason: String, pageId: Int): Boolean {
+        if (!pageRepository.deletePage(pageId, reason)) return false
+        return true
     }
 
     suspend fun deleteTopic(reason: String, topicId: Int): Boolean {
