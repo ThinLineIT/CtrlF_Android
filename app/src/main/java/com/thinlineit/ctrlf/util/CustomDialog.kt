@@ -8,11 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import com.thinlineit.ctrlf.R
+import com.thinlineit.ctrlf.issue.IssueMaterial
 import kotlinx.android.synthetic.main.dialog_custom.*
 
 class CustomDialog(
     context: Context,
-    private val contentId: Int
+    private val contentId: Int? = null
 ) : Dialog(context) {
     var title: String? = null
     var bodyText: String? = null
@@ -20,7 +21,7 @@ class CustomDialog(
     var contentBodyHint: String? = null
     var confirmButtonText: String? = null
     var dismissButtonText: String? = null
-    var confirmClickListener: ((Int, String, String) -> Unit)? = null
+    var confirmClickListener: ((IssueMaterial) -> Unit)? = null
     var dismissClickListener: (() -> Unit)? = null
     var buttonGravity = Gravity.END
 
@@ -72,10 +73,13 @@ class CustomDialog(
         confirmClickListener?.let {
             confirmButton.visibility = View.VISIBLE
             confirmButton.setOnClickListener {
-                confirmClickListener?.invoke(
+                val issueMaterial = IssueMaterial(
                     contentId,
                     contentTitleEditText.text.toString(),
                     contentBodyEditText.text.toString()
+                )
+                confirmClickListener?.invoke(
+                    issueMaterial
                 )
             }
         } ?: kotlin.run {
