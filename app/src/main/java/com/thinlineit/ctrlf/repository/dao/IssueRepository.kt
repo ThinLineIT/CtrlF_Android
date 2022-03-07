@@ -4,6 +4,7 @@ import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dto.request.IssueApproveRequest
 import com.thinlineit.ctrlf.repository.network.IssueService
 import com.thinlineit.ctrlf.util.Application
+import java.net.ProtocolException
 
 class IssueRepository {
 
@@ -25,7 +26,7 @@ class IssueRepository {
 
     suspend fun getIssueCount(): Int = IssueService.retrofitService.issueCount().issuesCount
 
-    suspend fun approveIssue(issueId: Int): Int {
+    suspend fun approveIssue(issueId: Int): Boolean {
         return try {
             IssueService.retrofitService.approveIssue(
                 "Bearer " + Application.preferenceUtil.getString(
@@ -33,9 +34,12 @@ class IssueRepository {
                     ""
                 ),
                 IssueApproveRequest(issueId)
-            ).code()
+            )
+            true
+        } catch (e: ProtocolException) {
+            true
         } catch (e: Exception) {
-            SERVER_ERROR
+            false
         }
     }
 

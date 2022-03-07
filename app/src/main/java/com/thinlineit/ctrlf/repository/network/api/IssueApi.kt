@@ -27,7 +27,7 @@ interface IssueApi {
     suspend fun approveIssue(
         @Header("Authorization") Authorization: String,
         @Body body: IssueApproveRequest
-    ): Response<Void>
+    ): Response<Unit>
 
     @GET("issues/count/")
     suspend fun issueCount(): IssueCountResponse
