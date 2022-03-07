@@ -10,29 +10,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class NoteDeleteClickListener(
+class NoteUpdateClickListener(
     private val context: Context,
     private val pageViewModel: PageViewModel
 ) {
     private var curDialog: CustomDialog? = null
 
-    fun onDelete() {
-        curDialog = CustomDialog(context, pageViewModel.curNoteId.value ?: return).apply {
-            title = context.resources.getString(R.string.label_delete_note)
-            contentBodyHint = context.resources.getString(R.string.hint_dialog_delete)
+    fun onUpdate() {
+        curDialog = CustomDialog(context).apply {
+            title = context.resources.getString(R.string.label_update_note)
+            contentTitleHint =
+                context.resources.getString(R.string.hint_dialog_note_title_hint_modify)
+            contentBodyHint = context.resources.getString(R.string.label_summary)
             confirmButtonText = context.resources.getString(R.string.button_dialog_confirm)
             dismissButtonText = context.resources.getString(R.string.button_dialog_cancel)
-            confirmClickListener = ::onDeleteConfirmClick
-            dismissClickListener = ::onDeleteDismissClick
+            confirmClickListener = ::onUpdateConfirmClick
+            dismissClickListener = ::onUpdateDismissClick
         }
         curDialog?.show()
     }
 
-    private fun onDeleteConfirmClick(issueMaterial: IssueMaterial) {
+    private fun onUpdateConfirmClick(issueMaterial: IssueMaterial) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (pageViewModel.deleteNote(
-                    issueMaterial.reason ?: return@launch,
-                    issueMaterial.contentId ?: return@launch
+            if (pageViewModel.updateNote(
+                    issueMaterial.title ?: return@launch,
+                    issueMaterial.reason ?: return@launch
                 )
             ) {
                 curDialog?.dismiss()
@@ -47,7 +49,7 @@ class NoteDeleteClickListener(
         }
     }
 
-    private fun onDeleteDismissClick() {
+    private fun onUpdateDismissClick() {
         curDialog?.dismiss()
     }
 }

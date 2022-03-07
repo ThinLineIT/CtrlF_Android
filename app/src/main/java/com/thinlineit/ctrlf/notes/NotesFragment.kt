@@ -9,9 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentNotesBinding
-import com.thinlineit.ctrlf.page.detail.CreateDialog
 import com.thinlineit.ctrlf.util.LoadingDialog
 
 class NotesFragment : Fragment() {
@@ -21,6 +19,7 @@ class NotesFragment : Fragment() {
             NotesFragmentDirections.actionNotesFragmentToPageActivity(noteId)
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,15 +34,10 @@ class NotesFragment : Fragment() {
             lifecycleOwner = this@NotesFragment
             noteListRecyclerView.adapter = noteAdapter
             addNoteBtn.setOnClickListener {
-                context?.let {
-                    CreateDialog(
-                        it,
-                        resources.getString(R.string.hint_dialog_note_title),
-                        resources.getString(R.string.hint_dialog_note_title_hint)
-                    ) { title, reason ->
-                        noteViewModel?.createNote(title, reason)
-                    }.openDialog()
-                }
+                NoteCreateClickListener(
+                    requireContext(),
+                    this@NotesFragment.noteViewModel
+                ).onCreateClick()
             }
         }
 

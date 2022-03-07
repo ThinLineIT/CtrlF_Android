@@ -140,11 +140,13 @@ class PageViewModel(
         selectNote(noteId)
     }
 
-    fun updateNote(newNoteTitle: String, reason: String) {
-        val noteId = curNoteId.value ?: return
+    fun updateNote(newNoteTitle: String, reason: String): Boolean {
+        val noteId = curNoteId.value
+
         viewModelScope.launch {
-            pageRepository.updateNote(noteId, newNoteTitle, reason)
+            pageRepository.updateNote(noteId ?: return@launch, newNoteTitle, reason)
         }
+        return true
     }
 
     fun deletePage(reason: String, pageId: Int) {
@@ -159,10 +161,9 @@ class PageViewModel(
         }
     }
 
-    fun deleteNote(reason: String, noteId: Int) {
-        viewModelScope.launch {
-            pageRepository.deleteNote(noteId, reason)
-        }
+    suspend fun deleteNote(reason: String, noteId: Int): Boolean {
+        if (!pageRepository.deleteNote(noteId, reason)) return false
+        return true
     }
 
     init {
