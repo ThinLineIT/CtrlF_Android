@@ -7,6 +7,7 @@ import com.thinlineit.ctrlf.repository.dto.response.IssueCountResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -35,7 +36,7 @@ interface IssueApi {
         @Body body: IssueActionRequest
     ): Response<Void>
 
-    @POST("actions/issue-delete/")
+    @HTTP(method = "DELETE", hasBody = true, path = "actions/issue-delete/")
     suspend fun deleteIssue(
         @Header("Authorization") Authorization: String,
         @Body body: IssueActionRequest
