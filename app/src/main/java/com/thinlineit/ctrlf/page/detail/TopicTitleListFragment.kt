@@ -9,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentTopicTitleBinding
 
 class TopicTitleListFragment : Fragment() {
@@ -49,16 +48,11 @@ class TopicTitleListFragment : Fragment() {
                     else -> seeMoreBoxOfNote.visibility = View.GONE
                 }
             }
-            updateNoteTitleBtn.setOnClickListener { _ ->
-                context?.let {
-                    CreateDialog(
-                        it,
-                        resources.getString(R.string.hint_dialog_note_title_modify),
-                        resources.getString(R.string.hint_dialog_note_title_hint_modify)
-                    ) { title, reason ->
-                        this@TopicTitleListFragment.pageViewModel.updateNote(title, reason)
-                    }.openDialog()
-                }
+            updateNoteTitleBtn.setOnClickListener {
+                NoteUpdateClickListener(
+                    requireContext(),
+                    this@TopicTitleListFragment.pageViewModel
+                ).onUpdate()
             }
 
             deleteNoteBtn.setOnClickListener {
@@ -68,16 +62,11 @@ class TopicTitleListFragment : Fragment() {
                 ).onDelete()
             }
 
-            addTopicBtn.setOnClickListener { _ ->
-                context?.let {
-                    CreateDialog(
-                        it,
-                        resources.getString(R.string.hint_dialog_topic_title),
-                        resources.getString(R.string.hint_dialog_topic_title_hint)
-                    ) { title, reason ->
-                        this@TopicTitleListFragment.pageViewModel.createTopic(title, reason)
-                    }.openDialog()
-                }
+            addTopicBtn.setOnClickListener {
+                TopicCreateClickListener(
+                    requireContext(),
+                    this@TopicTitleListFragment.pageViewModel
+                ).onCreateTopic()
             }
         }
         pageViewModel.topic.observe(viewLifecycleOwner) {

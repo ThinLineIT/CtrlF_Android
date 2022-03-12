@@ -10,33 +10,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PageTitleSwipeButtonClickListener(
+class NoteUpdateClickListener(
     private val context: Context,
     private val pageViewModel: PageViewModel
-) : SwipeButtonClickListener {
+) {
     private var curDialog: CustomDialog? = null
-    override fun onUpdate(pageId: Int) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onDelete(pageId: Int) {
-        curDialog?.dismiss()
-        curDialog = CustomDialog(context, pageId).apply {
-            title = context.resources.getString(R.string.label_delete_page)
-            contentBodyHint = context.resources.getString(R.string.hint_dialog_delete)
+    fun onUpdate() {
+        curDialog = CustomDialog(context).apply {
+            title = context.resources.getString(R.string.label_update_note)
+            contentTitleHint =
+                context.resources.getString(R.string.hint_dialog_note_title_hint_modify)
+            contentBodyHint = context.resources.getString(R.string.label_summary)
             confirmButtonText = context.resources.getString(R.string.button_dialog_confirm)
             dismissButtonText = context.resources.getString(R.string.button_dialog_cancel)
-            confirmClickListener = ::onDeleteConfirmClick
-            dismissClickListener = ::onDeleteDismissClick
+            confirmClickListener = ::onUpdateConfirmClick
+            dismissClickListener = ::onUpdateDismissClick
         }
         curDialog?.show()
     }
 
-    private fun onDeleteConfirmClick(issueMaterial: IssueMaterial) {
+    private fun onUpdateConfirmClick(issueMaterial: IssueMaterial) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (pageViewModel.deletePage(
-                    issueMaterial.reason ?: return@launch,
-                    issueMaterial.contentId ?: return@launch
+            if (pageViewModel.updateNote(
+                    issueMaterial.title ?: return@launch,
+                    issueMaterial.reason ?: return@launch
                 )
             ) {
                 curDialog?.dismiss()
@@ -51,7 +49,7 @@ class PageTitleSwipeButtonClickListener(
         }
     }
 
-    private fun onDeleteDismissClick() {
+    private fun onUpdateDismissClick() {
         curDialog?.dismiss()
     }
 }

@@ -74,8 +74,8 @@ class IssueDetailViewModel(
     fun approveIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                when (issueRepository.approveIssue(issueId.value!!.toInt())) {
-                    200 -> _issueApproveStatus.value = Event(Status.SUCCESS)
+                when (issueRepository.approveIssue(issueId.value ?: return@launch.toInt())) {
+                    true -> _issueApproveStatus.value = Event(Status.SUCCESS)
                     else -> _issueApproveStatus.value = Event(Status.FAILURE)
                 }
             }
