@@ -41,8 +41,13 @@ class IssueRepository {
 
     suspend fun rejectIssue(issueId: Int): Int {
         return try {
-            // TODO : Set rejectIssue API
-            200
+            IssueService.retrofitService.rejectIssue(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                IssueActionRequest(issueId)
+            ).code()
         } catch (e: Exception) {
             SERVER_ERROR
         }

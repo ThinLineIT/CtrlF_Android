@@ -36,6 +36,12 @@ interface IssueApi {
         @Body body: IssueActionRequest
     ): Response<Void>
 
+    @POST("actions/issue-reject/")
+    suspend fun rejectIssue(
+        @Header("Authorization") Authorization: String,
+        @Body body: IssueActionRequest
+    ): Response<Void>
+
     @HTTP(method = "DELETE", hasBody = true, path = "actions/issue-delete/")
     suspend fun deleteIssue(
         @Header("Authorization") Authorization: String,
