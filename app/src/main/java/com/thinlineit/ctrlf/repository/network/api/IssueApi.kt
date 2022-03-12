@@ -28,9 +28,8 @@ interface IssueApi {
     @POST("actions/issue-approve/")
     suspend fun approveIssue(
         @Header("Authorization") Authorization: String,
-<<<<<<< HEAD
         @Body body: IssueActionRequest
-    ): Response<Void>
+    ): Response<Unit>
 
     @POST("actions/issue-close/")
     suspend fun closeIssue(
@@ -55,10 +54,6 @@ interface IssueApi {
         @Header("Authorization") Authorization: String,
         @Body body: IssueActionRequest
     ): Response<Void>
-=======
-        @Body body: IssueApproveRequest
-    ): Response<Unit>
->>>>>>> dev
 
     @GET("issues/count/")
     suspend fun issueCount(): IssueCountResponse

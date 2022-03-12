@@ -33,11 +33,13 @@ class IssueRepository {
                     TOKEN,
                     ""
                 ),
-<<<<<<< HEAD
                 IssueActionRequest(issueId)
-            ).code()
+            )
+            true
+        } catch (e: ProtocolException) {
+            true
         } catch (e: Exception) {
-            SERVER_ERROR
+            false
         }
     }
 
@@ -78,15 +80,8 @@ class IssueRepository {
                 ),
                 IssueActionRequest(issueId)
             ).code()
-=======
-                IssueApproveRequest(issueId)
-            )
-            true
-        } catch (e: ProtocolException) {
-            true
->>>>>>> dev
         } catch (e: Exception) {
-            false
+            SERVER_ERROR
         }
     }
 
