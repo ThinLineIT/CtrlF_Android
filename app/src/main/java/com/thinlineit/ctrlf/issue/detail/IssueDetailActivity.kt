@@ -82,14 +82,6 @@ class IssueDetailActivity : AppCompatActivity() {
                 )
             }
 
-            rejectButton.setOnClickListener {
-                Toast.makeText(
-                    this@IssueDetailActivity,
-                    R.string.notice_service_prepare,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
             moreActionButton.setOnClickListener {
                 issueMoreBox.changeVisibilityState()
             }
