@@ -121,48 +121,49 @@ class PageViewModel(
         }
     }
 
-    fun createTopic(topicTitleEdit: String, reasonEdit: String) {
-        val noteId = curNoteId.value ?: return
-
+    suspend fun createTopic(topicTitleEdit: String, reasonEdit: String): Boolean {
+        val noteId = curNoteId.value
         viewModelScope.launch {
             if (topicTitleEdit != "" && reasonEdit != "") {
-                pageRepository.createTopic(noteId, topicTitleEdit, reasonEdit)
+                pageRepository.createTopic(noteId ?: return@launch, topicTitleEdit, reasonEdit)
+                selectNote(noteId)
             }
         }
-        selectNote(noteId)
+        return true
     }
 
-    fun updateTopic(topicId: Int, newTopicTitle: String, reason: String) {
-        val noteId = curNoteId.value ?: return
+    fun updateTopic(topicId: Int, newTopicTitle: String, reason: String): Boolean {
+        val noteId = curNoteId.value
+
         viewModelScope.launch {
             pageRepository.updateTopic(topicId, newTopicTitle, reason)
+            selectNote(noteId ?: return@launch)
         }
-        selectNote(noteId)
+        return true
     }
 
-    fun updateNote(newNoteTitle: String, reason: String) {
-        val noteId = curNoteId.value ?: return
+    fun updateNote(newNoteTitle: String, reason: String): Boolean {
+        val noteId = curNoteId.value
+
         viewModelScope.launch {
-            pageRepository.updateNote(noteId, newNoteTitle, reason)
+            pageRepository.updateNote(noteId ?: return@launch, newNoteTitle, reason)
         }
+        return true
     }
 
-    fun deletePage(reason: String, pageId: Int) {
-        viewModelScope.launch {
-            pageRepository.deletePage(pageId, reason)
-        }
+    suspend fun deletePage(reason: String, pageId: Int): Boolean {
+        if (!pageRepository.deletePage(pageId, reason)) return false
+        return true
     }
 
-    fun deleteTopic(reason: String, topicId: Int) {
-        viewModelScope.launch {
-            pageRepository.deleteTopic(topicId, reason)
-        }
+    suspend fun deleteTopic(reason: String, topicId: Int): Boolean {
+        if (!pageRepository.deleteTopic(topicId, reason)) return false
+        return true
     }
 
-    fun deleteNote(reason: String, noteId: Int) {
-        viewModelScope.launch {
-            pageRepository.deleteNote(noteId, reason)
-        }
+    suspend fun deleteNote(reason: String, noteId: Int): Boolean {
+        if (!pageRepository.deleteNote(noteId, reason)) return false
+        return true
     }
 
     init {

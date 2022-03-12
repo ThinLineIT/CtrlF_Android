@@ -1,4 +1,4 @@
-package com.thinlineit.ctrlf.page.detail
+package com.thinlineit.ctrlf.notes
 
 import android.content.Context
 import android.widget.Toast
@@ -10,40 +10,37 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PageTitleSwipeButtonClickListener(
+class NoteCreateClickListener(
     private val context: Context,
-    private val pageViewModel: PageViewModel
-) : SwipeButtonClickListener {
+    private val notesViewModel: NotesViewModel
+) {
     private var curDialog: CustomDialog? = null
-    override fun onUpdate(pageId: Int) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onDelete(pageId: Int) {
-        curDialog?.dismiss()
-        curDialog = CustomDialog(context, pageId).apply {
-            title = context.resources.getString(R.string.label_delete_page)
-            contentBodyHint = context.resources.getString(R.string.hint_dialog_delete)
+    fun onCreateClick() {
+        curDialog = CustomDialog(context).apply {
+            title = context.resources.getString(R.string.label_add_note)
+            contentTitleHint = context.resources.getString(R.string.hint_dialog_note_title_hint)
+            contentBodyHint = context.resources.getString(R.string.hint_dialog_request_content)
             confirmButtonText = context.resources.getString(R.string.button_dialog_confirm)
             dismissButtonText = context.resources.getString(R.string.button_dialog_cancel)
-            confirmClickListener = ::onDeleteConfirmClick
+            confirmClickListener = ::onCreateConfirmClick
             dismissClickListener = ::onDeleteDismissClick
         }
         curDialog?.show()
     }
 
-    private fun onDeleteConfirmClick(issueMaterial: IssueMaterial) {
+    private fun onCreateConfirmClick(issueMaterial: IssueMaterial) {
         CoroutineScope(Dispatchers.IO).launch {
-            if (pageViewModel.deletePage(
-                    issueMaterial.reason ?: return@launch,
-                    issueMaterial.contentId ?: return@launch
+            if (notesViewModel.createNote(
+                    issueMaterial.title ?: return@launch,
+                    issueMaterial.reason ?: return@launch
                 )
             ) {
                 curDialog?.dismiss()
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         context,
-                        context.resources.getString(R.string.label_complete_delete_issue),
+                        context.resources.getString(R.string.notice_complete_create_note),
                         Toast.LENGTH_LONG
                     ).show()
                 }

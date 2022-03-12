@@ -93,6 +93,8 @@
     <string name="button_number_list">1.</string>
     <string name="button_task_list">- []</string>
     <string name="label_complete_create_issue">"작성된 페이지는\n 토픽 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="notice_complete_create_note">"작성된 노트는\n 관리자에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="notice_complete_create_topic">"작성된 토픽은\n 노트 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
     <string name="label_complete_delete_issue">"작성된 이슈는\n 관리자에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
     <string name="label_cancel_create_issue">"이 페이지를 벗어나면\n 작성한 내용은 저장되지 않습니다. \n\n 작성을 취소하시겠습니까?"</string>
     <string name="button_confirm">확 인</string>
@@ -155,6 +157,7 @@
     <string name="button_dialog_cancel">취소</string>
     <string name="hint_dialog_note_title">ADD NOTE</string>
     <string name="hint_dialog_note_title_hint">Note Title</string>
+    <string name="hint_dialog_request_content">요청 내용 설명</string>
     <string name="hint_dialog_content">내용 요약</string>
     <string name="hint_dialog_topic_title">ADD TOPIC</string>
     <string name="hint_dialog_topic_title_hint">Topic Title</string>

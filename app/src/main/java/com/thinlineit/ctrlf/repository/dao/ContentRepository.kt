@@ -43,7 +43,7 @@ class ContentRepository {
         return ContentService.retrofitService.getPageList(topicId)
     }
 
-    suspend fun createNote(title: String, reason: String): String {
+    suspend fun createNote(title: String, reason: String): Boolean {
         return try {
             ContentService.retrofitService.createNote(
                 "Bearer " + Application.preferenceUtil.getString(
@@ -54,9 +54,11 @@ class ContentRepository {
                     title,
                     reason
                 )
-            ).message()
+            )
+            true
         } catch (e: Exception) {
             e.toString()
+            false
         }
     }
 
