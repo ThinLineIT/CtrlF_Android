@@ -87,7 +87,10 @@ class IssueDetailActivity : AppCompatActivity() {
             }
 
             issueUpdateButton.setOnClickListener {
-                // TODO :
+                IssueUpdateClickListener(
+                    this@IssueDetailActivity,
+                    this@IssueDetailActivity.issueDetailViewModel
+                ).onCreateClick()
             }
         }
     }

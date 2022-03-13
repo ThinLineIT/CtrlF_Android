@@ -11,6 +11,7 @@ import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class IssueDetailViewModel(
     issueId: Int,
@@ -116,6 +117,25 @@ class IssueDetailViewModel(
                     else -> _issueDeleteStatus.value = Event(Status.FAILURE)
                 }
             }
+        }
+    }
+
+    suspend fun updateIssue(
+        newTitle: String,
+        reason: String
+    ): Boolean {
+        return withContext(viewModelScope.coroutineContext) {
+            if (issueId.value != null)
+                if (newTitle == "" || reason == "") return@withContext false
+            if (!issueRepository.updateIssue(
+                    issueId.value!!,
+                    newTitle,
+                    null,
+                    reason
+                )
+            ) return@withContext false
+            loadIssue(issueId.value!!)
+            return@withContext true
         }
     }
 

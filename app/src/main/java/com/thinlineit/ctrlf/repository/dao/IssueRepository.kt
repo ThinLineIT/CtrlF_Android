@@ -2,6 +2,7 @@ package com.thinlineit.ctrlf.repository.dao
 
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dto.request.IssueActionRequest
+import com.thinlineit.ctrlf.repository.dto.request.IssueUpdateActionRequest
 import com.thinlineit.ctrlf.repository.network.IssueService
 import com.thinlineit.ctrlf.util.Application
 import java.net.ProtocolException
@@ -82,6 +83,30 @@ class IssueRepository {
             ).code()
         } catch (e: Exception) {
             SERVER_ERROR
+        }
+    }
+
+    suspend fun updateIssue(
+        issueId: Int,
+        newTitle: String,
+        newContent: String? = null,
+        reason: String
+    ): Boolean {
+        return try {
+            val requestBody =
+                IssueUpdateActionRequest(issueId, newTitle, newContent ?: null, reason)
+            IssueService.retrofitService.updateIssue(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                requestBody
+            )
+            true
+        } catch (e: ProtocolException) {
+            true
+        } catch (e: Exception) {
+            false
         }
     }
 
