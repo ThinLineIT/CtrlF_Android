@@ -17,6 +17,8 @@ class CustomDialog(
 ) : Dialog(context) {
     var title: String? = null
     var bodyText: String? = null
+    var contentTitle: String? = null
+    var contentBody: String? = null
     var contentTitleHint: String? = null
     var contentBodyHint: String? = null
     var confirmButtonText: String? = null
@@ -60,6 +62,22 @@ class CustomDialog(
             contentBodyEditText.hint = it
         } ?: kotlin.run {
             contentBodyEditText.visibility = View.GONE
+        }
+
+        contentTitle?.let {
+            contentTitleEditText.visibility = View.VISIBLE
+            contentTitleEditText.setText(it)
+        } ?: kotlin.run {
+            if (contentTitleHint.isNullOrEmpty())
+                contentTitleEditText.visibility = View.GONE
+        }
+
+        contentBody?.let {
+            contentBodyEditText.visibility = View.VISIBLE
+            contentBodyEditText.setText(it)
+        } ?: kotlin.run {
+            if (contentBodyHint.isNullOrEmpty())
+                contentBodyEditText.visibility = View.GONE
         }
 
         confirmButtonText?.let {
