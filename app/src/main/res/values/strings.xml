@@ -157,6 +157,8 @@
     <string name="notice_delete_fail">이슈를 삭제할 수 없습니다. 권한을 확인해주세요.</string>
     <string name="notice_close_success">이슈가 닫혔습니다.</string>
     <string name="notice_close_fail">이슈를 닫을 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_update_success">이슈가 수정되었습니다.</string>
+    <string name="notice_update_fail">이슈를 수정할 수 없습니다. 권한을 확인해주세요.</string>
     <string name="notice_issue_non_exist">현재 확인 가능한 이슈가 없습니다.</string>
 
     <string name="format_timer">%02d</string>
