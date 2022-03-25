@@ -23,16 +23,16 @@ class IssueDetailActivity : AppCompatActivity() {
     private val binding: ActivityIssueDetailBinding by lazy {
         ActivityIssueDetailBinding.inflate(layoutInflater)
     }
-    lateinit var issueDetailViewModel: IssueDetailViewModel
+    lateinit var viewModel: IssueDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         val issueId = intent.getIntExtra(ISSUE_ID, 0)
         val viewModelFactory = IssueDetailViewModelFactory(issueId)
-        issueDetailViewModel =
+        viewModel =
             ViewModelProvider(this, viewModelFactory).get(IssueDetailViewModel::class.java)
-        binding.issueDetailViewModel = issueDetailViewModel
+        binding.issueDetailViewModel = viewModel
         binding.lifecycleOwner = this
         init()
     }
@@ -72,7 +72,7 @@ class IssueDetailActivity : AppCompatActivity() {
     private fun initClickListener() {
         binding.apply {
             detailButton.setOnClickListener {
-                val issue = issueDetailViewModel?.issue?.value ?: return@setOnClickListener
+                val issue = viewModel.issue.value ?: return@setOnClickListener
                 PageActivity.start(
                     it.context,
                     issue.noteId ?: UNSET_ID,
@@ -87,16 +87,38 @@ class IssueDetailActivity : AppCompatActivity() {
             }
 
             issueUpdateButton.setOnClickListener {
-                IssueUpdateClickListener(
-                    this@IssueDetailActivity,
-                    this@IssueDetailActivity.issueDetailViewModel
-                ).onCreateClick()
+                val issue = viewModel.issue.value ?: return@setOnClickListener
+                val permission = viewModel.issuePermissionStatus.value ?: return@setOnClickListener
+                if (permission) {
+                    when {
+                        issue.action == DELETE -> {
+                            IssueUpdateClickListener(
+                                this@IssueDetailActivity,
+                                viewModel
+                            ).onDeleteUpdateClick()
+                        }
+                        issue.relatedModelType == PAGE -> {
+                        }
+                        else -> {
+                            IssueUpdateClickListener(
+                                this@IssueDetailActivity,
+                                viewModel
+                            ).onDefaultUpdateClick()
+                        }
+                    }
+                } else {
+                    Toast.makeText(
+                        this@IssueDetailActivity,
+                        R.string.notice_update_fail,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
         }
     }
 
     private fun initObserveViewModel() {
-        issueDetailViewModel.apply {
+        viewModel.apply {
             detailButtonStatus.observe(this@IssueDetailActivity) {
                 updateViewVisibility(
                     binding.detailButton,
@@ -199,6 +221,7 @@ class IssueDetailActivity : AppCompatActivity() {
     companion object {
         const val ISSUE_ID = "issueId"
         const val PAGE = "PAGE"
+        const val DELETE = "DELETE"
         fun start(context: Context, issueId: Int) {
             val intent = Intent(context, IssueDetailActivity::class.java).apply {
                 putExtra(ISSUE_ID, issueId)

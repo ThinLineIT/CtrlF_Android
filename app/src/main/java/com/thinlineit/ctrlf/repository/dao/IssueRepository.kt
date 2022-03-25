@@ -1,5 +1,6 @@
 package com.thinlineit.ctrlf.repository.dao
 
+import android.util.Log
 import com.thinlineit.ctrlf.entity.Issue
 import com.thinlineit.ctrlf.repository.dto.request.IssueActionRequest
 import com.thinlineit.ctrlf.repository.dto.request.IssueUpdateActionRequest
@@ -88,13 +89,13 @@ class IssueRepository {
 
     suspend fun updateIssue(
         issueId: Int,
-        newTitle: String,
+        newTitle: String? = null,
         newContent: String? = null,
         reason: String
     ): Boolean {
         return try {
             val requestBody =
-                IssueUpdateActionRequest(issueId, newTitle, newContent ?: null, reason)
+                IssueUpdateActionRequest(issueId, newTitle, newContent, reason)
             IssueService.retrofitService.updateIssue(
                 "Bearer " + Application.preferenceUtil.getString(
                     TOKEN,
@@ -104,8 +105,28 @@ class IssueRepository {
             )
             true
         } catch (e: ProtocolException) {
-            true
+            Log.d("issueRepository", "fail1$e")
+            false
         } catch (e: Exception) {
+            Log.d("issueRepository", "fail2$e")
+            false
+        }
+    }
+
+    suspend fun checkIssuePermission(issueId: Int): Boolean {
+        return try {
+            IssueService.retrofitService.checkPermissionIssue(
+                "Bearer " + Application.preferenceUtil.getString(
+                    TOKEN,
+                    ""
+                ),
+                IssueActionRequest(issueId)
+            ).hasPermission
+        } catch (e: ProtocolException) {
+            Log.d("issueRepository", "$e")
+            false
+        } catch (e: Exception) {
+            Log.d("issueRepository", "$e")
             false
         }
     }
