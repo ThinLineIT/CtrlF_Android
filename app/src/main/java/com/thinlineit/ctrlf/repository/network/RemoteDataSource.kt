@@ -2,7 +2,6 @@ package com.thinlineit.ctrlf.repository.network
 
 import com.thinlineit.ctrlf.repository.network.api.ContentApi
 import com.thinlineit.ctrlf.repository.network.api.IssueApi
-import com.thinlineit.ctrlf.repository.network.api.UserApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -11,12 +10,6 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .addConverterFactory(GsonConverterFactory.create())
     .build()
-
-object RegistrationService {
-    val USER_API: UserApi by lazy {
-        retrofit.create(UserApi::class.java)
-    }
-}
 
 object ContentService {
     val retrofitService: ContentApi by lazy {

@@ -3,9 +3,10 @@ package com.thinlineit.ctrlf.registration.signup
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.repository.dao.UserRepository
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.util.CountTimer
 import com.thinlineit.ctrlf.util.CountTimerListener
 import com.thinlineit.ctrlf.util.Event
@@ -18,8 +19,8 @@ import com.thinlineit.ctrlf.util.postTimerEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel : ViewModel() {
-    private val userRepository = UserRepository()
+class RegistrationViewModel(private val userRepository: UserRepository) : ViewModel() {
+
     private val countTimer = CountTimer(object : CountTimerListener {
         override fun onTick(time: String) {
             countText.value = time
@@ -124,7 +125,7 @@ class RegistrationViewModel : ViewModel() {
             codeStatus.value = Event(Status.FAILURE)
             return
         }
-        val signingToken = userRepository.returnSigningToken()
+        val signingToken = userRepository.getSigningToken() ?: return
         viewModelScope.launch {
             if (userRepository.checkCode(code, signingToken)) {
                 codeStatus.postEvent(Status.SUCCESS)
@@ -179,10 +180,10 @@ class RegistrationViewModel : ViewModel() {
         val nickname = nickName.value ?: return
         val password = password.value ?: return
         val passwordConfirm = passwordConfirm.value ?: return
-        val signingToken = userRepository.returnCodeSigningToken()
+        val signingToken = userRepository.getSigningToken() ?: return
 
         viewModelScope.launch {
-            if (userRepository.requestSignUp(
+            if (userRepository.signUp(
                     nickname,
                     password,
                     passwordConfirm,
@@ -197,6 +198,18 @@ class RegistrationViewModel : ViewModel() {
     fun resetEmailCodeValue() {
         email.value = ""
         code.value = ""
+    }
+
+    class RegistrationViewModelFactory(
+        private val userRepository: UserRepository
+    ) : ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(RegistrationViewModel::class.java)) {
+                return RegistrationViewModel(userRepository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
     }
 
     companion object {

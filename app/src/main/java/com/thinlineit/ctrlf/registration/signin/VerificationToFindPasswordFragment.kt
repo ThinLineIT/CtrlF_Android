@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentVerificationToFindPasswordBinding
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.Timer
@@ -20,7 +22,11 @@ class VerificationToFindPasswordFragment :
         R.layout.fragment_verification_to_find_password
     ) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<FindPasswordViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel> {
+        FindPasswordViewModel.FindPasswordViewModelFactory(
+            requireActivity().getComponent(UserRepository)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

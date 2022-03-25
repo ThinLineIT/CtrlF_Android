@@ -2,18 +2,18 @@ package com.thinlineit.ctrlf.registration.signin
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.repository.dao.UserRepository
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.isValid
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
-    private val userRepository: UserRepository by lazy {
-        UserRepository()
-    }
+class LoginViewModel(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     val loginStatus = MutableLiveData<Event<Status>>()
     val email = MutableLiveData("")
@@ -22,7 +22,7 @@ class LoginViewModel : ViewModel() {
 
     private fun login() {
         viewModelScope.launch {
-            if (userRepository.doLogin(email.value.toString(), password.value.toString())) {
+            if (userRepository.logIn(email.value.toString(), password.value.toString())) {
                 loginStatus.postValue(Event(Status.SUCCESS))
             } else {
                 loginMessage.postValue(R.string.notice_check_email_password)
@@ -41,6 +41,18 @@ class LoginViewModel : ViewModel() {
             loginMessage.postValue(R.string.notice_error_email)
         } else {
             login()
+        }
+    }
+
+    class LoginViewModelFactory(
+        private val userRepository: UserRepository
+    ) : ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+                return LoginViewModel(userRepository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 

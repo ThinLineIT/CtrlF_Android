@@ -5,19 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.MainActivity
 import com.thinlineit.ctrlf.R
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.registration.signin.LoginActivity
-import com.thinlineit.ctrlf.repository.dao.UserRepository
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_splash.*
+import kotlinx.android.synthetic.main.activity_splash.splashView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
-    private val userRepository = UserRepository()
+    private val userRepository by lazy { this.getComponent(UserRepository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
     private fun startFirstActivity() {
         CoroutineScope(Dispatchers.Default).launch {
             delay(SPLASH_TIME)
-            if (userRepository.mayLogin()) {
+            if (userRepository.autoLogIn()) {
                 MainActivity.start(this@SplashActivity)
             } else {
                 LoginActivity.start(this@SplashActivity)

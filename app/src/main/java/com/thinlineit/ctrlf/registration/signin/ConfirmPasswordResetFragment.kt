@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentPasswordResetConfirmBinding
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.registration.RegistrationBaseFragment
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.observeIfNotHandled
@@ -19,7 +21,11 @@ class ConfirmPasswordResetFragment :
         R.layout.fragment_password_reset_confirm
     ) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<FindPasswordViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel> {
+        FindPasswordViewModel.FindPasswordViewModelFactory(
+            requireActivity().getComponent(UserRepository)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
