@@ -46,6 +46,10 @@ class IssueDetailViewModel(
     val issueDeleteStatus: LiveData<Event<Status>>
         get() = _issueDeleteStatus
 
+    private val _issuePermissionStatus = MutableLiveData<Boolean>(false)
+    val issuePermissionStatus: LiveData<Boolean>
+        get() = _issuePermissionStatus
+
     private val _detailButtonStatus = MutableLiveData<Boolean>(false)
     val detailButtonStatus: LiveData<Boolean>
         get() = _detailButtonStatus
@@ -67,6 +71,7 @@ class IssueDetailViewModel(
                 issueTitle.postValue(issue.value?.title ?: "")
                 initToolbarTitle()
                 initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
+                checkPermissionIssue()
             } catch (e: Exception) {
             }
         }
@@ -75,7 +80,7 @@ class IssueDetailViewModel(
     fun approveIssue() {
         viewModelScope.launch {
             if (issueId.value != null) {
-                when (issueRepository.approveIssue(issueId.value ?: return@launch.toInt())) {
+                when (issueRepository.approveIssue(issueId.value ?: return@launch)) {
                     true -> _issueApproveStatus.value = Event(Status.SUCCESS)
                     else -> _issueApproveStatus.value = Event(Status.FAILURE)
                 }
@@ -121,7 +126,7 @@ class IssueDetailViewModel(
     }
 
     suspend fun updateIssue(
-        newTitle: String,
+        newTitle: String?,
         reason: String
     ): Boolean {
         return withContext(viewModelScope.coroutineContext) {
@@ -136,6 +141,17 @@ class IssueDetailViewModel(
             ) return@withContext false
             loadIssue(issueId.value!!)
             return@withContext true
+        }
+    }
+
+    fun checkPermissionIssue() {
+        viewModelScope.launch {
+            if (issueId.value != null) {
+                when (issueRepository.checkIssuePermission(issueId.value!!)) {
+                    true -> _issuePermissionStatus.value = true
+                    false -> _issuePermissionStatus.value = false
+                }
+            }
         }
     }
 

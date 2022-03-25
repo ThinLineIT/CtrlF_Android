@@ -5,6 +5,7 @@ import com.thinlineit.ctrlf.entity.IssueList
 import com.thinlineit.ctrlf.repository.dto.request.IssueActionRequest
 import com.thinlineit.ctrlf.repository.dto.request.IssueUpdateActionRequest
 import com.thinlineit.ctrlf.repository.dto.response.IssueCountResponse
+import com.thinlineit.ctrlf.repository.dto.response.IssuePermissionResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -48,6 +49,12 @@ interface IssueApi {
         @Header("Authorization") Authorization: String,
         @Body body: IssueUpdateActionRequest
     ): Response<Void>
+
+    @POST("actions/issue-update-permission-check/")
+    suspend fun checkPermissionIssue(
+        @Header("Authorization") Authorization: String,
+        @Body body: IssueActionRequest
+    ): IssuePermissionResponse
 
     @HTTP(method = "DELETE", hasBody = true, path = "actions/issue-delete/")
     suspend fun deleteIssue(
