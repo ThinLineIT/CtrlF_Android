@@ -33,4 +33,9 @@ class IssueListFragment : Fragment() {
         }
         return binding.root
     }
+
+    override fun onResume() {
+        super.onResume()
+        issueViewModel.loadIssue()
+    }
 }

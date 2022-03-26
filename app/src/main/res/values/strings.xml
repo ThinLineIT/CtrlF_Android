@@ -106,6 +106,7 @@
     <string name="label_summary">내용 요약</string>
     <string name="label_add_page">add page</string>
     <string name="label_edit_page">edit page</string>
+    <string name="label_update_issue_page">update page</string>
     <string name="button_share">공유하기</string>
     <string name="button_related_issue">관련이슈</string>
     <string name="button_bookmark">북마크</string>

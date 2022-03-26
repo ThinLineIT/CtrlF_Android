@@ -6,6 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.entity.Issue
+import com.thinlineit.ctrlf.entity.Page
+import com.thinlineit.ctrlf.entity.Topic
+import com.thinlineit.ctrlf.entity.UNSET_ID
+import com.thinlineit.ctrlf.repository.dao.ContentRepository
 import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
@@ -15,7 +19,8 @@ import kotlinx.coroutines.withContext
 
 class IssueDetailViewModel(
     issueId: Int,
-    private val issueRepository: IssueRepository = IssueRepository()
+    private val issueRepository: IssueRepository = IssueRepository(),
+    private val contentRepository: ContentRepository = ContentRepository()
 ) : BaseViewModel() {
 
     private val _issueId = MutableLiveData<Int>(issueId)
@@ -25,6 +30,14 @@ class IssueDetailViewModel(
     private val _issue = MutableLiveData<Issue>()
     val issue: LiveData<Issue>
         get() = _issue
+
+    private val _pageInfo = MutableLiveData<Page>()
+    val pageInfo: LiveData<Page>
+        get() = _pageInfo
+
+    private val _topicInfo = MutableLiveData<Topic>()
+    val topicInfo: LiveData<Topic>
+        get() = _topicInfo
 
     private val _toolbarTitle = MutableLiveData<Int>(R.string.label_create_page)
     val toolbarTitle: LiveData<Int>
@@ -61,17 +74,18 @@ class IssueDetailViewModel(
     val issueTitle = MutableLiveData("")
 
     init {
-        loadIssue(issueId)
+        loadIssue()
     }
 
-    private fun loadIssue(issueId: Int) {
+    fun loadIssue() {
         viewModelScope.loadingLaunch {
             try {
-                _issue.value = issueRepository.getIssueDetail(issueId.toString())
+                _issue.value = issueRepository.getIssueDetail(issueId.value.toString())
                 issueTitle.postValue(issue.value?.title ?: "")
                 initToolbarTitle()
                 initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
                 checkPermissionIssue()
+                getPageInfo(issue.value?.pageId, issue.value?.versionNo)
             } catch (e: Exception) {
             }
         }
@@ -139,7 +153,7 @@ class IssueDetailViewModel(
                     reason
                 )
             ) return@withContext false
-            loadIssue(issueId.value!!)
+            loadIssue()
             return@withContext true
         }
     }
@@ -152,6 +166,25 @@ class IssueDetailViewModel(
                     false -> _issuePermissionStatus.value = false
                 }
             }
+        }
+    }
+
+    private fun getPageInfo(pageId: Int?, versionNo: Int?) {
+        viewModelScope.launch {
+            if (pageId == UNSET_ID || versionNo == UNSET_ID) return@launch
+            if (pageId == null || versionNo == null) return@launch
+            _pageInfo.value = contentRepository.loadPage(
+                pageId,
+                versionNo
+            )
+            getTopicInfo(pageInfo.value?.topicId)
+        }
+    }
+
+    private fun getTopicInfo(topicId: Int?) {
+        viewModelScope.launch {
+            if (topicId == null) return@launch
+            _topicInfo.value = contentRepository.loadTopic(topicId)
         }
     }
 

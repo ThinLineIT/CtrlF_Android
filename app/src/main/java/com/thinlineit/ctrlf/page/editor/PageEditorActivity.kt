@@ -58,9 +58,10 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         val pageInfo = intent.getParcelableExtra(PAGE) ?: Page()
         val topicTitle = intent.getStringExtra(TOPIC_TITLE) ?: ""
         val topicId = intent.getIntExtra(TOPIC_ID, 0)
+        val summary = intent.getStringExtra(SUMMARY) ?: ""
         val mode = intent.getSerializableExtra(MODE)
         val viewModelFactory =
-            PageEditorViewModelFactory(pageInfo, topicTitle, topicId, mode as Mode)
+            PageEditorViewModelFactory(pageInfo, topicTitle, topicId, summary, mode as Mode)
         ViewModelProvider(this, viewModelFactory).get(PageEditorViewModel::class.java).apply {
             toolboxController = ToolboxController(binding.root.findViewById(R.id.toolbox))
         }
@@ -162,6 +163,7 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
         const val TOPIC_TITLE = "topicTitle"
         const val TOPIC_ID = "topicId"
         const val PAGE = "page"
+        const val SUMMARY = "summary"
         const val MODE = "mode"
 
         fun start(context: Context) {
@@ -179,6 +181,6 @@ class PageEditorActivity : FragmentActivity(), CustomDialogInterface {
     }
 
     enum class Mode {
-        CREATE, EDIT
+        CREATE, EDIT, UPDATE
     }
 }

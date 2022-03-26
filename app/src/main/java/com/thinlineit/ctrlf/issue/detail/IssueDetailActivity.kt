@@ -13,6 +13,7 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.ActivityIssueDetailBinding
 import com.thinlineit.ctrlf.entity.UNSET_ID
 import com.thinlineit.ctrlf.page.detail.PageActivity
+import com.thinlineit.ctrlf.page.editor.PageEditorActivity
 import com.thinlineit.ctrlf.registration.signout.LogoutActivity
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.changeVisibilityState
@@ -35,6 +36,11 @@ class IssueDetailActivity : AppCompatActivity() {
         binding.issueDetailViewModel = viewModel
         binding.lifecycleOwner = this
         init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadIssue()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -98,6 +104,19 @@ class IssueDetailActivity : AppCompatActivity() {
                             ).onDeleteUpdateClick()
                         }
                         issue.relatedModelType == PAGE -> {
+                            val pageInfo = viewModel.pageInfo.value ?: return@setOnClickListener
+                            val topicInfo = viewModel.topicInfo.value ?: return@setOnClickListener
+                            val issue = viewModel.issue.value ?: return@setOnClickListener
+                            val intent = Intent(
+                                this@IssueDetailActivity,
+                                PageEditorActivity::class.java
+                            ).apply {
+                                putExtra(PageEditorActivity.PAGE, pageInfo)
+                                putExtra(PageEditorActivity.TOPIC_TITLE, topicInfo.title)
+                                putExtra(PageEditorActivity.SUMMARY, issue.reason)
+                                putExtra(PageEditorActivity.MODE, PageEditorActivity.Mode.UPDATE)
+                            }
+                            startActivity(intent)
                         }
                         else -> {
                             IssueUpdateClickListener(
