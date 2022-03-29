@@ -18,20 +18,21 @@ class IssueUpdateClickListener(
 
     fun onDefaultUpdateClick() {
         curDialog = CustomDialog(context).apply {
-            title = context.resources.getString(issueDetailViewModel.toolbarTitle.value!!)
+            title =
+                context.resources.getString(issueDetailViewModel.toolbarTitle.value ?: return@apply)
             contentTitle = issueDetailViewModel.issueTitle.value
             contentBody = issueDetailViewModel.issue.value?.reason
             confirmButtonText = context.resources.getString(R.string.button_dialog_confirm)
             dismissButtonText = context.resources.getString(R.string.button_dialog_cancel)
             confirmClickListener = ::onDefaultUpdateConfirmClick
             dismissClickListener = ::onUpdateDismissClick
-        }
-        curDialog?.show()
+        }.also { it.show() }
     }
 
     fun onDeleteUpdateClick() {
         curDialog = CustomDialog(context).apply {
-            title = context.resources.getString(issueDetailViewModel.toolbarTitle.value!!)
+            title =
+                context.resources.getString(issueDetailViewModel.toolbarTitle.value ?: return@apply)
             contentTitle = issueDetailViewModel.issueTitle.value
             contentBody = issueDetailViewModel.issue.value?.reason
             confirmButtonText = context.resources.getString(R.string.button_dialog_confirm)
@@ -39,8 +40,7 @@ class IssueUpdateClickListener(
             contentTitleEditable = true
             confirmClickListener = ::onDeleteUpdateConfirmClick
             dismissClickListener = ::onUpdateDismissClick
-        }
-        curDialog?.show()
+        }.also { it.show() }
     }
 
     private fun onDefaultUpdateConfirmClick(issueMaterial: IssueMaterial) {

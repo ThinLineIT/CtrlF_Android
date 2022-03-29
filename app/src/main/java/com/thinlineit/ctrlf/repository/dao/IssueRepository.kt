@@ -36,7 +36,7 @@ class IssueRepository {
                     ""
                 ),
                 IssueActionRequest(issueId)
-            )
+            ).code()
             true
         } catch (e: ProtocolException) {
             true

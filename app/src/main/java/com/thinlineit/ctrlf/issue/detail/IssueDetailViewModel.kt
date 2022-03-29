@@ -59,6 +59,10 @@ class IssueDetailViewModel(
     val issueDeleteStatus: LiveData<Event<Status>>
         get() = _issueDeleteStatus
 
+    private val _issueInfoStatus = MutableLiveData<Boolean>(true)
+    val issueInfoStatus: LiveData<Boolean>
+        get() = _issueInfoStatus
+
     private val _issuePermissionStatus = MutableLiveData<Boolean>(false)
     val issuePermissionStatus: LiveData<Boolean>
         get() = _issuePermissionStatus
@@ -86,6 +90,7 @@ class IssueDetailViewModel(
                 initButtonVisible(issue.value?.relatedModelType ?: "", issue.value?.status ?: "")
                 checkPermissionIssue()
                 getPageInfo(issue.value?.pageId, issue.value?.versionNo)
+                checkIssueInfo()
             } catch (e: Exception) {
             }
         }
@@ -189,11 +194,8 @@ class IssueDetailViewModel(
     }
 
     private fun initToolbarTitle() {
-        if (issue.value?.relatedModelType.isNullOrEmpty() || issue.value?.action.isNullOrEmpty())
-            return
-
-        val modelType = identifyModelType(issue.value!!.relatedModelType)
-        val modelAction = identifyModelAction(issue.value!!.action)
+        val modelType = ModelType.getModelType(issue.value?.relatedModelType ?: return) ?: return
+        val modelAction = ModelAction.getModelAction(issue.value?.action ?: return) ?: return
 
         _toolbarTitle.value =
             when (modelType) {
@@ -215,27 +217,19 @@ class IssueDetailViewModel(
             }
     }
 
+    private fun checkIssueInfo() {
+        if (issue.value == null ||
+            issue.value?.action == null ||
+            issue.value?.relatedModelType == null ||
+            issue.value?.id == null || issue.value?.title == null ||
+            issue.value?.reason == null
+        )
+            _issueInfoStatus.value = false
+    }
+
     private fun initButtonVisible(contentType: String, status: String) {
-        _detailButtonStatus.value = identifyModelType(contentType) == ModelType.Page
+        _detailButtonStatus.value = ModelType.getModelType(contentType) == ModelType.Page
         _approveButtonStatus.value = status == REQUESTED
-    }
-
-    private fun identifyModelType(modelType: String): ModelType {
-        val type = when (modelType) {
-            "NOTE" -> ModelType.Note
-            "TOPIC" -> ModelType.Topic
-            else -> ModelType.Page
-        }
-        return type
-    }
-
-    private fun identifyModelAction(modelAction: String): ModelAction {
-        val action = when (modelAction) {
-            "CREATE" -> ModelAction.Create
-            "UPDATE" -> ModelAction.Update
-            else -> ModelAction.Delete
-        }
-        return action
     }
 
     companion object {
@@ -248,10 +242,28 @@ sealed class ModelType() {
     object Note : ModelType()
     object Topic : ModelType()
     object Page : ModelType()
+
+    companion object {
+        fun getModelType(modelType: String): ModelType? = when (modelType) {
+            "NOTE" -> ModelType.Note
+            "TOPIC" -> ModelType.Topic
+            "PAGE" -> ModelType.Page
+            else -> null
+        }
+    }
 }
 
 sealed class ModelAction() {
     object Create : ModelAction()
     object Update : ModelAction()
     object Delete : ModelAction()
+
+    companion object {
+        fun getModelAction(modelAction: String): ModelAction? = when (modelAction) {
+            "CREATE" -> ModelAction.Create
+            "UPDATE" -> ModelAction.Update
+            "DELETE" -> ModelAction.Delete
+            else -> null
+        }
+    }
 }

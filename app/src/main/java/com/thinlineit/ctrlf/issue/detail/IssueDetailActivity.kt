@@ -24,6 +24,9 @@ class IssueDetailActivity : AppCompatActivity() {
     private val binding: ActivityIssueDetailBinding by lazy {
         ActivityIssueDetailBinding.inflate(layoutInflater)
     }
+    private val issueUpdateClickListener: IssueUpdateClickListener by lazy {
+        IssueUpdateClickListener(this, viewModel)
+    }
     lateinit var viewModel: IssueDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,14 +97,12 @@ class IssueDetailActivity : AppCompatActivity() {
 
             issueUpdateButton.setOnClickListener {
                 val issue = viewModel.issue.value ?: return@setOnClickListener
-                val permission = viewModel.issuePermissionStatus.value ?: return@setOnClickListener
-                if (permission) {
+                val hasPermission =
+                    viewModel.issuePermissionStatus.value ?: return@setOnClickListener
+                if (hasPermission) {
                     when {
                         issue.action == DELETE -> {
-                            IssueUpdateClickListener(
-                                this@IssueDetailActivity,
-                                viewModel
-                            ).onDeleteUpdateClick()
+                            issueUpdateClickListener.onDeleteUpdateClick()
                         }
                         issue.relatedModelType == PAGE -> {
                             val pageInfo = viewModel.pageInfo.value ?: return@setOnClickListener
@@ -119,10 +120,7 @@ class IssueDetailActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                         else -> {
-                            IssueUpdateClickListener(
-                                this@IssueDetailActivity,
-                                viewModel
-                            ).onDefaultUpdateClick()
+                            issueUpdateClickListener.onDefaultUpdateClick()
                         }
                     }
                 } else {
@@ -139,17 +137,14 @@ class IssueDetailActivity : AppCompatActivity() {
     private fun initObserveViewModel() {
         viewModel.apply {
             detailButtonStatus.observe(this@IssueDetailActivity) {
-                updateViewVisibility(
+                toggleViewVisibility(
                     binding.detailButton,
                     it
                 )
             }
             approveButtonStatus.observe(this@IssueDetailActivity) {
-                updateTwoViewVisibility(
-                    binding.approveButton,
-                    binding.rejectButton,
-                    it
-                )
+                toggleViewVisibility(binding.approveButton, it)
+                toggleViewVisibility(binding.rejectButton, it)
             }
             issueApproveStatus.observeIfNotHandled(this@IssueDetailActivity) {
                 if (it == Status.SUCCESS) {
@@ -211,13 +206,13 @@ class IssueDetailActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
             }
-            toolbarTitle.observe(this@IssueDetailActivity) {
-                if (it == R.string.empty_text) finish()
+            issueInfoStatus.observe(this@IssueDetailActivity) {
+                if (!it) finish()
             }
         }
     }
 
-    private fun updateViewVisibility(
+    private fun toggleViewVisibility(
         view: View,
         visible: Boolean
     ) {
@@ -226,15 +221,6 @@ class IssueDetailActivity : AppCompatActivity() {
                 View.VISIBLE
             else
                 View.GONE
-    }
-
-    private fun updateTwoViewVisibility(
-        firstView: View,
-        secondView: View,
-        visible: Boolean
-    ) {
-        updateViewVisibility(firstView, visible)
-        updateViewVisibility(secondView, visible)
     }
 
     companion object {
