@@ -27,6 +27,10 @@ class ContentRepository {
         return ContentService.retrofitService.getPage(pageId, versionNo)
     }
 
+    suspend fun loadTopic(topicId: Int): Topic {
+        return ContentService.retrofitService.getTopic(topicId)
+    }
+
     suspend fun loadNoteList(cursor: Int): NoteList {
         return ContentService.retrofitService.listNote(cursor)
     }

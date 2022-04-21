@@ -106,6 +106,7 @@
     <string name="label_summary">내용 요약</string>
     <string name="label_add_page">add page</string>
     <string name="label_edit_page">edit page</string>
+    <string name="label_update_issue_page">update page</string>
     <string name="button_share">공유하기</string>
     <string name="button_related_issue">관련이슈</string>
     <string name="button_bookmark">북마크</string>
@@ -145,9 +146,20 @@
     <string name="button_approve">승인</string>
     <string name="button_reject">미승인</string>
     <string name="button_detail">자세히 보러 가기 →</string>
+    <string name="button_update">내용 수정</string>
+    <string name="button_delete">요청 삭제</string>
+    <string name="button_close">이슈 닫기</string>
 
-    <string name="notice_complete_approve">승인이 완료되었습니다.</string>
-    <string name="notice_non_authority">승인 권한이 없습니다.</string>
+    <string name="notice_approve_success">이슈가 승인되었습니다.</string>
+    <string name="notice_approve_fail">이슈를 승인할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_reject_success">이슈가 거절되었습니다.</string>
+    <string name="notice_reject_fail">이슈를 거절할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_delete_success">이슈가 삭제되었습니다.</string>
+    <string name="notice_delete_fail">이슈를 삭제할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_close_success">이슈가 닫혔습니다.</string>
+    <string name="notice_close_fail">이슈를 닫을 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_update_success">이슈가 수정되었습니다.</string>
+    <string name="notice_update_fail">이슈를 수정할 수 없습니다. 권한을 확인해주세요.</string>
     <string name="notice_issue_non_exist">현재 확인 가능한 이슈가 없습니다.</string>
 
     <string name="format_timer">%02d</string>

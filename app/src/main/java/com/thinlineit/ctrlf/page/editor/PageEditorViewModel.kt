@@ -8,7 +8,9 @@ import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.entity.Page
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Mode.CREATE
 import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Mode.EDIT
+import com.thinlineit.ctrlf.page.editor.PageEditorActivity.Mode.UPDATE
 import com.thinlineit.ctrlf.repository.dao.ContentRepository
+import com.thinlineit.ctrlf.repository.dao.IssueRepository
 import com.thinlineit.ctrlf.util.Event
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseViewModel
@@ -18,23 +20,27 @@ class PageEditorViewModel(
     private val pageInfo: Page,
     private val topicTitle: String,
     private val topicId: Int,
+    private val issueSummary: String,
     private val mode: PageEditorActivity.Mode,
-    private val contentRepository: ContentRepository = ContentRepository()
+    private val contentRepository: ContentRepository = ContentRepository(),
+    private val issueRepository: IssueRepository = IssueRepository()
 ) : BaseViewModel() {
 
     val content = MutableLiveData<String>(pageInfo.content)
     val pageTitle = MutableLiveData<String>(pageInfo.title)
     val topicTitleStr = MutableLiveData<String>(topicTitle)
     val topicIdInfo = MutableLiveData<Int>(topicId)
-    val summary = MutableLiveData<String>()
+    val summary = MutableLiveData<String>(issueSummary)
     val headerText = when (mode) {
         CREATE -> R.string.label_add_page
         EDIT -> R.string.label_edit_page
+        UPDATE -> R.string.label_update_issue_page
     }
 
     val summaryHint = when (mode) {
         CREATE -> R.string.label_summary
         EDIT -> R.string.label_reason_for_revision
+        UPDATE -> R.string.empty_text
     }
 
     private val _editPageStatus = MutableLiveData<Event<Status>>()
@@ -77,6 +83,20 @@ class PageEditorViewModel(
                     _editPageStatus.value = if (
                         contentRepository.updatePage(
                             pageInfo.id,
+                            pageTitle,
+                            content,
+                            summary
+                        )
+                    ) Event(Status.SUCCESS)
+                    else Event(Status.FAILURE)
+                }
+
+            UPDATE ->
+                viewModelScope.launch {
+                    val issueId = pageInfo.issueId ?: return@launch
+                    _editPageStatus.value = if (
+                        issueRepository.updateIssue(
+                            issueId,
                             pageTitle,
                             content,
                             summary

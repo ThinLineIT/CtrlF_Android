@@ -34,6 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:gravity="center"
+            android:autoSizeTextType="uniform"
             android:text="@{note.title}"
             app:layout_constraintBottom_toBottomOf="@+id/bottomGuideline"
             app:layout_constraintLeft_toLeftOf="@id/startGuideline"

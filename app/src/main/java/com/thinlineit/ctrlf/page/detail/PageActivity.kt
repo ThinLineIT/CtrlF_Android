@@ -139,6 +139,7 @@ class PageActivity : AppCompatActivity() {
                 putExtra(TOPIC_ID, topicId)
                 putExtra(PAGE_ID, pageId)
                 putExtra(VERSION_NO, versionNo)
+                addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             }
             context.startActivity(intent)
         }

@@ -17,10 +17,13 @@ class CustomDialog(
 ) : Dialog(context) {
     var title: String? = null
     var bodyText: String? = null
+    var contentTitle: String? = null
+    var contentBody: String? = null
     var contentTitleHint: String? = null
     var contentBodyHint: String? = null
     var confirmButtonText: String? = null
     var dismissButtonText: String? = null
+    var contentTitleEditable: Boolean = false
     var confirmClickListener: ((IssueMaterial) -> Unit)? = null
     var dismissClickListener: (() -> Unit)? = null
     var buttonGravity = Gravity.END
@@ -60,6 +63,28 @@ class CustomDialog(
             contentBodyEditText.hint = it
         } ?: kotlin.run {
             contentBodyEditText.visibility = View.GONE
+        }
+
+        contentTitle?.let {
+            contentTitleEditText.visibility = View.VISIBLE
+            contentTitleEditText.setText(it)
+            if (contentTitleEditable) {
+                contentTitleEditText.apply {
+                    isClickable = false
+                    isFocusable = false
+                }
+            }
+        } ?: kotlin.run {
+            if (contentTitleHint.isNullOrEmpty())
+                contentTitleEditText.visibility = View.GONE
+        }
+
+        contentBody?.let {
+            contentBodyEditText.visibility = View.VISIBLE
+            contentBodyEditText.setText(it)
+        } ?: kotlin.run {
+            if (contentBodyHint.isNullOrEmpty())
+                contentBodyEditText.visibility = View.GONE
         }
 
         confirmButtonText?.let {
