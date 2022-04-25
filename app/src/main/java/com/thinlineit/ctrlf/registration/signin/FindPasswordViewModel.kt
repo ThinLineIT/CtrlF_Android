@@ -3,9 +3,10 @@ package com.thinlineit.ctrlf.registration.signin
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.thinlineit.ctrlf.R
-import com.thinlineit.ctrlf.repository.dao.UserRepository
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.util.CountTimer
 import com.thinlineit.ctrlf.util.CountTimerListener
 import com.thinlineit.ctrlf.util.Event
@@ -17,8 +18,9 @@ import com.thinlineit.ctrlf.util.postEvent
 import com.thinlineit.ctrlf.util.postTimerEvent
 import kotlinx.coroutines.launch
 
-class FindPasswordViewModel : ViewModel() {
-    private val userRepository = UserRepository()
+class FindPasswordViewModel(
+    private val userRepository: UserRepository
+) : ViewModel() {
     private val countTimer = CountTimer(object : CountTimerListener {
         override fun onTick(time: String) {
             countText.value = time
@@ -107,7 +109,7 @@ class FindPasswordViewModel : ViewModel() {
             codeStatus.value = Event(Status.FAILURE)
             return
         }
-        val signingToken = userRepository.returnSigningToken()
+        val signingToken = userRepository.getSigningToken() ?: return
         viewModelScope.launch {
             if (userRepository.checkCode(code, signingToken)) {
                 codeStatus.postEvent(Status.SUCCESS)
@@ -154,10 +156,10 @@ class FindPasswordViewModel : ViewModel() {
     fun requestResetPassword() {
         val password = password.value ?: return
         val passwordConfirm = passwordConfirm.value ?: return
-        val signingToken = userRepository.returnCodeSigningToken()
+        val signingToken = userRepository.getSigningToken() ?: return
 
         viewModelScope.launch {
-            if (userRepository.requestResetPassword(
+            if (userRepository.resetPassword(
                     password,
                     passwordConfirm,
                     signingToken
@@ -165,6 +167,18 @@ class FindPasswordViewModel : ViewModel() {
             ) {
                 completeClick.postValue(Event(true))
             }
+        }
+    }
+
+    class FindPasswordViewModelFactory(
+        private val userRepository: UserRepository
+    ) : ViewModelProvider.Factory {
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(FindPasswordViewModel::class.java)) {
+                return FindPasswordViewModel(userRepository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 

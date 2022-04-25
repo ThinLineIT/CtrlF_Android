@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentConfirmPasswordBinding
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.util.Status
 import com.thinlineit.ctrlf.util.base.BaseFragment
 import com.thinlineit.ctrlf.util.observeIfNotHandled
@@ -17,7 +19,11 @@ import com.thinlineit.ctrlf.util.setBackgroundById
 class ConfirmPasswordFragment :
     BaseFragment<FragmentConfirmPasswordBinding>(R.layout.fragment_confirm_password) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<RegistrationViewModel>()
+    private val viewModel by activityViewModels<RegistrationViewModel> {
+        RegistrationViewModel.RegistrationViewModelFactory(
+            requireActivity().getComponent(UserRepository)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,2 +1,8 @@
 include ':app'
 rootProject.name = "CtrlF"
+
+// subproject
+include ':model-api'
+project(':model-api').projectDir = file("library-modules/model-api")
+include ':model-impl'
+project(':model-impl').projectDir = file("library-modules/model-impl")

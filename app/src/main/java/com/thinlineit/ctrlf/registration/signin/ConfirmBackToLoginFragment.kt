@@ -7,14 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.R
 import com.thinlineit.ctrlf.databinding.FragmentConfirmBackToLoginBinding
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.util.base.BaseFragment
 
 class ConfirmBackToLoginFragment :
     BaseFragment<FragmentConfirmBackToLoginBinding>(R.layout.fragment_confirm_back_to_login) {
     private lateinit var navController: NavController
-    private val viewModel by activityViewModels<FindPasswordViewModel>()
+    private val viewModel by activityViewModels<FindPasswordViewModel> {
+        FindPasswordViewModel.FindPasswordViewModelFactory(
+            requireActivity().getComponent(UserRepository)
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

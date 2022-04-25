@@ -2,9 +2,10 @@ package com.thinlineit.ctrlf.registration.signout
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.linecorp.lich.component.getComponent
 import com.thinlineit.ctrlf.R
+import com.thinlineit.ctrlf.model.repository.UserRepository
 import com.thinlineit.ctrlf.splash.SplashActivity
-import com.thinlineit.ctrlf.util.Application
 import kotlinx.android.synthetic.main.activity_logout.cancelBtn
 import kotlinx.android.synthetic.main.activity_logout.logoutBtn
 
@@ -23,14 +24,7 @@ class LogoutActivity : AppCompatActivity() {
     }
 
     private fun deleteInfo() {
-        Application.preferenceUtil.setString(EMAIL, "")
-        Application.preferenceUtil.setString(PASSWORD, "")
-        Application.preferenceUtil.setString(TOKEN, "")
-    }
-
-    companion object {
-        private const val TOKEN = "token"
-        private const val EMAIL = "email"
-        private const val PASSWORD = "password"
+        val userRepository = this.getComponent(UserRepository)
+        userRepository.logOut()
     }
 }

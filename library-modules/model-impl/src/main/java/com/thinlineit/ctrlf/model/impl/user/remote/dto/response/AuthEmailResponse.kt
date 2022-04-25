@@ -1,9 +1,8 @@
-package com.thinlineit.ctrlf.repository.dto.request
+package com.thinlineit.ctrlf.model.impl.user.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
 
-data class CodeCheckRequest(
-    val code: String,
+data class AuthEmailResponse(
     @SerializedName("signing_token")
     val signingToken: String
 )
