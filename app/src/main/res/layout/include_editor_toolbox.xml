@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/toolbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollview">
+
+        <ImageButton
+            android:id="@+id/headerTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_header" />
+
+        <ImageButton
+            android:id="@+id/boldTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_bold" />
+
+        <ImageButton
+            android:id="@+id/italicTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_italic" />
+
+        <ImageButton
+            android:id="@+id/bulletedListTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_bullet_list" />
+
+        <ImageButton
+            android:id="@+id/numberListTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_number_list" />
+
+        <ImageButton
+            android:id="@+id/quoteTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_quote" />
+
+        <ImageButton
+            android:id="@+id/codeTextTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_code" />
+
+        <ImageButton
+            android:id="@+id/linkTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_link" />
+
+        <ImageButton
+            android:id="@+id/imageTool"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@color/wild_sand"
+            android:src="@drawable/icon_image" />
+    </LinearLayout>
+</merge>

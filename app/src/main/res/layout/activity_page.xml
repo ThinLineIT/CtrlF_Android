@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pageViewModel"
+            type="com.thinlineit.ctrlf.page.detail.PageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/pageActivityToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/toolbar_main">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="12dp"
+                android:src="@drawable/icon_logo" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.slidingpanelayout.widget.SlidingPaneLayout
+            android:id="@+id/slidingPaneLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/background_graphpaper"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pageActivityToolBar">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/pageTopicFragmentContainerView"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/navigation_page" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="400dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:context=".page.detail.PageActivity">
+
+                <TextView
+                    style="@style/MediumTextView"
+                    android:id="@+id/topicText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_round_onlyleft_purple"
+                    android:fontFamily="@font/sc_dream_6"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="@{pageViewModel.topic.title}"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/markdown_view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/label_topic" />
+
+                <TextView
+                    style="@style/MediumTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/background_round_onlyright_white"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sc_dream_5"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@{pageViewModel.page.title}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/topicText"
+                    app:layout_constraintTop_toTopOf="@+id/topicText"
+                    tools:text="@string/label_page" />
+
+                <com.mukesh.MarkdownView
+                    android:id="@+id/markdown_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topicText"
+                    app:markdownString="@{pageViewModel.page.content}" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:scaleType="center"
+                    android:src="@drawable/icon_add"
+                    app:backgroundTint="@color/purple"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:maxImageSize="48dp"
+                    app:tint="@null" />
+
+                <LinearLayout
+                    android:id="@+id/fabChildButtonList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/fabButton"
+                    app:layout_constraintEnd_toEndOf="@id/fabButton">
+
+                <Button
+                    style="@style/MediumTextView"
+                    android:id="@+id/shareButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_share"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_share"
+                    android:textColor="@color/black"
+                    app:background="@color/white" />
+
+                <Button
+                    style="@style/MediumTextView"
+                    android:id="@+id/relatedIssueButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_issue"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_related_issue"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
+
+                <Button
+                    style="@style/MediumTextView"
+                    android:id="@+id/bookMarkButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_bookmark"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_bookmark"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
+
+                <Button
+                    style="@style/MediumTextView"
+                    android:id="@+id/editButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:backgroundTint="@color/white"
+                    android:drawableLeft="@drawable/icon_edit"
+                    android:fontFamily="@font/font_sc_dream_5"
+                    android:text="@string/button_do_edit"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:background="@color/white" />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.slidingpanelayout.widget.SlidingPaneLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

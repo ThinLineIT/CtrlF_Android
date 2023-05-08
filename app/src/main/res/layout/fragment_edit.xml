@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".page.PageEditFragment">
+
+        <EditText
+            android:id="@+id/markdownEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white"
+            android:gravity="top"
+            android:hint="@string/label_markdown_edit"
+            android:inputType="textMultiLine|textCapSentences"
+            android:isScrollContainer="false"
+            android:minHeight="250dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp"
+            android:text="@={viewModel.content}" />
+
+    </RelativeLayout>
+</layout>

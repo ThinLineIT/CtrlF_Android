@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="pageViewModel"
+            type="com.thinlineit.ctrlf.page.detail.PageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_blue">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/noteInfo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/topicListRecyclerViewTopGuideline"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            tools:text="NoteTitle"
+            style="@style/LargeTextView"
+            android:id="@+id/noteTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="@{pageViewModel.note.title}"
+            android:textSize="46sp"
+            app:layout_constraintBottom_toBottomOf="@+id/noteInfo"
+            app:layout_constraintEnd_toStartOf="@id/seeMoreBoxOfNoteBtn"
+            app:layout_constraintStart_toStartOf="@id/noteInfo"
+            app:layout_constraintTop_toTopOf="@id/noteInfo" />
+
+        <ImageView
+            android:id="@+id/seeMoreBoxOfNoteBtn"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/icon_note_title_more"
+            app:layout_constraintBottom_toBottomOf="@id/noteInfo"
+            app:layout_constraintEnd_toEndOf="@id/noteInfo"
+            app:layout_constraintTop_toTopOf="@id/noteInfo" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topicListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:background="@color/dark_blue"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            app:data="@{pageViewModel.topicList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/addTopicBtnTopGuideline"
+            app:layout_constraintTop_toBottomOf="@+id/noteInfo"
+            tools:listitem="@layout/list_item_topic_title" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/seeMoreBoxOfNote"
+            android:layout_width="65dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/icon_note_title_textbox"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/seeMoreBoxOfNoteBtn"
+            app:layout_constraintTop_toBottomOf="@id/seeMoreBoxOfNoteBtn">
+
+            <TextView
+                android:id="@+id/updateNoteTitleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/button_dialog_modify"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/noteTitleTextBoxStart" />
+
+            <View
+                android:id="@+id/underLineUpdateDelete"
+                android:layout_width="50dp"
+                android:layout_height="1px"
+                android:background="@color/light_gray"
+                app:layout_constraintBottom_toTopOf="@id/deleteNoteBtn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/updateNoteTitleBtn" />
+
+            <TextView
+                android:id="@+id/deleteNoteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/button_dialog_delete"
+                app:layout_constraintBottom_toBottomOf="@id/noteTitleTextBoxEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/noteTitleTextBoxStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/noteTitleTextBoxEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.85" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/addTopicBtn"
+            style="@style/AddButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/button_add_topic"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topicListRecyclerView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topicListRecyclerViewTopGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.13" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/addTopicBtnTopGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.90" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

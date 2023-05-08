@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.thinlineit.ctrlf.registration.signup.RegistrationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_graphpaper"
+        tools:context=".registration.signup.EnterEmailFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/regCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/backBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="45dp"
+                    android:backgroundTint="@color/white"
+                    android:src="@drawable/icon_back_button"
+                    app:layout_constraintEnd_toStartOf="@id/accountText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/accountText"
+                    style="@style/MediumTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/label_enter_verify"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/codeTextTool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/notice_check_email_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/accountText" />
+
+                <FrameLayout
+                    android:id="@+id/codeFrameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/codeTextTool"
+                    app:layout_constraintStart_toStartOf="@+id/codeTextTool"
+                    app:layout_constraintTop_toBottomOf="@+id/codeTextTool">
+
+                    <EditText
+                        android:id="@+id/regCode"
+                        style="@style/SingleLineEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:hint="@string/hint_code"
+                        android:paddingStart="10dp"
+                        android:text="@={viewModel.code}"
+                        app:onEditorActionListener="@{viewModel.codeInvoke}" />
+
+                    <TextView
+                        style="@style/WarningHintTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:paddingEnd="20dp"
+                        android:text="@{viewModel.countText}"
+                        tools:text="@string/label_default_timer" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/WarningHintTextView"
+                    android:id="@+id/regCodeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:text="@{viewModel.codeMessage}"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/codeFrameLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/codeFrameLayout"
+                    tools:text="@string/notice_email_code_check" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
+                    android:id="@+id/resendCodeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="20dp"
+                    android:onClick="@{()->viewModel.sendAuthEmail()}"
+                    android:text="@string/button_resend_code"
+                    app:layout_constraintStart_toStartOf="@+id/codeFrameLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/regCodeText" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/MediumMaterialButton"
+                    android:id="@+id/confirmCodeBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:onClick="@{()->viewModel.checkCodeValid()}"
+                    android:text="@string/button_next_wide"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/codeFrameLayout"
+                    app:layout_constraintTop_toBottomOf="@+id/resendCodeButton" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

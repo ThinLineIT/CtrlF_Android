@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.thinlineit.ctrlf.page.editor.PageEditorViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:minHeight="250dp"
+        android:background="@color/white"
+        tools:context=".page.PageFragment">
+
+        <com.mukesh.MarkdownView
+            android:id="@+id/markdown_view"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="250dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:markdownString="@{viewModel.content}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

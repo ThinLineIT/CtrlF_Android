@@ -1,0 +1,192 @@
+<resources>
+    <string name="app_name">CtrlF</string>
+    <string name="fragment_notes">Notes</string>
+
+    <!-- login & registration-->
+    <string name="hint_email">E-mail</string>
+    <string name="hint_password">PASSWORD</string>
+    <string name="hint_password_confirm">PASSWORD 확인</string>
+    <string name="hint_nickname">닉네임</string>
+    <string name="hint_code">인증코드</string>
+    <string name="label_login">Log in</string>
+    <string name="label_duplicate_nickname">닉네임중복여부</string>
+    <string name="label_enter_email">이메일 입력</string>
+    <string name="label_enter_verify">이메일 인증</string>
+    <string name="label_enter_nickname_and_verify">닉네임 입력 / 중복확인</string>
+    <string name="label_enter_password_and_verify">비밀번호 입력 / 확인</string>
+    <string name="button_login">Log in</string>
+    <string name="button_to_login">Login 하러 가기</string>
+    <string name="button_register">회원가입</string>
+    <string name="button_next_wide">"다  음" </string>
+    <string name="button_duplicate">중복확인</string>
+    <string name="button_email_confirm">이메일 인증</string>
+    <string name="button_find_password">"PASSWORD 찾기"</string>
+    <string name="button_back">"뒤로 가기"</string>
+    <string name="button_cancel_wide">"취  소"</string>
+    <string name="notice_confirm_go_back_to_email">"[뒤로 가기]를 누르시면 \n이메일 인증을 새로 받으셔야합니다."</string>
+    <string name="notice_email_code_check">"코드 null text"</string>
+    <string name="empty_text">""</string>
+
+    <!-- login viewModel-->
+    <string name="notice_error_email">이메일 형식이 올바르지 않습니다.</string>
+    <string name="notice_input_email_password">이메일과 비밀번호를 입력해주세요.</string>
+    <string name="notice_check_email_password">"* 이메일 / 패스워드를 확인해주세요."</string>
+    <string name="notice_error_password">비밀번호가 일치하지 않습니다.</string>
+    <string name="notice_login_check">로그인 확인 text</string>
+
+    <!-- register viewModel-->
+    <string name="label_issue">Issue</string>
+    <string name="label_note">Note</string>
+    <string name="label_title">Title</string>
+    <string name="label_id">Id</string>
+    <string name="label_content">Content</string>
+    <string name="label_registration_date">RegistrationDate</string>
+    <string name="label_user_circle_button">userCircleBtn</string>
+    <string name="button_show_all_note">전체보기 ></string>
+    <string name="notice_nickname_valid_condition">닉네임은 2~10자, 공백이나 특수문자는 허용하지 않습니다.</string>
+    <string name="notice_password_valid_condition">"비밀 번호는 영문, 숫자, 특수문자 중 2가지 이상 \n조합하여 8~20자이내로 입력해주세요."</string>
+    <string name="notice_enter_code">코드를 입력하세요.</string>
+    <string name="notice_check_code">코드를 확인해주세요.</string>
+    <string name="notice_code_is_not_valid">코드가 일치하지 않습니다.</string>
+    <string name="notice_check_email_code">입력하신 이메일에서 코드를 확인해주세요.</string>
+    <string name="notice_exist_nickname">이미 존재하는 닉네임입니다.</string>
+    <string name="notice_exist_email">이미 존재하는 이메일입니다.</string>
+    <string name="notice_password_valid_check">비밀번호 유효성 text</string>
+    <string name="notice_registration_complete">"환영합니다.\n가입이 완료되었습니다.\n\n로그인 후 이용해주세요."</string>
+    <string name="notice_prepare">해당 서비스는 준비중입니다</string>
+
+    <!-- Password viewModel -->
+    <string name="label_reset_password">새 비밀번호 입력</string>
+    <string name="label_password_confirm">비밀번호 입력 확인</string>
+    <string name="notice_reset_password_complete">"비밀번호 변경이\n완료되었습니다.\n\n로그인 후 이용해주세요."</string>
+    <string name="notice_confirm_go_back_to_login">"[뒤로 가기]를 누르시면 \n로그인 화면으로 돌아갑니다."</string>
+    <string name="button_resend_code">"인증코드 재전송"</string>
+    <string name="notice_non_exist_email">존재하지 않는 이메일입니다.</string>
+    <string name="notice_resend_code">인증번호를 재발급 받으세요.</string>
+    <string name="label_format_timer">"%02d"</string>
+    <string name="label_default_timer">00:00</string>
+
+
+    <!-- viewPager -->
+    <string name="label_current_collected_idea">현재 모아진 아이디어</string>
+
+    <!-- logout -->
+    <string name="label_logout">Log out</string>
+    <string name="button_logout">Log out</string>
+    <string name="button_cancel">취소</string>
+    <string name="notice_confirm_logout">커넵 앱은 로그인시 사용가능합니다. \n 로그아웃하시겠습니까?</string>
+
+    <!-- page -->
+    <string name="label_topic">TOPIC</string>
+    <string name="label_page">PAGE</string>
+    <string name="label_markdown_edit">내용 작성</string>
+    <string name="button_edit">edit</string>
+    <string name="button_preview">preview</string>
+    <string name="button_bold">**</string>
+    <string name="button_header">"### "</string>
+    <string name="button_italic">_</string>
+    <string name="button_quote">">"</string>
+    <string name="button_code_block">```</string>
+    <string name="button_link">[](url)</string>
+    <string name="button_image_link_front">![image](%s)</string>
+    <string name="button_bulleted_list">"- "</string>
+    <string name="button_number_list">1.</string>
+    <string name="button_task_list">- []</string>
+    <string name="label_complete_create_issue">"작성된 페이지는\n 토픽 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="notice_complete_create_note">"작성된 노트는\n 관리자에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="notice_complete_create_topic">"작성된 토픽은\n 노트 owner에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="label_complete_delete_issue">"작성된 이슈는\n 관리자에게 승인 후 등록됩니다. \n\n 등록한 내용은 이슈 탭에서\n 수정 가능합니다."</string>
+    <string name="label_cancel_create_issue">"이 페이지를 벗어나면\n 작성한 내용은 저장되지 않습니다. \n\n 작성을 취소하시겠습니까?"</string>
+    <string name="button_confirm">확 인</string>
+    <string name="button_back_to_page">돌아가기</string>
+    <string name="button_complete">확 인</string>
+    <string name="button_cancel_editor">취 소</string>
+    <string name="button_cancel_page">작성취소</string>
+    <string name="label_reason_for_revision">수정 사유</string>
+    <string name="label_summary">내용 요약</string>
+    <string name="label_add_page">add page</string>
+    <string name="label_edit_page">edit page</string>
+    <string name="label_update_issue_page">update page</string>
+    <string name="button_share">공유하기</string>
+    <string name="button_related_issue">관련이슈</string>
+    <string name="button_bookmark">북마크</string>
+    <string name="button_do_edit">수정하기</string>
+    <string name="button_editor_header">H</string>
+    <string name="button_editor_bold">B</string>
+    <string name="button_editor_italic">I</string>
+    <string name="notice_invalid_add_page">항목을 모두 기입해주세요.</string>
+
+    <string name="notice_no_img_selected">이미지를 선택하지 않았습니다.</string>
+
+    <!-- General -->
+    <string name="button_general_delete">삭제</string>
+    <string name="button_general_modify">수정</string>
+    <string name="button_add_note">+ add note</string>
+    <string name="button_add_topic">+ add topic</string>
+    <string name="button_add_page">+ add page</string>
+    <string name="notice_service_prepare">해당 서비스는 준비중입니다.</string>
+    <string name="notice_non_exist_related_issue">관련 이슈가 없습니다.</string>
+
+    <!-- issue -->
+    <string name="label_create_note">Create Note</string>
+    <string name="label_create_topic">Create Topic</string>
+    <string name="label_create_page">Create Page</string>
+
+    <string name="label_update_note">Update Note</string>
+    <string name="label_update_topic">Update Topic</string>
+    <string name="label_update_page">Update Page</string>
+
+    <string name="label_delete_note">Delete Note</string>
+    <string name="label_delete_topic">Delete Topic</string>
+    <string name="label_delete_page">Delete Page</string>
+
+    <string name="label_page_title">Page Title</string>
+    <string name="label_issue_content">Issue Content</string>
+
+    <string name="button_approve">승인</string>
+    <string name="button_reject">미승인</string>
+    <string name="button_detail">자세히 보러 가기 →</string>
+    <string name="button_update">내용 수정</string>
+    <string name="button_delete">요청 삭제</string>
+    <string name="button_close">이슈 닫기</string>
+
+    <string name="notice_approve_success">이슈가 승인되었습니다.</string>
+    <string name="notice_approve_fail">이슈를 승인할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_reject_success">이슈가 거절되었습니다.</string>
+    <string name="notice_reject_fail">이슈를 거절할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_delete_success">이슈가 삭제되었습니다.</string>
+    <string name="notice_delete_fail">이슈를 삭제할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_close_success">이슈가 닫혔습니다.</string>
+    <string name="notice_close_fail">이슈를 닫을 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_update_success">이슈가 수정되었습니다.</string>
+    <string name="notice_update_fail">이슈를 수정할 수 없습니다. 권한을 확인해주세요.</string>
+    <string name="notice_issue_non_exist">현재 확인 가능한 이슈가 없습니다.</string>
+
+    <string name="format_timer">%02d</string>
+
+    <!-- dialog -->
+    <string name="button_dialog_confirm">확인</string>
+    <string name="button_dialog_cancel">취소</string>
+    <string name="hint_dialog_note_title">ADD NOTE</string>
+    <string name="hint_dialog_note_title_hint">Note Title</string>
+    <string name="hint_dialog_request_content">요청 내용 설명</string>
+    <string name="hint_dialog_content">내용 요약</string>
+    <string name="hint_dialog_topic_title">ADD TOPIC</string>
+    <string name="hint_dialog_topic_title_hint">Topic Title</string>
+    <string name="hint_dialog_delete">삭제 요청 사유</string>
+
+
+    <string name="button_dialog_modify">수정</string>
+    <string name="button_dialog_delete">삭제</string>
+    <string name="hint_dialog_note_title_modify">UPDATE NOTE</string>
+    <string name="hint_dialog_note_title_hint_modify">update note title</string>
+    <string name="hint_dialog_note_title_delete">DELETE NOTE</string>
+
+    <string name="hint_dialog_topic_title_modify">UPDATE TOPIC</string>
+    <string name="hint_dialog_topic_title_hint_modify">update topic title</string>
+    <string name="hint_dialog_topic_title_delete">DELETE TOPIC</string>
+
+    <!-- notes -->
+    <string name="label_add_note">add note</string>
+
+</resources>

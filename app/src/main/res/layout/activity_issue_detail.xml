@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="issueDetailViewModel"
+            type="com.thinlineit.ctrlf.issue.detail.IssueDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_graphpaper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="4dp"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintTop_toTopOf="parent"
+                app:menu="@menu/toolbar_main">
+
+                <TextView
+                    android:id="@+id/toolBarTitle"
+                    style="@style/LargeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:padding="8dp"
+                    android:src="@drawable/icon_logo"
+                    android:text='@{issueDetailViewModel.toolbarTitle}'
+                    tools:text="@string/label_create_page" />
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/issueCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/background_round_white"
+                android:padding="20dp"
+                android:paddingBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolBar">
+
+                <TextView
+                    android:id="@+id/typeTitle"
+                    style="@style/LargeTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:text="@{issueDetailViewModel.issueTitle}"
+                    android:textColor="@color/skyblue"
+                    app:layout_constraintEnd_toStartOf="@+id/moreActionButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@string/label_page_title" />
+
+                <ImageView
+                    android:id="@+id/moreActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/icon_issue_more"
+                    app:layout_constraintBottom_toBottomOf="@id/typeTitle"
+                    app:layout_constraintEnd_toEndOf="@+id/issueContent"
+                    app:layout_constraintTop_toTopOf="@+id/typeTitle" />
+
+                <TextView
+                    android:id="@+id/issueContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_round_shadow"
+                    android:minHeight="350dp"
+                    android:padding="20dp"
+                    android:text="@{issueDetailViewModel.issue.reason}"
+                    app:layout_constraintBottom_toTopOf="@id/detailButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/typeTitle"
+                    tools:text="@string/label_issue_content" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/issueMoreBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/icon_note_title_textbox"
+                    android:paddingStart="20dp"
+                    android:paddingTop="30dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/moreActionButton">
+
+                    <TextView
+                        android:id="@+id/issueUpdateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:text="@string/button_update"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/issueMoreBoxFirstLine"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/light_gray"
+                        app:layout_constraintEnd_toEndOf="@+id/issueUpdateButton"
+                        app:layout_constraintStart_toStartOf="@+id/issueUpdateButton"
+                        app:layout_constraintTop_toBottomOf="@+id/issueUpdateButton" />
+
+                    <TextView
+                        android:id="@+id/issueDeleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->issueDetailViewModel.deleteIssue()}"
+                        android:text="@string/button_delete"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="@+id/issueUpdateButton"
+                        app:layout_constraintTop_toBottomOf="@+id/issueMoreBoxFirstLine" />
+
+                    <View
+                        android:id="@+id/issueMoreBoxSecondLine"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/light_gray"
+                        app:layout_constraintEnd_toEndOf="@+id/issueDeleteButton"
+                        app:layout_constraintStart_toStartOf="@+id/issueDeleteButton"
+                        app:layout_constraintTop_toBottomOf="@+id/issueDeleteButton" />
+
+                    <TextView
+                        android:id="@+id/issueCloseButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/sc_dream_3"
+                        android:onClick="@{()->issueDetailViewModel.closeIssue()}"
+                        android:text="@string/button_close"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="@+id/issueUpdateButton"
+                        app:layout_constraintTop_toBottomOf="@+id/issueMoreBoxSecondLine" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/guideButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp"
+                    android:text="@string/button_detail"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/issueContent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/detailButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/skyblue"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:text="@string/button_detail"
+                    android:visibility="visible"
+                    app:cornerRadius="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/rejectButton"
+                    app:layout_constraintEnd_toEndOf="@id/guideButton"
+                    app:layout_constraintStart_toStartOf="@id/guideButton"
+                    app:layout_constraintTop_toBottomOf="@id/issueContent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/approveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/skyblue"
+                    android:onClick="@{()->issueDetailViewModel.approveIssue()}"
+                    android:text="@string/button_approve"
+                    app:layout_constraintStart_toStartOf="@id/guideButton"
+                    app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/rejectButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/skyblue"
+                    android:onClick="@{()->issueDetailViewModel.rejectIssue()}"
+                    android:text="@string/button_reject"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/detailButton" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

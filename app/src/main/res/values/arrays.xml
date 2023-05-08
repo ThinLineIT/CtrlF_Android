@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="notes">
+        <item>@drawable/icon_note_pear</item>
+        <item>@drawable/icon_note_prelude</item>
+        <item>@drawable/icon_note_bluechalk</item>
+        <item>@drawable/icon_note_lavender</item>
+        <item>@drawable/icon_note_melrose</item>
+        <item>@drawable/icon_note_cornflowerblue</item>
+        <item>@drawable/icon_note_malibu</item>
+        <item>@drawable/icon_note_shakespeare</item>
+        <item>@drawable/icon_note_turquoiseblue</item>
+        <item>@drawable/icon_note_turquoise</item>
+        <item>@drawable/icon_note_aquamarine</item>
+        <item>@drawable/icon_note_shamrock</item>
+        <item>@drawable/icon_note_screamingreen</item>
+        <item>@drawable/icon_note_lima</item>
+        <item>@drawable/icon_note_greenyellow</item>
+    </integer-array>
+
+</resources>

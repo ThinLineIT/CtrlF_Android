@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration"
+    app:startDestination="@id/registerEmailFragment">
+
+    <fragment
+        android:id="@+id/registerEmailFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.EnterEmailFragment"
+        android:label="RegisterEmailFragment">
+        <action
+            android:id="@+id/action_registerEmailFragment_to_registerCodeFragment"
+            app:destination="@id/registerCodeFragment" />
+        <action
+            android:id="@+id/action_registerEmailFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerCodeFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.EnterEmailCodeFragment"
+        android:label="RegisterCodeFragment">
+        <action
+            android:id="@+id/action_registerCodeFragment_to_registerNicknameFragment"
+            app:destination="@id/registerNicknameFragment" />
+        <action
+            android:id="@+id/action_registerCodeFragment_to_registerEmailFragment"
+            app:destination="@id/registerEmailFragment"
+            app:popUpTo="@id/registerEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerNicknameFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.EnterNicknameFragment"
+        android:label="RegisterNicknameFragment">
+        <action
+            android:id="@+id/action_registerNicknameFragment_to_registerPasswordFragment"
+            app:destination="@id/registerPasswordFragment" />
+        <action
+            android:id="@+id/action_registerNicknameFragment_to_registerBackFragment"
+            app:destination="@id/registerBackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerPasswordFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.EnterPasswordFragment"
+        android:label="RegisterPasswordFragment">
+        <action
+            android:id="@+id/action_registerPasswordFragment_to_registerConfirmPasswordFragment"
+            app:destination="@id/registerConfirmPasswordFragment" />
+        <action
+            android:id="@+id/action_registerPasswordFragment_to_registerNicknameFragment"
+            app:destination="@id/registerNicknameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerConfirmPasswordFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.ConfirmPasswordFragment"
+        android:label="RegisterConfirmPasswordFragment">
+        <action
+            android:id="@+id/action_registerConfirmPasswordFragment_to_registerPasswordFragment"
+            app:destination="@id/registerPasswordFragment" />
+        <action
+            android:id="@+id/action_registerConfirmPasswordFragment_to_completeRegisterFragment"
+            app:destination="@id/completeRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerBackFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.ConfirmBackToEmailFragment"
+        android:label="fragment_register_back"
+        tools:layout="@layout/fragment_register_back">
+        <action
+            android:id="@+id/action_registerBackFragment_to_registerEmailFragment"
+            app:destination="@id/registerEmailFragment" />
+        <action
+            android:id="@+id/action_registerBackFragment_to_registerNicknameFragment"
+            app:destination="@id/registerNicknameFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.thinlineit.ctrlf.registration.signin.LoginActivity"
+        android:label="LoginActivity" />
+    <fragment
+        android:id="@+id/completeRegisterFragment"
+        android:name="com.thinlineit.ctrlf.registration.signup.CompleteRegisterFragment"
+        android:label="CompleteRegisterFragment" >
+        <action
+            android:id="@+id/action_completeRegisterFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
+</navigation>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_page"
+    app:startDestination="@id/topic_title_list_fragment">
+
+    <fragment
+        android:id="@+id/topic_title_list_fragment"
+        android:name="com.thinlineit.ctrlf.page.detail.TopicTitleListFragment"
+        android:label="@string/fragment_notes"
+        tools:layout="@layout/fragment_topic_title">
+        <action
+            android:id="@+id/action_notes_fragment_to_page_fragment"
+            app:destination="@id/page_title_list_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/page_title_list_fragment"
+        android:name="com.thinlineit.ctrlf.page.detail.PageTitleListFragment"
+        android:label="@string/fragment_notes"
+        tools:layout="@layout/fragment_page_title">
+        <action
+            android:id="@+id/action_page_fragment_to_topic_fragment"
+            app:destination="@id/topic_title_list_fragment" />
+    </fragment>
+
+</navigation>
